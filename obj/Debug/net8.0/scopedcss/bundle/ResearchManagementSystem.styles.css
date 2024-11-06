@@ -2651,189 +2651,6 @@ h1[b-cfcuf9ub3c] {
         background-color: #850000;
         color: #fff;
     }
-/* _content/ResearchManagementSystem/Areas/RemcSys/Views/Chief/GawadWinner.cshtml.rz.scp.css */
-/* Page background color */
-body[b-ue2j20flv2] {
-    background-color: #808080;
-    font-family: Arial, sans-serif;
-}
-
-.button-container[b-ue2j20flv2] {
-    margin-bottom: 20px;
-}
-
-.gawad-button[b-ue2j20flv2] {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-right: 15px;
-    background-color: white; /* Default button background */
-    color: #8B0000; /* Dark red for text */
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-    border: 2px solid #8B0000; /* Border matching the hover color */
-}
-
-.gawad-button:hover[b-ue2j20flv2] {
-    background-color: white;
-    color: #8B0000;
-}
-
-    /* Active state for the current page */
-    .gawad-button.active[b-ue2j20flv2] {
-        background-color: #8B0000; /* Dark red */
-        color: white; /* White text */
-    }
-
-/* drop area */
-
-/* Upload container with rounded corners */
-.upload-container[b-ue2j20flv2] {
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: white;
-    width: 60%;
-    margin: 0 auto;
-    margin-bottom: 20px;
-}
-
-/* Centering content within drop area */
-#drop-area[b-ue2j20flv2] {
-    border: 2px dashed #ccc;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-    background-color: white;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.button-group[b-ue2j20flv2] {
-    text-align: right;
-    margin-top: 10px;
-}
-
-.file-action-button[b-ue2j20flv2] {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #8B0000; /* Dark red */
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
-    border: 2px solid #8B0000;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-    margin: 5px;
-}
-
-    .file-action-button:hover[b-ue2j20flv2] {
-        background-color: white;
-        color: #8B0000;
-    }
-
-.center-content[b-ue2j20flv2] {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Drop area highlight on drag */
-.highlight[b-ue2j20flv2] {
-    background-color: #f0f0f0;
-}
-
-/* Button group alignment */
-.button-group[b-ue2j20flv2] {
-    text-align: right;
-    margin-top: 10px;
-}
-
-
-h2[b-ue2j20flv2], h5[b-ue2j20flv2] {
-    color: #8B0000;
-}
-
-/* Archive container */
-.archive-container[b-ue2j20flv2] {
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: white;
-    margin-bottom: 20px;
-}
-
-/* Table styles */
-table[b-ue2j20flv2] {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    color: black;
-}
-
-th[b-ue2j20flv2], td[b-ue2j20flv2] {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
-
-th[b-ue2j20flv2] {
-    background-color: #850000;
-    color: white;
-}
-
-.generate-report-container[b-ue2j20flv2] {
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.report-categories[b-ue2j20flv2] {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-    width: 60%;
-    transition: background-color 0.3s ease;
-}
-
-.report-category:hover[b-ue2j20flv2],
-.report-category:focus[b-ue2j20flv2] {
-    background-color: #850000;
-    color: white;
-}
-
-.report-category[b-ue2j20flv2] {
-    flex: 1;
-    padding: 3px;
-    border-radius: 10px;
-    text-align: center;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.generate[b-ue2j20flv2] {
-    background-color: #8b0a0a;
-    color: white;
-    text-decoration: none;
-}
-
-.submit[b-ue2j20flv2] {
-    background-color: #f5f5f5;
-    color: #333;
-    border: 1px solid #ccc;
-    text-decoration: none;
-}
-
-.report-category h3[b-ue2j20flv2] {
-    font-size: 16px;
-}
-
-hr[b-ue2j20flv2] {
-    color: #850000;
-    border: 3px solid;
-    border-radius: 5px;
-}
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Chief/GenerateGAWADNominees.cshtml.rz.scp.css */
 .generate-report-container[b-hopfiyunfi] {
     padding: 20px;
@@ -11016,104 +10833,6 @@ h6[b-t3sw82ttod] {
     border: 1px #850000;
     border-radius: 5px;
 }
-/* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_Layout.cshtml.rz.scp.css */
- /* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-a.navbar-brand[b-5ecx7kiekr] {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-a[b-5ecx7kiekr] {
-    color: #0077cc;
-}
-
-.btn-primary[b-5ecx7kiekr] {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active[b-5ecx7kiekr], .nav-pills .show > .nav-link[b-5ecx7kiekr] {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.border-top[b-5ecx7kiekr] {
-    border-top: 1px solid #e5e5e5;
-}
-
-.border-bottom[b-5ecx7kiekr] {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow[b-5ecx7kiekr] {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy[b-5ecx7kiekr] {
-    font-size: 1rem;
-    line-height: inherit;
-}
-
-.footer[b-5ecx7kiekr] {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px;
-}
-/* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_Layout2.cshtml.rz.scp.css */
- /* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-a.navbar-brand[b-o39kcyu5aq] {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-a[b-o39kcyu5aq] {
-    color: #0077cc;
-}
-
-.btn-primary[b-o39kcyu5aq] {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active[b-o39kcyu5aq], .nav-pills .show > .nav-link[b-o39kcyu5aq] {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.border-top[b-o39kcyu5aq] {
-    border-top: 1px solid #e5e5e5;
-}
-
-.border-bottom[b-o39kcyu5aq] {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow[b-o39kcyu5aq] {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy[b-o39kcyu5aq] {
-    font-size: 1rem;
-    line-height: inherit;
-}
-
-.footer[b-o39kcyu5aq] {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px;
-}
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavChief.cshtml.rz.scp.css */
 .bg-image[b-qebtvdid31] {
     display: none;
@@ -11189,6 +10908,95 @@ button.accept-policy[b-o39kcyu5aq] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-qebtvdid31] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-qebtvdid31] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-qebtvdid31] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-qebtvdid31] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-qebtvdid31] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-qebtvdid31] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-qebtvdid31], .sidebar .profile-info .user-id[b-qebtvdid31] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-qebtvdid31] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-qebtvdid31] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-qebtvdid31] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-qebtvdid31] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-qebtvdid31] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-qebtvdid31] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavChief1.cshtml.rz.scp.css */
 
 .header[b-cocq88v9bc] {
@@ -11249,6 +11057,95 @@ button.accept-policy[b-o39kcyu5aq] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-cocq88v9bc] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-cocq88v9bc] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-cocq88v9bc] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-cocq88v9bc] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-cocq88v9bc] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-cocq88v9bc] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-cocq88v9bc], .sidebar .profile-info .user-id[b-cocq88v9bc] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-cocq88v9bc] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-cocq88v9bc] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-cocq88v9bc] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-cocq88v9bc] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-cocq88v9bc] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-cocq88v9bc] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavEvaluator.cshtml.rz.scp.css */
 .bg-image[b-5huowkykuz] {
     display: none;

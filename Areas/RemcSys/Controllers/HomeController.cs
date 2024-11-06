@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ResearchManagementSystem.Areas.RemcSys.Data;
+using RemcSys.Data;
 using RemcSys.Models;
-using System.Diagnostics;
 using ResearchManagementSystem.Models;
+using System.Diagnostics;
 
 namespace RemcSys.Controllers
 {
@@ -88,7 +88,7 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "Faculty")]
         public IActionResult Forms() // Memorandums
         {
-            var guidelines = _context.Guidelines.Where(g => g.document_Type == "Memorandum")
+            var guidelines = _context.REMC_Guidelines.Where(g => g.document_Type == "Memorandum")
                 .OrderBy(g => g.file_Name).ToList();
 
             return View(guidelines);
@@ -96,7 +96,7 @@ namespace RemcSys.Controllers
 
         public IActionResult PreviewFile(string id) // Preview PDF Files
         {
-            var guidelines = _context.Guidelines.FirstOrDefault(g => g.Id == id);
+            var guidelines = _context.REMC_Guidelines.FirstOrDefault(g => g.Id == id);
             if (guidelines != null)
             {
                 if (guidelines.file_Type == ".pdf")
@@ -117,19 +117,19 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "Faculty")]
         public IActionResult Eligibility(string type) // Eligibility based on Funded Research Type
         {
-            var isUFRApp = _context.Settings.First().isUFRApplication;
+            var isUFRApp = _context.REMC_Settings.First().isUFRApplication;
             if(!isUFRApp && type == "University Funded Research")
             {
                 return RedirectToAction("UFRAppClosed", "Home");
             }
 
-            var isEFRApp = _context.Settings.First().isEFRApplication;
+            var isEFRApp = _context.REMC_Settings.First().isEFRApplication;
             if(!isEFRApp && type == "Externally Funded Research")
             {
                 return RedirectToAction("EFRAppClosed", "Home");
             }
 
-            var isUFRLApp = _context.Settings.First().isUFRLApplication;
+            var isUFRLApp = _context.REMC_Settings.First().isUFRLApplication;
             if(!isUFRLApp && type == "University Funded Research Load")
             {
                 return RedirectToAction("UFRLAppClosed", "Home");
@@ -148,19 +148,39 @@ namespace RemcSys.Controllers
             {
                 return NotFound();
             }
-            var haveEvaluator = await _context.Evaluator.AnyAsync(e => e.UserId == user.Id);
+            var haveEvaluator = await _context.REMC_Evaluator.AnyAsync(e => e.UserId == user.Id);
+            var fundedResearch = await _context.REMC_FundedResearches.Where(f => f.UserId == user.Id && f.status == "Completed").ToListAsync();
             if (!haveEvaluator)
             {
+                List<string> fieldOfInterests = null;
+                if(fundedResearch != null && fundedResearch.Any())
+                {
+                    fieldOfInterests = new List<string>();
+                    foreach(var research in fundedResearch)
+                    {
+                        if (!string.IsNullOrEmpty(research.field_of_Study))
+                        {
+                            if (!fieldOfInterests.Contains(research.field_of_Study))
+                            {
+                                fieldOfInterests.Add(research.field_of_Study);
+                            }
+                        }
+                    }
+
+                    if (!fieldOfInterests.Any())
+                    {
+                        fieldOfInterests = null;
+                    }
+                }
+
                 var evaluator = new Evaluator
                 {
-                    evaluator_Name = user.FirstName + " " + user.LastName,
+                    evaluator_Name = $"{user.FirstName} {user.MiddleName} {user.LastName}",
                     evaluator_Email = user.Email,
-                    field_of_Interest = ["Computer Science and Information System Technology"],
-                    UserId = user.Id,
-                    UserType = null,
-                    center = ["REMC"]
+                    field_of_Interest = fieldOfInterests,
+                    UserId = user.Id
                 };
-                _context.Evaluator.Add(evaluator);
+                _context.REMC_Evaluator.Add(evaluator);
                 _context.SaveChanges();
                 return View();
             }

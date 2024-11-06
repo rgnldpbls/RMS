@@ -6,10 +6,10 @@
 
 <div class="generate-report-container">
     <div class="report-categories">
-        <a href="@Url.Action("GenerateReport", "Chief", new {area = "RemcSys"})" class="report-category generate">
+        <a href="/RemcSys/Chief/GenerateReport" class="report-category generate">
             <h3>Generate Report</h3>
         </a>
-        <a href="@Url.Action("ArchivedReport", "Chief", new {area = "RemcSys"})" class="report-category submit">
+        <a href="/RemcSys/Chief/ArchivedReport" class="report-category submit">
             <h3>Archived Report </h3>
         </a>
     </div>
@@ -90,11 +90,11 @@
         const endDate = document.getElementById("endDate").value;
 
         if ((selectedType != "Evaluator" && selectedType != "ForecastedUFRFunds") && startDate && endDate) {
-            const url = `/Chief/GenerateReports?reportType=${selectedType}&startDate=${startDate}&endDate=${endDate}`;
+            const url = `/RemcSys/Chief/GenerateReports?reportType=${selectedType}&startDate=${startDate}&endDate=${endDate}`;
             window.location.href = url;
         }
         else if (selectedType == "Evaluator" || selectedType == "ForecastedUFRFunds") {
-            const url = `/Chief/GenerateReports?reportType=${selectedType}&startDate=null&endDate=null`;
+            const url = `/RemcSys/Chief/GenerateReports?reportType=${selectedType}&startDate=null&endDate=null`;
             window.location.href = url;
         }
         else {

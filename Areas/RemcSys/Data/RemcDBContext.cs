@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RemcSys.Models;
 
-namespace ResearchManagementSystem.Areas.RemcSys.Data
+namespace RemcSys.Data
 {
     public class RemcDBContext : DbContext
     {
@@ -14,24 +14,23 @@ namespace ResearchManagementSystem.Areas.RemcSys.Data
         {
         }
 
-        public DbSet<FundedResearchApplication> FundedResearchApplication { get; set; }
-        public DbSet<GeneratedForm> GeneratedForms { get; set; }
-        public DbSet<FileRequirement> FileRequirement { get; set; }
-        public DbSet<FundedResearchEthics> FundedResearchEthics { get; set; }
-        public DbSet<ActionLog> ActionLogs { get; set; }
-        public DbSet<Evaluation> Evaluations { get; set; }
-        public DbSet<Evaluator> Evaluator { get; set; }
-        public DbSet<FundedResearch> FundedResearches { get; set; }
-        public DbSet<ProgressReport> ProgressReports { get; set; }
-        public DbSet<GenerateReport> GenerateReports { get; set; }
-        public DbSet<GenerateGAWADNominees> GenerateGAWADNominees { get; set; }
-        public DbSet<GAWADWinners> GAWADWinners { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
-        public DbSet<Settings> Settings { get; set; }
-        public DbSet<Guidelines> Guidelines { get; set; }
-        public DbSet<Criteria> Criterias { get; set; }
-        public DbSet<SubCategory> SubCategories { get; set; }
-        public DbSet<UFRForecasting> UFRForecastings { get; set; }
+        public DbSet<FundedResearchApplication> REMC_FundedResearchApplication { get; set; }
+        public DbSet<GeneratedForm> REMC_GeneratedForms { get; set; }
+        public DbSet<FileRequirement> REMC_FileRequirement { get; set; }
+        public DbSet<FundedResearchEthics> REMC_FundedResearchEthics { get; set; }
+        public DbSet<ActionLog> REMC_ActionLogs { get; set; }
+        public DbSet<Evaluation> REMC_Evaluations { get; set; }
+        public DbSet<Evaluator> REMC_Evaluator { get; set; }
+        public DbSet<FundedResearch> REMC_FundedResearches { get; set; }
+        public DbSet<ProgressReport> REMC_ProgressReports { get; set; }
+        public DbSet<GenerateReport> REMC_GenerateReports { get; set; }
+        public DbSet<GenerateGAWADNominees> REMC_GenerateGAWADNominees { get; set; }
+        public DbSet<CalendarEvent> REMC_CalendarEvents { get; set; }
+        public DbSet<Settings> REMC_Settings { get; set; }
+        public DbSet<Guidelines> REMC_Guidelines { get; set; }
+        public DbSet<Criteria> REMC_Criterias { get; set; }
+        public DbSet<SubCategory> REMC_SubCategories { get; set; }
+        public DbSet<UFRForecasting> REMC_UFRForecastings { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -286,7 +286,7 @@
         var selectedStatus = "Checked";
 
         $.ajax({
-            url: '@Url.Action("UpdateStatus", "Chief")',
+            url: '/Chief/UpdateStatus',
             type: 'POST',
             data: {
                 fr_Id: frId,
@@ -297,10 +297,10 @@
                     alert('Status updated successfully!');
                 } else if (response.assigned) {
                     alert('Evaluators assigned successfully!');
-                    window.location.href = '@Url.Action("UEResearchApp", "Chief", new { area = "RemcSys" })';
+                    window.location.href = '/Chief/UEResearchApp';
                 } else if (response.approved) {
                     alert('File requirements approved!');
-                    window.location.href = '@Url.Action("UploadNTP", "Chief", new { area = "RemcSys" })';
+                    window.location.href = '/Chief/UploadNTP';
                 }
             },
             error: function (xhr, status, error) {

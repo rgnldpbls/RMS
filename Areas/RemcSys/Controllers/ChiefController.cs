@@ -13,11 +13,11 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using MimeKit;
 using MimeKit.Utils;
 using OfficeOpenXml;
-using ResearchManagementSystem.Areas.RemcSys.Data;
+using RemcSys.Data;
 using RemcSys.Models;
+using ResearchManagementSystem.Models;
 using System.Runtime.Intrinsics.X86;
 using Xceed.Words.NET;
-using ResearchManagementSystem.Models;
 
 namespace RemcSys.Controllers
 {
@@ -52,17 +52,17 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefDashboard() // Dashboard of the Chief
         {
-            if (_context.Settings.First().isMaintenance)
+            if (_context.REMC_Settings.First().isMaintenance)
             {
-                return RedirectToAction("UnderMaintenance", "Home", new {area = "RemcSys"});
+                return RedirectToAction("UnderMaintenance", "Home");
             }
 
             await RemindEvaluations();
             await RemindSubmitProgressReport();
 
-            var fundedResearch = await _context.FundedResearches.ToListAsync();
+            var fundedResearch = await _context.REMC_FundedResearches.ToListAsync();
 
-            var rankedBranch = _context.FundedResearches
+            var rankedBranch = _context.REMC_FundedResearches
                 .GroupBy(r => r.branch)
                 .Select(g => new
                 {
@@ -81,12 +81,12 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefNotif() // Notification of the Chief
         {
-            if (_context.Settings.First().isMaintenance)
+            if (_context.REMC_Settings.First().isMaintenance)
             {
-                return RedirectToAction("UnderMaintenance", "Home", new { area = "RemcSys" });
+                return RedirectToAction("UnderMaintenance", "Home");
             }
 
-            var logs = await _context.ActionLogs
+            var logs = await _context.REMC_ActionLogs
                 .Where(f => f.isChief == true)
                 .OrderByDescending(log => log.Timestamp)
                 .ToListAsync();
@@ -98,7 +98,7 @@ namespace RemcSys.Controllers
         {
             /*await CheckMissedEvaluations();*/
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearchApplication
+            var appQuery = _context.REMC_FundedResearchApplication
                 .Where(f => f.fra_Type == "University Funded Research");
 
             if (!String.IsNullOrEmpty(searchString))
@@ -121,7 +121,7 @@ namespace RemcSys.Controllers
         public async Task<IActionResult> EFResearchApp(string searchString) // List of Externally Funded Research Application
         {
             ViewData["currentFilter"] = searchString;
-            var application = _context.FundedResearchApplication
+            var application = _context.REMC_FundedResearchApplication
                 .Where(f => f.fra_Type == "Externally Funded Research");
 
             if (!String.IsNullOrEmpty(searchString))
@@ -143,7 +143,7 @@ namespace RemcSys.Controllers
         public async Task<IActionResult> UFRLApp(string searchString) // List of University Funded Research Load Application
         {
             ViewData["currentFilter"] = searchString;
-            var application = _context.FundedResearchApplication
+            var application = _context.REMC_FundedResearchApplication
                 .Where(f => f.fra_Type == "University Funded Research Load");
 
             if (!String.IsNullOrEmpty(searchString))
@@ -168,7 +168,7 @@ namespace RemcSys.Controllers
                 return NotFound("No Funded Research Application ID found!");
             }
 
-            var fra = await _context.FundedResearchApplication.FindAsync(id);
+            var fra = await _context.REMC_FundedResearchApplication.FindAsync(id);
             if(fra == null)
             {
                 return NotFound("No Funded Research Application Found!");
@@ -182,11 +182,11 @@ namespace RemcSys.Controllers
             ViewBag.Type = fra.fra_Type;
             ViewBag.Status = fra.application_Status;
 
-            var fileRequirement = await _context.FileRequirement.Where(f => f.fra_Id == id && f.file_Type == ".pdf")
+            var fileRequirement = await _context.REMC_FileRequirement.Where(f => f.fra_Id == id && f.file_Type == ".pdf")
                 .OrderBy(fr => fr.file_Name)
                 .ToListAsync();
 
-            var researchEthics = await _context.FundedResearchEthics
+            var researchEthics = await _context.REMC_FundedResearchEthics
                  .Where(e => e.fra_Id == id)
                  .ToListAsync();
 
@@ -198,10 +198,10 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveFeedback(string fileId, string fileStatus, string fileFeedback) // Saving Feedback of the Chief on each Documentary Requirements
         {
-            var fileReq = _context.FileRequirement.Find(fileId);
+            var fileReq = _context.REMC_FileRequirement.Find(fileId);
             if (fileReq != null)
             {
-                var fra = await _context.FundedResearchApplication.Where(f => f.fra_Id == fileReq.fra_Id).FirstOrDefaultAsync();
+                var fra = await _context.REMC_FundedResearchApplication.Where(f => f.fra_Id == fileReq.fra_Id).FirstOrDefaultAsync();
                 if (fra == null)
                 {
                     return NotFound("No Funded Research Application found!");
@@ -215,10 +215,10 @@ namespace RemcSys.Controllers
                 return Json(new { success = true });
             }
 
-            var researchEthics = _context.FundedResearchEthics.Find(fileId);
+            var researchEthics = _context.REMC_FundedResearchEthics.Find(fileId);
             if (researchEthics != null)
             {
-                var fra = await _context.FundedResearchApplication.Where(f => f.fra_Id == researchEthics.fra_Id).FirstOrDefaultAsync();
+                var fra = await _context.REMC_FundedResearchApplication.Where(f => f.fra_Id == researchEthics.fra_Id).FirstOrDefaultAsync();
                 if (fra == null)
                 {
                     return NotFound("No Funded Research Application found!");
@@ -238,10 +238,10 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateStatus(string fr_Id, string newStatus) //Updating the File Status into Checked on each Documentary Requirements
         {
-            var file = _context.FileRequirement.FirstOrDefault(f => f.fr_Id == fr_Id);
+            var file = _context.REMC_FileRequirement.FirstOrDefault(f => f.fr_Id == fr_Id);
             if (file != null)
             {
-                var fra = await _context.FundedResearchApplication
+                var fra = await _context.REMC_FundedResearchApplication
                 .Where(f => f.fra_Id == file.fra_Id)
                 .FirstOrDefaultAsync();
                 if (fra == null)
@@ -253,7 +253,7 @@ namespace RemcSys.Controllers
                 await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, file.file_Name + " already checked by the Chief.",
                     true, false, false, fra.fra_Id);
 
-                var allFilesChecked = _context.FileRequirement
+                var allFilesChecked = _context.REMC_FileRequirement
                        .Where(fr => fr.fra_Id == fra.fra_Id)
                        .All(fr => fr.file_Status == "Checked");
 
@@ -274,10 +274,10 @@ namespace RemcSys.Controllers
                 return Json(new { success = true });
             }
 
-            var ethics = _context.FundedResearchEthics.FirstOrDefault(f => f.fre_Id == fr_Id);
+            var ethics = _context.REMC_FundedResearchEthics.FirstOrDefault(f => f.fre_Id == fr_Id);
             if (ethics != null)
             {
-                var fra = await _context.FundedResearchApplication
+                var fra = await _context.REMC_FundedResearchApplication
                 .Where(f => f.fra_Id == ethics.fra_Id)
                 .FirstOrDefaultAsync();
                 if (fra == null)
@@ -299,7 +299,7 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> SetDTS(string DTSNo, string fraId) // Set DTS No of each Application
         {
-            var fra = await _context.FundedResearchApplication
+            var fra = await _context.REMC_FundedResearchApplication
                 .FirstOrDefaultAsync(f => f.fra_Id == fraId);
 
             if (fra == null)
@@ -311,12 +311,12 @@ namespace RemcSys.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("DocuList", "Chief", new {id = fraId, area = "RemcSys"});
+            return RedirectToAction("DocuList", "Chief", new {id = fraId});
         }
 
         public async Task<IActionResult> PreviewFile(string id) // Preview of each PDF File while Download if not PDF file
         {
-            var fileRequirement = await _context.FileRequirement.FindAsync(id);
+            var fileRequirement = await _context.REMC_FileRequirement.FindAsync(id);
             if (fileRequirement != null)
             {
                 if (fileRequirement.file_Type == ".pdf")
@@ -325,7 +325,7 @@ namespace RemcSys.Controllers
                 }
             }
 
-            var researchEthics = await _context.FundedResearchEthics.FindAsync(id);
+            var researchEthics = await _context.REMC_FundedResearchEthics.FindAsync(id);
             if(researchEthics != null)
             {
                 if(researchEthics.file_Type == ".pdf")
@@ -334,7 +334,7 @@ namespace RemcSys.Controllers
                 }
             }
 
-            var progReport = await _context.ProgressReports.FindAsync(id);
+            var progReport = await _context.REMC_ProgressReports.FindAsync(id);
             if(progReport != null)
             {
                 if(progReport.file_Type == ".pdf")
@@ -348,28 +348,21 @@ namespace RemcSys.Controllers
                 }
             }
 
-            var genReport = await _context.GenerateReports.FindAsync(id);
+            var genReport = await _context.REMC_GenerateReports.FindAsync(id);
             if(genReport != null)
             {
                 var contentType = GetContentType(genReport.gr_fileType);
                 return File(genReport.gr_Data, contentType, genReport.gr_fileName);
             }
 
-            var genNominees = await _context.GenerateGAWADNominees.FindAsync(id);
+            var genNominees = await _context.REMC_GenerateGAWADNominees.FindAsync(id);
             if(genNominees != null)
             {
                 var contentType = GetContentType(genNominees.gn_fileType);
                 return File(genNominees.gn_Data, contentType, genNominees.gn_fileName);
             }
 
-            var gawadFiles = await _context.GAWADWinners.FindAsync(id);
-            if(gawadFiles != null)
-            {
-                var contentType = GetContentType(gawadFiles.gw_fileType);
-                return File(gawadFiles.gw_Data, contentType, gawadFiles.gw_fileName);
-            }
-
-            var guidelines = await _context.Guidelines.FindAsync(id);
+            var guidelines = await _context.REMC_Guidelines.FindAsync(id);
             if(guidelines != null)
             {
                 if(guidelines.file_Type == ".pdf")
@@ -405,9 +398,9 @@ namespace RemcSys.Controllers
 
         public async Task AssignEvaluators(string fraId) // Automated Assign of Evaluators for University Funded Research
         {
-            int evaluatorCount = _context.Settings.First().evaluatorNum;
-            int daysEvaluation = _context.Settings.First().daysEvaluation;
-            var fra = await _context.FundedResearchApplication.Where(f => f.fra_Id == fraId).FirstOrDefaultAsync();
+            int evaluatorCount = _context.REMC_Settings.First().evaluatorNum;
+            int daysEvaluation = _context.REMC_Settings.First().daysEvaluation;
+            var fra = await _context.REMC_FundedResearchApplication.Where(f => f.fra_Id == fraId).FirstOrDefaultAsync();
             if (fra == null)
             {
                 throw new Exception("No Funded Research Application found!");
@@ -415,7 +408,7 @@ namespace RemcSys.Controllers
 
             var eligibleEvaluators = await GetEligibleEvaluators(fraId);
 
-            var alreadyAssignedEvaluatorIds = _context.Evaluations.Where(e => e.fra_Id == fraId)
+            var alreadyAssignedEvaluatorIds = _context.REMC_Evaluations.Where(e => e.fra_Id == fraId)
                 .Select(e => e.evaluator_Id).ToList();
 
             eligibleEvaluators = eligibleEvaluators.Where(e => !alreadyAssignedEvaluatorIds.Contains(e.evaluator_Id)).ToList();
@@ -446,7 +439,7 @@ namespace RemcSys.Controllers
                 await SendEvaluatorEmail(evaluator.evaluator_Email, fra.research_Title, evaluator.evaluator_Name, DateTime.Now.AddDays(daysEvaluation).ToString("MMMM d, yyyy"));
                 evaluatorIndex = (evaluatorIndex + 1) % eligibleEvaluators.Count;
             }
-            _context.Evaluations.AddRange(assignedEvaluators);
+            _context.REMC_Evaluations.AddRange(assignedEvaluators);
             fra.application_Status = "UnderEvaluation";
             await _context.SaveChangesAsync();
             await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + " already under techical evaluation.",
@@ -455,7 +448,7 @@ namespace RemcSys.Controllers
 
         public async Task<List<Evaluator>> GetEligibleEvaluators(string fraId) // Assess if the Evaluators is eligible based on their field of interests
         {
-            var researchApp = await _context.FundedResearchApplication
+            var researchApp = await _context.REMC_FundedResearchApplication
                     .FirstOrDefaultAsync(fra => fra.fra_Id == fraId);
 
             if (researchApp == null)
@@ -463,9 +456,24 @@ namespace RemcSys.Controllers
                 throw new Exception("Research application not found.");
             }
 
-            var evaluators = await _context.Evaluator.ToListAsync();
-            var eligibleEvaluators = evaluators.Where(e => e.field_of_Interest.Contains(researchApp.field_of_Study) &&
-                e.evaluator_Name != researchApp.applicant_Name && !researchApp.team_Members.Contains(e.evaluator_Name)).ToList();
+            var evaluators = await _context.REMC_Evaluator
+                .Where(e => e.field_of_Interest.Contains(researchApp.field_of_Study) &&
+                            e.evaluator_Name != researchApp.applicant_Name && 
+                            !researchApp.team_Members.Contains(e.evaluator_Name))
+                .ToListAsync();
+            var eligibleEvaluators = new List<Evaluator>();
+            foreach(var evaluator in evaluators)
+            {
+                var pendingAndMissedCount = await _context.REMC_Evaluations
+                    .Where(ev => ev.evaluator_Id == evaluator.evaluator_Id && 
+                        (ev.evaluation_Status == "Pending" || ev.evaluation_Status == "Missed"))
+                    .CountAsync();
+
+                if(pendingAndMissedCount <= 10)
+                {
+                    eligibleEvaluators.Add(evaluator);
+                }
+            }
             return eligibleEvaluators;
         }
 
@@ -568,7 +576,7 @@ namespace RemcSys.Controllers
         public async Task<IActionResult> UEResearchApp(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearchApplication
+            var appQuery = _context.REMC_FundedResearchApplication
                 .Where(f => f.fra_Type == "University Funded Research");
 
             if (!String.IsNullOrEmpty(searchString))
@@ -581,11 +589,11 @@ namespace RemcSys.Controllers
                 .OrderBy(f => f.submission_Date)
                 .ToListAsync();
 
-            var evaluatorList = _context.Evaluations
+            var evaluatorList = _context.REMC_Evaluations
                 .Where(e => researchAppList.Select(r => r.fra_Id).Contains(e.fra_Id))
                 .ToList();
 
-            var allEvaluators = await _context.Evaluator
+            var allEvaluators = await _context.REMC_Evaluator
                 .OrderBy(f => f.evaluator_Name)
                 .ToListAsync();
 
@@ -597,31 +605,31 @@ namespace RemcSys.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEvaluatorsForResearch(string fraId, string fieldOfStudy)
         {
-            var research = await _context.FundedResearchApplication
+            var research = await _context.REMC_FundedResearchApplication
                 .FirstOrDefaultAsync(f => f.fra_Id == fraId);
 
-            var evaluatorCount = _context.Settings.First().evaluatorNum;
+            var evaluatorCount = _context.REMC_Settings.First().evaluatorNum;
 
             if (research == null)
             {
                 return NotFound();
             }
 
-            var evaluators = await _context.Evaluator
+            var evaluators = await _context.REMC_Evaluator
                 .Where(e => e.field_of_Interest.Contains(fieldOfStudy))
                 .ToListAsync();
 
-            var assignedEvaluators = await _context.Evaluations
+            var assignedEvaluators = await _context.REMC_Evaluations
                 .Where(e => e.fra_Id == fraId)
                 .Select(e => e.evaluator_Id)
                 .ToListAsync();
 
-            var assignedCount = await _context.Evaluations
+            var assignedCount = await _context.REMC_Evaluations
                 .Where(e => e.fra_Id == fraId && e.evaluation_Status != "Decline")
                 .ToListAsync();
 
-            var pendingCount = await _context.Evaluations
-                .Where(e => e.evaluation_Status == "Pending")
+            var pendingCount = await _context.REMC_Evaluations
+                .Where(e => e.evaluation_Status == "Pending" || e.evaluation_Status == "Missed")
                 .ToListAsync();
 
             var evaluatorData = evaluators.Select(e => new
@@ -642,19 +650,19 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> DeclineEvaluator(string evaluationId)
         {
-            var evals = _context.Evaluations.Find(evaluationId);
+            var evals = _context.REMC_Evaluations.Find(evaluationId);
             if(evals == null)
             {
                 return NotFound("Evaluation not found!");
             }
 
-            var evaluator = _context.Evaluator.FirstOrDefault(e => e.evaluator_Id == evals.evaluator_Id);
+            var evaluator = _context.REMC_Evaluator.FirstOrDefault(e => e.evaluator_Id == evals.evaluator_Id);
             if(evaluator == null)
             {
                 return NotFound("Evaluator not found!");
             }
 
-            var fra = _context.FundedResearchApplication.FirstOrDefault(f => f.fra_Id == evals.fra_Id);
+            var fra = _context.REMC_FundedResearchApplication.FirstOrDefault(f => f.fra_Id == evals.fra_Id);
             if(fra == null)
             {
                 return NotFound("Funded Research Application not found!");
@@ -706,15 +714,15 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignEvaluator(int evaluatorId, string fraId)
         {
-            var fra = await _context.FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == fraId);
+            var fra = await _context.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == fraId);
             if(fra == null)
             {
                 return NotFound("Funded Research Application not found!");
             }
-            var evaluatorCount = _context.Settings.First().evaluatorNum;
-            var daysEvaluation = _context.Settings.First().daysEvaluation;
+            var evaluatorCount = _context.REMC_Settings.First().evaluatorNum;
+            var daysEvaluation = _context.REMC_Settings.First().daysEvaluation;
 
-            var existingEvaluation = await _context.Evaluations
+            var existingEvaluation = await _context.REMC_Evaluations
             .FirstOrDefaultAsync(e => e.evaluator_Id == evaluatorId && e.fra_Id == fraId);
 
             if (existingEvaluation != null)
@@ -722,13 +730,13 @@ namespace RemcSys.Controllers
                 return Json(new { success = false, message = "Evaluator is already assigned to this application." });
             }
 
-            int existingEvals = await _context.Evaluations.CountAsync(e => e.fra_Id == fraId && e.evaluation_Status != "Decline");
+            int existingEvals = await _context.REMC_Evaluations.CountAsync(e => e.fra_Id == fraId && e.evaluation_Status != "Decline");
             if(existingEvals > evaluatorCount)
             {
                 return Json(new { success = false, message = $"Maximum {evaluatorCount} evaluators can be assigned." });
             }
 
-            var evaluators = _context.Evaluator.Find(evaluatorId);
+            var evaluators = _context.REMC_Evaluator.Find(evaluatorId);
             if (evaluators == null)
             {
                 return NotFound("Evaluator not found!");
@@ -750,7 +758,7 @@ namespace RemcSys.Controllers
             await _actionLogger.LogActionAsync(evaluators.evaluator_Name, fra.fra_Type, "The chief assign you to evaluate the " + fra.research_Title + ".", 
                 false, false, true, fra.fra_Id);
             await SendEvaluatorEmail(evaluators.evaluator_Email, fra.research_Title, evaluators.evaluator_Name, DateTime.Now.AddDays(daysEvaluation).ToString("MMMM d, yyyy"));
-            _context.Evaluations.Add(evaluation);
+            _context.REMC_Evaluations.Add(evaluation);
             await _context.SaveChangesAsync();
 
             return Json(new { success = true });
@@ -760,7 +768,7 @@ namespace RemcSys.Controllers
         {
             var today = DateTime.Today;
 
-            var evaluations = await _context.Evaluations
+            var evaluations = await _context.REMC_Evaluations
                 .Where(e => e.evaluation_Status == "Pending")
                 .Include(e => e.evaluator)
                 .Include(e => e.fundedResearchApplication)
@@ -832,7 +840,7 @@ namespace RemcSys.Controllers
                 }
             }
 
-            var overDueEvaluations = await _context.Evaluations.Where(e => e.evaluation_Status == "Missed" && e.evaluation_Deadline < today)
+            var overDueEvaluations = await _context.REMC_Evaluations.Where(e => e.evaluation_Status == "Missed" && e.evaluation_Deadline < today)
                 .Include(e => e.evaluator)
                 .Include(e => e.fundedResearchApplication)
                 .ToListAsync();
@@ -982,7 +990,7 @@ namespace RemcSys.Controllers
         public async Task RemindSubmitProgressReport()
         {
             var today = DateTime.Today;
-            var fundedResearches = await _context.FundedResearches.ToListAsync();
+            var fundedResearches = await _context.REMC_FundedResearches.ToListAsync();
             foreach(var fundedResearch in fundedResearches)
             {
                 int numReports = 4;
@@ -1016,6 +1024,7 @@ namespace RemcSys.Controllers
                     bool remind3DaysBefore = daysLeft == 3 && fundedResearch.status == statuses[i] && !fundedResearch.reminded_ThreeDaysBefore;
                     bool remindDueTomorrow = daysLeft == 1 && fundedResearch.status == statuses[i] && !fundedResearch.reminded_OneDayBefore;
                     bool remindToday = daysLeft == 0 && fundedResearch.status == statuses[i] && !fundedResearch.reminded_Today;
+                    bool delaySubmission = daysLeft < 0 && fundedResearch.status == statuses[i];
                     if(remind3DaysBefore)
                     {
                         var content = $"This is a gentle reminder that your progress report for the research titled {fundedResearch.research_Title} is due in 3 days. Please ensure that the report is submitted on or before {allDeadlines[i]:MMMM d, yyyy} to avoid any delays in the research process.";
@@ -1081,6 +1090,33 @@ namespace RemcSys.Controllers
                         fundedResearch.reminded_Today = true;
                         await _context.SaveChangesAsync();
                         break;
+                    }
+                    else if (delaySubmission)
+                    {
+                        if (statuses[i] == "Ongoing")
+                        {
+                            fundedResearch.status = "Missing Progress Report No.1";
+                        }
+                        else if (statuses[i] == "Checked Progress Report No.1")
+                        {
+                            fundedResearch.status = "Missing Progress Report No.2";
+                        }
+                        else if(statuses[i] == "Checked Progress Report Report No.2")
+                        {
+                            fundedResearch.status = "Missing Progress Report No.3";
+                        }
+                        else if (statuses[i] == "Checked Progress Report No.3")
+                        {
+                            fundedResearch.status = "Missing Progress Report No.4";
+                        }
+                        else if (statuses[i] == "Checked Progress Report No.4")
+                        {
+                            fundedResearch.status = "Missing Progress Report No.5";
+                        }
+                        else if (statuses[i] == "Checked Progress No.5")
+                        {
+                            fundedResearch.status = "Missing Progress Report No.6";
+                        }
                     }
 
                     int daysPastDeadline = (today - allDeadlines[i]).Days;
@@ -1218,7 +1254,7 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public IActionResult EthicsClearanceStatus()
         {
             return View();
@@ -1227,7 +1263,7 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefResearchEvaluation(string id)
         {
-            var fra = await _context.FundedResearchApplication.FindAsync(id);
+            var fra = await _context.REMC_FundedResearchApplication.FindAsync(id);
             if (fra == null)
             {
                 return NotFound("Funded Research Application not found!");
@@ -1239,9 +1275,9 @@ namespace RemcSys.Controllers
             ViewBag.Lead = fra.applicant_Name;
             ViewBag.Member = fra.team_Members;
 
-            var evaluationsList = await _context.Evaluations
+            var evaluationsList = await _context.REMC_Evaluations
                 .Where(e => e.fra_Id == id && e.evaluation_Status != "Decline")
-                .Join(_context.Evaluator,
+                .Join(_context.REMC_Evaluator,
                     evaluation => evaluation.evaluator_Id,
                     evaluator => evaluator.evaluator_Id,
                     (evaluation, evaluator) => new ViewChiefEvaluationVM
@@ -1253,14 +1289,14 @@ namespace RemcSys.Controllers
                     })
                 .ToListAsync();
 
-            var evalFormList = await _context.FileRequirement
+            var evalFormList = await _context.REMC_FileRequirement
                 .Where(e => e.fra_Id == id)
                 .ToListAsync();
 
-            var ethics = await _context.FundedResearchEthics
+            var ethics = await _context.REMC_FundedResearchEthics
                 .FirstOrDefaultAsync(e => e.fra_Id == id);
 
-            var logAction = await _context.ActionLogs.Where(l => l.FraId == fra.fra_Id && l.Action.Contains($"{fra.research_Title} needs to apply/upload ethics clearance.") && l.isTeamLeader == true).FirstOrDefaultAsync();
+            var logAction = await _context.REMC_ActionLogs.Where(l => l.FraId == fra.fra_Id && l.Action.Contains($"{fra.research_Title} needs to apply/upload ethics clearance.") && l.isTeamLeader == true).FirstOrDefaultAsync();
             if(logAction == null)
             {
                 await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} needs to apply/upload ethics clearance.", true, false, false, fra.fra_Id);
@@ -1270,11 +1306,11 @@ namespace RemcSys.Controllers
             {
                 if(ethics == null)
                 {
-                    return RedirectToAction("EthicsClearanceStatus", new { area = "RemcSys" });
+                    return RedirectToAction("EthicsClearanceStatus");
                 }
                 else if (ethics.file_Status == "Pending")
                 {
-                    return RedirectToAction("DocuList", "Chief", new {id = fra.fra_Id, area = "RemcSys"});
+                    return RedirectToAction("DocuList", "Chief", new {id = fra.fra_Id});
                 }
             }
 
@@ -1286,7 +1322,7 @@ namespace RemcSys.Controllers
 
         public async Task<IActionResult> Download(string id) // Download Files
         {
-            var document = await _context.FileRequirement.FindAsync(id);
+            var document = await _context.REMC_FileRequirement.FindAsync(id);
 
             if (document == null)
             {
@@ -1298,7 +1334,7 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> SendResult(string appStatus, string addComment, string fraId)
         {
-            var fra = await _context.FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == fraId);
+            var fra = await _context.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == fraId);
             var user = await _userManager.FindByEmailAsync(fra.applicant_Email);
             if (appStatus == "Approved")
             {
@@ -1307,7 +1343,6 @@ namespace RemcSys.Controllers
                 await SendApproveEmail(fra.applicant_Email, fra.research_Title, fra.applicant_Name, addComment);
                 await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + " is approved in technical evaluation.", 
                     true, false, false, fra.fra_Id);
-                return Json(new { success = true });
             } 
             else if (appStatus == "Rejected")
             {
@@ -1316,9 +1351,8 @@ namespace RemcSys.Controllers
                 await SendRejectEmail(fra.applicant_Email, fra.research_Title, fra.applicant_Name, addComment);
                 await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + " is rejected in technical evaluation.", 
                     true, false, false, fra.fra_Id);
-                return Json(new { success = true });
             }
-            return Json(new {success = false});
+            return RedirectToAction("UEResearchApp", "Chief");
         }
 
         public async Task SendApproveEmail(string email, string researchTitle, string name, string comment)
@@ -1404,11 +1438,11 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize (Roles = "REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UploadNTP(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearchApplication
+            var appQuery = _context.REMC_FundedResearchApplication
                 .Where(f => new[] {"University Funded Research", "Externally Funded Research", "University Funded Research Load"}.Contains(f.fra_Type));
 
             if (!String.IsNullOrEmpty(searchString))
@@ -1428,7 +1462,7 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadNotice(IFormFile file, string fraId)
         {
-            var fra = await _context.FundedResearchApplication.FindAsync(fraId);
+            var fra = await _context.REMC_FundedResearchApplication.FindAsync(fraId);
             if(fra == null)
             {
                 return NotFound();
@@ -1455,7 +1489,7 @@ namespace RemcSys.Controllers
                     file_Uploaded = DateTime.Now,
                     fra_Id = fra.fra_Id
                 };
-                _context.FileRequirement.Add(fileRequirement);
+                _context.REMC_FileRequirement.Add(fileRequirement);
             }
             fra.application_Status = "Proceed";
             await _context.SaveChangesAsync();
@@ -1463,7 +1497,7 @@ namespace RemcSys.Controllers
                 true, false, false, fra.fra_Id);
             await SendProceedEmail(fra.applicant_Email, fra.research_Title, fra.applicant_Name);
 
-            return RedirectToAction("UploadNTP", "Chief", new { area = "RemcSys" });
+            return RedirectToAction("UploadNTP", "Chief");
         }
 
         [HttpPost]
@@ -1474,15 +1508,15 @@ namespace RemcSys.Controllers
                 return NotFound("Funded Research Application ID not found!");
             }
 
-            var ethics = await _context.FundedResearchEthics
+            var ethics = await _context.REMC_FundedResearchEthics
                 .FirstOrDefaultAsync(e => e.fra_Id == id);
 
             if (ethics == null)
             {
-                return RedirectToAction("EthicsClearanceStatus", new { area = "RemcSys" });
+                return RedirectToAction("EthicsClearanceStatus");
             }
 
-            return RedirectToAction("DocuList", "Chief", new { id = id, area = "RemcSys" });
+            return RedirectToAction("DocuList", "Chief", new { id = id });
         }
 
         public async Task SendProceedEmail(string email, string researchTitle, string name)
@@ -1523,11 +1557,11 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ArchivedResearch(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearchApplication
+            var appQuery = _context.REMC_FundedResearchApplication
                 .Where(f => new[] { "University Funded Research", "Externally Funded Research", "University Funded Research Load" }.Contains(f.fra_Type));
 
             if (!String.IsNullOrEmpty(searchString))
@@ -1552,7 +1586,7 @@ namespace RemcSys.Controllers
                 return NotFound("No Application ID found!");
             }
 
-            var fra = await _context.FundedResearchApplication.FindAsync(id);
+            var fra = await _context.REMC_FundedResearchApplication.FindAsync(id);
             if (fra == null)
             {
                 return NotFound("No Application found!");
@@ -1566,7 +1600,7 @@ namespace RemcSys.Controllers
             ViewBag.Type = fra.fra_Type;
             ViewBag.Status = fra.application_Status;
 
-            var fileRequirement = await _context.FileRequirement.Where(f => f.fra_Id == id && f.file_Type == ".pdf")
+            var fileRequirement = await _context.REMC_FileRequirement.Where(f => f.fra_Id == id && f.file_Type == ".pdf")
                 .OrderBy(fr => fr.file_Name)
                 .ToListAsync();
             return View(fileRequirement);
@@ -1575,7 +1609,7 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefEvaluationResult(string id)
         {
-            var fra = await _context.FundedResearchApplication.FindAsync(id);
+            var fra = await _context.REMC_FundedResearchApplication.FindAsync(id);
             if (fra == null)
             {
                 return NotFound();
@@ -1587,9 +1621,9 @@ namespace RemcSys.Controllers
             ViewBag.Lead = fra.applicant_Name;
             ViewBag.Member = fra.team_Members;
 
-            var evaluationsList = await _context.Evaluations
+            var evaluationsList = await _context.REMC_Evaluations
                 .Where(e => e.fra_Id == id && e.evaluation_Status != "Decline")
-                .Join(_context.Evaluator,
+                .Join(_context.REMC_Evaluator,
                     evaluation => evaluation.evaluator_Id,
                     evaluator => evaluator.evaluator_Id,
                     (evaluation, evaluator) => new ViewChiefEvaluationVM
@@ -1601,7 +1635,7 @@ namespace RemcSys.Controllers
                     })
                 .ToListAsync();
 
-            var evalFormList = await _context.FileRequirement
+            var evalFormList = await _context.REMC_FileRequirement
                 .Where(e => e.fra_Id == id)
                 .ToListAsync();
 
@@ -1611,11 +1645,11 @@ namespace RemcSys.Controllers
             return View(model);
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UniversityFundedResearch(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearches
+            var appQuery = _context.REMC_FundedResearches
                 .Where(f => f.fr_Type == "University Funded Research");
 
             if (!String.IsNullOrEmpty(searchString))
@@ -1635,11 +1669,11 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearch>());
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ExternallyFundedResearch(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearches
+            var appQuery = _context.REMC_FundedResearches
                 .Where(f => f.fr_Type == "Externally Funded Research");
 
             if(!String.IsNullOrEmpty(searchString))
@@ -1658,11 +1692,11 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearch>());
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UniversityFundedResearchLoad(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var appQuery = _context.FundedResearches
+            var appQuery = _context.REMC_FundedResearches
                 .Where(f => f.fr_Type == "University Funded Research Load");
 
             if(!String.IsNullOrEmpty(searchString))
@@ -1681,7 +1715,7 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearch>());
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ProgressReportList(string id)
         {
             if(id == null)
@@ -1689,7 +1723,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound("No currently Progress Report/s uploaded.");
@@ -1705,7 +1739,7 @@ namespace RemcSys.Controllers
             ViewBag.Extend2 = fr.isExtension2;
             ViewBag.Status = fr.status;
 
-            var progReport = await _context.ProgressReports
+            var progReport = await _context.REMC_ProgressReports
                 .Where(pr => pr.fr_Id == id)
                 .OrderBy(pr => pr.file_Uploaded)
                 .ToListAsync();
@@ -1715,8 +1749,8 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveProgressFeedback(string fileId, string fileStatus, string fileFeedback)
         {
-            var progReport = _context.ProgressReports.Find(fileId);
-            var fr = await _context.FundedResearches.Where(f => f.fr_Id == progReport.fr_Id).FirstOrDefaultAsync();
+            var progReport = _context.REMC_ProgressReports.Find(fileId);
+            var fr = await _context.REMC_FundedResearches.Where(f => f.fr_Id == progReport.fr_Id).FirstOrDefaultAsync();
             if (progReport != null)
             {
                 progReport.file_Status = fileStatus;
@@ -1733,13 +1767,13 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePRStatus(string pr_Id, string newStatus)
         {
-            var file = _context.ProgressReports.FirstOrDefault(f => f.pr_Id == pr_Id);
+            var file = _context.REMC_ProgressReports.FirstOrDefault(f => f.pr_Id == pr_Id);
             if(file == null)
             {
                 return Json(new { success = false, message = "Report not found" });
             }
 
-            var fr = await _context.FundedResearches.Where(fr => fr.fr_Id == file.fr_Id).FirstOrDefaultAsync();
+            var fr = await _context.REMC_FundedResearches.Where(fr => fr.fr_Id == file.fr_Id).FirstOrDefaultAsync();
             if(fr == null)
             {
                 return Json(new { success = false, message = "Funded Research not found" });
@@ -1757,7 +1791,7 @@ namespace RemcSys.Controllers
             }
             else if(file.document_Type == "Progress Report")
             {
-                var existingReports = await _context.ProgressReports
+                var existingReports = await _context.REMC_ProgressReports
                 .Where(pr => pr.fr_Id == file.fr_Id)
                 .ToListAsync();
 
@@ -1770,19 +1804,19 @@ namespace RemcSys.Controllers
             await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, file.file_Name + " already checked by the Chief.",
                 true, false, false, fr.fra_Id);
 
-            var allProgressReportChecked = _context.ProgressReports
+            var allProgressReportChecked = _context.REMC_ProgressReports
                 .Where(fr => fr.fr_Id == file.fr_Id && fr.document_Type == "Progress Report")
                 .All(fr => fr.file_Status == "Checked");
 
-            var terminalReportExist = _context.ProgressReports.Any(fr => fr.fr_Id == file.fr_Id
+            var terminalReportExist = _context.REMC_ProgressReports.Any(fr => fr.fr_Id == file.fr_Id
                 && fr.document_Type == "Terminal Report" && fr.file_Status == "Checked");
 
-            var liquidationReportExist = _context.ProgressReports.Any(fr => fr.fr_Id == file.fr_Id
+            var liquidationReportExist = _context.REMC_ProgressReports.Any(fr => fr.fr_Id == file.fr_Id
                 && fr.document_Type == "Liquidation Report" && fr.file_Status == "Checked");
 
             if (allProgressReportChecked && terminalReportExist && liquidationReportExist)
             {
-                var template = _context.Guidelines
+                var template = _context.REMC_Guidelines
                     .First(g => g.document_Type == "CertificateCompletion" && g.file_Type == ".docx");
                 string filledFolder = Path.Combine(_webHostEnvironment.WebRootPath, "content", "ceOutput");
                 Directory.CreateDirectory(filledFolder);
@@ -1812,7 +1846,7 @@ namespace RemcSys.Controllers
                         file_Uploaded = DateTime.Now,
                         fr_Id = fr.fr_Id
                     };
-                    _context.ProgressReports.Add(doc);
+                    _context.REMC_ProgressReports.Add(doc);
                 }
 
                 var ufrProject = new UFRForecasting
@@ -1820,7 +1854,7 @@ namespace RemcSys.Controllers
                     ProjectCosts = Convert.ToSingle(fr.total_project_Cost),
                     Year = DateTime.Now.Year
                 };
-                _context.UFRForecastings.Add(ufrProject);
+                _context.REMC_UFRForecastings.Add(ufrProject);
 
                 fr.status = "Completed";
                 fr.end_Date = DateTime.Now;
@@ -1835,7 +1869,7 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> ExtendForm1(string frId)
         {
-            var fr = await _context.FundedResearches.FindAsync(frId);
+            var fr = await _context.REMC_FundedResearches.FindAsync(frId);
             if(fr == null)
             {
                 return NotFound();
@@ -1844,13 +1878,13 @@ namespace RemcSys.Controllers
             fr.isExtension1 = true;
             await _context.SaveChangesAsync();
             await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, "Your request for extension has been granted.", true, false, false, fr.fra_Id);
-            return RedirectToAction("ProgressReportList", "Chief", new { id = frId, area = "RemcSys" });
+            return RedirectToAction("ProgressReportList", "Chief", new { id = frId });
         }
 
         [HttpPost]
         public async Task<IActionResult> ExtendForm2(string frId)
         {
-            var fr = await _context.FundedResearches.FindAsync(frId);
+            var fr = await _context.REMC_FundedResearches.FindAsync(frId);
             if(fr == null)
             {
                 return NotFound();
@@ -1859,13 +1893,14 @@ namespace RemcSys.Controllers
             fr.isExtension2 = true;
             await _context.SaveChangesAsync();
             await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, "Your request for extension has been granted.", true, false, false, fr.fra_Id);
-            return RedirectToAction("ProgressReportList", "Chief", new {id = frId, area = "RemcSys"});
+            return RedirectToAction("ProgressReportList", "Chief", new {id = frId});
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> GenerateReport()
         {
-            var recentReports = await _context.GenerateReports
+            var recentReports = await _context.REMC_GenerateReports
+                .Where(r => r.isArchived == false)
                 .OrderByDescending(r => r.generateDate)
                 .Take(10)
                 .ToListAsync();
@@ -1873,11 +1908,11 @@ namespace RemcSys.Controllers
             return View(recentReports);
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ArchivedReport(string searchString)
         {
             ViewData["currentFilter"] = searchString;
-            var genReport = _context.GenerateReports
+            var genReport = _context.REMC_GenerateReports
                 .Where(f => f.isArchived == true);
 
             if (!String.IsNullOrEmpty(searchString))
@@ -1897,7 +1932,7 @@ namespace RemcSys.Controllers
             var user = await _userManager.GetUserAsync(User);
             if(reportType == "Application")
             {
-                var application = await _context.FundedResearchApplication
+                var application = await _context.REMC_FundedResearchApplication
                     .Where(f => new[] {"Submitted", "UnderEvaluation","Approved"}.Contains(f.application_Status)
                         && DateOnly.FromDateTime(f.submission_Date) >= DateOnly.FromDateTime(startDate)
                         && DateOnly.FromDateTime(f.submission_Date) <= DateOnly.FromDateTime(endDate))
@@ -1965,15 +2000,15 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateReports.Add(genRep);
+                    _context.REMC_GenerateReports.Add(genRep);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateReport");
                 }
             }
             else if(reportType == "Evaluator")
             {
-                var evaluators = await _context.Evaluator
+                var evaluators = await _context.REMC_Evaluator
                     .Include(e => e.Evaluations)
                     .ToListAsync();
 
@@ -2000,7 +2035,7 @@ namespace RemcSys.Controllers
                     int row = 2;
                     foreach (var item in evaluators)
                     {
-                        var interestFields = item.field_of_Interest.Contains("N/A") ? string.Empty : string.Join(" / ", item.field_of_Interest);
+                        var interestFields = item.field_of_Interest == null ? string.Empty : string.Join(" / ", item.field_of_Interest);
                         int pending = item.Evaluations.Where(e => e.evaluation_Status == "Pending").Count();
                         int completed = item.Evaluations.Where(e => new[] {"Approved", "Rejected"}.Contains(e.evaluation_Status)).Count();
                         int declined = item.Evaluations.Where(e => e.evaluation_Status == "Decline").Count();
@@ -2034,16 +2069,16 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateReports.Add(genRep);
+                    _context.REMC_GenerateReports.Add(genRep);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateReport");
                 }
 
             }
             else if(reportType == "OngoingUFR")
             {
-                var ongoingUFR = await _context.FundedResearches
+                var ongoingUFR = await _context.REMC_FundedResearches
                     .Where(f => f.fr_Type == "University Funded Research" && f.status != "Completed"
                        && DateOnly.FromDateTime(f.start_Date) >= DateOnly.FromDateTime(startDate)
                        && DateOnly.FromDateTime(f.start_Date) <= DateOnly.FromDateTime(endDate))
@@ -2111,15 +2146,15 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateReports.Add(genRep);
+                    _context.REMC_GenerateReports.Add(genRep);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateReport");
                 }
             }
             else if(reportType == "OngoingEFR")
             {
-                var ongoingEFR = await _context.FundedResearches
+                var ongoingEFR = await _context.REMC_FundedResearches
                     .Where(f => f.fr_Type == "Externally Funded Research" && f.status != "Completed"
                        && DateOnly.FromDateTime(f.start_Date) >= DateOnly.FromDateTime(startDate)
                        && DateOnly.FromDateTime(f.start_Date) <= DateOnly.FromDateTime(endDate))
@@ -2187,15 +2222,15 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateReports.Add(genRep);
+                    _context.REMC_GenerateReports.Add(genRep);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateReport");
                 }
             }
             else if(reportType == "OngoingUFRL")
             {
-                var ongoingUFRL = await _context.FundedResearches
+                var ongoingUFRL = await _context.REMC_FundedResearches
                     .Where(f => f.fr_Type == "University Funded Research Load" && f.status != "Completed"
                        && DateOnly.FromDateTime(f.start_Date) >= DateOnly.FromDateTime(startDate)
                        && DateOnly.FromDateTime(f.start_Date) <= DateOnly.FromDateTime(endDate))
@@ -2264,16 +2299,16 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateReports.Add(genRep);
+                    _context.REMC_GenerateReports.Add(genRep);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateReport");
                 }
             }
             else if(reportType == "ResearchProduction")
             {
                 // Retrieve data from the database based on reportType, startDate, and endDate
-                var reportData = await _context.FundedResearches
+                var reportData = await _context.REMC_FundedResearches
                     .Where(f => f.status == "Completed" && DateOnly.FromDateTime(f.end_Date) >= DateOnly.FromDateTime(startDate)
                         && DateOnly.FromDateTime(f.end_Date) <= DateOnly.FromDateTime(endDate))
                     .OrderBy(f => f.fr_Type)
@@ -2341,15 +2376,15 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateReports.Add(genRep);
+                    _context.REMC_GenerateReports.Add(genRep);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateReport");
                 }
             }
             else if (reportType == "ForecastedUFRFunds")
             {
-                var yearlyCosts = _context.UFRForecastings
+                var yearlyCosts = _context.REMC_UFRForecastings
                     .GroupBy(d => d.Year)
                     .Select(g => new UFRForecasting { Year = g.Key, ProjectCosts = g.Sum(x => x.ProjectCosts) })
                     .OrderBy(x => x.Year)
@@ -2446,19 +2481,19 @@ namespace RemcSys.Controllers
                     UserId = user.Id,
                     isArchived = false
                 };
-                _context.GenerateReports.Add(genRep);
+                _context.REMC_GenerateReports.Add(genRep);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("GenerateReport", new { area = "RemcSys" });
+                return RedirectToAction("GenerateReport");
 
             }
             return NotFound("Invalid selected report type");
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public IActionResult Forecasting()
         {
-            var yearlyCosts = _context.UFRForecastings
+            var yearlyCosts = _context.REMC_UFRForecastings
                 .GroupBy(d => d.Year)
                 .Select(g => new UFRForecasting { Year = g.Key, ProjectCosts = g.Sum(x => x.ProjectCosts) })
                 .OrderBy(x => x.Year)
@@ -2539,7 +2574,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var genReport = await _context.GenerateReports.FindAsync(id);
+            var genReport = await _context.REMC_GenerateReports.FindAsync(id);
             if (genReport == null)
             {
                 return NotFound();
@@ -2548,7 +2583,7 @@ namespace RemcSys.Controllers
             genReport.isArchived = true;
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("ArchivedReport", new { area = "RemcSys" });
+            return RedirectToAction("ArchivedReport");
         }
 
         public async Task<IActionResult> UnarchiveReport(string id)
@@ -2558,7 +2593,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var genReport = await _context.GenerateReports.FindAsync(id);
+            var genReport = await _context.REMC_GenerateReports.FindAsync(id);
             if (genReport == null)
             {
                 return NotFound();
@@ -2567,13 +2602,13 @@ namespace RemcSys.Controllers
             genReport.isArchived = false;
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("ArchivedReport", new { area = "RemcSys" });
+            return RedirectToAction("ArchivedReport");
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> GenerateGAWADNominees()
         {
-            var recentFile = await _context.GenerateGAWADNominees
+            var recentFile = await _context.REMC_GenerateGAWADNominees
                 .OrderByDescending(r => r.generateDate)
                 .Take(10)
                 .ToListAsync();
@@ -2586,7 +2621,7 @@ namespace RemcSys.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (gawadType == "Tuklas")
             {
-                var tuklas = await _context.FundedResearches
+                var tuklas = await _context.REMC_FundedResearches
                     .Where(f => f.status == "Completed")
                     .OrderBy(f => f.team_Leader)
                     .ToListAsync();
@@ -2657,15 +2692,15 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateGAWADNominees.Add(genTuklas);
+                    _context.REMC_GenerateGAWADNominees.Add(genTuklas);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateGAWADNominees", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateGAWADNominees");
                 }
             }
             else if(gawadType == "Lathala")
             {
-                var lathala = await _context.FundedResearches
+                var lathala = await _context.REMC_FundedResearches
                     .Where(f => f.status == "Completed")
                     .OrderBy(f => f.team_Leader)
                     .ToListAsync();
@@ -2731,46 +2766,13 @@ namespace RemcSys.Controllers
                         UserId = user.Id,
                         isArchived = false
                     };
-                    _context.GenerateGAWADNominees.Add(genLathala);
+                    _context.REMC_GenerateGAWADNominees.Add(genLathala);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("GenerateGAWADNominees", new { area = "RemcSys" });
+                    return RedirectToAction("GenerateGAWADNominees");
                 }
             }
             return NotFound("Invalid selected GAWAD type");
-        }
-
-        [Authorize(Roles ="REMC Chief")]
-        public async Task<IActionResult> GawadWinner()
-        {
-            var gawadWinner = await _context.GAWADWinners
-                .OrderBy(g => g.file_Uploaded)
-                .ToListAsync();
-            return View(gawadWinner);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadGAWADWinners(IFormFile file)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            byte[] pdfData;
-            using (var ms = new MemoryStream())
-            {
-                await file.CopyToAsync(ms);
-                pdfData = ms.ToArray();
-                var gawadWinners = new GAWADWinners
-                {
-                    gw_Id = Guid.NewGuid().ToString(),
-                    gw_fileName = file.FileName,
-                    gw_fileType = Path.GetExtension(file.FileName),
-                    gw_Data = pdfData,
-                    file_Uploaded = DateTime.Now,
-                    UserId = user.Id
-                };
-                _context.GAWADWinners.Add(gawadWinners);
-            }
-            await _context.SaveChangesAsync();
-            return RedirectToAction("GawadWinner", new { area = "RemcSys" });
         }
 
         [HttpPost]
@@ -2789,12 +2791,12 @@ namespace RemcSys.Controllers
                     UserId = user.Id
                 };
 
-                _context.CalendarEvents.Add(addEvent);
+                _context.REMC_CalendarEvents.Add(addEvent);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("ChiefDashboard", new { area = "RemcSys" });
+                return RedirectToAction("ChiefDashboard");
             }
-            return RedirectToAction("ChiefDashboard", new { area = "RemcSys" });
+            return RedirectToAction("ChiefDashboard");
         }
 
         [HttpGet]
@@ -2802,7 +2804,7 @@ namespace RemcSys.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            var events = _context.CalendarEvents
+            var events = _context.REMC_CalendarEvents
                 .Where(e => e.Visibility == "Broadcasted" || (e.Visibility == "JustYou" && e.UserId == user.Id))
                 .Select(e => new
                 {
@@ -2820,10 +2822,10 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteEvent(string id)
         {
-            var events = await _context.CalendarEvents.FindAsync(id);
+            var events = await _context.REMC_CalendarEvents.FindAsync(id);
             if(events != null)
             {
-                _context.CalendarEvents.Remove(events);
+                _context.REMC_CalendarEvents.Remove(events);
                 await _context.SaveChangesAsync();
 
                 return Json(new { success = true });
@@ -2831,33 +2833,16 @@ namespace RemcSys.Controllers
             return Json(new { success = false });
         }
 
-        [Authorize(Roles ="REMC Chief")]
+        [Authorize(Roles = "REMC Chief")]
         [HttpGet]
         public IActionResult Settings()
         {
-            var existingSettings = _context.Settings.FirstOrDefault(s => s.Id == "MainOption");
-            if (existingSettings == null)
-            {
-                var settings = new Settings
-                {
-                    Id = "MainOption",
-                    isMaintenance = false,
-                    isUFRApplication = false,
-                    isEFRApplication = false,
-                    isUFRLApplication = false,
-                    evaluatorNum = 5,
-                    daysEvaluation = 7
-                };
+            var settings = _context.REMC_Settings.First();
+            var guidelines = _context.REMC_Guidelines.OrderBy(f => f.file_Uploaded).ToList();
+            var criteria = _context.REMC_Criterias.OrderBy(f => f.Id).ToList();
+            var subCategory = _context.REMC_SubCategories.OrderBy(f => f.Id).ToList();
 
-                _context.Settings.Add(settings);
-                _context.SaveChanges();
-            }
-
-            var guidelines = _context.Guidelines.OrderBy(f => f.file_Uploaded).ToList();
-            var criteria = _context.Criterias.OrderBy(f => f.Id).ToList();
-            var subCategory = _context.SubCategories.OrderBy(f => f.Id).ToList();
-
-            var model = new Tuple<Settings, List<Guidelines>, List<Criteria>, List<SubCategory>>(existingSettings, guidelines, criteria, subCategory);
+            var model = new Tuple<Settings, List<Guidelines>, List<Criteria>, List<SubCategory>>(settings, guidelines, criteria, subCategory);
             return View(model);
         }
 
@@ -2865,7 +2850,7 @@ namespace RemcSys.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateMaintenanceMode(bool isMaintenanceMode)
         {
-            var maintenance = await _context.Settings.FirstAsync();
+            var maintenance = await _context.REMC_Settings.FirstAsync();
             if (maintenance != null)
             {
                 maintenance.isMaintenance = isMaintenanceMode;
@@ -2881,7 +2866,7 @@ namespace RemcSys.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateUFRMode(bool isUFRMode)
         {
-            var ufrApp = await _context.Settings.FirstAsync();
+            var ufrApp = await _context.REMC_Settings.FirstAsync();
             if (ufrApp != null)
             {
                 ufrApp.isUFRApplication = isUFRMode;
@@ -2897,7 +2882,7 @@ namespace RemcSys.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateEFRMode(bool isEFRMode)
         {
-            var efrApp = await _context.Settings.FirstAsync();
+            var efrApp = await _context.REMC_Settings.FirstAsync();
             if (efrApp != null)
             {
                 efrApp.isEFRApplication = isEFRMode;
@@ -2913,7 +2898,7 @@ namespace RemcSys.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateUFRLMode(bool isUFRLMode)
         {
-            var ufrlApp = await _context.Settings.FirstAsync();
+            var ufrlApp = await _context.REMC_Settings.FirstAsync();
             if (ufrlApp != null)
             {
                 ufrlApp.isUFRLApplication = isUFRLMode;
@@ -2934,7 +2919,7 @@ namespace RemcSys.Controllers
                 return BadRequest("Invalid number of evaluators");
             }
 
-            var settings = await _context.Settings.FirstAsync();
+            var settings = await _context.REMC_Settings.FirstAsync();
             if (settings != null)
             {
                 settings.evaluatorNum = count;
@@ -2954,7 +2939,7 @@ namespace RemcSys.Controllers
                 return BadRequest("Invalid number of days");
             }
 
-            var settings = await _context.Settings.FirstAsync();
+            var settings = await _context.REMC_Settings.FirstAsync();
             if(settings != null)
             {
                 settings.daysEvaluation = days;
@@ -2988,25 +2973,25 @@ namespace RemcSys.Controllers
                     document_Type = documentType,
                     file_Uploaded = DateTime.Now
                 };
-                _context.Guidelines.Add(guidelines);
+                _context.REMC_Guidelines.Add(guidelines);
 
                 await _context.SaveChangesAsync();
+                return Json(new { success = true, fileName = file.FileName, fileId = guidelines.Id });
             }
-            return RedirectToAction("Settings", new { area = "RemcSys" });
         }
 
         public IActionResult RemoveFile(string id)
         {
-            var guideline = _context.Guidelines.Find(id);
+            var guideline = _context.REMC_Guidelines.Find(id);
             if(guideline == null)
             {
                 return NotFound("No file found!");
             }
 
-            _context.Guidelines.Remove(guideline);
+            _context.REMC_Guidelines.Remove(guideline);
             _context.SaveChanges();
 
-            return RedirectToAction("Settings", new { area = "RemcSys" });
+            return RedirectToAction("Settings");
         }
 
         public IActionResult AddCriteria(string criteriaName, double criteriaWeight)
@@ -3017,24 +3002,24 @@ namespace RemcSys.Controllers
                 Weight = criteriaWeight
             };
 
-            _context.Criterias.Add(criteria);
+            _context.REMC_Criterias.Add(criteria);
             _context.SaveChanges();
 
-            return RedirectToAction("Settings", new { area = "RemcSys" });
+            return RedirectToAction("Settings");
         }
 
         public IActionResult RemoveCriteria(int id)
         {
-            var criteria = _context.Criterias.Find(id);
+            var criteria = _context.REMC_Criterias.Find(id);
             if(criteria == null)
             {
                 return NotFound("Criteria not found!");
             }
 
-            _context.Criterias.Remove(criteria);
+            _context.REMC_Criterias.Remove(criteria);
             _context.SaveChanges();
 
-            return RedirectToAction("Settings", new { area = "RemcSys" });
+            return RedirectToAction("Settings");
         }
 
         public IActionResult AddSubCategory(int criteriaId, string subcategoryName, int subcategoryMaxScore)
@@ -3046,24 +3031,24 @@ namespace RemcSys.Controllers
                 MaxScore = subcategoryMaxScore
             };
 
-            _context.SubCategories.Add(subCategory);
+            _context.REMC_SubCategories.Add(subCategory);
             _context.SaveChanges();
 
-            return RedirectToAction("Settings", new { area = "RemcSys" });
+            return RedirectToAction("Settings");
         }
 
         public IActionResult RemoveSubCategory(int id)
         {
-            var subCategory = _context.SubCategories.Find(id);
+            var subCategory = _context.REMC_SubCategories.Find(id);
             if(subCategory == null)
             {
                 return NotFound("Sub-Category not found!");
             }
 
-            _context.SubCategories.Remove(subCategory);
+            _context.REMC_SubCategories.Remove(subCategory);
             _context.SaveChanges();
 
-            return RedirectToAction("Settings", new { area = "RemcSys" });
+            return RedirectToAction("Settings");
         }
     }
 }

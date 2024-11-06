@@ -5,7 +5,7 @@ using ResearchManagementSystem.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ResearchManagementSystem.Services;
-using ResearchManagementSystem.Areas.RemcSys.Data;
+using RemcSys.Data;
 using RemcSys.Models;
 using rscSys_final.Data;
 using CRE.Data;
@@ -128,7 +128,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var dbContext = services.GetRequiredService<RemcDBContext>();
 
-    var existingSettings = dbContext.Settings.FirstOrDefault(s => s.Id == "MainOption");
+    var existingSettings = dbContext.REMC_Settings.FirstOrDefault(s => s.Id == "MainOption");
     if (existingSettings == null)
     {
         var settings = new Settings
@@ -142,7 +142,7 @@ using (var scope = app.Services.CreateScope())
             daysEvaluation = 7
         };
 
-        dbContext.Settings.Add(settings);
+        dbContext.REMC_Settings.Add(settings);
         dbContext.SaveChanges();
     }
 }

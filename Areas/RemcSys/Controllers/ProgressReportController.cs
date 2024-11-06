@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ResearchManagementSystem.Areas.RemcSys.Data;
+using RemcSys.Data;
 using RemcSys.Models;
 using ResearchManagementSystem.Models;
 
@@ -32,7 +32,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches
+            var fr = await _context.REMC_FundedResearches
                 .Where(f => f.UserId == user.Id && f.isArchive == false)
                 .FirstOrDefaultAsync();
             if (fr == null)
@@ -65,7 +65,7 @@ namespace RemcSys.Controllers
             ViewBag.Report5 = fr.end_Date.AddMonths(interval);
             ViewBag.Report6 = fr.end_Date.AddMonths(interval * 2);
 
-            var existingRep = await _context.ProgressReports
+            var existingRep = await _context.REMC_ProgressReports
                 .Where(pr => pr.fr_Id == fr.fr_Id)
                 .ToListAsync();
 
@@ -73,7 +73,7 @@ namespace RemcSys.Controllers
             ViewBag.Count = reportNum;
 
 
-            var logs = await _context.ActionLogs
+            var logs = await _context.REMC_ActionLogs
                     .Where(f => f.Name == fr.team_Leader && f.isTeamLeader == true && f.FraId == fr.fra_Id)
                     .OrderByDescending(log => log.Timestamp)
                     .ToListAsync();
@@ -89,7 +89,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound();
@@ -100,7 +100,7 @@ namespace RemcSys.Controllers
             ViewBag.Lead = fr.team_Leader;
             ViewBag.Members = fr.team_Members;
 
-            var docu = await _context.GeneratedForms
+            var docu = await _context.REMC_GeneratedForms
                 .Where(d => d.fra_Id == fr.fra_Id && d.FileName.Contains("Progress-Report"))
                 .ToListAsync();
             return View(docu);
@@ -108,7 +108,7 @@ namespace RemcSys.Controllers
 
         public async Task<IActionResult> Download(string id)
         {
-            var document = await _context.GeneratedForms.FindAsync(id);
+            var document = await _context.REMC_GeneratedForms.FindAsync(id);
 
             if (document == null)
             {
@@ -124,7 +124,7 @@ namespace RemcSys.Controllers
             {
                 return NotFound();
             }
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound();
@@ -135,7 +135,7 @@ namespace RemcSys.Controllers
                 return NotFound("There is no uploaded file. Please upload the file and try to submit again.");
             }
 
-            var existingReports = await _context.ProgressReports
+            var existingReports = await _context.REMC_ProgressReports
                 .Where(pr => pr.fr_Id == id)
                 .ToListAsync();
 
@@ -159,7 +159,7 @@ namespace RemcSys.Controllers
                     file_Uploaded = DateTime.Now,
                     fr_Id = fr.fr_Id
                 };
-                _context.ProgressReports.Add(progReport);
+                _context.REMC_ProgressReports.Add(progReport);
                 fr.status = $"Submitted {docuType}";
                 fr.reminded_ThreeDaysBefore = false;
                 fr.reminded_OneDayBefore = false;
@@ -182,7 +182,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
             
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound();
@@ -194,7 +194,7 @@ namespace RemcSys.Controllers
             ViewBag.Members = fr.team_Members;
             ViewBag.Field = fr.field_of_Study;
 
-            var progReport = await _context.ProgressReports
+            var progReport = await _context.REMC_ProgressReports
                     .Where(pr => pr.fr_Id == id)
                     .OrderBy(pr => pr.file_Uploaded)
                     .ToListAsync();
@@ -204,7 +204,7 @@ namespace RemcSys.Controllers
 
         public async Task<IActionResult> PreviewFile(string id)
         {
-            var progReport = await _context.ProgressReports.FindAsync(id);
+            var progReport = await _context.REMC_ProgressReports.FindAsync(id);
             if (progReport == null)
             {
                 return NotFound();
@@ -241,7 +241,7 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateFile(string id, IFormFile newFile)
         {
-            var progReport = await _context.ProgressReports.FindAsync(id);
+            var progReport = await _context.REMC_ProgressReports.FindAsync(id);
             if (progReport == null)
             {
                 return NotFound();
@@ -273,7 +273,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound();
@@ -284,7 +284,7 @@ namespace RemcSys.Controllers
             ViewBag.Lead = fr.team_Leader;
             ViewBag.Members = fr.team_Members;
 
-            var docu = await _context.GeneratedForms
+            var docu = await _context.REMC_GeneratedForms
                 .Where(d => d.fra_Id == fr.fra_Id && d.FileName.Contains("Terminal-Report"))
                 .ToListAsync();
 
@@ -299,7 +299,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound();
@@ -327,7 +327,7 @@ namespace RemcSys.Controllers
                     file_Uploaded = DateTime.Now,
                     fr_Id = fr.fr_Id
                 };
-                _context.ProgressReports.Add(progressReport);
+                _context.REMC_ProgressReports.Add(progressReport);
                 fr.status = $"Submitted Terminal Report";
             }
 
@@ -345,7 +345,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if(fr == null)
             {
                 return NotFound();
@@ -367,7 +367,7 @@ namespace RemcSys.Controllers
                 return NotFound();
             }
 
-            var fr = await _context.FundedResearches.FindAsync(id);
+            var fr = await _context.REMC_FundedResearches.FindAsync(id);
             if (fr == null)
             {
                 return NotFound();
@@ -395,7 +395,7 @@ namespace RemcSys.Controllers
                     file_Uploaded = DateTime.Now,
                     fr_Id = fr.fr_Id
                 };
-                _context.ProgressReports.Add(progressReport);
+                _context.REMC_ProgressReports.Add(progressReport);
                 fr.status = $"Submitted Liquidation Report";
             }
 
@@ -407,7 +407,7 @@ namespace RemcSys.Controllers
 
         public async Task<IActionResult> DownloadCC(string id)
         {
-            var file = await _context.ProgressReports.FirstOrDefaultAsync(f => f.fr_Id == id && f.document_Type == "Certificate of Completion");
+            var file = await _context.REMC_ProgressReports.FirstOrDefaultAsync(f => f.fr_Id == id && f.document_Type == "Certificate of Completion");
             if (file == null)
             {
                 return NotFound();
@@ -418,17 +418,32 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> NewApplication(string frId)
         {
-            var fr = await _context.FundedResearches.FindAsync(frId);
+            var fr = await _context.REMC_FundedResearches.FindAsync(frId);
             if(fr == null)
             {
                 return NotFound();
             }
 
             fr.isArchive = true;
-            var genForms = await _context.GeneratedForms.Where(f => f.fra_Id == fr.fra_Id).ToListAsync();
+            var evaluator = await _context.REMC_Evaluator.FirstOrDefaultAsync(e => e.UserId == fr.UserId);
+            if(evaluator != null)
+            {
+                if(evaluator.field_of_Interest == null)
+                {
+                    evaluator.field_of_Interest = new List<string>();
+                }
+
+                if(!string.IsNullOrEmpty(fr.field_of_Study) && !evaluator.field_of_Interest.Contains(fr.field_of_Study))
+                {
+                    evaluator.field_of_Interest.Add(fr.field_of_Study);
+                    _context.REMC_Evaluator.Update(evaluator);
+                }
+            }
+
+            var genForms = await _context.REMC_GeneratedForms.Where(f => f.fra_Id == fr.fra_Id).ToListAsync();
             foreach(var form in genForms)
             {
-                _context.GeneratedForms.Remove(form);
+                _context.REMC_GeneratedForms.Remove(form);
             }
             await _context.SaveChangesAsync();
             return RedirectToAction("Forms", "Home");

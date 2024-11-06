@@ -267,7 +267,7 @@
         var selectedStatus = "Checked";
 
         $.ajax({
-            url: '@Url.Action("UpdatePRStatus", "Chief")',
+            url: '/Chief/UpdatePRStatus',
             type: 'POST',
             data: {
                 pr_Id: prId,

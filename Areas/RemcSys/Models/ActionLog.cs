@@ -1,4 +1,4 @@
-﻿using ResearchManagementSystem.Areas.RemcSys.Data;
+﻿using RemcSys.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace RemcSys.Models
@@ -70,7 +70,7 @@ namespace RemcSys.Models
                 FraId = fraId
             };
 
-            _context.ActionLogs.Add(logEntry);
+            _context.REMC_ActionLogs.Add(logEntry);
             await _context.SaveChangesAsync();
         }
     }

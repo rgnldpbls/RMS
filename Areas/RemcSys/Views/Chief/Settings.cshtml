@@ -636,6 +636,7 @@
                 success: function (response) {
                     // Clear the file input
                     fileInput.value = '';
+                    window.location.href = '/Chief/Settings';
                 },
                 error: function (xhr, status, error) {
                     alert('Error uploading file. Please try again.');

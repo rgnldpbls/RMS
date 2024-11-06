@@ -20,19 +20,19 @@
     <header>
         <div class="header">
             <div class="logo">
-                <img src="~/images/research-management-logo.png" alt="RMO" style="height: 60px;">
+                <img src="~/img/research-management-logo.png" alt="RMO" style="height: 60px;">
             </div>
             <nav class="nav nav-pills nav-fill">
-                <a class="nav-link active" href="@Url.Action("Faculty", "Home", new {area = "RemcSys"})">Home</a>
-                <a class="nav-link active" href="@Url.Action("TeamLeaderDashboard", "FundedResearchApplication", new {area = "RemcSys"})">Dashboard</a>
-                <a class="nav-link active" href="@Url.Action("Forms", "Home", new {area = "RemcSys"})">Application</a>
+                <a class="nav-link active" href="/Home/Faculty">Home</a>
+                <a class="nav-link active" href="/FundedResearchApplication/TeamLeaderDashboard">Dashboard</a>
+                <a class="nav-link active" href="/Home/Forms">Application</a>
             </nav>
             <!-- New container for profile -->
             <div class="profile">
                 @if (SignInManager.IsSignedIn(User))
                 {
                     var user = await UserManager.GetUserAsync(User);
-                    <span>Welcome, @user.FirstName @user.LastName!</span>
+                    <span>Welcome, Name!</span>
                 }
                 <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi-person-circle" style="font-size: 25px;"></i>
@@ -42,13 +42,9 @@
                         <p class="nav-link text-dark">Faculty</p>
                     </li>
                     <hr />
-                    @if (User.IsInRole("REMC Chief"))
+                    @if (User.IsInRole("Evaluator"))
                     {
-                        <li><a class="dropdown-item" asp-action="Chief" asp-controller="Home">Switch to Chief</a></li>
-                    }
-                    @if (User.IsInRole("REMC Evaluator"))
-                    {
-                        <li><a class="dropdown-item" asp-area="RemcSys" asp-action="Evaluator" asp-controller="Home">Switch to Evaluator</a></li>
+                        <li><a class="dropdown-item" asp-action="Evaluator" asp-controller="Home">Switch to Evaluator</a></li>
                     }
                     <hr />
                     <li>

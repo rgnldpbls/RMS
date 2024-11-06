@@ -310,6 +310,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/Evaluator/EvaluatorSpecialization.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xFdmFsdWF0b3JcRXZhbHVhdG9yU3BlY2lhbGl6YXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/FundedResearchApplication/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xGdW5kZWRSZXNlYXJjaEFwcGxpY2F0aW9uXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -1082,10 +1086,6 @@ build_metadata.AdditionalFiles.CssScope = b-cfcuf9ub3c
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xDaGllZlxGb3JlY2FzdGluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-054nxc6fqw
 
-[C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/Chief/GawadWinner.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xDaGllZlxHYXdhZFdpbm5lci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = b-ue2j20flv2
-
 [C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/Chief/GenerateGAWADNominees.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xDaGllZlxHZW5lcmF0ZUdBV0FETm9taW5lZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-hopfiyunfi
@@ -1249,14 +1249,6 @@ build_metadata.AdditionalFiles.CssScope = b-6mt0lvdoel
 [C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/ProgressReport/UploadTerminalReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xQcm9ncmVzc1JlcG9ydFxVcGxvYWRUZXJtaW5hbFJlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-t3sw82ttod
-
-[C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xTaGFyZWRcX0xheW91dC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = b-5ecx7kiekr
-
-[C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_Layout2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xTaGFyZWRcX0xheW91dDIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-o39kcyu5aq
 
 [C:/Users/Regienald Pueblos/Documents/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavChief.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVtY1N5c1xWaWV3c1xTaGFyZWRcX05hdkNoaWVmLmNzaHRtbA==

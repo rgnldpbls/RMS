@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ResearchManagementSystem.Areas.RemcSys.Data;
+using RemcSys.Data;
 using RemcSys.Models;
-using Xceed.Words.NET;
 using ResearchManagementSystem.Models;
+using Xceed.Words.NET;
 
 namespace RemcSys.Controllers
 {
@@ -27,10 +27,10 @@ namespace RemcSys.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        [Authorize(Roles ="REMC Evaluator")]
+        [Authorize(Roles ="Evaluator")]
         public async Task<IActionResult> EvaluatorDashboard() // Dashboard of the Evaluator
         {
-            if (_context.Settings.First().isMaintenance)
+            if (_context.REMC_Settings.First().isMaintenance)
             {
                 return RedirectToAction("UnderMaintenance", "Home");
             }
@@ -40,17 +40,23 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var evaluator = await _context.Evaluator.FirstOrDefaultAsync(f => f.UserId == user.Id);
+            var evaluator = await _context.REMC_Evaluator.FirstOrDefaultAsync(f => f.UserId == user.Id);
             if(evaluator == null)
             {
                 return NotFound("Evaluator not found!");
             }
-            ViewBag.Pending = await _context.Evaluations.Where(e => e.evaluation_Status == "Pending" && e.evaluator_Id == evaluator.evaluator_Id).CountAsync();
-            ViewBag.Missed = await _context.Evaluations.Where(e => e.evaluation_Status == "Missed" && e.evaluator_Id == evaluator.evaluator_Id).CountAsync();
-            ViewBag.Evaluated = await _context.Evaluations.Where(e => (e.evaluation_Status == "Approved" || e.evaluation_Status == "Rejected")
+
+            if(evaluator.field_of_Interest == null)
+            {
+                return RedirectToAction("EvaluatorSpecialization", "Evaluator");
+            }
+
+            ViewBag.Pending = await _context.REMC_Evaluations.Where(e => e.evaluation_Status == "Pending" && e.evaluator_Id == evaluator.evaluator_Id).CountAsync();
+            ViewBag.Missed = await _context.REMC_Evaluations.Where(e => e.evaluation_Status == "Missed" && e.evaluator_Id == evaluator.evaluator_Id).CountAsync();
+            ViewBag.Evaluated = await _context.REMC_Evaluations.Where(e => (e.evaluation_Status == "Approved" || e.evaluation_Status == "Rejected")
                 && e.evaluator_Id == evaluator.evaluator_Id).CountAsync();
 
-            var pendingEvals = await _context.Evaluations
+            var pendingEvals = await _context.REMC_Evaluations
                 .Include(e => e.fundedResearchApplication)
                 .Where(e => e.evaluation_Status == "Pending" && e.evaluator_Id == evaluator.evaluator_Id)
                 .OrderBy(e => e.evaluation_Deadline)
@@ -59,10 +65,10 @@ namespace RemcSys.Controllers
             return View(pendingEvals);
         }
 
-        [Authorize(Roles ="REMC Evaluator")]
+        [Authorize(Roles ="Evaluator")]
         public async Task<IActionResult> EvaluatorNotif() // Notification of the Evaluator
         {
-            if (_context.Settings.First().isMaintenance)
+            if (_context.REMC_Settings.First().isMaintenance)
             {
                 return RedirectToAction("UnderMaintenance", "Home");
             }
@@ -72,8 +78,8 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var logs = await _context.ActionLogs
-                .Where(f => f.Name == $"{user.FirstName} {user.LastName}"  && f.isEvaluator == true)
+            var logs = await _context.REMC_ActionLogs
+                .Where(f => f.Name == $"{user.FirstName} {user.MiddleName} {user.LastName}" && f.isEvaluator == true)
                 .OrderByDescending(log => log.Timestamp)
                 .ToListAsync();
             return View(logs);
@@ -83,7 +89,7 @@ namespace RemcSys.Controllers
         {
             var today = DateTime.Today;
 
-            var missedEvaluations = await _context.Evaluations
+            var missedEvaluations = await _context.REMC_Evaluations
                 .Where(e => e.evaluation_Status == "Pending" && e.evaluation_Deadline <= today)
                 .ToListAsync();
 
@@ -95,7 +101,7 @@ namespace RemcSys.Controllers
             await _context.SaveChangesAsync();
         }
 
-        [Authorize(Roles ="REMC Evaluator")]
+        [Authorize(Roles ="Evaluator")]
         public async Task<IActionResult> EvaluatorPending() // List of Pending Evaluation
         {
             await CheckMissedEvaluations();
@@ -105,13 +111,13 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var evaluator = _context.Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
+            var evaluator = _context.REMC_Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
 
             if(evaluator != null)
             {
-                var pendingEvaluations = await _context.Evaluations
+                var pendingEvaluations = await _context.REMC_Evaluations
                     .Where(e => e.evaluator_Id == evaluator.evaluator_Id && e.evaluation_Status == "Pending")
-                    .Join(_context.FundedResearchApplication,
+                    .Join(_context.REMC_FundedResearchApplication,
                         evaluation => evaluation.fra_Id,
                         researchApp => researchApp.fra_Id,
                         (evaluation, researchApp) => new ViewEvaluationVM
@@ -131,7 +137,7 @@ namespace RemcSys.Controllers
             return View(new List<ViewEvaluationVM>());
         }
 
-        [Authorize(Roles = "REMC Evaluator")]
+        [Authorize(Roles = "Evaluator")]
         public async Task<IActionResult> EvaluatorMissed() // List of Missed Evaluation
         {
             var user = await _userManager.GetUserAsync(User);
@@ -139,13 +145,13 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var evaluator = _context.Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
+            var evaluator = _context.REMC_Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
 
             if (evaluator != null)
             {
-                var missedEvaluations = await _context.Evaluations
+                var missedEvaluations = await _context.REMC_Evaluations
                     .Where(e => e.evaluator_Id == evaluator.evaluator_Id && e.evaluation_Status == "Missed")
-                    .Join(_context.FundedResearchApplication,
+                    .Join(_context.REMC_FundedResearchApplication,
                         evaluation => evaluation.fra_Id,
                         researchApp => researchApp.fra_Id,
                         (evaluation, researchApp) => new ViewEvaluationVM
@@ -165,7 +171,7 @@ namespace RemcSys.Controllers
             return View(new List<ViewEvaluationVM>());
         }
 
-        [Authorize(Roles = "REMC Evaluator")]
+        [Authorize(Roles = "Evaluator")]
         public async Task<IActionResult> EvaluatorEvaluated() // List of Done Evaluation
         {
             var user = await _userManager.GetUserAsync(User);
@@ -173,13 +179,13 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var evaluator = _context.Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
+            var evaluator = _context.REMC_Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
 
             if (evaluator != null)
             {
-                var doneEvaluations = await _context.Evaluations
+                var doneEvaluations = await _context.REMC_Evaluations
                     .Where(e => e.evaluator_Id == evaluator.evaluator_Id && (e.evaluation_Status == "Approved" || e.evaluation_Status == "Rejected"))
-                    .Join(_context.FundedResearchApplication,
+                    .Join(_context.REMC_FundedResearchApplication,
                         evaluation => evaluation.fra_Id,
                         researchApp => researchApp.fra_Id,
                         (evaluation, researchApp) => new ViewEvaluationVM
@@ -199,16 +205,16 @@ namespace RemcSys.Controllers
             return View(new List<ViewEvaluationVM>());
         }
 
-        [Authorize(Roles = "REMC Evaluator")]
+        [Authorize(Roles = "Evaluator")]
         public IActionResult EvaluationForm(string id) // Evaluation Form
         {
-            var guidelines = _context.Guidelines.Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".pdf")
+            var guidelines = _context.REMC_Guidelines.Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".pdf")
                 .OrderBy(g => g.file_Name).ToList();
             ViewBag.exec = guidelines;
 
-            var criteria = _context.Criterias.Include(c => c.subCategory).OrderBy(c => c.Id).ToList();
+            var criteria = _context.REMC_Criterias.Include(c => c.subCategory).OrderBy(c => c.Id).ToList();
             // File Requirement
-            var fileRequirement = _context.FileRequirement.Where(f => f.fra_Id == id && f.document_Type == "Forms")
+            var fileRequirement = _context.REMC_FileRequirement.Where(f => f.fra_Id == id && f.document_Type == "Forms")
                 .OrderBy(f => f.file_Name)
                 .ToList();
             ViewBag.Id = id;
@@ -226,12 +232,12 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var evaluator = await _context.Evaluator.Where(e => e.UserId == user.Id).FirstOrDefaultAsync();
+            var evaluator = await _context.REMC_Evaluator.Where(e => e.UserId == user.Id).FirstOrDefaultAsync();
             if(evaluator == null)
             {
                 return NotFound("Evaluator not found!");
             }
-            var fra = await _context.FundedResearchApplication.Where(f => f.fra_Id == fraId).FirstOrDefaultAsync();
+            var fra = await _context.REMC_FundedResearchApplication.Where(f => f.fra_Id == fraId).FirstOrDefaultAsync();
             if(fra == null)
             {
                 return NotFound("Funded Research Application not found!");
@@ -250,7 +256,7 @@ namespace RemcSys.Controllers
 
             double g1 = p1 + p2 + p3;
 
-            var templates = _context.Guidelines.Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".docx").ToList();
+            var templates = _context.REMC_Guidelines.Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".docx").ToList();
             string filledFolder = Path.Combine(_hostingEnvironment.WebRootPath, "content", "evaluation_forms");
             Directory.CreateDirectory(filledFolder);
 
@@ -258,7 +264,7 @@ namespace RemcSys.Controllers
             {
                 using (var templateStream = new MemoryStream(template.data))
                 {
-                    string filledDocumentPath = Path.Combine(filledFolder, $"{user.FirstName} {user.LastName}_{template.file_Name}");
+                    string filledDocumentPath = Path.Combine(filledFolder, $"{user.FirstName}_{user.MiddleName}_{user.LastName}_{template.file_Name}");
                     using (DocX doc = DocX.Load(templateStream))
                     {
                         doc.ReplaceText("{{Title}}", fra.research_Title);
@@ -296,7 +302,7 @@ namespace RemcSys.Controllers
                     var fileReq = new FileRequirement
                     {
                         fr_Id = Guid.NewGuid().ToString(),
-                        file_Name = $"{user.FirstName} {user.LastName}_{template.file_Name}",
+                        file_Name = $"{user.FirstName}_{user.MiddleName}_{user.LastName}_{template.file_Name}",
                         file_Type = ".docx",
                         data = fileBytes,
                         file_Status = "Evaluated",
@@ -306,11 +312,11 @@ namespace RemcSys.Controllers
                         fra_Id = fraId
                     };
 
-                    _context.FileRequirement.Add(fileReq);
+                    _context.REMC_FileRequirement.Add(fileReq);
                 }
             }
 
-            var evals = _context.Evaluations.Where(e => e.fra_Id == fraId && e.evaluator_Id == evaluator.evaluator_Id).FirstOrDefault();
+            var evals = _context.REMC_Evaluations.Where(e => e.fra_Id == fraId && e.evaluator_Id == evaluator.evaluator_Id).FirstOrDefault();
             if(evals == null)
             {
                 return NotFound("Evaluations not found!");
@@ -330,7 +336,7 @@ namespace RemcSys.Controllers
             return RedirectToAction("EvaluatorEvaluated", "Evaluator");
         }
 
-        [Authorize(Roles = "REMC Evaluator")]
+        [Authorize(Roles = "Evaluator")]
         public async Task<IActionResult> GenerateEvalsForm(string id) // List of Generated Evaluation Form
         {
             var user = await _userManager.GetUserAsync(User);
@@ -338,18 +344,18 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var evaluator = await _context.Evaluator.Where(e => e.UserId == user.Id).FirstOrDefaultAsync();
+            var evaluator = await _context.REMC_Evaluator.Where(e => e.UserId == user.Id).FirstOrDefaultAsync();
             if(evaluator == null)
             {
                 return NotFound("Evaluator not found!");
             }
-            var evaluations = await _context.Evaluations.Where(e => e.fra_Id == id && e.evaluator_Id == evaluator.evaluator_Id)
+            var evaluations = await _context.REMC_Evaluations.Where(e => e.fra_Id == id && e.evaluator_Id == evaluator.evaluator_Id)
                 .FirstOrDefaultAsync();
             if(evaluations == null)
             {
                 return NotFound("Evaluation not found!");
             }
-            var fr = await _context.FileRequirement.Where(f => f.fra_Id == evaluations.fra_Id && f.document_Type == "EvaluationForms"
+            var fr = await _context.REMC_FileRequirement.Where(f => f.fra_Id == evaluations.fra_Id && f.document_Type == "EvaluationForms"
                 && f.file_Name.Contains(evaluator.evaluator_Name))
                 .OrderBy(f => f.file_Name)
                 .ToListAsync();
@@ -360,7 +366,7 @@ namespace RemcSys.Controllers
 
         public async Task<IActionResult> Download(string id) // Download Non-PDF file
         {
-            var document = await _context.FileRequirement.FindAsync(id);
+            var document = await _context.REMC_FileRequirement.FindAsync(id);
 
             if (document == null)
             {
@@ -371,13 +377,13 @@ namespace RemcSys.Controllers
 
         public IActionResult PreviewFile(string id) // Preview PDF file
         {
-            var file = _context.FileRequirement.FirstOrDefault(f => f.fr_Id == id);
+            var file = _context.REMC_FileRequirement.FirstOrDefault(f => f.fr_Id == id);
             if(file != null)
             {
                 return File(file.data, "application/pdf");
             }
 
-            var guidelines = _context.Guidelines.FirstOrDefault(f => f.Id == id);
+            var guidelines = _context.REMC_Guidelines.FirstOrDefault(f => f.Id == id);
             if (guidelines != null)
             {
                 if (guidelines.file_Type == ".pdf")
@@ -409,7 +415,7 @@ namespace RemcSys.Controllers
                     UserId = user.Id
                 };
 
-                _context.CalendarEvents.Add(addEvent);
+                _context.REMC_CalendarEvents.Add(addEvent);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("EvaluatorDashboard");
@@ -425,7 +431,7 @@ namespace RemcSys.Controllers
             {
                 return NotFound("User not found!");
             }
-            var events = _context.CalendarEvents
+            var events = _context.REMC_CalendarEvents
                 .Where(e => e.Visibility == "Broadcasted" || (e.Visibility == "JustYou" && e.UserId == user.Id))
                 .Select(e => new
                 {
@@ -443,15 +449,56 @@ namespace RemcSys.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteEvent(string id) // Delete an event
         {
-            var events = await _context.CalendarEvents.FindAsync(id);
+            var events = await _context.REMC_CalendarEvents.FindAsync(id);
             if (events != null && events.Visibility == "JustYou")
             {
-                _context.CalendarEvents.Remove(events);
+                _context.REMC_CalendarEvents.Remove(events);
                 await _context.SaveChangesAsync();
 
                 return Json(new { success = true });
             }
             return Json(new { success = false });
+        }
+
+        public async Task<IActionResult> EvaluatorSpecialization()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if(user == null)
+            {
+                return NotFound("User not found!");
+            }
+            var evaluator = await _context.REMC_Evaluator.FirstOrDefaultAsync(f => f.UserId == user.Id);
+            if (evaluator == null)
+            {
+                return NotFound("Evaluator not found!");
+            }
+            return View(evaluator);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateSpecialization([FromForm] List<string> field_of_Interest)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound("User not found!");
+                }
+                var evaluator = await _context.REMC_Evaluator.FirstOrDefaultAsync(e => e.UserId == user.Id);
+                if (evaluator == null)
+                {
+                    return NotFound("Evaluator not found!");
+                }
+                evaluator.field_of_Interest = field_of_Interest;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch
+            {
+                return Json(new {success = false});
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using ResearchManagementSystem.Models
+@using ResearchManagementSystem.Models;
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -21,19 +21,19 @@
         <div class="bg-image">
             <div class="header">
                 <div class="logo">
-                    <img src="~/images/research-management-logo.png" alt="RMO" style="height: 60px;">
+                    <img src="~/img/research-management-logo.png" alt="RMO" style="height: 60px;">
                 </div>
                 <nav class="nav nav-pills nav-fill">
-                    <a class="nav-link active" href="@Url.Action("Evaluator", "Home", new {area = "RemcSys"})">Home</a>
-                    <a class="nav-link active" href="@Url.Action("EvaluatorDashboard", "Evaluator", new {area = "RemcSys"})">Dashboard</a>
+                    <a class="nav-link active" href="/Home/Evaluator">Home</a>
+                    <a class="nav-link active" href="/Evaluator/EvaluatorDashboard">Dashboard</a>
                 </nav>
                 <div class="profile">
                     @if (SignInManager.IsSignedIn(User))
                     {
                         var user = await UserManager.GetUserAsync(User);
-                        <span>Welcome, @user.FirstName @user.LastName!</span>
+                        <span>Welcome, Name!</span>
                     }
-                    <a asp-area="RemcSys" asp-controller="Evaluator" asp-action="EvaluatorNotif">
+                    <a asp-controller="Evaluator" asp-action="EvaluatorNotif">
                         <i class="bi bi-bell-fill" style="font-size: 30px; color: #fff;"></i>
                     </a>
                     <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,7 +44,7 @@
                             <p class="nav-link text-dark">Evaluator</p>
                         </li>
                         <hr />
-                        @if (User.IsInRole("REMC Chief"))
+                        @if (User.IsInRole("Chief"))
                         {
                             <li><a class="dropdown-item" asp-action="Chief" asp-controller="Home">Switch to Chief</a></li>
                         }

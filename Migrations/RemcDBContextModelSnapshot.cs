@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ResearchManagementSystem.Areas.RemcSys.Data;
+using RemcSys.Data;
 
 #nullable disable
 
@@ -56,7 +56,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasIndex("FraId");
 
-                    b.ToTable("ActionLogs");
+                    b.ToTable("REMC_ActionLogs");
                 });
 
             modelBuilder.Entity("RemcSys.Models.CalendarEvent", b =>
@@ -84,7 +84,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CalendarEvents");
+                    b.ToTable("REMC_CalendarEvents");
                 });
 
             modelBuilder.Entity("RemcSys.Models.Criteria", b =>
@@ -104,7 +104,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Criterias");
+                    b.ToTable("REMC_Criterias");
                 });
 
             modelBuilder.Entity("RemcSys.Models.Evaluation", b =>
@@ -163,7 +163,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasIndex("fra_Id");
 
-                    b.ToTable("Evaluations");
+                    b.ToTable("REMC_Evaluations");
                 });
 
             modelBuilder.Entity("RemcSys.Models.Evaluator", b =>
@@ -178,12 +178,6 @@ namespace ResearchManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("center")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("evaluator_Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -193,12 +187,11 @@ namespace ResearchManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("field_of_Interest")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("evaluator_Id");
 
-                    b.ToTable("Evaluator");
+                    b.ToTable("REMC_Evaluator");
                 });
 
             modelBuilder.Entity("RemcSys.Models.FileRequirement", b =>
@@ -239,7 +232,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasIndex("fra_Id");
 
-                    b.ToTable("FileRequirement");
+                    b.ToTable("REMC_FileRequirement");
                 });
 
             modelBuilder.Entity("RemcSys.Models.FundedResearch", b =>
@@ -252,9 +245,11 @@ namespace ResearchManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("branch")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("college")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("dts_No")
@@ -337,7 +332,7 @@ namespace ResearchManagementSystem.Migrations
                     b.HasIndex("fra_Id")
                         .IsUnique();
 
-                    b.ToTable("FundedResearches");
+                    b.ToTable("REMC_FundedResearches");
                 });
 
             modelBuilder.Entity("RemcSys.Models.FundedResearchApplication", b =>
@@ -362,9 +357,11 @@ namespace ResearchManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("branch")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("college")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("dts_No")
@@ -400,7 +397,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("fra_Id");
 
-                    b.ToTable("FundedResearchApplication");
+                    b.ToTable("REMC_FundedResearchApplication");
                 });
 
             modelBuilder.Entity("RemcSys.Models.FundedResearchEthics", b =>
@@ -441,35 +438,7 @@ namespace ResearchManagementSystem.Migrations
                     b.HasIndex("fra_Id")
                         .IsUnique();
 
-                    b.ToTable("FundedResearchEthics");
-                });
-
-            modelBuilder.Entity("RemcSys.Models.GAWADWinners", b =>
-                {
-                    b.Property<string>("gw_Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("file_Uploaded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("gw_Data")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("gw_fileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("gw_fileType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("gw_Id");
-
-                    b.ToTable("GAWADWinners");
+                    b.ToTable("REMC_FundedResearchEthics");
                 });
 
             modelBuilder.Entity("RemcSys.Models.GenerateGAWADNominees", b =>
@@ -504,7 +473,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("gn_Id");
 
-                    b.ToTable("GenerateGAWADNominees");
+                    b.ToTable("REMC_GenerateGAWADNominees");
                 });
 
             modelBuilder.Entity("RemcSys.Models.GenerateReport", b =>
@@ -545,7 +514,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("gr_Id");
 
-                    b.ToTable("GenerateReports");
+                    b.ToTable("REMC_GenerateReports");
                 });
 
             modelBuilder.Entity("RemcSys.Models.GeneratedForm", b =>
@@ -572,7 +541,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasIndex("fra_Id");
 
-                    b.ToTable("GeneratedForms");
+                    b.ToTable("REMC_GeneratedForms");
                 });
 
             modelBuilder.Entity("RemcSys.Models.Guidelines", b =>
@@ -601,7 +570,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Guidelines");
+                    b.ToTable("REMC_Guidelines");
                 });
 
             modelBuilder.Entity("RemcSys.Models.ProgressReport", b =>
@@ -642,7 +611,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasIndex("fr_Id");
 
-                    b.ToTable("ProgressReports");
+                    b.ToTable("REMC_ProgressReports");
                 });
 
             modelBuilder.Entity("RemcSys.Models.Settings", b =>
@@ -670,7 +639,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings");
+                    b.ToTable("REMC_Settings");
                 });
 
             modelBuilder.Entity("RemcSys.Models.SubCategory", b =>
@@ -698,7 +667,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasIndex("CriteriaId");
 
-                    b.ToTable("SubCategories");
+                    b.ToTable("REMC_SubCategories");
                 });
 
             modelBuilder.Entity("RemcSys.Models.UFRForecasting", b =>
@@ -717,7 +686,7 @@ namespace ResearchManagementSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UFRForecastings");
+                    b.ToTable("REMC_UFRForecastings");
                 });
 
             modelBuilder.Entity("RemcSys.Models.ActionLog", b =>
