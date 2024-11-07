@@ -256,7 +256,10 @@ namespace RemcSys.Controllers
 
             double g1 = p1 + p2 + p3;
 
-            var templates = _context.REMC_Guidelines.Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".docx").ToList();
+            var templates = await _context.REMC_Guidelines
+                .Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".docx")
+                .ToListAsync();
+
             string filledFolder = Path.Combine(_hostingEnvironment.WebRootPath, "content", "evaluation_forms");
             Directory.CreateDirectory(filledFolder);
 
@@ -264,14 +267,22 @@ namespace RemcSys.Controllers
             {
                 using (var templateStream = new MemoryStream(template.data))
                 {
-                    string filledDocumentPath = Path.Combine(filledFolder, $"{user.FirstName}_{user.MiddleName}_{user.LastName}_{template.file_Name}");
+                    string filledDocumentPath = Path.Combine(filledFolder, $"{evaluator.evaluator_Name}_{template.file_Name}");
+
+                    var teamMembers = fra.team_Members.Contains("N/A") ?
+                        string.Empty : string.Join(Environment.NewLine, fra.team_Members);
+
+                    var college = fra.college == null ? string.Empty : fra.college;
+
+                    var branch = fra.branch == null ? string.Empty : fra.branch;
+
                     using (DocX doc = DocX.Load(templateStream))
                     {
                         doc.ReplaceText("{{Title}}", fra.research_Title);
                         doc.ReplaceText("{{Lead}}", fra.applicant_Name);
-                        doc.ReplaceText("{{Staff}}", string.Join(Environment.NewLine, fra.team_Members));
-                        doc.ReplaceText("{{College}}", fra.college);
-                        doc.ReplaceText("{{Branch}}", fra.branch);
+                        doc.ReplaceText("{{Staff}}", teamMembers);
+                        doc.ReplaceText("{{College}}", college);
+                        doc.ReplaceText("{{Branch}}", branch);
                         doc.ReplaceText("{{AQComment}}", aqComment);
                         doc.ReplaceText("{{REComment}}", reComment);
                         doc.ReplaceText("{{RIComment}}", riComment);
@@ -302,7 +313,7 @@ namespace RemcSys.Controllers
                     var fileReq = new FileRequirement
                     {
                         fr_Id = Guid.NewGuid().ToString(),
-                        file_Name = $"{user.FirstName}_{user.MiddleName}_{user.LastName}_{template.file_Name}",
+                        file_Name = $"{evaluator.evaluator_Name}_{template.file_Name}",
                         file_Type = ".docx",
                         data = fileBytes,
                         file_Status = "Evaluated",

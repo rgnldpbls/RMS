@@ -7,7 +7,7 @@
 
 <div class="document-management-container">
     <p>
-        <form asp-action="SetDTS" method="post">
+        <form asp-area="RemcSys" asp-controller="Chief" asp-action="SetDTS" method="post">
             <div class="dts-container mb-4">
                 <label for="dtsNumber">DTS No.:</label>
                 <input type="text" id="dtsNumber" name="DTSNo" class="form-control dts-input" placeholder="Type here..."
@@ -226,7 +226,7 @@
         function saveFeedback(rowId, feedback) {
             // You can perform an AJAX request to save the feedback and update the file status
             $.ajax({
-                url: '@Url.Action("SaveFeedback", "Chief")',
+                url: '@Url.Action("SaveFeedback", "Chief", new {area = "RemcSys"})',
                 type: 'POST',
                 data: {
                     fileId: rowId,
@@ -286,7 +286,7 @@
         var selectedStatus = "Checked";
 
         $.ajax({
-            url: '/Chief/UpdateStatus',
+            url: '/RemcSys/Chief/UpdateStatus',
             type: 'POST',
             data: {
                 fr_Id: frId,
@@ -297,10 +297,10 @@
                     alert('Status updated successfully!');
                 } else if (response.assigned) {
                     alert('Evaluators assigned successfully!');
-                    window.location.href = '/Chief/UEResearchApp';
+                    window.location.href = '/RemcSys/Chief/UEResearchApp';
                 } else if (response.approved) {
                     alert('File requirements approved!');
-                    window.location.href = '/Chief/UploadNTP';
+                    window.location.href = '/RemcSys/Chief/UploadNTP';
                 }
             },
             error: function (xhr, status, error) {

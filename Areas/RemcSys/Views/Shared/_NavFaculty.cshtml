@@ -15,55 +15,80 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/84ccdc0b43.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <div class="bg-image">
             <div class="header">
+                <div class="" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+                </div>
                 <div class="logo">
-                    <img src="~/img/research-management-logo.png" alt="RMO" style="height: 60px;">
+                    <img src="~/images/research-management-logo.png" alt="RMO" style="height: 60px;">
                 </div>
                 <nav class="nav nav-pills nav-fill">
-                    <a class="nav-link active" href="/Home/Faculty">Home</a>
-                    <a class="nav-link active" href="/FundedResearchApplication/TeamLeaderDashboard">Dashboard</a>
+                    <a class="nav-link active" href="/Faculty/Index">Home</a>
+                    <a class="nav-link active" href="/RemcSys/FundedResearchApplication/TeamLeaderDashboard">Dashboard</a>
                 </nav>
                 <!-- New container for profile -->
                 <div class="profile">
                     @if (SignInManager.IsSignedIn(User))
                     {
                         var user = await UserManager.GetUserAsync(User);
-                        <span>Welcome, Name!</span>
+                        <span>Welcome, @user.FirstName!</span>
+
+                        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Faculty
+                        </button>
+                        <ul class="dropdown-menu">
+                            @if (User.IsInRole("REMC Chief"))
+                            {
+                                <li><a class="dropdown-item" asp-area="RemcSys" asp-action="Chief" asp-controller="Home">Switch to Chief</a></li>
+                            }
+                            @if (User.IsInRole("REMC Evaluator"))
+                            {
+                                <li><a class="dropdown-item" asp-area="RemcSys" asp-action="Evaluator" asp-controller="Home">Switch to Evaluator</a></li>
+                            }
+                        </ul>
                     }
-                    <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi-person-circle" style="font-size: 25px;"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <p class="nav-link text-dark">Faculty</p>
-                        </li>
-                        <hr />
-                        @if (User.IsInRole("Evaluator"))
-                        {
-                            <li><a class="dropdown-item" asp-action="Evaluator" asp-controller="Home">Switch to Evaluator</a></li>
-                        }
-                        <hr />
-                        <li>
-                            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                                Profile
-                            </a>
-                        </li>
-                        <li>
-                            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </header>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a class="text-dark text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <div class="profile-section d-block text-center">
+
+                <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 d-block mx-auto mb-2">
+
+                <!-- Clickable Hello, [Username] link -->
+
+                <p class="user-email my-0 fs-6 fw-light text-white">Hello, @User.Identity?.Name!</p>
+            </div>
+        </a>
+
+
+        <div class="menu-section">
+            <ul>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="AddFAQs" asp-action="Index"><i class="fa-solid fa-person-circle-question fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">FAQs</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyRateUs"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Rate Us</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyReportGenerateReport"><i class="fa-solid fa-file-export fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Report</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyAbout"><i class="fa-solid fa-circle-info fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">About</span></a></li>
+            </ul>
+        </div>
+
+        <div class="logout-section mt-3">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="logout-button btn btn-link text-white w-100">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
+                </button>
+            </form>
+        </div>
+
+
+    </div>
     @RenderBody()
     @* <div class="container">
         <main role="main" class="pb-3">
@@ -77,6 +102,7 @@
         </div>
     </footer> *@
 
+    <script src="~/js/sidebar.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

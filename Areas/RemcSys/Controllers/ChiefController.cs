@@ -2976,7 +2976,7 @@ namespace RemcSys.Controllers
                 _context.REMC_Guidelines.Add(guidelines);
 
                 await _context.SaveChangesAsync();
-                return Json(new { success = true, fileName = file.FileName, fileId = guidelines.Id });
+                return RedirectToAction("Settings");
             }
         }
 

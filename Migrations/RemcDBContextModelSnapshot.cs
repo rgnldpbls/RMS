@@ -245,11 +245,9 @@ namespace ResearchManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("branch")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("college")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("dts_No")
@@ -357,11 +355,9 @@ namespace ResearchManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("branch")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("college")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("dts_No")

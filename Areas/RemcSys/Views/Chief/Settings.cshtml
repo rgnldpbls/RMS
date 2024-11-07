@@ -625,7 +625,7 @@
 
         if (confirm('Are you sure you want to add the file?')) {
             $.ajax({
-                url: '@Url.Action("UploadGuidelines", "Chief")',
+                url: '@Url.Action("UploadGuidelines", "Chief", new {area = "RemcSys"})',
                 type: 'POST',
                 headers: {
                     'RequestVerificationToken': token
@@ -636,7 +636,7 @@
                 success: function (response) {
                     // Clear the file input
                     fileInput.value = '';
-                    window.location.href = '/Chief/Settings';
+                    window.location.href = '/RemcSys/Chief/Settings';
                 },
                 error: function (xhr, status, error) {
                     alert('Error uploading file. Please try again.');

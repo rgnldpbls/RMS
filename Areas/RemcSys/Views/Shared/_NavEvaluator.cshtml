@@ -41,7 +41,7 @@
                             REMC Evaluator
                         </button>
                         <ul class="dropdown-menu">
-                            @if (User.IsInRole("REMC Evaluator"))
+                            @if (User.IsInRole("REMC Chief"))
                             {
                                 <li><a class="dropdown-item" asp-area="RemcSys" asp-action="Chief" asp-controller="Home">Switch to Chief</a></li>
                             }

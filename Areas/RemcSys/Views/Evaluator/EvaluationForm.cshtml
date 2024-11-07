@@ -206,15 +206,15 @@
             const RIComment = document.getElementById('3-comment').value;
             const LCScore = document.getElementById('4-score').value;
             const LCComment = document.getElementById('4-comment').value;
-            const RDScore = document.getElementById('7-score').value;
-            const RDComment = document.getElementById('7-comment').value;
+            const RDScore = document.getElementById('5-score').value;
+            const RDComment = document.getElementById('5-comment').value;
             const FFScore = document.getElementById('6-score').value;
             const FFComment = document.getElementById('6-comment').value;
             const GenComment = document.getElementById('GenComment').value;
             const FraId = document.getElementById('fraId').value;
 
             $.ajax({
-                url: '@Url.Action("SubmitEvaluation", "Evaluator")',
+                url: '@Url.Action("SubmitEvaluation", "Evaluator", new {area = "RemcSys"})',
                 type: 'POST',
                 data: {
                     aqScore: AQScore,
@@ -234,7 +234,7 @@
                 },
                 success: function (response) {
                     alert('Evaluation submitted successfully!');
-                    window.location.href = '/Evaluator/EvaluatorEvaluated';
+                    window.location.href = '/RemcSys/Evaluator/EvaluatorEvaluated';
                 },
                 error: function (xhr, status, error) {
                     alert('Error submitting evaluation. Please try again.');

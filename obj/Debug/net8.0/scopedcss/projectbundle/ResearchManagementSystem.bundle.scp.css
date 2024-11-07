@@ -11529,6 +11529,95 @@ h6[b-t3sw82ttod] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-z3w1nr66ge] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-z3w1nr66ge] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-z3w1nr66ge] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-z3w1nr66ge] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-z3w1nr66ge] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-z3w1nr66ge] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-z3w1nr66ge], .sidebar .profile-info .user-id[b-z3w1nr66ge] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-z3w1nr66ge] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-z3w1nr66ge] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-z3w1nr66ge] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-z3w1nr66ge] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-z3w1nr66ge] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-z3w1nr66ge] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavFaculty2.cshtml.rz.scp.css */
 .bg-image[b-w42fyt7l2b] {
     display: none;
@@ -11599,6 +11688,95 @@ h6[b-t3sw82ttod] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-w42fyt7l2b] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-w42fyt7l2b] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-w42fyt7l2b] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-w42fyt7l2b] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-w42fyt7l2b] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-w42fyt7l2b] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-w42fyt7l2b], .sidebar .profile-info .user-id[b-w42fyt7l2b] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-w42fyt7l2b] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-w42fyt7l2b] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-w42fyt7l2b] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-w42fyt7l2b] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-w42fyt7l2b] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-w42fyt7l2b] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavTeamLeader.cshtml.rz.scp.css */
 
 .header[b-vqqagkem0t] {
@@ -11654,6 +11832,95 @@ h6[b-t3sw82ttod] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-vqqagkem0t] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-vqqagkem0t] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-vqqagkem0t] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-vqqagkem0t] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-vqqagkem0t] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-vqqagkem0t] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-vqqagkem0t], .sidebar .profile-info .user-id[b-vqqagkem0t] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-vqqagkem0t] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-vqqagkem0t] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-vqqagkem0t] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-vqqagkem0t] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-vqqagkem0t] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-vqqagkem0t] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavTeamLeader2.cshtml.rz.scp.css */
 
 .header[b-bqt74arpe8] {
@@ -11709,6 +11976,95 @@ h6[b-t3sw82ttod] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-bqt74arpe8] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-bqt74arpe8] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-bqt74arpe8] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-bqt74arpe8] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-bqt74arpe8] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-bqt74arpe8] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-bqt74arpe8], .sidebar .profile-info .user-id[b-bqt74arpe8] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-bqt74arpe8] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-bqt74arpe8] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-bqt74arpe8] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-bqt74arpe8] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-bqt74arpe8] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-bqt74arpe8] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RscSys/Views/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */

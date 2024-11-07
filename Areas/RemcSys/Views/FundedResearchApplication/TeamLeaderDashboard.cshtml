@@ -190,7 +190,7 @@
         const eventForm = document.getElementById('eventForm');
 
         async function fetchEvents() {
-            const response = await fetch('/FundedResearchApplication/GetUserEvents');
+            const response = await fetch('/RemcSys/FundedResearchApplication/GetUserEvents');
             const events = await response.json();
             return events;
         }
@@ -217,11 +217,11 @@
                 success: function (response) {
                     if (response.success) {
                         alert('Event deleted successfully!');
-                        window.location.href = '/FundedResearchApplication/TeamLeaderDashboard';
+                        window.location.href = '/RemcSys/FundedResearchApplication/TeamLeaderDashboard';
                     }
                     else {
                         alert('The event is broadcasted cannot be deleted!');
-                        window.location.href = '/FundedResearchApplication/TeamLeaderDashboard';
+                        window.location.href = '/RemcSys/FundedResearchApplication/TeamLeaderDashboard';
                     }
                 },
                 error: function (xhr, status, error) {
