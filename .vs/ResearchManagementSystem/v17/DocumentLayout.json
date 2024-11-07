@@ -3,60 +3,68 @@
   "WorkspaceRootPath": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\generategawadnominees.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\generategawadnominees.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navevaluator.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navevaluator.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navevaluator1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navevaluator1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\generatereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\generatereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\evaluator\\evaluatorevaluated.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\evaluator\\evaluatorevaluated.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\forecasting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\forecasting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\evaluator\\evaluatormissed.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\evaluator\\evaluatormissed.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\archivedreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\archivedreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\evaluator\\evaluatorpending.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\evaluator\\evaluatorpending.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\evaluator\\evaluatordashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\evaluator\\evaluatordashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\chiefdashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\chiefdashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\views\\faculty\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\faculty\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\evaluator\\evaluatornotif.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\evaluator\\evaluatornotif.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\views\\faculty\\facultycenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\faculty\\facultycenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief1.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief1.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\evaluator\\evaluatorspecialization.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\evaluator\\evaluatorspecialization.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief1.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief1.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navevaluator1.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navevaluator1.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navevaluator.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navevaluator.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\views\\shared\\faculty_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\faculty_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\researchmanagementsystem\\areas\\remcsys\\controllers\\evaluatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\controllers\\evaluatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,184 +82,210 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GenerateGAWADNominees.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\GenerateGAWADNominees.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\GenerateGAWADNominees.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\GenerateGAWADNominees.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\GenerateGAWADNominees.cshtml",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAAC4AAAAhAAAA",
+              "DocumentIndex": 2,
+              "Title": "EvaluatorEvaluated.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorEvaluated.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorEvaluated.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorEvaluated.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorEvaluated.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAA8AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:50:35.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChiefController.cs",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "RelativeToolTip": "Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "ViewState": "AQIAAGMHAAAAAAAAAAAAwHAHAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T13:31:34.586Z",
+              "WhenOpened": "2024-11-13T14:41:06.759Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Forecasting.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
-              "ViewState": "AQIAALcAAAAAAAAAAAAAAMYAAAABAAAA",
+              "Title": "EvaluatorMissed.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorMissed.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorMissed.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorMissed.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorMissed.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:30:27.882Z",
+              "WhenOpened": "2024-11-13T14:40:49.642Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ArchivedReport.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\ArchivedReport.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\ArchivedReport.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\ArchivedReport.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\ArchivedReport.cshtml",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAAAAsAAAAZAAAA",
+              "Title": "EvaluatorPending.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorPending.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorPending.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorPending.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorPending.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:28:41.814Z",
+              "WhenOpened": "2024-11-13T14:40:03.322Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GenerateReport.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\GenerateReport.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\GenerateReport.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\GenerateReport.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\GenerateReport.cshtml",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAAAGAAAAAhAAAA",
+              "DocumentIndex": 0,
+              "Title": "_NavEvaluator.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAADYAAABhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:28:24.569Z",
+              "WhenOpened": "2024-11-13T13:56:34.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_NavEvaluator1.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAwwDkAAABdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-13T14:05:07.866Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "ChiefDashboard.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
-              "ViewState": "AQIAALoAAAAAAAAAAAAAAMgAAAAKAAAA",
+              "Title": "EvaluatorDashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorDashboard.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorDashboard.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorDashboard.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorDashboard.cshtml",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAAI0AAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:25:52.93Z",
+              "WhenOpened": "2024-11-13T14:37:49.496Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Views\\Faculty\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Faculty\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Views\\Faculty\\Index.cshtml",
-              "RelativeToolTip": "Views\\Faculty\\Index.cshtml",
-              "ViewState": "AQIAANgAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "ChiefDashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\ChiefDashboard.cshtml",
+              "ViewState": "AQIAADsBAAAAAAAAAAAAAC0BAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:24:26.686Z",
+              "WhenOpened": "2024-11-13T14:35:37.292Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Areas\\RemcSys\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAzwCwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T13:21:59.849Z",
+              "Title": "EvaluatorNotif.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorNotif.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorNotif.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorNotif.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorNotif.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAwwB0AAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-13T14:33:03.134Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "FacultyCenters.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Views\\Faculty\\FacultyCenters.cshtml",
-              "RelativeDocumentMoniker": "Views\\Faculty\\FacultyCenters.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Views\\Faculty\\FacultyCenters.cshtml",
-              "RelativeToolTip": "Views\\Faculty\\FacultyCenters.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAABzAAAA",
+              "Title": "EvaluatorSpecialization.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorSpecialization.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorSpecialization.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Evaluator\\EvaluatorSpecialization.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Evaluator\\EvaluatorSpecialization.cshtml",
+              "ViewState": "AQIAAL4AAAAAAAAAAAAswNAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:21:38.858Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "_NavChief1.cshtml.css",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
-              "ViewState": "AQIAAIAAAAAAAAAAAAAiwJMAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-11-13T13:19:50.251Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "_NavChief1.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAswHEAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T13:16:54.193Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "_NavChief.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAAAGwAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T12:40:12.602Z",
+              "WhenOpened": "2024-11-13T14:27:33.976Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "_NavChief.cshtml.css",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
-              "ViewState": "AQIAAI0AAAAAAAAAAAAAAKIAAAAFAAAA",
+              "Title": "_NavChief1.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml.css",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAiwJQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-11-13T12:44:29.79Z",
+              "WhenOpened": "2024-11-13T14:20:32.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_NavChief1.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief1.cshtml",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAswHgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-13T14:20:17.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_NavEvaluator1.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml.css",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml.css",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml.css",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator1.cshtml.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-13T14:07:25.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_NavEvaluator.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml.css",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml.css",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml.css",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavEvaluator.cshtml.css",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAAcAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-13T13:59:40.228Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "Faculty_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Views\\Shared\\Faculty_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\Faculty_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Views\\Shared\\Faculty_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\Faculty_Layout.cshtml",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAAwFYAAAAlAAAA",
+              "Title": "_NavChief.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml.css",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAAAEMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-13T13:59:29.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "EvaluatorController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\EvaluatorController.cs",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Controllers\\EvaluatorController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\EvaluatorController.cs",
+              "RelativeToolTip": "Areas\\RemcSys\\Controllers\\EvaluatorController.cs",
+              "ViewState": "AQIAADUBAAAAAAAAAAAvwFABAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T14:02:13.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "_NavChief.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "ViewState": "AQIAACUAAAAAAAAAAAAAAGwAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T12:39:50.418Z",
+              "WhenOpened": "2024-11-13T13:56:38.606Z",
               "EditorCaption": ""
             }
           ]

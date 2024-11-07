@@ -9,15 +9,22 @@
         <h1>Notifications</h1>
         <hr />
     </div>
-    @foreach (var log in Model)
+    @if(Model != null && Model.Any())
     {
-        <a href="EvaluatorPending" class="notification-link">
-            <div class="notification-card">
-                <span class="notification-text">
-                    @log.Action
-                </span>
-                <span class="notification-time">@ActionLog.GetTimeAgo(log.Timestamp)</span>
-            </div>
-        </a>
+        @foreach (var log in Model)
+        {
+            <a href="EvaluatorPending" class="notification-link">
+                <div class="notification-card">
+                    <span class="notification-text">
+                        @log.Action
+                    </span>
+                    <span class="notification-time">@ActionLog.GetTimeAgo(log.Timestamp)</span>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <p>No Notification yet.</p>
     }
 </div>

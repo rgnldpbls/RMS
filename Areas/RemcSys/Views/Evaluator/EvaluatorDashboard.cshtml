@@ -106,7 +106,7 @@
         const eventForm = document.getElementById('eventForm');
 
         async function fetchEvents() {
-            const response = await fetch('/Evaluator/GetUserEvents');
+            const response = await fetch('/RemcSys/Evaluator/GetUserEvents');
             const events = await response.json();
             return events;
         }
@@ -125,7 +125,7 @@
         // Function to delete an event by its ID
         const deleteEvent = (eventId) => {
             $.ajax({
-                url: '@Url.Action("DeleteEvent", "Evaluator")',
+                url: '@Url.Action("DeleteEvent", "Evaluator", new {area = "RemcSys"})',
                 type: 'POST',
                 data: {
                     id: eventId
@@ -133,11 +133,11 @@
                 success: function (response) {
                     if (response.success) {
                         alert('Event deleted successfully!');
-                        window.location.href = '/Evaluator/EvaluatorDashboard';
+                        window.location.href = '/RemcSys/Evaluator/EvaluatorDashboard';
                     }
                     else {
                         alert('The event is broadcasted cannot be deleted!');
-                        window.location.href = '/Evaluator/EvaluatorDashboard';
+                        window.location.href = '/RemcSys/Evaluator/EvaluatorDashboard';
                     }
                 },
                 error: function (xhr, status, error) {

@@ -11221,7 +11221,97 @@ h6[b-t3sw82ttod] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-5huowkykuz] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-5huowkykuz] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-5huowkykuz] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-5huowkykuz] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-5huowkykuz] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-5huowkykuz] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-5huowkykuz], .sidebar .profile-info .user-id[b-5huowkykuz] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-5huowkykuz] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-5huowkykuz] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-5huowkykuz] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-5huowkykuz] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-5huowkykuz] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-5huowkykuz] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavEvaluator1.cshtml.rz.scp.css */
+
 .header[b-usk4hkl6us] {
     background-color: #850000;
     padding: 10px 20px;
@@ -11244,7 +11334,7 @@ h6[b-t3sw82ttod] {
     }
 
     .header .profile[b-usk4hkl6us] {
-        margin-left: auto;
+        margin-left: auto; /* Ensure the profile section stays on the right */
         display: flex;
         align-items: center;
         gap: 10px;
@@ -11280,6 +11370,95 @@ h6[b-t3sw82ttod] {
     white-space: nowrap;
     line-height: 60px;
 }
+
+/* Sidebar styles */
+.sidebar[b-usk4hkl6us] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-usk4hkl6us] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-usk4hkl6us] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-usk4hkl6us] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-usk4hkl6us] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-usk4hkl6us] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-usk4hkl6us], .sidebar .profile-info .user-id[b-usk4hkl6us] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-usk4hkl6us] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-usk4hkl6us] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-usk4hkl6us] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-usk4hkl6us] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-usk4hkl6us] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-usk4hkl6us] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
 /* _content/ResearchManagementSystem/Areas/RemcSys/Views/Shared/_NavFaculty.cshtml.rz.scp.css */
 .bg-image[b-z3w1nr66ge] {
     display: none;

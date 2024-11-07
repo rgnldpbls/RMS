@@ -27,7 +27,7 @@ namespace RemcSys.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        [Authorize(Roles ="Evaluator")]
+        [Authorize(Roles ="REMC Evaluator")]
         public async Task<IActionResult> EvaluatorDashboard() // Dashboard of the Evaluator
         {
             if (_context.REMC_Settings.First().isMaintenance)
@@ -65,7 +65,7 @@ namespace RemcSys.Controllers
             return View(pendingEvals);
         }
 
-        [Authorize(Roles ="Evaluator")]
+        [Authorize(Roles = "REMC Evaluator")]
         public async Task<IActionResult> EvaluatorNotif() // Notification of the Evaluator
         {
             if (_context.REMC_Settings.First().isMaintenance)
@@ -101,7 +101,7 @@ namespace RemcSys.Controllers
             await _context.SaveChangesAsync();
         }
 
-        [Authorize(Roles ="Evaluator")]
+        [Authorize(Roles = "REMC Evaluator")]
         public async Task<IActionResult> EvaluatorPending() // List of Pending Evaluation
         {
             await CheckMissedEvaluations();
@@ -137,7 +137,7 @@ namespace RemcSys.Controllers
             return View(new List<ViewEvaluationVM>());
         }
 
-        [Authorize(Roles = "Evaluator")]
+        [Authorize(Roles = "REMC Evaluator")]
         public async Task<IActionResult> EvaluatorMissed() // List of Missed Evaluation
         {
             var user = await _userManager.GetUserAsync(User);
@@ -171,7 +171,7 @@ namespace RemcSys.Controllers
             return View(new List<ViewEvaluationVM>());
         }
 
-        [Authorize(Roles = "Evaluator")]
+        [Authorize(Roles = "REMC Evaluator")]
         public async Task<IActionResult> EvaluatorEvaluated() // List of Done Evaluation
         {
             var user = await _userManager.GetUserAsync(User);
@@ -205,7 +205,7 @@ namespace RemcSys.Controllers
             return View(new List<ViewEvaluationVM>());
         }
 
-        [Authorize(Roles = "Evaluator")]
+        [Authorize(Roles = "REMC Evaluator")]
         public IActionResult EvaluationForm(string id) // Evaluation Form
         {
             var guidelines = _context.REMC_Guidelines.Where(g => g.document_Type == "UFREvalsForm" && g.file_Type == ".pdf")
@@ -336,7 +336,7 @@ namespace RemcSys.Controllers
             return RedirectToAction("EvaluatorEvaluated", "Evaluator");
         }
 
-        [Authorize(Roles = "Evaluator")]
+        [Authorize(Roles = "REMC Evaluator")]
         public async Task<IActionResult> GenerateEvalsForm(string id) // List of Generated Evaluation Form
         {
             var user = await _userManager.GetUserAsync(User);

@@ -269,7 +269,7 @@
         const eventForm = document.getElementById('eventForm');
 
         async function fetchEvents() {
-            const response = await fetch('/Chief/GetUserEvents');
+            const response = await fetch('/RemcSys/Chief/GetUserEvents');
             const events = await response.json();
             return events;
         }
@@ -288,14 +288,14 @@
         // Function to delete an event by its ID
         const deleteEvent = (eventId) => {
             $.ajax({
-                url: '@Url.Action("DeleteEvent", "Chief")',
+                url: '@Url.Action("DeleteEvent", "Chief", new {area = "RemcSys"})',
                 type: 'POST',
                 data: {
                     id: eventId
                 },
                 success: function (response) {
                     alert('Event deleted successfully!');
-                    window.location.href = '/Chief/ChiefDashboard';
+                    window.location.href = '/RemcSys/Chief/ChiefDashboard';
                 },
                 error: function (xhr, status, error) {
                     alert('Error deleting event. Please try again.');

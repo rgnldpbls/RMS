@@ -63,9 +63,9 @@
         </div>
 
         <div class="button-container">
-            <button class="btn btn-edit" id="editBtn" onclick="toggleEdit()">Edit</button>
-            <button class="btn btn-update" id="updateBtn" style="display: none;" onclick="updateInterests()">Update</button>
-            <button class="btn btn-cancel" id="cancelBtn" style="display: none;" onclick="cancelEdit()">Cancel</button>
+            <button class="btn2 btn2-edit" id="editBtn" onclick="toggleEdit()">Edit</button>
+            <button class="btn2 btn2-update" id="updateBtn" style="display: none;" onclick="updateInterests()">Update</button>
+            <button class="btn2 btn2-cancel" id="cancelBtn" style="display: none;" onclick="cancelEdit()">Cancel</button>
         </div>
     </div>
 
@@ -103,7 +103,7 @@
         });
 
         // Send to your controller
-        fetch('/Evaluator/UpdateSpecialization', {  // Replace with your actual controller route
+        fetch('/RemcSys/Evaluator/UpdateSpecialization', {  // Replace with your actual controller route
             method: 'POST',
             body: formData
         })
@@ -172,7 +172,7 @@
         text-align: center;
     }
 
-    .btn {
+    .btn2 {
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
@@ -182,7 +182,7 @@
         transition: background-color 0.3s;
     }
 
-    .btn-edit {
+    .btn2-edit {
         background-color: #007bff;
         color: white;
     }
@@ -191,23 +191,23 @@
             background-color: #0056b3;
         }
 
-    .btn-update {
+    .btn2-update {
         background-color: #28a745;
         color: white;
         display: none;
     }
 
-        .btn-update:hover {
+        .btn2-update:hover {
             background-color: #218838;
         }
 
-    .btn-cancel {
+    .btn2-cancel {
         background-color: #dc3545;
         color: white;
         display: none;
     }
 
-        .btn-cancel:hover {
+        .btn2-cancel:hover {
             background-color: #c82333;
         }
 </style>
