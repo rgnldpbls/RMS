@@ -1,0 +1,30 @@
+﻿body {
+    background: #E8E6E6;
+}
+
+#task {
+    font-weight: bold;
+    font-family: "Poppins";
+    color: #850000;
+}
+
+#notifhr {
+    border: 2px solid #850000;
+    opacity: 1;
+}
+
+#notiftitle {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+#notifdate {
+    font-family: "Montserrat";
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.548);
+}
+
+#notifcontent {
+    font-family: "Inter";
+    color: rgba(0, 0, 0, 0.673);
+}

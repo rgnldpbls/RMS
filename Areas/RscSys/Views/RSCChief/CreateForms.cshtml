@@ -1,0 +1,59 @@
+﻿@model rscSys_final.Models.EvaluationFormViewModel
+
+@{
+    ViewData["Title"] = "Create Evaluation Form";
+    Layout = "_LayoutCPages";
+}
+
+<h1 class="mb-2"><strong>Create Evaluation Form</strong></h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="selectedApplicationTypeId">Select Application Type</label>
+        <select asp-for="SelectedApplicationTypeId" asp-items="@(new SelectList(Model.ApplicationTypes, "ApplicationTypeId", "ApplicationTypeName"))" class="form-control" id="selectedApplicationTypeId" required></select>
+    </div>
+
+    <h3 class="mt-4"><strong>Criteria</strong></h3>
+    <div id="criteriaContainer" class="mb-3">
+        <div class="form-group criteria-row d-flex align-items-end">
+            <div class="flex-grow-1 mr-2">
+                <label for="criteria_0_Name">Criteria Name</label>
+                <input type="text" name="Criteria[0].Name" class="form-control" id="criteria_0_Name" placeholder="Enter criteria name" required />
+            </div>
+            <div class="flex-shrink-0">
+                <label for="criteria_0_Percentage">Percentage</label>
+                <input type="number" name="Criteria[0].Percentage" class="form-control" id="criteria_0_Percentage" min="0" max="100" placeholder="%" style="width: 100px;" required />
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-3" id="addCriteriaBtn">Add More Criteria</button>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success" />
+    </div>
+</form>
+
+<a asp-action="EvaluationForms" class="btn btn-secondary mt-3">Back to List</a>
+
+<script>
+    let criteriaIndex = 1;
+
+    document.getElementById("addCriteriaBtn").addEventListener("click", function () {
+        const criteriaContainer = document.getElementById("criteriaContainer");
+        const newCriteria = document.createElement("div");
+        newCriteria.className = "form-group criteria-row d-flex align-items-end mt-3";
+        newCriteria.innerHTML = `
+                <div class="flex-grow-1 mr-2">
+                    <label for="criteria_${criteriaIndex}_Name">Criteria Name</label>
+                    <input type="text" name="Criteria[${criteriaIndex}].Name" class="form-control" id="criteria_${criteriaIndex}_Name" placeholder="Enter criteria name" required />
+                </div>
+                <div class="flex-shrink-0">
+                    <label for="criteria_${criteriaIndex}_Percentage">Percentage</label>
+                    <input type="number" name="Criteria[${criteriaIndex}].Percentage" class="form-control" id="criteria_${criteriaIndex}_Percentage" min="0" max="100" placeholder="%" style="width: 100px;" required />
+                </div>
+            `;
+        criteriaContainer.appendChild(newCriteria);
+        criteriaIndex++;
+    });
+</script>

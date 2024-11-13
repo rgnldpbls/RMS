@@ -1,0 +1,137 @@
+.navbar[b-j0b905duky] {
+    background: #850000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+body[b-j0b905duky] {
+    background: #E8E6E6;
+}
+/* Sidebar styles */
+.sidebar[b-j0b905duky] {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 75px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open[b-j0b905duky] {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    .sidebar .profile-section[b-j0b905duky] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-j0b905duky] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-j0b905duky] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-j0b905duky] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-j0b905duky], .sidebar .profile-info .user-id[b-j0b905duky] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-j0b905duky] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-j0b905duky] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-j0b905duky] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-j0b905duky] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-j0b905duky] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-j0b905duky] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+
+.bbb[b-j0b905duky] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item[b-j0b905duky] {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+    .nav-item:hover[b-j0b905duky] {
+        background: rgb(255, 246, 195, 0.2);
+        border-radius: 10px;
+    }
+
+.hoverfxright:hover[b-j0b905duky] {
+    background: rgb(255, 246, 195, 0.2);
+}
+
+.sideitemz:hover[b-j0b905duky] {
+    background: rgb(255, 246, 195, 0.2);
+}
+
+.pup[b-j0b905duky] {
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+
+.rmo[b-j0b905duky] {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+a[b-j0b905duky] {
+    text-decoration: none;
+}

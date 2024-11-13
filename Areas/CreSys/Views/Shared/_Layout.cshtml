@@ -1,0 +1,166 @@
+﻿@using ResearchManagementSystem.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBK4o1gMSeY9u1P1N+8kFdQTLqHIjHZ4gG0dASV0bQ3DExXG7U1T+zPmA=="
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @* <link rel="stylesheet" href="~/css/SlateTheme.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="~/images/rmologo.png" alt="Logo" style="height: 50px; width: auto;">
+                </a>
+                <div class="research-management-office">
+                    Research Management Office <br />
+                    <div class="polytechnic-university">
+                        Polytechnic University of the Philippines
+                    </div>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Home Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="CreSys" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            
+                            @* Determine the current role from session *@
+                            var currentRole = Context.Session.GetString("CurrentRole") ?? "Researcher"; // Default to Researcher
+
+                            switch (currentRole)
+                            {
+                                case "Secretariat":
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="InitialReview" asp-action="InitialReview">Application</a>
+                                    </li>
+                                    break;
+                                case "CRE Chief":
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="FilteredApplications">Application</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="Evaluations">Evaluations</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="CompletionReports">Completion</a>
+                                    </li>
+                                    break;
+                                case "Chairperson":
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chairperson" asp-action="SelectApplication">Application</a>
+                                    </li>
+                                    break;
+                                case "Evaluator":
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="EthicsEvaluator" asp-action="EvaluatorView">Evaluation</a>
+                                    </li>
+                                    break;
+                                case "Researcher":
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="EthicsApplication" asp-action="Applications">Application</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="EthicsForm" asp-action="DownloadForms">Forms</a>
+                                    </li>
+                                    break;
+                            }
+                        }
+                    </ul>
+                    <!-- Login/Logout and dropdown Section -->
+                    <ul class="navbar-nav">
+                     @if (User.Identity.IsAuthenticated)
+                        {
+                            <!-- Role Switch Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @(Context.Session.GetString("CurrentRole") ?? "Researcher") <!-- Default text if no role is set -->
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @using Microsoft.AspNetCore.Identity
+                                @inject UserManager<ApplicationUser> UserManager
+                                    @{
+                                        var user = await UserManager.GetUserAsync(User);
+                                        var roles = await UserManager.GetRolesAsync(user);
+
+                                        // Remove 'Faculty' role from the dropdown
+                                        roles = roles.Where(r => r != "Faculty").ToList();
+                                    }
+
+                                    @* Loop through roles and create dropdown items *@
+                                    @foreach (var role in roles)
+                                    {
+                                        <form asp-controller="Home" asp-action="SwitchRole" method="post" style="display:inline;">
+                                            <input type="hidden" name="roleName" value="@role" />
+                                            <button type="submit" class="dropdown-item">@role</button>
+                                        </form>
+                                    }
+                                </div>
+                            </li>
+
+                            <!-- Show Logout when user is logged in -->
+                            <li class="nav-item">
+                                <form asp-action="Logout" asp-controller="AppUser" method="post">
+                                    <button type="submit" class="nav-link btn btn-link" style="color: white; text-decoration: none;">
+                                        Logout
+                                    </button>
+                                    @Html.AntiForgeryToken()
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Show Login link when no user is logged in -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="CreSys" asp-controller="AppUser" asp-action="Login">Login</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+@*     <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - CRE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> *@
+    <!-- Load jQuery (only once) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Load Bootstrap JS (and CSS in the head) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBK4o1gMSeY9u1P1N+8kFdQTLqHIjHZ4gG0dASV0bQ3DExXG7U1T+zPmA=="
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Optional: Include jQuery Validate -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Your custom JavaScript file -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

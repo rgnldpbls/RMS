@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ResearchManagementSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
+    
+    <link rel="stylesheet" href="~/css/landing.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/84ccdc0b43.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/84ccdc0b43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="top-header h-container">
+            <div>
+                <h1 class="pup-name m-0 p-0">Polytechnic University of the Philippines</h1>
+            </div>
+            <div class="auth-buttons">
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn-1 text-decoration-none">Login</a>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn-2 text-decoration-none">Sign Up</a>
+
+               
+            </div>
+        </div>
+
+        <!-- Navbar Section -->
+        <nav class="navbar navbar-expand-lg" id="navbar">
+
+            <div class="logo">
+                <img src="~/images/RMOLogo.png" alt="RMOlogo" style="width: 90px; height: auto;" />
+                <span class="logo-text"> RMO </span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <ul class="dropdown">
+                            <li><a asp-area="" asp-controller="Home" asp-action="ArticlesEvents">Articles & Events</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="OrgStruct">Organizational Structure</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="RMOSection">RMO Section</a>
+                        <ul class="dropdown">
+                            <li><a asp-area="" asp-controller="Home" asp-action="REMSPage">Research Evaluation and Monitoring Section</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="RSSPage">Research Support Section</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="RESPage">Research Ethics Section</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="RLDSPage">Research Linkages and Dissemination Section</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="RMOActivities">Research and Development Activities</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="EngagementOverview">Academic Research Engagement</a>
+                        <ul class="dropdown">
+                            <li><a asp-area="" asp-controller="Home" asp-action="EngagementColleges">Colleges</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="EngagementCampuses">Campuses</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="EngagementOUS">Open Universities</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="EngagementInstitutes">Institutes of Technology</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="RMOGuidelines">Research Guidelines</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- RMO COVER -->
+        <div class="hero">
+            <img src="~/images/rmo page.jpg" alt="RMO COVER PHOTO">
+        </div>
+
+        <!-- Search Bar -->
+        <div class="custom-search">
+            <div class="input-group">
+                <input type="text" class="searchint form-control" placeholder="Enter keywords..." aria-label="Search">
+                <button class="btn btn-custom" type="button"><i class="bi bi-search"></i> Search</button>
+            </div>
+        </div>
+    </header>
+
+    <div>
+        <main role="main" class="p-0 m-0" style="background: #651424;">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="row my-3">
+            <div class="col-lg-3 col-sm-12 d-flex align-items-center">
+                <img src="~/images/RMOLogo.png" alt="Logo" style="max-width: 100%; height: auto; width: 450px;">
+            </div>
+
+            <div class="col-lg-3 col-sm-12 d-flex align-items-center">
+                <div>
+                    <h2 class="fw-bolder">Research<br>Management<br>Office</h2>
+                    <h6>PUP - Manila</h6>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 d-flex align-items-center">
+                <div class="w-100">
+                    <div class="row">
+                        <h2 class="fw-bolder mb-4" style="color: #DB8080">Contact Us</h2>
+                        <div class="col-lg-4">
+                            <h4 class="mb-2" style="color: #FBE5A2"><i class="bi bi-envelope-open-fill fs-1"></i>&nbsp; E-mail</h4>
+                            <h6>rmo@pup.edu.ph</h6>
+                        </div>
+                        <div class="col-lg-8">
+                            <h4 class="mb-2" style="color: #FBE5A2"><i class="bi bi-telephone-fill fs-2"></i>&nbsp; Telephone</h4>
+                            <h6>
+                                (+632) 5335-1787 or 5335-1777<br>
+                                Local 235 (Office of the Director)<br>
+                                Local 357 (Faculty Researcher's Lounge)
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="mb-2" style="color: #FBE5A2"><i class="bi bi-mailbox2 fs-1"></i>&nbsp; Postal Mail</h4>
+                            <h6>
+                                Office of the Vice President for Research, Extension and Development<br>
+                                <b>Research Management Office</b><br>
+                                Room 313 and 425, South Wing, Main Academic Building<br>
+                                PUP A. Mabini Campus<br>
+                                Anonas Street, Sta. Mesa, Manila<br>
+                                Philippines 1016
+                            </h6>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <partial name="_LoginPartial"/>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/landing.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

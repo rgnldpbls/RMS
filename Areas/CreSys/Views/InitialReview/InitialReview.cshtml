@@ -1,0 +1,400 @@
+﻿@model CRE.ViewModels.InitialReviewListViewModel
+
+@{
+    ViewData["Title"] = "Initial Review Applications";
+
+    // Initialize a list to hold all applications
+    var allApplications = new List<CRE.ViewModels.InitialReviewViewModel>();
+
+    // Add applications to the list if each collection is not null
+    if (Model.PendingApplications != null)
+    {
+        allApplications.AddRange(Model.PendingApplications);
+    }
+    if (Model.ApprovedApplications != null)
+    {
+        allApplications.AddRange(Model.ApprovedApplications);
+    }
+    if (Model.ReturnedApplications != null)
+    {
+        allApplications.AddRange(Model.ReturnedApplications);
+    }
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+
+</head>
+<div class="title-section">
+    <h2>ETHICS CLEARANCE APPLICATIONS</h2>
+    <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <div class="d-flex" id="buttons">
+            <li class="nav-item">
+                <a class="btn-nav active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending for Evaluation</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn-nav" id="approved-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved for Evaluation</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn-nav" id="returned-tab" data-toggle="tab" href="#returned" role="tab" aria-controls="returned" aria-selected="false">Returned Applications</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn-nav" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="false">All</a>
+            </li>
+        </div>  
+    </ul>
+
+    </div>
+<div class="divider"></div>
+
+<div class="search-filter-container">
+    <!-- Search Bar with Icon -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search by Urec No or Title">
+        <i class="fas fa-search"></i>
+    </div>
+</div>
+
+<!-- Tab content -->
+<div class="tab-content" id="myTabContent">
+    <!-- Pending for Evaluation Tab -->
+    <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Title of the Research</th>
+                    <th>Proponents/Authors</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PendingApplications == null || !Model.PendingApplications.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No pending applications found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var application in Model.PendingApplications)
+                    {
+                        <tr>
+                            <td class="urec-column underline">
+                                <a asp-action="Details" asp-route-urecNo="@application.EthicsApplication?.urecNo" class="">
+                                    @application.EthicsApplication?.urecNo
+                                </a>
+                            </td>
+                            <td class="title-column">@application.NonFundedResearchInfo?.title</td>
+                            <td class="authors-column">
+                                    @if (application.NonFundedResearchInfo?.EthicsApplication.Name == null)
+                                    {
+                                        <span>No Author Data</span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @($"{application.NonFundedResearchInfo.EthicsApplication.Name}")
+                                        </span>
+
+                                        <!-- Loop through all co-proponents -->
+                                        @if (application.NonFundedResearchInfo.CoProponent != null && application.NonFundedResearchInfo.CoProponent.Any())
+                                        {
+                                            @foreach (var coProponent in application.NonFundedResearchInfo.CoProponent)
+                                            {
+                                            <ul>
+                                               
+                                                @($"{coProponent.coProponentName} ")
+
+                                            </ul>
+                                            }
+                                        }
+                                    }
+                            </td>
+
+
+                            <td class="status-column"><span class="status bg-pending">@application.EthicsApplicationLog.FirstOrDefault()?.status</span></td>
+                            <td class="date-column">@application.EthicsApplication?.submissionDate.ToShortDateString()</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Approved for Evaluation Tab -->
+    <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Title of the Research</th>
+                    <th>Proponents/Authors</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ApprovedApplications == null || !Model.ApprovedApplications.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No approved applications found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var application in Model.ApprovedApplications)
+                    {
+                        <tr>
+                            <td class="urec-column underline">
+                                <a asp-action="Details" asp-route-urecNo="@application.EthicsApplication?.urecNo" class="">
+                                    @application.EthicsApplication?.urecNo
+                                </a>
+                            </td>
+                            <td class="title-column">@application.NonFundedResearchInfo?.title</td>
+                            <td class="authors-column">
+                                    @if (application.NonFundedResearchInfo?.EthicsApplication.Name == null)
+                                    {
+                                        <span>No Author Data</span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @($"{application.NonFundedResearchInfo?.EthicsApplication.Name}")
+                                        </span>
+
+                                        <!-- Loop through all co-proponents -->
+                                        @if (application.NonFundedResearchInfo.CoProponent != null && application.NonFundedResearchInfo.CoProponent.Any())
+                                        {
+                                            @foreach (var coProponent in application.NonFundedResearchInfo.CoProponent)
+                                            {
+                                            <ul>
+                                               
+                                                @($"{coProponent.coProponentName} ")
+
+                                            </ul>
+                                            }
+                                        }
+                                    }
+                            </td>
+                            <td class="status-column"><span class="status bg-approve">@application.EthicsApplicationLog.FirstOrDefault()?.status</span></td>
+                            <td class="date-column">@application.EthicsApplication?.submissionDate.ToShortDateString()</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Returned Applications Tab -->
+    <div class="tab-pane fade" id="returned" role="tabpanel" aria-labelledby="returned-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Title of the Research</th>
+                    <th>Proponents/Authors</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ReturnedApplications == null || !Model.ReturnedApplications.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No returned applications found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var application in Model.ReturnedApplications)
+                    {
+                        <tr>
+                            <td class="urec-column underline">
+                                <a asp-action="Details" asp-route-urecNo="@application.EthicsApplication?.urecNo" class="">
+                                    @application.EthicsApplication?.urecNo
+                                </a>
+                            </td>
+                            <td class="title-column">@application.NonFundedResearchInfo?.title</td>
+                           <td class="authors-column">
+                                    @if (application.NonFundedResearchInfo?.EthicsApplication.Name == null)
+                                    {
+                                        <span>No Author Data</span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @($"{application.NonFundedResearchInfo?.EthicsApplication.Name}")
+                                        </span>
+
+                                        <!-- Loop through all co-proponents -->
+                                        @if (application.NonFundedResearchInfo.CoProponent != null && application.NonFundedResearchInfo.CoProponent.Any())
+                                        {
+                                            @foreach (var coProponent in application.NonFundedResearchInfo.CoProponent)
+                                            {
+                                            <ul>
+                                               
+                                                @($"{coProponent.coProponentName} ")
+
+                                            </ul>
+                                            }
+                                        }
+                                    }
+                            </td>
+
+                            <td class="status-column"><span class="status bg-return">@application.EthicsApplicationLog.FirstOrDefault()?.status</span></td>
+                            <td class="date-column">@application.EthicsApplication?.submissionDate.ToShortDateString()</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- All Applications Tab -->
+    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Title of the Research</th>
+                    <th>Proponents/Authors</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!allApplications.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No applications found.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var application in allApplications)
+                    {
+                        <tr>
+                            <td class="urec-column underline">
+                                <a asp-action="Details" asp-route-urecNo="@application.EthicsApplication?.urecNo" class="">
+                                    @application.EthicsApplication?.urecNo
+                                </a>
+                            </td>
+                            <td class="title-column">@application.NonFundedResearchInfo?.title</td>
+                            <td class="authors-column">
+                                    @if (application.NonFundedResearchInfo?.EthicsApplication.Name == null)
+                                    {
+                                        <span>No Author Data</span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @($"{application.NonFundedResearchInfo?.EthicsApplication.Name}")
+                                        </span>
+
+                                        <!-- Loop through all co-proponents -->
+                                        @if (application.NonFundedResearchInfo.CoProponent != null && application.NonFundedResearchInfo.CoProponent.Any())
+                                        {
+                                            @foreach (var coProponent in application.NonFundedResearchInfo.CoProponent)
+                                            {
+                                            <ul>
+                                               
+                                                @($"{coProponent.coProponentName} ")
+
+                                            </ul>
+                                            }
+                                        }
+                                    }
+                            </td>
+                            <td>
+                                <span class="status
+                                @(application.EthicsApplicationLog.FirstOrDefault()?.status == "Approved for Evaluation" ? "bg-approve" :
+                                  application.EthicsApplicationLog.FirstOrDefault()?.status == "Pending for Evaluation" ? "bg-pending" :
+                                  application.EthicsApplicationLog.FirstOrDefault()?.status == "Returned for Revisions" ? "bg-return" : "")">
+                                            @application.EthicsApplicationLog.FirstOrDefault()?.status
+                                 </span>
+                                 </td>
+                            <td class="date-column">@application.EthicsApplication?.submissionDate.ToShortDateString()</td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        // Function to search through all application tables
+        function searchApplications() {
+            // Get the search query and convert to lowercase for case-insensitive search
+            const searchQuery = document.getElementById("searchBar").value.toLowerCase();
+
+            // Get all tables within tab-panes
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabPanes.forEach(tabPane => {
+                // Get all table rows except the header row (first row)
+                const rows = tabPane.querySelectorAll('table tbody tr');
+
+                rows.forEach(row => {
+                    // Get the urecNo and title cells
+                    const urecNoCell = row.querySelector('td:nth-child(1)');
+                    const titleCell = row.querySelector('td:nth-child(2)');
+
+                    // Skip if this is a "No applications found" row
+                    if (row.cells.length === 1) {
+                        return;
+                    }
+
+                    // Get the text content, handling null values and the button inside urecNo cell
+                    const urecNo = urecNoCell ? urecNoCell.querySelector('a').textContent.trim().toLowerCase() : '';
+                    const title = titleCell ? titleCell.textContent.trim().toLowerCase() : '';
+
+                    // Show/hide row based on whether either field matches the search query
+                    if (urecNo.includes(searchQuery) || title.includes(searchQuery)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Show "No results found" if all rows are hidden
+                const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
+                const noResultsRow = tabPane.querySelector('.no-results-row');
+
+                if (visibleRows.length === 0 && searchQuery !== '') {
+                    if (!noResultsRow) {
+                        const tbody = tabPane.querySelector('tbody');
+                        const newRow = document.createElement('tr');
+                        newRow.className = 'no-results-row';
+                        newRow.innerHTML = '<td colspan="5" class="text-center">No matching applications found.</td>';
+                        tbody.appendChild(newRow);
+                    }
+                } else if (noResultsRow) {
+                    noResultsRow.remove();
+                }
+            });
+        }
+
+        // Add event listener for real-time search
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchBar = document.getElementById('searchBar');
+            if (searchBar) {
+                searchBar.addEventListener('input', searchApplications);
+            }
+
+            // Activate Bootstrap tab functionality
+            $('#myTab a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+}

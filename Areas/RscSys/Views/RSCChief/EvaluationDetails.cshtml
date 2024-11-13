@@ -1,0 +1,225 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EvaluationStatusViewModel
+
+@{
+    ViewData["Title"] = "Evaluation Details";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+    .evaldeets {
+        border: 2px solid black;
+    }
+
+    .deets-title h1 {
+        font-weight: 800;
+    }
+
+    .tablehead th {
+        background-color: #850000;
+        color: white;
+        font-weight: 700;
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="d-flex justify-content-between align-items-center mb-2 deets-title ">
+        <h1>Evaluation Details</h1>
+        <div>
+            <button class="btn btn-outline-danger" onclick="window.history.back();">Back</button>
+        </div>
+    </div>
+
+    <div class="card mb-2">
+        <div class="card-body">
+            <p class="mb-1"><strong>DTS Number:</strong> @Model.Request.DtsNo</p>
+            <p class="mb-1"><strong>Application Type:</strong> @Model.Request.ApplicationType</p>
+            <p class="mb-1"><strong>Field of Study:</strong> @Model.Request.FieldOfStudy</p>
+            @{
+                var specificAssignment = Model.EvaluatorAssignments.FirstOrDefault(a => a.RequestId == Model.Request.RequestId);
+            }
+
+            @if (specificAssignment != null)
+            {
+                <p class="mb-1">
+                    <strong>No. of Days to Evaluate:</strong>
+                    @(specificAssignment.EvaluationDeadline.Subtract(specificAssignment.AssignedDate).Days) days
+                </p>
+            }
+            @* <p class="mb-0"><strong>Applicant Name:</strong> @Model.Request.User.LastName, @Model.Request.User.FirstName</p> *@
+        </div>
+    </div>
+
+    @foreach (var assignment in Model.EvaluatorAssignments)
+    {
+        <div class="card mb-2 evaldeets">
+            <div class="card-header bg-light">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mb-0">Reviewer: @* <strong> @assignment.Evaluator.FirstName @assignment.Evaluator.LastName</strong></h5> *@
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-0"><strong>Specialization:</strong>  @* @assignment.Evaluator.EvaluatorProfile.Specialization *@</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="tablehead">
+                        <tr>
+                            <th>Evaluation Sheet</th>
+                            <th>Comments/Suggestions</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var document in Model.EvaluationDocuments)
+                        {
+                            if (document.EvaluatorAssignmentId == assignment.AssignmentId)
+                            {
+                                <tr>
+                                    @* <td class="text-center">
+                                        <a href="@Url.Action("ViewEvaluationDocument", "RSCChief", new { filePath = document.FilePath })" class="btn btn-sm btn-outline-primary" target="_blank">View</a>
+                                    </td> *@
+                                    <td class="text-center">
+                                        <a href="#" class="view-file" data-requirement-id="@document.EvaluationDocuId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                                            View
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        @foreach (var comment in Model.GeneralComments)
+                                        {
+                                            if (comment.EvaluatorAssignmentId == assignment.AssignmentId)
+                                            {
+                                                <div>@comment.CommentText</div>
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge text-bg-@(assignment.EvaluationStatus == "Completed" ? "success" : assignment.EvaluationStatus == "Reject" ? "danger" : "warning")">
+                                            @assignment.EvaluationStatus
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+
+    @{
+        // Check if the request status is "Approved"
+        bool isApproved = Model.Request.Status == "Approved" || Model.Request.Status == "Endorsed by RMO";
+    }
+
+@if (!isApproved)
+{
+    <div class="card mb-2">
+    <div class="card-header">
+        <h6 class="mb-0">DECISION:</h6>
+    </div>
+    <div class="card-body">
+        <p class="mb-2"><strong>Average Percentage:</strong> @Model.AverageUserPercentage%</p>
+        <p class="mb-2 text-@(Model.Decision == "Approve" ? "success" : "danger")"><strong>@Model.EvaluationMessage</strong></p>
+            <select class="form-select mb-3" disabled>
+                <option value="Approve" selected="@(Model.Decision == "Approve" ? "selected" : null)">Approve</option>
+                <option value="Reject" selected="@(Model.Decision == "Reject" ? "selected" : null)">Reject</option>
+            </select>
+            @{
+                // Check if all evaluators have completed their evaluations
+                bool allEvaluatorsCompleted = Model.EvaluatorAssignments.All(assignment => assignment.EvaluationStatus == "Completed");
+
+                // Determine the notification message
+                string notificationMessage = Model.AverageUserPercentage >= 60
+                ? $"We are pleased to inform you that your application request with a {Model.Request.DtsNo} has been approved. If we received the hard copy of your documentary requirements, we will send the endorsement letter, which formally recognizes the successful approval of your application. Thank you!"
+                : "We regret to inform you that your application request has been rejected.";
+            }
+            <textarea class="form-control mb-3" rows="4" placeholder="Type here your comments and suggestions.">@notificationMessage</textarea>
+            <button id="sendApprovalButton" class="btn btn-danger float-end" @(allEvaluatorsCompleted ? "" : "disabled")>Send</button>
+    </div>
+</div>
+}
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+    <script>
+        $(document).ready(function () {
+            $('#sendApprovalButton').click(function () {
+                // Get the request ID
+                var requestId = @Model.Request.RequestId;
+
+                // Show SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to approve this application?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, approve it!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("ApproveApplication", "RSCChief")',
+                            data: {
+                                requestId: requestId
+                            },
+                            success: function (response) {
+                                // Show success message
+                                Swal.fire(
+                                    'Approved!',
+                                    response.message,
+                                    'success'
+                                ).then(() => {
+                                    // Redirect to applications page
+                                    window.location.href = '@Url.Action("Applications", "RSCChief")'; // Change "YourControllerName" to the actual controller name handling applications
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                Swal.fire('Error!', 'An error occurred while approving the application.', 'error');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileLinks = document.querySelectorAll('.view-file');
+            const fileViewer = document.getElementById('fileViewer');
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    const EvaluationDocuId = link.getAttribute('data-requirement-id');
+                    fileViewer.src = '@Url.Action("ViewEvaluationSheet", "RSCChief", new { EvaluationDocuId = "__EVALUATIONDOCU_ID__" })'.replace('__EVALUATIONDOCU_ID__', EvaluationDocuId);
+                });
+            });
+        });
+    </script>
+}

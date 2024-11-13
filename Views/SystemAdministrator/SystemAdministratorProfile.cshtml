@@ -1,0 +1,272 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+    Layout = "SuperAdmin_Layout";
+}
+<link href="~/css/ClusterCoordinator-Profile.css" rel="stylesheet" />
+
+<div>
+
+    <div class="container mt-1">
+        <div class="container p-4">
+            <!-- Profile Header -->
+            <div class="mb-4">
+                <h2 class="text-#850000">Profile</h2>
+                <div class="d-flex align-items-center mb-3" id="user-info">
+                    <div class="me-3">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" class="rounded-circle" alt="Profile Picture" style="width: 90px; height: 90px;">
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">User Name</div>
+                        <div class="text-muted">User Webmail</div>
+                        <div class="text-muted">User ID</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Navigation -->
+            <div class="nav nav-pills mb-4">
+                <a class="nav-link active mb-2" id="profile-about-tab" href="#">About</a>
+                <a class="nav-link mb-2" id="profile-contact-tab" href="#">Contact</a>
+                <a class="nav-link mb-2" id="profile-password-tab" href="#">Password</a>
+            </div>
+
+            <!-- About Section -->
+            <div id="personal-info">
+                <h4 class="mb-3">Personal Information</h4>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="first-name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first-name" placeholder="First Name" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="middle-name" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="middle-name" placeholder="Middle Name" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="last-name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last-name" placeholder="Last Name" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="birthday" class="form-label">Birthday</label>
+                            <input type="date" class="form-control" id="birthday" readonly>
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger me-2" onclick="editDetails('personal-info')">Edit Details</button>
+                        <button type="button" class="btn btn-success me-2" onclick="openSaveChangesModal('personal-info')" style="display: none;">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit('personal-info')" style="display: none;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Contact Section -->
+            <div id="contact-details" style="display: none;">
+                <h4 class="mb-3">Contact Details</h4>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="webmail" class="form-label">Webmail</label>
+                            <input type="text" class="form-control" id="webmail" placeholder="Webmail" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" placeholder="Email" readonly>
+                        </div>
+                    </div>
+                    <div class="btns mt-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger me-2" onclick="editDetails('contact-details')">Edit Details</button>
+                        <button type="button" class="btn btn-success me-2" onclick="openSaveChangesModal('contact-details')" style="display: none;">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit('contact-details')" style="display: none;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Password Section -->
+            <div id="password" style="display: none;">
+                <h4 class="mb-3">Password</h4>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="cur-password" class="form-label">Current Password</label>
+                            <input type="text" class="form-control" id="cur-password" placeholder="Password" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="new-password" class="form-label d-flex">New Password</label>
+                            <input type="text" class="form-control" id="new-password" placeholder="New Password" autocomplete="off">
+                            <p class="fs-6 fst-italic">(Please type your new password)</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger me-2" id="change-password-btn" onclick="showVerification()">Change Password</button>
+                    </div>
+                    <div id="verification-section" class="mt-3 d-none">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="verification-code" class="form-label">Verification Code</label>
+                                <input type="text" class="form-control" id="verification-code" placeholder="Verification Code">
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary me-2" onclick="resendCode()">Resend</button>
+                            <button type="button" class="btn btn-success" onclick="verifyCode()">Enter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Changes Modal -->
+    <div class="modal fade" id="saveChangesModal" tabindex="-1" aria-labelledby="saveChangesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center">
+                    <h5 class="modal-title text-center" id="saveChangesModalLabel">Save Changes</h5>
+                    <button type="button" class="btn-close position-absolute end-0 me-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to save the changes you made to your profile?
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmSave()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get all the profile-nav items
+            const profileItems = document.querySelectorAll('.nav-pills a');
+
+
+            // Define sections by ID
+            const sections = {
+                'profile-about-tab': 'personal-info',
+                'profile-contact-tab': 'contact-details',
+                'profile-password-tab': 'password'
+            };
+
+            profileItems.forEach(item => {
+                item.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    // Remove active class from all items
+                    profileItems.forEach(i => i.classList.remove('active'));
+
+                    // Add active class to the clicked item
+                    this.classList.add('active');
+
+                    // Hide all sections
+                    for (const sectionId in sections) {
+                        document.getElementById(sections[sectionId]).style.display = 'none';
+                    }
+
+                    // Show the relevant section
+                    const targetId = sections[this.id]; // Corrected class reference
+                    document.getElementById(targetId).style.display = 'block';
+                });
+            });
+
+            window.editDetails = function(sectionId) {
+                event.preventDefault();
+                const section = document.getElementById(sectionId);
+                section.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
+                section.querySelector('.btn-danger').style.display = 'none';
+                section.querySelector('.btn-success').style.display = 'inline-block';
+                section.querySelector('.btn-secondary').style.display = 'inline-block';
+            };
+
+            window.cancelEdit = function(sectionId) {
+                const section = document.getElementById(sectionId);
+                section.querySelectorAll('input').forEach(input => input.setAttribute('readonly', true));
+                section.querySelector('.btn-danger').style.display = 'inline-block';
+                section.querySelector('.btn-success').style.display = 'none';
+                section.querySelector('.btn-secondary').style.display = 'none';
+            };
+
+            window.openSaveChangesModal = function() {
+                const modal = new bootstrap.Modal(document.getElementById('saveChangesModal'));
+                modal.show();
+            };
+
+            window.confirmSave = function() {
+                const visibleForm = document.querySelector('.form:not([style*="display: none"])');
+                if (visibleForm) {
+                    visibleForm.querySelectorAll('input').forEach(input => input.setAttribute('readonly', true));
+                    visibleForm.querySelector('.btn-danger').style.display = 'inline-block';
+                    visibleForm.querySelector('.btn-success').style.display = 'none';
+                    visibleForm.querySelector('.btn-secondary').style.display = 'none';
+                }
+
+                closeModal();
+                resetForm();
+            };
+
+            window.closeModal = function() {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('saveChangesModal'));
+                if (modal) {
+                    modal.hide();
+                }
+
+                alert('Changes saved successfully!');
+            };
+
+            // Function to reset the form state
+            function resetForm() {
+                const forms = document.querySelectorAll('form');
+                forms.forEach(form => {
+                    form.querySelectorAll('input').forEach(input => input.setAttribute('readonly', true));
+                    form.querySelectorAll('.btn-danger').forEach(button => button.style.display = 'inline-block');
+                    form.querySelectorAll('.btn-success').forEach(button => button.style.display = 'none');
+                    form.querySelectorAll('.btn-secondary').forEach(button => button.style.display = 'none');
+                });
+            }
+
+            // Password: Show Verification Section
+            window.showVerification = function() {
+                document.querySelector('#change-password-btn').style.display = 'none';
+                document.getElementById('verification-section').classList.remove('d-none');
+                document.getElementById('new-password').setAttribute('readonly', true);
+            }
+
+            // Password: Verify Code
+            window.verifyCode = function() {
+                const verificationCode = document.getElementById('verification-code').value;
+                if (verificationCode.trim() === "") {
+                    alert("Please enter the verification code.");
+                } else {
+                    changePassword();
+                }
+            }
+
+            // Password: Change Password
+            window.changePassword = function() {
+                const currentPassword = document.getElementById('cur-password').value;
+                const newPassword = document.getElementById('new-password').value;
+
+                // Simulate password change (this can be replaced by actual backend logic)
+                alert('Password changed successfully!');
+
+                // Hide the verification section and reset form
+                document.getElementById('verification-section').classList.add('d-none');
+                document.querySelector('#change-password-btn').style.display = 'block'; // Show Change Password button again
+
+                // Reset input fields
+                document.getElementById('cur-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('verification-code').value = '';
+            }
+
+            // Password: Resend Code Function (Optional)
+            window.resendCode = function() {
+                alert('A new verification code has been sent!');
+            }
+        });
+    </script>
+</div>
+
+

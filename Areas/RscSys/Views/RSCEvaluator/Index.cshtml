@@ -1,0 +1,121 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EvaluatorDashboardViewModel
+
+@{
+    ViewData["Title"] = "Evaluator Home";
+    Layout = "_LayoutENAV";
+
+}
+
+<style>
+
+    .deadlines {
+        background-color: #850000;
+        color: white;
+        height: 470px;
+        max-height: 470px;
+        overflow-y: auto;
+    }
+
+    .numbertask {
+        height: 230px;
+        background-color: #FFDB89;
+        border: 2px solid black;
+    }
+
+    .circle-number {
+        width: 100px;
+        height: 100px;
+        border: 8px solid #850000;
+        color: #850000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+        font-size: 50px;
+    }
+
+    .assign {
+        font-size: 25px;
+        font-weight: bold;
+        color: #850000;
+    }
+
+    .dash {
+        font-weight: 700;
+    }
+
+    .over {
+        font-size: 30px;
+        color: #850000;
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="mb-1 dash">Welcome, Evaluator!</h1>
+
+    <div class="row">
+        
+        <div class="col-md-5">
+            <h1 class="over">Overview</h1>
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-around align-items-center numbertask">
+                    <div class="circle-number">@Model.PendingCount</div>
+                    <div class="assign">Assigned Tasks</div>
+                    <i class="fa-solid fa-angles-right fa-xl" style="color: #850000;"></i>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-around align-items-center numbertask">
+                    <div class="circle-number">@Model.CompletedCount</div>
+                    <div class="assign">Completed Tasks</div>
+                    <i class="fa-solid fa-angles-right fa-xl" style="color: #850000;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 assign-evaluator">
+            <h1 class="over">Deadlines</h1>
+            <div class="card mb-4 deadlines">
+                <div class="card-body">
+                    @if (Model.EvaluatorAssignments != null && Model.EvaluatorAssignments.Any())
+                    {
+                        @foreach (var assignment in Model.EvaluatorAssignments
+                       .Where(a => a.EvaluationStatus == "Accepted" || a.EvaluationStatus == "Under Evaluation"))
+                        {
+                            <div class="notification-item">
+                                <div class="alert alert-dark" role="alert">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">
+                                            <strong>DTS Number:</strong> @assignment.Request.DtsNo <br />
+                                            <strong>Application Type:</strong> @assignment.Request.ApplicationType <br />
+                                        </p>
+                                        <div class="position-absolute bottom-1 end-0 me-3" style="width: 6rem; height:2rem;">
+                                            @{
+                                                // Calculate the remaining time
+                                                var remainingDays = (assignment.EvaluationDeadline - DateTime.Now).Days;
+                                                var badgeClass = remainingDays == 1 || remainingDays == 0 ? "badge text-bg-danger" : "badge text-bg-warning";
+                                            }
+                                            <p class="@badgeClass text-wrap">
+                                                @remainingDays Days
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No deadlines available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

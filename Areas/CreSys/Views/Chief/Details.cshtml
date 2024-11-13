@@ -1,0 +1,238 @@
+﻿@model CRE.ViewModels.AssignReviewTypeViewModel
+@{
+    ViewData["Title"] = "Application Details";
+}
+<head>
+    <link rel="stylesheet" href="~/css/AssignEval.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="header-container">
+<h2>Application Details</h2>
+    <button class="btn-back" onclick="goBack()">Back</button>
+</div>
+
+<div class="card border-light mb-3" style="width: contain;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col text-start">
+                <p id="urecNoText">
+                    <strong>UREC No.: </strong> @Model.EthicsApplication.urecNo
+                </p>
+                <button id="copybut" type="button" class="btn-outline-transparent btn-sm ms-2" onclick="copyUrecNo()">
+                    <i class="fas fa-copy"></i>
+                </button>
+
+                <h4><strong>Research Title:</strong> @Model.NonFundedResearchInfo?.title</h4>
+                <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Proponent/s:</strong><br />
+                            @($"{Model.NonFundedResearchInfo.EthicsApplication.Name}")
+                            <br />
+                            @if (Model.CoProponent != null && Model.CoProponent.Any())
+                            {
+                                foreach (var proponent in Model.CoProponent)
+                                {
+                                    @proponent.coProponentName <br />
+                                }
+                            }
+                        </div>
+                    </div>
+                </p>
+                <p><strong>Field of Study:</strong> @Model.EthicsApplication.fieldOfStudy</p>
+                <p><strong>College: </strong> @Model.NonFundedResearchInfo?.college</p>
+                <p><strong>Branch/Campuses: </strong> @Model.NonFundedResearchInfo?.campus</p>
+            </div>
+
+            <!-- Display DTS No. or Edit Button -->
+            <div class="col text-end">
+                <p id="dtsNoText">
+                    <strong>DTS No.:</strong>
+                </p>
+
+                <!-- Button to Copy DTS No. if it exists -->
+                @if (!string.IsNullOrEmpty(Model.EthicsApplication.dtsNo))
+                {
+                    <button id="copybut" type="button" class="btn-outline-transparent btn-sm ms-2" onclick="copyDtsNo()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                }
+            </div>
+        </div>
+
+
+        <!-- If ReviewType is already set, display it. Otherwise, show the dropdown and button -->
+        @if (!string.IsNullOrEmpty(Model.InitialReview.ReviewType) &&
+        (Model.InitialReview.ReviewType == "Exempt" || Model.InitialReview.ReviewType == "Expedited" || Model.InitialReview.ReviewType == "Full Review"))
+        {
+            <div class="form-group">
+                <label>Review Type</label>
+                <p><strong>@Model.InitialReview.ReviewType</strong></p>
+            </div>
+        }
+        else
+        {
+            <h4>Assign Review Type</h4>
+            <!-- Form for selecting the review type -->
+            <form id="reviewTypeForm" method="post" action="@Url.Action("SubmitReviewType", "Chief")">
+                <!-- Dropdown for selecting the review type -->
+                <div class="form-group">
+                    <label for="reviewType">Review Type</label>
+                    <select id="reviewType" name="ReviewType" class="form-control">
+                        <option value="">-- Select Review Type --</option>
+                        <option value="Exempt" selected="@(Model.ReviewType == "Exempt")">Exempt</option>
+                        <option value="Expedited" selected="@(Model.ReviewType == "Expedited")">Expedited</option>
+                        <option value="Full Review" selected="@(Model.ReviewType == "Full Review")">Full Review</option>
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <button id="assignButton" type="submit" class="btn">Submit Review Type</button>
+                </div>
+                <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+            </form>
+        }
+    </div>
+    <div class="card-body">
+        <p><strong>Submission Date:</strong> @Model.EthicsApplication?.submissionDate.ToShortDateString()</p>
+
+        @* Highlight status with a badge *@
+        <p>
+            <strong>Status:</strong>
+            <span class="badge @(Model.EthicsApplicationLog.FirstOrDefault()?.status == "Approved" ? "bg-success" : "bg-warning")">
+                @Model.EthicsApplicationLog.FirstOrDefault()?.status
+            </span>
+        </p>
+
+        <h4>Application Forms</h4>
+
+        <ul class="nav nav-tabs" id="pdfTabs" role="tablist">
+            <div class="d-flex" id="buttons">
+            @if (Model.EthicsApplicationForms != null && Model.EthicsApplicationForms.Any())
+            {
+                
+                // Create tabs for each form and make the first one active
+                int index = 0; // To track the first tab
+                foreach (var form in Model.EthicsApplicationForms)
+                {
+                    <li class="nav-item" role="presentation">
+                        <a class="btn-nav @(index == 0 ? "active" : "")" id="form-@form.ethicsFormId-tab" data-bs-toggle="tab" href="#form-@form.ethicsFormId" role="tab" aria-controls="form-@form.ethicsFormId" aria-selected="@(index == 0 ? "true" : "false")">
+                            @form.ethicsFormId
+                        </a>
+                    </li>
+                    index++;
+                }
+               
+            }
+
+            @if (Model.ReceiptInfo != null && Model.ReceiptInfo.scanReceipt != null)
+            {
+            <li class="nav-item" role="presentation">
+                    <a class="btn-nav @(Model.EthicsApplicationForms == null || !Model.EthicsApplicationForms.Any() ? "active" : "")" id="receipt-tab" data-bs-toggle="tab" href="#receipt" role="tab" aria-controls="receipt" aria-selected="@(!Model.EthicsApplicationForms.Any() ? "true" : "false")">
+                    Receipt
+                </a>
+            </li>
+            }
+            </div>
+        </ul>
+       
+
+        <div class="tab-content" id="pdfTabContent">
+            @if (Model.EthicsApplicationForms != null && Model.EthicsApplicationForms.Any())
+            {
+                // Display iframes for each form
+                int formIndex = 0; // To track the active form content
+                foreach (var form in Model.EthicsApplicationForms)
+                {
+                    <div class="tab-pane fade @(formIndex == 0 ? "show active" : "")" id="form-@form.ethicsFormId" role="tabpanel" aria-labelledby="form-@form.ethicsFormId-tab">
+                        <iframe src="@Url.Action("ViewFile", "EthicsApplicationForms", new { formid = form.ethicsFormId, urecNo = Model.EthicsApplication?.urecNo })" width="100%" height="1200px" frameborder="0"></iframe>
+                    </div>
+                    formIndex++;
+                }
+            }
+
+            @if (Model.ReceiptInfo != null && Model.ReceiptInfo.scanReceipt != null)
+            {
+            <div class="tab-pane fade @(Model.EthicsApplicationForms == null || !Model.EthicsApplicationForms.Any() ? "show active" : "")" id="receipt" role="tabpanel" aria-labelledby="receipt-tab">
+                <iframe src="@Url.Action("ViewReceipt", "ReceiptInfo", new { urecNo = Model.EthicsApplication?.urecNo })" width="100%" height="1200px" frameborder="0"></iframe>
+            </div>
+            }
+
+            @if ((Model.EthicsApplicationForms == null || !Model.EthicsApplicationForms.Any()) &&
+            (Model.ReceiptInfo == null || Model.ReceiptInfo.scanReceipt == null))
+            {
+            <p>No forms submitted and no receipt available.</p>
+            }
+        </div>
+
+</div>
+
+<!-- Modal for file view-->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" src="" width="100%" height="1400px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+    @section Scripts {
+        <script>
+            function copyUrecNo() {
+                const urecNoText = document.getElementById("urecNoText").innerText;
+                navigator.clipboard.writeText(urecNoText.replace("UREC No.: ", "")).then(function () {
+                    alert('UREC No. copied to clipboard!');
+                }, function (err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+
+            function copyDtsNo() {
+                const dtsNoText = document.getElementById("dtsNoText").innerText;
+                navigator.clipboard.writeText(dtsNoText.replace("DTS No.: ", "")).then(function () {
+                    alert('DTS No. copied to clipboard!');
+                }, function (err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+
+            function openPdfInModal(pdfUrl) {
+                // Set the iframe source to the selected PDF
+                document.getElementById("pdfViewer").src = pdfUrl;
+
+                // Show the modal
+                $('#pdfModal').modal('show');
+            }
+
+            // Add the event listener to the form after the DOM has loaded
+            document.addEventListener("DOMContentLoaded", function () {
+                const reviewTypeForm = document.getElementById("reviewTypeForm");
+                if (reviewTypeForm) {
+                    reviewTypeForm.addEventListener("submit", function (event) {
+                        const reviewType = document.getElementById("reviewType").value;
+
+                        // Ensure the user has selected a review type
+                        if (!reviewType) {
+                            alert("Please select a review type.");
+                            event.preventDefault(); // Prevent form submission
+                        } else {
+                            const confirmSubmit = confirm(`Are you sure you want to submit the review type as "${reviewType}"?`);
+                            if (!confirmSubmit) {
+                                event.preventDefault(); // Prevent form submission
+                            }
+                        }
+                    });
+                }
+            });
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+    }

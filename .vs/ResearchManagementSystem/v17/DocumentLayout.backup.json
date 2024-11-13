@@ -1,0 +1,1294 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\superadmin_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\superadmin_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\superadmin_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\superadmin_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\userroles\\studentlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\userroles\\studentlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\userroles\\facultylist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\userroles\\facultylist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\rolemanager\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\rolemanager\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\userroles\\manage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\userroles\\manage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\controllers\\systemadministratorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\systemadministratorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratorhelp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratorhelp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratorfaqs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratorfaqs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratorabout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratorabout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratorrateus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratorrateus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratorprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratorprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratornotifications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratornotifications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\systemadministrator\\systemadministratorinformationdesk.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\systemadministrator\\systemadministratorinformationdesk.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\userroles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\userroles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\models\\addaccomplishment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addaccomplishment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\controllers\\userrolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\userrolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\wwwroot\\css\\clustercoordinator-faculty-facultylist.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:wwwroot\\css\\clustercoordinator-faculty-facultylist.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\models\\addcitation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addcitation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\models\\addpatent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addpatent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\controllers\\clustercoordinatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\clustercoordinatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\clustercoordinator\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\clustercoordinator\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Data\\Migrations\\20241105130951_AddingAccomplishmentProperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Data\\Migrations\\20241105130951_AddingAccomplishmentProperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\models\\addpresentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addpresentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\models\\addutilization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addutilization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\models\\addpublication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addpublication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\clustercoordinator\\clustercoordinatoraccomplishments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\clustercoordinator\\clustercoordinatoraccomplishments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\student_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\student_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\rmcc_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\rmcc_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\faculty_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\faculty_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\faculty\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\faculty\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\account\\loginwith2fa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\loginwith2fa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\controllers\\rolemanagercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\rolemanagercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\account\\forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\forgotpassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\account\\forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\forgotpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\areas\\identity\\pages\\account\\forgotpasswordconfirmation.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\forgotpasswordconfirmation.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorutilizationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorutilizationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directoraccomplishments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directoraccomplishments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\director.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\director.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorcitationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorcitationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorpublicationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorpublicationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorproductionview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorproductionview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorpresentationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorpresentationview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorpatentview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorpatentview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorhelp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorhelp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorcopyrightview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorcopyrightview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorcenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorcenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\student_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\student_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studentrateus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studentrateus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studentprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studentprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studentnotifications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studentnotifications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studenthelp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studenthelp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studentcenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studentcenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studentapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studentapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\studentabout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\studentabout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\shared\\director.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\director.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorreportrecentreportpreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorreportrecentreportpreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorreportrecentreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorreportrecentreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorreportgeneratereportpreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorreportgeneratereportpreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorreportgeneratereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorreportgeneratereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorreportarchivedreportpreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorreportarchivedreportpreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorreportarchivedreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorreportarchivedreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorrateus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorrateus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directornotifications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directornotifications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\admin\\source\\repos\\researchmanagementsystem\\views\\director\\directorabout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\directorabout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AddAccomplishment.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddAccomplishment.cs",
+              "RelativeDocumentMoniker": "Models\\AddAccomplishment.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddAccomplishment.cs",
+              "RelativeToolTip": "Models\\AddAccomplishment.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAAG8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:30:38.635Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Manage.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\Manage.cshtml",
+              "RelativeDocumentMoniker": "Views\\UserRoles\\Manage.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\Manage.cshtml",
+              "RelativeToolTip": "Views\\UserRoles\\Manage.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACcAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T13:40:23.708Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\RoleManager\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\RoleManager\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\RoleManager\\Index.cshtml",
+              "RelativeToolTip": "Views\\RoleManager\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:10:13.221Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SystemAdministratorController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\SystemAdministratorController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SystemAdministratorController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\SystemAdministratorController.cs",
+              "RelativeToolTip": "Controllers\\SystemAdministratorController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T14:31:34.531Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SuperAdmin_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\SuperAdmin_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "Views\\Shared\\SuperAdmin_Layout.cshtml.css",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\SuperAdmin_Layout.cshtml.css",
+              "RelativeToolTip": "Views\\Shared\\SuperAdmin_Layout.cshtml.css",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAIwIkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-05T14:53:42.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentList.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\StudentList.cshtml",
+              "RelativeDocumentMoniker": "Views\\UserRoles\\StudentList.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\StudentList.cshtml",
+              "RelativeToolTip": "Views\\UserRoles\\StudentList.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:22:23.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SuperAdmin_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAADsAAACaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:15:13.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FacultyList.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\FacultyList.cshtml",
+              "RelativeDocumentMoniker": "Views\\UserRoles\\FacultyList.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\FacultyList.cshtml",
+              "RelativeToolTip": "Views\\UserRoles\\FacultyList.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:16:15.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SystemAdministratorHelp.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorHelp.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorHelp.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorHelp.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorHelp.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:33:29.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SystemAdministratorFAQs.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorFAQs.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorFAQs.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorFAQs.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorFAQs.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:32:50.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SystemAdministratorAbout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorAbout.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorAbout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorAbout.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorAbout.cshtml",
+              "ViewState": "AgIAALEAAAAAAAAAAAAowMMAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:33:37.498Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SystemAdministratorRateUs.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorRateUs.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorRateUs.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorRateUs.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorRateUs.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:33:46.769Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SystemAdministratorProfile.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorProfile.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorProfile.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorProfile.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorProfile.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:33:21.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SystemAdministratorNotifications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorNotifications.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorNotifications.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorNotifications.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorNotifications.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:33:13.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "SystemAdministratorInformationDesk.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorInformationDesk.cshtml",
+              "RelativeDocumentMoniker": "Views\\SystemAdministrator\\SystemAdministratorInformationDesk.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\SystemAdministrator\\SystemAdministratorInformationDesk.cshtml",
+              "RelativeToolTip": "Views\\SystemAdministrator\\SystemAdministratorInformationDesk.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T14:33:03.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\UserRoles\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\UserRoles\\Index.cshtml",
+              "RelativeToolTip": "Views\\UserRoles\\Index.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T13:30:21.284Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "UserRolesController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\UserRolesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserRolesController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\UserRolesController.cs",
+              "RelativeToolTip": "Controllers\\UserRolesController.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAowGoAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:06:41.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "AddPatent.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddPatent.cs",
+              "RelativeDocumentMoniker": "Models\\AddPatent.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddPatent.cs",
+              "RelativeToolTip": "Models\\AddPatent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:43:56.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ClusterCoordinator-Faculty-FacultyList.css",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Faculty-FacultyList.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\ClusterCoordinator-Faculty-FacultyList.css",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Faculty-FacultyList.css",
+              "RelativeToolTip": "wwwroot\\css\\ClusterCoordinator-Faculty-FacultyList.css",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-05T13:58:35.956Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAmwBsAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:49:45.136Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAAJkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T09:59:24.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAgwHsAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T11:54:42.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "Controllers\\StudentController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T07:01:27.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AddCitation.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddCitation.cs",
+              "RelativeDocumentMoniker": "Models\\AddCitation.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddCitation.cs",
+              "RelativeToolTip": "Models\\AddCitation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:45:26.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ClusterCoordinatorController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\ClusterCoordinatorController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClusterCoordinatorController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\ClusterCoordinatorController.cs",
+              "RelativeToolTip": "Controllers\\ClusterCoordinatorController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T13:13:53.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "20241105130951_AddingAccomplishmentProperties.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Data\\Migrations\\20241105130951_AddingAccomplishmentProperties.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\20241105130951_AddingAccomplishmentProperties.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Data\\Migrations\\20241105130951_AddingAccomplishmentProperties.cs",
+              "RelativeToolTip": "Data\\Migrations\\20241105130951_AddingAccomplishmentProperties.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAQwOsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T13:09:51.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\ClusterCoordinator\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\ClusterCoordinator\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\ClusterCoordinator\\Index.cshtml",
+              "RelativeToolTip": "Views\\ClusterCoordinator\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T13:18:02.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "AddUtilization.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddUtilization.cs",
+              "RelativeDocumentMoniker": "Models\\AddUtilization.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddUtilization.cs",
+              "RelativeToolTip": "Models\\AddUtilization.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:40:57.902Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "AddPublication.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddPublication.cs",
+              "RelativeDocumentMoniker": "Models\\AddPublication.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddPublication.cs",
+              "RelativeToolTip": "Models\\AddPublication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:39:09.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "AddPresentation.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddPresentation.cs",
+              "RelativeDocumentMoniker": "Models\\AddPresentation.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Models\\AddPresentation.cs",
+              "RelativeToolTip": "Models\\AddPresentation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwBQAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T12:35:31.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Student_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Student_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Student_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Student_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Student_Layout.cshtml",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAADAAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:00:46.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "ClusterCoordinatorAccomplishments.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\ClusterCoordinator\\ClusterCoordinatorAccomplishments.cshtml",
+              "RelativeDocumentMoniker": "Views\\ClusterCoordinator\\ClusterCoordinatorAccomplishments.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\ClusterCoordinator\\ClusterCoordinatorAccomplishments.cshtml",
+              "RelativeToolTip": "Views\\ClusterCoordinator\\ClusterCoordinatorAccomplishments.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T12:31:28.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Faculty\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Faculty\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Faculty\\Index.cshtml",
+              "RelativeToolTip": "Views\\Faculty\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T12:05:27.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "RMCC_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\RMCC_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\RMCC_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\RMCC_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\RMCC_Layout.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFAAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T12:12:08.339Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Faculty_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Faculty_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Faculty_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Faculty_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Faculty_Layout.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T12:02:13.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:56:54.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T11:48:59.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "LoginWith2fa.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\LoginWith2fa.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\LoginWith2fa.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\LoginWith2fa.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\LoginWith2fa.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T11:53:02.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T11:09:03.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T11:23:09.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "RoleManagerController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\RoleManagerController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RoleManagerController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Controllers\\RoleManagerController.cs",
+              "RelativeToolTip": "Controllers\\RoleManagerController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T11:18:07.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T10:54:39.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "ForgotPassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T09:54:17.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "ForgotPassword.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAkwFIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T10:23:32.62Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "ForgotPasswordConfirmation.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\ForgotPasswordConfirmation.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\ForgotPasswordConfirmation.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\ForgotPasswordConfirmation.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\ForgotPasswordConfirmation.cshtml",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAGgAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T10:31:32.696Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "DirectorUtilizationView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorUtilizationView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorUtilizationView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorUtilizationView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorUtilizationView.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:34:29.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "Director.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Director.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Director.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Director.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Director.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADEAAACEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:57:23.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "DirectorAccomplishments.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorAccomplishments.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorAccomplishments.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorAccomplishments.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorAccomplishments.cshtml",
+              "ViewState": "AgIAALAAAAAAAAAAAAAlwMMAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:26:08.853Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "DirectorCitationView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorCitationView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorCitationView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorCitationView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorCitationView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:26:20.038Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "DirectorProfile.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorProfile.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorProfile.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorProfile.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorProfile.cshtml",
+              "ViewState": "AgIAAO8AAAAAAAAAAAAQwBABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:27.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "DirectorPublicationView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorPublicationView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorPublicationView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorPublicationView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorPublicationView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:27:02.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "DirectorProductionView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorProductionView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorProductionView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorProductionView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorProductionView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:26:54.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "DirectorPresentationView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorPresentationView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorPresentationView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorPresentationView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorPresentationView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:26:47.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "DirectorPatentView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorPatentView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorPatentView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorPatentView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorPatentView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:26:39.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "DirectorHelp.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorHelp.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorHelp.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorHelp.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorHelp.cshtml",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCkAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:15.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "DirectorCopyrightView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorCopyrightView.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorCopyrightView.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorCopyrightView.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorCopyrightView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:26:30.65Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "DirectorCenters.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorCenters.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorCenters.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorCenters.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorCenters.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:08.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "Student_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Student_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "Views\\Shared\\Student_Layout.cshtml.css",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Student_Layout.cshtml.css",
+              "RelativeToolTip": "Views\\Shared\\Student_Layout.cshtml.css",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAIwIkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-05T07:09:45.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "StudentHelp.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentHelp.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentHelp.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentHelp.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentHelp.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:03:11.224Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "StudentNotifications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentNotifications.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentNotifications.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentNotifications.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentNotifications.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:02:55.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "StudentCenters.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentCenters.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentCenters.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentCenters.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentCenters.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:02:47.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "StudentProfile.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentProfile.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentProfile.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentProfile.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentProfile.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:03:03.193Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "StudentRateUs.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentRateUs.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentRateUs.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentRateUs.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentRateUs.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:03:18.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "StudentApplication.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentApplication.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentApplication.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentApplication.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentApplication.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:02:40.424Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "StudentAbout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentAbout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\StudentAbout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\StudentAbout.cshtml",
+              "RelativeToolTip": "Views\\Student\\StudentAbout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:03:24.673Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Student\\Index.cshtml",
+              "RelativeToolTip": "Views\\Student\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T07:02:31.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "Director.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Director.cshtml.css",
+              "RelativeDocumentMoniker": "Views\\Shared\\Director.cshtml.css",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Shared\\Director.cshtml.css",
+              "RelativeToolTip": "Views\\Shared\\Director.cshtml.css",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAIwIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-05T06:59:15.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\Index.cshtml",
+              "RelativeToolTip": "Views\\Director\\Index.cshtml",
+              "ViewState": "AgIAAIABAAAAAAAAAAAAAI4BAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:56:18.393Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "DirectorReportRecentReportPreview.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportRecentReportPreview.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorReportRecentReportPreview.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportRecentReportPreview.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorReportRecentReportPreview.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAQwC0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:56:11.928Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
+              "Title": "DirectorReportRecentReport.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportRecentReport.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorReportRecentReport.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportRecentReport.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorReportRecentReport.cshtml",
+              "ViewState": "AgIAANEAAAAAAAAAAAAQwPIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:56:05.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 70,
+              "Title": "DirectorReportGenerateReportPreview.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportGenerateReportPreview.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorReportGenerateReportPreview.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportGenerateReportPreview.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorReportGenerateReportPreview.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAQwC0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:59.157Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 71,
+              "Title": "DirectorReportGenerateReport.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportGenerateReport.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorReportGenerateReport.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportGenerateReport.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorReportGenerateReport.cshtml",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAQwGQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:52.899Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 72,
+              "Title": "DirectorReportArchivedReportPreview.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportArchivedReportPreview.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorReportArchivedReportPreview.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportArchivedReportPreview.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorReportArchivedReportPreview.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAQwC0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:46.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "DirectorReportArchivedReport.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportArchivedReport.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorReportArchivedReport.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorReportArchivedReport.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorReportArchivedReport.cshtml",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAQwPAAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:40.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 74,
+              "Title": "DirectorRateUs.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorRateUs.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorRateUs.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorRateUs.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorRateUs.cshtml",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAQwLwAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:34.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 75,
+              "Title": "DirectorNotifications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorNotifications.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorNotifications.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorNotifications.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorNotifications.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:55:21.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 76,
+              "Title": "DirectorAbout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorAbout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\DirectorAbout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ResearchManagementSystem\\Views\\Director\\DirectorAbout.cshtml",
+              "RelativeToolTip": "Views\\Director\\DirectorAbout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T06:54:45.965Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

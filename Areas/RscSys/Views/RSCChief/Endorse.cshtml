@@ -1,0 +1,365 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EndorsementViewModel
+
+@{
+    ViewData["Title"] = "Endorsement";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+
+    .deets-title h1 {
+        font-weight: 800;
+    }
+
+    .tablehead th {
+        background-color: #850000;
+        color: white;
+        font-weight: 700;
+    }
+
+    .upload-btn {
+        border: 2px solid #850000;
+        color: #850000;
+    }
+
+    .uploaded-document {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .open-file {
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="d-flex justify-content-between align-items-center mb-2 deets-title ">
+        <h1>Endorse</h1>
+        <div>
+            <button class="btn btn-outline-danger" onclick="window.history.back();">Back</button>
+        </div>
+    </div>
+
+    @* <div class="card mb-2">
+        <div class="card-body">
+            <p class="mb-1"><strong>DTS Number:</strong> @Model.Request.DtsNo</p>
+            <p class="mb-1"><strong>Application Type:</strong> @Model.Request.ApplicationType</p>
+            <p class="mb-1"><strong>Field of Study:</strong> @Model.Request.FieldOfStudy</p>
+            <p class="mb-0"><strong>Applicant Name:</strong> @Model.Request.User.LastName, @Model.Request.User.FirstName</p>
+        </div>
+    </div> *@
+
+    <div class="card mb-2 evaldeets">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Upload Endorsement Letter</h5>
+        </div>
+        <div class="card-body">
+            <!-- Uploaded files container -->
+            <div id="uploadedFilesContainer">
+                 @if (Model.FinalDocuments != null && Model.FinalDocuments.Any())
+                {
+                    foreach (var document in Model.FinalDocuments)
+                    {
+                        <div class="d-flex align-items-center bg-danger text-white p-2 mb-2 rounded">
+                        <a href="@Url.Action("DownloadFinalDocument", "RSCChief", new { id = document.FinalDocuID })" target="_blank" class="open-file">
+                            <i class="fas fa-file-pdf ms-3 me-2"></i>
+                            <span>@document.FinalDocuName</span>     
+                        </a>
+                            <form id="deleteFileForm-@document.FinalDocuID" method="post" class="ms-auto">
+                                <input type="hidden" name="finaldocuId" value="@document.FinalDocuID" />
+                                <button class="btn" type="button" onclick="deleteFile(@document.FinalDocuID)">
+                                    <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+                                </button>
+                            </form>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No documents uploaded for this request.</p>
+                }
+            </div>
+
+            <!-- Hidden file input triggered by the upload button -->
+            <form id="uploadForm" method="post" enctype="multipart/form-data" action="@Url.Action("UploadFinalDocu", "RSCChief")">
+                <input type="hidden" name="requestId" value="@Model.Request.RequestId" />
+                <input type="file" name="endorsementLetter" id="fileInput" class="d-none" required />
+
+                <button type="button" class="btn upload-btn w-100" onclick="document.getElementById('fileInput').click();">
+                    <i class="fas fa-upload me-2"></i> Upload Endorsement Letter
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-2">
+        <div class="card-header">
+            <h6 class="mb-0">Message:</h6>
+        </div>
+        <form asp-action="SendEndorsementLetter" method="post" id="endorsementForm">
+            <div class="card-body">
+                <textarea id="automatedMessage" class="form-control mb-3" rows="4" placeholder="Type here your comments and suggestions." name="comments"></textarea>
+
+                <input type="hidden" name="Request.UserId" value="@Model.Request.UserId" />
+                <input type="hidden" name="Request.DtsNo" value="@Model.Request.DtsNo" />
+                <input type="hidden" name="Request.RequestId" value="@Model.Request.RequestId" />
+
+                <button type="submit" class="btn btn-primary float-end mb-3">Send Endorsement Letter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+   @*  <script>
+        document.getElementById("endorsementForm").onsubmit = function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Show the loading alert
+            Swal.fire({
+                title: "Sending endorsement letter...",
+                html: "Please wait, this will close in <b></b> milliseconds.",
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    const timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            });
+
+            // Prepare form data
+            const formData = new FormData(this);
+
+            // Send AJAX request to the server
+            fetch('@Url.Action("SendEndorsementLetter", "RSCChief")', { // Replace with your controller name
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // Expect JSON response
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Show success toast
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'The endorsement letter has been sent successfully.',
+                            timer: 3000,
+                            timerProgressBar: true,
+                        }).then(() => {
+                            // Redirect to the Applications page
+                            window.location.href = '@Url.Action("Applications", "RSCChief")'; // Replace with your controller name
+                        });
+                    } else {
+                        Swal.fire('Error', data.message || 'There was an error sending the endorsement letter.', 'error');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'There was an error sending the endorsement letter.', 'error');
+                });
+        };
+    </script> *@
+
+
+    <script>
+        // Populate the message box with automated message
+        const dtsno = '@Model.Request.DtsNo'; // Get DTS number from model
+        const automatedMessage = `We are pleased to inform you that your application request with a ${dtsno} has been approved. Check your Endorsement Letter, which formally recognizes the successful approval of your application. Thank you!`;
+
+        // Set the value of the textarea
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("automatedMessage").value = automatedMessage;
+        });
+
+        // Initialize Swal Toast for success notification
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+
+        // Handle form submission via AJAX
+        document.getElementById("fileInput").addEventListener("change", function () {
+            const formData = new FormData(document.getElementById("uploadForm"));
+
+            $.ajax({
+                url: '@Url.Action("UploadFinalDocu", "RSCChief")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Show success toast
+                        Toast.fire({
+                            icon: "success",
+                            title: "File uploaded successfully"
+                        });
+
+                        // Wait for the toast to finish before refreshing the page
+                        setTimeout(function () {
+                            location.reload(); // Reload the page after 3 seconds (or adjust as needed)
+                        }, 3000); // Matches the timer in the toast
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Upload failed",
+                            text: response.message || "An error occurred while uploading the file."
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Upload failed",
+                        text: "There was an error processing your request."
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function deleteFile(finaldocuId) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger me-2"
+                },
+                buttonsStyling: false
+            });
+
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteEndorsement", "RSCChief")',
+                        type: 'POST',
+                        data: { finaldocuId: finaldocuId },
+                        success: function (result) {
+                            if (result.success) {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Error!",
+                                    text: "There was an issue deleting the file.",
+                                    icon: "error"
+                                });
+                            }
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your file is safe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#endorsementForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent the form from submitting traditionally
+
+                let timerInterval;
+
+                // Show the SweetAlert loading indicator
+                Swal.fire({
+                    title: "Processing...",
+                    html: "Please wait while we process the endorsement letter.",
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                        timerInterval = setInterval(() => {
+                            const timer = Swal.getPopup().querySelector("b");
+                            if (timer) {
+                                timer.textContent = Swal.getTimerLeft();
+                            }
+                        }, 100);
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval);
+                    }
+                });
+
+                // Send the form data via AJAX
+                $.ajax({
+                    url: $(this).attr('action'), // Get the action URL from the form's asp-action
+                    type: $(this).attr('method'), // Get the method type (post)
+                    data: $(this).serialize(), // Serialize the form data
+                    success: function (response) {
+                        // Close the SweetAlert loading indicator
+                        Swal.close();
+
+                        // Show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Endorsement Letter Sent',
+                            text: 'The endorsement letter was sent successfully!'
+                        });
+                    },
+                    error: function (error) {
+                        // Close the SweetAlert loading indicator
+                        Swal.close();
+
+                        // Show error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'There was an error sending the endorsement letter. Please try again.'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

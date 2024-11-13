@@ -1,0 +1,421 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.DraftViewModel
+
+<!-- Layout.cshtml -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Research Management Office</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/RSCResearcher.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
+    <link href="~/font-awesome/css/all.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 navbar-custom">
+            <div class="container-fluid">
+                <a class="btn" data-bs-toggle="offcanvas" href="#sidebar" role="button" aria-controls="sidebar">
+                    <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+                </a>
+                <a class="navbar-brand" asp-area="RscSys" asp-controller="RSCResearcher" asp-action="Index">
+                    <img src="~/images/rmo.png" alt="Logo" width="50" height="auto" class="d-inline-block align-text-top">           
+                </a>
+                <div class="research-management-office d-none d-sm-block">
+                    Research Management Office <br />
+                    <div class="polytechnic-university">
+                        Polytechnic University of the Philippines
+                    </div>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="RscSys" asp-controller="RSCResearcher" asp-action="Index" data-page="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="RscSys" asp-controller="RSCResearcher" asp-action="Applications" data-page="applications">Applications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="RscSys" asp-controller="RSCResearcher" asp-action="Drafts" data-page="drafts">Drafts</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <!-- Role Switching Dropdown -->
+                        @if (User.IsInRole("Faculty") || User.IsInRole("RSC Chief") || User.IsInRole("RSC Evaluator"))
+                        {
+                            <div class="dropdown me-2" style="display:inline;">
+                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Researcher
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                           
+                                    @if (User.IsInRole("RSC Chief"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Index", "RSCChief")">Switch As Chief</a>
+                                    }
+                                    @if (User.IsInRole("RSC Evaluator"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Index", "RSCEvaluator")">Switch As Evaluator</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="dropdown-item">No Roles Available</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <button class="btn me-1 position-relative" type="button">
+                            <a asp-area="RscSys" asp-controller="RSCResearcher" asp-action="Notifications">
+                                <i class="fa-solid fa-bell fa-2xl" style="color: #ffffff;"></i>
+                            </a>
+                            @if (ViewBag.UnreadNotificationsCount > 0)
+                            {
+                                <span class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-danger">
+                                    @ViewBag.UnreadNotificationsCount
+                                    <span class="visually-hidden">unread notification</span>
+                                </span>
+                            }
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn me-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-circle-user fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="@Url.Action("ViewProfile", "Account")">View Profile</a></li>
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <li><button id="logout" type="submit" class="dropdown-item">Logout</button></li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+            </div>
+            <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Dropdown button
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div class="container hero-content text-center">
+            <h1 class="display-4 fw-bold">Research Support Center</h1>
+            <p class="lead">The RSC facilitates the requests for research assistance, grants and/or incentives.</p>
+            <button class="btn btn-lg mt-3 btn-apply" data-bs-target="#rscService" data-bs-dismiss="modal" data-bs-toggle="modal">Apply</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rscService" aria-hidden="true" aria-labelledby="rscServicesLabel" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content custom-modal">
+                <div class="modal-header justify-content-center">
+                    <h1 class="modal-title fs-5" id="rscServicesLabel">RSC Services</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-2 mx-auto">
+                        @foreach (var appType in Model.ApplicationTypes)
+                        {
+                            if (appType.ApplicationSubCategories.Any())
+                            {
+                                <div class="dropdown custom-drop">
+                                    <button class="btn dropdown-toggle btn-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @appType.ApplicationTypeName
+                                    </button>
+                                    <ul class="dropdown-menu text-center custom-menu">
+                                        @foreach (var subcategory in appType.ApplicationSubCategories)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item btn-custom-d" href="#" data-bs-toggle="modal" data-bs-target="#eligibilityModal" data-application-type="@subcategory.CategoryName">@subcategory.CategoryName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#eligibilityModal" data-application-type="@appType.ApplicationTypeName">@appType.ApplicationTypeName</button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eligibility Modal -->
+    <div class="modal fade" id="eligibilityModal" tabindex="-1" aria-labelledby="eligibilityModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h5 class="modal-title" id="eligibilityModalLabel">Eligibility Check</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="eligibilityContent">
+
+                    </div>
+                    <div class="d-grid gap-2 d-md-block text-center">
+                        <button class="btn btn-custom-1" data-bs-target="#rscService" data-bs-dismiss="modal" data-bs-toggle="modal">Back</button>
+                        <button class="btn btn-custom" data-bs-target="#applicationDetails" data-bs-toggle="modal">Proceed</button>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="applicationDetails" aria-hidden="true" aria-labelledby="applicationDetailsLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-modal">
+                <div class="modal-header justify-content-center">
+                    <h1 class="modal-title fs-5" id="applicationDetailsLabel">Submit Details</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="errorSummary" class="alert alert-danger" style="display: none;"></div>
+                    <form asp-action="SaveDraft" method="post" id="saveDraftForm">
+                        <input type="hidden" asp-for="Draft.UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Draft.DtsNo" class="form-label">DTS Number</label>
+                            <input asp-for="Draft.DtsNo" class="form-control" placeholder="Enter DTS Number" />
+                            <span asp-validation-for="Draft.DtsNo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Draft.ApplicationType" class="form-label">Application Type</label>
+                            <input asp-for="Draft.ApplicationType" id="ApplicationType" class="form-control" readonly />
+                            <span asp-validation-for="Draft.ApplicationType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Draft.ResearchTitle" class="form-label">Research Title</label>
+                            <input asp-for="Draft.ResearchTitle" id="ResearchTitle" class="form-control" />
+                            <span asp-validation-for="Draft.ResearchTitle" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="position-relative">
+                                <label asp-for="Draft.FieldOfStudy" class="form-label">Field of Study</label>
+                                <select asp-for="Draft.FieldOfStudy" class="form-select">
+                                    <option value="">-- Select Field of Study --</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Social Science">Social Science</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Accountancy and Finance">Accountancy and Finance</option>
+                                    <option value="Computer Science and Information System Technology">Computer Science and Information System Technology</option>
+                                    <option value="Engineering, Architecture, Design, and Built Environment">Engineering, Architecture, Design, and Built Environment</option>
+                                    <option value="Humanities, Language, and Communication">Humanities, Language, and Communication</option>
+                                    <option value="Public Administration, Political Science, and Law">Public Administration, Political Science, and Law</option>
+                                </select>
+                                <span asp-validation-for="Draft.FieldOfStudy" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-block text-center">
+                            <button type="button" class="btn btn-custom-1" data-bs-target="#rscService" data-bs-toggle="modal">Back</button>
+                            <button type="submit" class="btn btn-custom">Submit</button>
+                        </div>
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Set ApplicationType dynamically when a service is selected
+            $('.btn-custom-d[data-application-type]').click(function () {
+                var applicationType = $(this).data('application-type');
+                $('#ApplicationType').val(applicationType);
+            });
+
+        });
+
+        $(document).ready(function () {
+            // Set ApplicationType dynamically when a service is selected
+            $('.btn-custom[data-application-type]').click(function () {
+                var applicationType = $(this).data('application-type');
+                $('#ApplicationType').val(applicationType);
+            });
+        });
+    </script>  
+
+    <script>
+        $(document).ready(function () {
+            // Handle click event on buttons and dropdown items
+            $('.btn-custom, .dropdown-item').on('click', function () {
+                var eligibilityType = $(this).data('application-type'); // Get the eligibility type from the clicked button 
+
+                // Set the content for the eligibility modal based on the type clicked
+                var eligibilityContent = getEligibilityContent(eligibilityType);
+
+                // Update the modal content dynamically
+                $('#eligibilityContent').html(eligibilityContent);
+
+                // Trigger modal to open (Bootstrap 5 automatically handles this via data-bs-toggle)
+            });
+
+            // Function to retrieve eligibility content based on the clicked type
+            function getEligibilityContent(type) {
+                var content = '';
+
+                // Define content for different types (Master's Thesis, PhD Dissertation, etc.)
+                switch (type) {
+                    case "Master's Thesis":
+                            content = `1. All regular faculty members; </br>
+                                       1.1. PUP graduate program with at least Level 3 accreditation status; </br>
+                                       1.2. University graduate program recognized by CHED and with Level 3 accreditation status; </br>
+                                       1.3. CHED recognized Center of Excellence/Center of Development. </br>
+                                       1.4. National University/Center (i.e., University of the Philippines,Mindanao State University, Philippine Normal University, etc.); </br>
+                                       1.5. Top 1000 universities as determined by Quacquarelli Symonds (QS) Asia/World Ranking; or </br>
+                                       2. All permanent administrative employees shall also be eligible to receive thesis and dissertation grant. </br>
+                                       3. The grantee is obliged to present it in any reputable national/international conference. </br>
+                                       4. Publish it in any WoS/Scopus/ACI-indexed publication, CHED Recognized Journal, or any journal recommended by PASUC within two (2) years from the date of graduation before the grant will be awarded.`;
+                        break;
+
+                    case 'Dissertation':
+                        content = `1. All regular faculty members; </br>
+                                1.1.PUP graduate program with at least Level 3 accreditation status; </br>
+                                1.2.University graduate program recognized by CHED and with Level 3 accreditation status; </br>
+                                1.3.CHED recognized Center of Excellence / Center of Development. </br>
+                                1.4.National University / Center(i.e., University of the Philippines, Mindanao State University, Philippine Normal University, etc.); </br>
+                                1.5.Top 1000 universities as determined by Quacquarelli Symonds(QS) Asia / World Ranking; or </br>
+                                2. All permanent administrative employees shall also be eligible to receive thesis and dissertation grant. </br>
+                                3. The grantee is obliged to present it in any reputable national / international conference. </br>
+                                4. Publish it in any WoS / Scopus / ACI - indexed publication, CHED Recognized Journal, or any journal recommended by PASUC within two(2) years from the date of graduation before the grant will be awarded.`;
+                        break;
+
+                    case 'National Paper Presentation for Student':
+                        content = `1. Bona fide students with a full load in any undergraduate program, chargeable to the Student Development Fund (SDF). </br>
+                                2. No case shall the financial assistance be transferred to papers that have been previously presented or published. </br>
+                                3. Only international conferences with WoS/Scopus-indexed, ASEAN Citation-indexed, CHED-recognized, and/or PASUC-accepted publications shall be considered for funding.`;
+                        break;
+
+                    case 'National Paper Presentation for Faculty':
+                        content = `1. Regular faculty members with permanent or temporary status at the university, regardless of rank. </br>
+                                2. Faculty members with permanent or temporary status or permanent administrative employees of the university collaborating with researchers from other universities and/or external agencies. </br>
+                                3. Faculty members with permanent or temporary status or permanent administrative employees of the university collaborating with student researchers from the university. </br>
+                                4. Permanent administrative employees of the university.`;
+                        break;
+
+                    case 'International Paper Presentation for Student':
+                        content = `1. Bona fide students with a full load in any undergraduate program, chargeable to the Student Development Fund (SDF). </br>
+                                   2. No case shall the financial assistance be transferred to papers that have been previously presented or published. </br>
+                                   3. Only international conferences with WoS/Scopus-indexed, ASEAN Citation-indexed, CHED-recognized, and/or PASUC-accepted publications shall be considered for funding.`;
+                        break;
+
+                    case 'International Paper Presentation for Faculty':
+                        content = `1. Regular faculty members with permanent or temporary status at the university, regardless of rank.</br>
+                                   2. Faculty members with permanent or temporary status or permanent administrative employees of the university collaborating with researchers from other universities and/or external agencies. </br>
+                                   3. Faculty members with permanent or temporary status or permanent administrative employees of the university collaborating with student researchers from the university. </br>
+                                   4. Permanent administrative employees of the university.`;
+                        break;
+
+                    case 'Publication and Citation Incentives for Student':
+                        content = `1. Bona fide student enrolled with at least nine (9) units in any graduate program or a full load in any undergraduate program, chargeable to the Student Development Fund (SDF).`;
+                        break;
+
+                    case 'Publication and Citation Incentives for Faculty':
+                        content = `1. Only permanent, temporary status, and part-time appointment faculty members with at least a master’s degree can avail of this scheme. </br>
+                                   2. Only permanent, temporary status, and part-time appointment faculty members who are affiliated with the university in the last three (3) years. </br>
+                                   3. Regular administrative employees with at least a master’s degree and are part-time faculty members of the University can avail of this scheme. </br>
+                                   4. In the case of faculty applicants, they must have at least an h-index of one (1) proving their cumulative impact as a published research scholar verifiable in Google Scholar.`;
+                        break;
+
+                    case 'University Publication Assistance (UPA)':
+                        content = `1. Only permanent, temporary status, and part-time appointment faculty members with at least a master’s degree can avail of this scheme. </br>
+                                2. Only permanent, temporary status, and part-time appointment faculty members who are affiliated with the university in the last three (3) years. </br>
+                                3. Regular administrative employees with at least a master’s degree and are part-time faculty members of the University can avail of this scheme. </br>
+                                4. In the case of faculty applicants, they must have at least an h-index of one (1) proving their cumulative impact as a published research scholar verifiable in Google Scholar.`;
+                        break;
+
+                    case 'Literary Arts Publication':
+                        content = `1. Regular faculty member with permanent or temporary status in the university regardless of rank; </br>
+                        2. Permanent or casual administrative employee of the University; </br>
+                        3. Faculty member with permanent or temporary status or permanent administrative employee of the University in collaboration with an artist/scholar from other universities and/or external agencies. Provided that a co-authorship agreement and a deed of the assignment are duly executed and signed by all parties; </br>
+                        4. Faculty member with permanent or temporary status or permanent administrative employee of the University in collaboration with student artists/scholars in the university. Provided that a co-authorship agreement and a deed of the assignment are duly executed and signed by all parties; </br>`;
+                        break;
+
+                    case 'Literary Arts Publication for Faculty':
+                        content = `1. Regular faculty member with permanent or temporary status in the university regardless of rank; </br>
+                                2. Permanent or casual administrative employee of the University; </br>
+                                3. Faculty member with permanent or temporary status or permanent administrative employee of the University in collaboration with an artist/scholar from other universities and/or external agencies. Provided that a co-authorship agreement and a deed of the assignment are duly executed and signed by all parties; </br>
+                                4. Faculty member with permanent or temporary status or permanent administrative employee of the University in collaboration with student artists/scholars in the university. Provided that a co-authorship agreement and a deed of the assignment are duly executed and signed by all parties; </br>`;
+                        break;
+
+                    case 'Literary Arts Publication for Student':
+                        content = `1. Bona fide student enrolled with at least nine (9) units in any graduate program or full load in any undergraduate program, chargeable to the Student Development Fund (SDF).`;
+                        break;
+
+                    case 'Industrial Design, Utility Model, and Patent Incentive':
+                        content = `1. Bona fide student enrolled with at least nine (9) units in any graduate program or full load in any undergraduate program, chargeable to the Student Development Fund (SDF).`;
+                        break;
+
+                    case 'Dissertation Financial Assistance':
+                        content = `Applicants who already a have doctorate may still qualify provided that the requirements are met. </br>
+                            1. Be a regular faculty member or permanent administrative employee who rendered at least three (3) years of service in the University; </br>
+                            2. Have no pending administrative case involving moral turpitude; </br>
+                            3. Have no unliquidated cash advance for the same purpose (research production) within the past two (2) years; </br>
+                            4. Have enrolled in any higher educational institution with at least autonomous, national university, or national center status or have enrolled in any vertically aligned Ph.D./Sc.D./Art.D. degree program which has Level III AACUP Accreditation Status (or its equivalent) or is granted Center of Excellence/Development status; </br>
+                            5. Have finished academic requirements of the doctorate; </br>
+                            6. Have not received any similar dissertation fellowship/grant, university fellowship and/or scholarship from other public and/or private institutions; and not teach in any school other than PUP during the conduct of the dissertation.`;
+                           break;
+
+                    default:
+                        content = `1. All regular faculty members; </br>
+                                        1.1.PUP graduate program with at least Level 3 accreditation status; </br>
+                                        1.2.University graduate program recognized by CHED and with Level 3 accreditation status; </br>
+                                        1.3.CHED recognized Center of Excellence / Center of Development. </br>
+                                        1.4.National University / Center(i.e., University of the Philippines, Mindanao State University, Philippine Normal University, etc.); </br>
+                                        1.5.Top 1000 universities as determined by Quacquarelli Symonds(QS) Asia / World Ranking; or </br>
+                                        2. All permanent administrative employees shall also be eligible to receive thesis and dissertation grant. </br>
+                                        3. The grantee is obliged to present it in any reputable national / international conference. </br>
+                                        4. Publish it in any WoS / Scopus / ACI - indexed publication, CHED Recognized Journal, or any journal recommended by PASUC within two(2) years from the date of graduation before the grant will be awarded.`;
+                }
+
+                return content;
+            }
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<GenerateGAWADNominees>
+@{
+    ViewData["Title"] = "Generate GAWAD Nominees";
+    Layout = "_NavChief1";
+}
+
+<div class="generate-report-container">
+    <div class="report-categories">
+        <a href="@Url.Action("GenerateGAWADNominees", "Chief", new {area = "RemcSys"})" class="report-category generate">
+            <h3>Generate GAWAD Nominees</h3>
+        </a>
+        <a href="@Url.Action("GAWADWinner", "Chief", new {area = "RemcSys"})" class="report-category submit">
+            <h3>GAWAD Winners</h3>
+        </a>
+    </div>
+    <hr />
+    <div class="category-dropdown">
+        <select id="specialization" class="category-select">
+            <option value="" disabled selected>Select GAWAD Type...</option>
+            <option value="Tuklas">GAWAD Tuklas</option>
+            <option value="Lathala">GAWAD Lathala</option>
+        </select>
+    </div>
+    <button class="generate-btn">Generate Nominees</button>
+
+    <div class="recent-reports">
+        <h4>Recent Generated GAWAD Nominees</h4>
+        @if(Model != null && Model.Any())
+        {
+            <ul>
+                @foreach (var report in Model)
+                {
+                    <li>
+                        <span>@report.gn_fileName - Generated @ActionLog.GetTimeAgo(report.generateDate)</span>
+                        <a href="@Url.Action("PreviewFile", new {id = report.gn_Id})">[Download]</a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No recent generated nominees yet.</p>
+        }
+    </div>
+</div>
+
+<script>
+    document.querySelector('.generate-btn').addEventListener('click', function () {
+        const selectedType = document.getElementById("specialization").value;
+
+        if (selectedType) {
+            const url = `/Chief/GenerateNominees?gawadType=${selectedType}`;
+            window.location.href = url;
+        }
+        else {
+            alert("Please select all the necessary fields.");
+        }
+    });
+</script>

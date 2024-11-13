@@ -1,0 +1,188 @@
+﻿@using System.Security.Claims
+@model IEnumerable<rscSys_final.Models.Notifications>
+
+@{
+    ViewData["Title"] = "Evaluator Notifications";
+    Layout = "_LayoutEPages";
+}
+
+<style>
+    body {
+       background-color: #d9d9d9;
+       font-family: 'Poppins', sans-serif;
+    }
+
+    .titlemodal h1 {
+        font-weight: bold;
+        font-size: 50px;
+    }
+
+    .titlemodal {
+        border-bottom: 2px solid black;
+        margin-bottom: 15px;
+    }
+
+    /* .notifications-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+    } */
+
+
+    .notification-time {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+</style>
+
+@functions {
+    private string GetTimeAgo(DateTime dateTime)
+    {
+        var timeSpan = DateTime.Now - dateTime;
+
+        if (timeSpan.TotalMinutes < 1)
+            return "just now";
+        if (timeSpan.TotalMinutes < 60)
+            return $"{(int)timeSpan.TotalMinutes} min ago";
+        if (timeSpan.TotalHours < 24)
+            return $"{(int)timeSpan.TotalHours} hours ago";
+        if (timeSpan.TotalDays < 7)
+            return $"{(int)timeSpan.TotalDays} days ago";
+        return dateTime.ToString("MMM d, yyyy");
+    }
+}
+
+
+<div class="d-flex justify-content-between align-items-center titlemodal">
+<h1 class="h2 mb-0">Notifications</h1>
+<button class="btn btn-link text-decoration-none">Mark all as Read</button>
+</div>
+
+<div class="notifications-container">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var notification in Model)
+        {
+            <div class="notification-item">
+                <div class="alert alert-light" role="alert">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <p class="mb-0">@notification.NotificationTitle</p>
+                        <span class="notification-time ms-2">@GetTimeAgo(notification.NotificationCreationDate)</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm mt-2 view-notification" data-id="@notification.NotificationId">
+                        View
+                    </button>
+                </div>
+                
+            </div>
+        }
+    }
+    else
+    {
+        <p>No notifications available.</p>
+    }
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notification Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="notificationDetails"></p>
+                <div class="text-center" id="evaluationButtons" style="display:none;">
+                    <button class="btn btn-success" id="acceptButton">Accept</button>
+                    <button class="btn btn-warning" id="appealButton">Appeal</button>
+                    <button class="btn btn-danger" id="rejectButton">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.view-notification').click(function () {
+                var notificationId = $(this).data('id');
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetNotificationDetails")',
+                    data: { notificationId: notificationId },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#notificationDetails').html(response.details);
+
+                            // Store the assignment ID for later use
+                            assignmentId = response.assignmentId;
+
+                            // Check if the message contains "evaluate"
+                            var isEvaluation = response.details.toLowerCase().includes("evaluate");
+                            $('#evaluationButtons').toggle(isEvaluation); // Show buttons if it's for evaluation
+
+                            $('#notificationModal').modal('show'); // Show modal
+                        } else {
+                            alert(response.message); // Display error message
+                        }
+                    },
+                    error: function () {
+                        alert('Error retrieving notification details.');
+                    }
+                });
+            });
+
+            var assignmentId; // Define this outside the click function
+
+            $('#acceptButton').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AcceptEvaluation", "RSCEvaluator")',
+                    data: { assignmentId: assignmentId },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Evaluation accepted successfully.');
+
+                            // Redirect to the applications page after accepting the evaluation
+                            window.location.href = '@Url.Action("Applications", "RSCEvaluator")';
+
+                            $('#notificationModal').modal('hide'); // Hide modal
+                        } else {
+                            alert(response.message || 'Error accepting the evaluation.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error accepting the evaluation.');
+                    }
+                });
+            });
+
+            $('#rejectButton').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RejectEvaluation", "RSCEvaluator")',
+                    data: { assignmentId: assignmentId },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Task successfully rejected.');
+
+                            // Redirect to the applications page
+                            window.location.href = '@Url.Action("Notifications", "RSCEvaluator")';
+
+                            $('#notificationModal').modal('hide'); // Hide modal
+                        } else {
+                            alert(response.message || 'Error rejecting the task.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error rejecting the task.');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,133 @@
+.generate-report-container[b-hopfiyunfi] {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.report-categories[b-hopfiyunfi] {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 60%;
+    transition: background-color 0.3s ease;
+}
+
+.report-category:hover[b-hopfiyunfi],
+.report-category:focus[b-hopfiyunfi] {
+    background-color: #850000;
+    color: white;
+}
+
+.report-category[b-hopfiyunfi] {
+    flex: 1;
+    padding: 3px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.generate[b-hopfiyunfi] {
+    background-color: #8b0a0a;
+    color: white;
+    text-decoration: none;
+}
+
+.submit[b-hopfiyunfi] {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    text-decoration: none;
+}
+
+.report-category h3[b-hopfiyunfi] {
+    font-size: 16px;
+}
+
+hr[b-hopfiyunfi] {
+    color: #850000;
+    border: 3px solid;
+    border-radius: 5px;
+}
+
+.category-dropdown[b-hopfiyunfi] {
+    margin-bottom: 20px;
+}
+
+.category-select[b-hopfiyunfi] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.date-wrapper[b-hopfiyunfi] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-container[b-hopfiyunfi] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.date-group[b-hopfiyunfi] {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-separator[b-hopfiyunfi] {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.date-input[b-hopfiyunfi] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #850000;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.generate-btn[b-hopfiyunfi] {
+    padding: 10px 20px;
+    background-color: #850000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.recent-reports[b-hopfiyunfi] {
+    margin-top: 20px;
+}
+
+    .recent-reports h4[b-hopfiyunfi] {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .recent-reports ul[b-hopfiyunfi] {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .recent-reports li[b-hopfiyunfi] {
+        margin-bottom: 5px;
+    }
+
+    .recent-reports a[b-hopfiyunfi] {
+        text-decoration: none;
+        color: #850000;
+    }
+
+        .recent-reports a:hover[b-hopfiyunfi] {
+            text-decoration: underline;
+        }

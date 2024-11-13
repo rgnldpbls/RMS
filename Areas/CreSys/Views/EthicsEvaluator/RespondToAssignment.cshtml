@@ -1,0 +1,256 @@
+﻿@model CRE.ViewModels.EvaluationDetailsViewModel
+@{
+    ViewData["Title"] = "Application Details";
+}
+
+<h2>Application Details</h2>
+
+<div class="card border-light mb-3" style="width: 100%;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col text-start">
+                <p id="urecNoText">
+                    <strong>UREC No.: </strong> @Model.EthicsApplication.urecNo
+                </p>
+                <button type="button" class="btn btn-primary ms-2" onclick="copyUrecNo()">
+                    Copy UREC No.
+                </button>
+
+                <h4><strong>Research Title:</strong> @Model.NonFundedResearchInfo?.title</h4>
+                <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Proponent/s:</strong><br />
+                            @($"{Model.EthicsApplication.Name}")
+                            <br />
+                            @if (Model.CoProponent != null && Model.CoProponent.Any())
+                            {
+                                foreach (var proponent in Model.CoProponent)
+                                {
+                                    @proponent.coProponentName <br />
+                                }
+                            }
+                        </div>
+                    </div>
+                </p>
+                <p><strong>Field of Study:</strong> @Model.EthicsApplication.fieldOfStudy</p>
+                <p><strong>College: </strong> @Model.NonFundedResearchInfo?.college</p>
+                <p><strong>Branch/Campuses: </strong> @Model.NonFundedResearchInfo?.campus</p>
+            </div>
+
+            <div class="col text-end">
+                <p id="dtsNoText">
+                    <strong>DTS No.:</strong>
+                </p>
+
+                @if (!string.IsNullOrEmpty(Model.EthicsApplication.dtsNo))
+                {
+                    <button id="copybut" type="button" class="btn-outline-transparent btn-sm ms-2" onclick="copyDtsNo()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Review Type</label>
+            <p><strong>@Model.InitialReview.ReviewType</strong></p>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>Application Forms</h4>
+
+                @if (Model.EthicsApplicationForms != null && Model.EthicsApplicationForms.Any())
+                {
+                    <ul class="nav nav-tabs" id="pdfTabs" role="tablist">
+                        @if (Model.ReceiptInfo != null && Model.ReceiptInfo.scanReceipt != null)
+                        {
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="receipt-tab" data-bs-toggle="tab" href="#receipt" role="tab" aria-controls="receipt" aria-selected="true">
+                                    Receipt
+                                </a>
+                            </li>
+                        }
+
+                        @foreach (var form in Model.EthicsApplicationForms)
+                        {
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link @((Model.ReceiptInfo == null || Model.ReceiptInfo.scanReceipt == null) && form == Model.EthicsApplicationForms.First() ? "active" : "")" id="form-@form.ethicsFormId-tab" data-bs-toggle="tab" href="#form-@form.ethicsFormId" role="tab" aria-controls="form-@form.ethicsFormId" aria-selected="false">
+                                    @form.ethicsFormId
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="tab-content" id="pdfTabContent">
+                        @if (Model.ReceiptInfo != null && Model.ReceiptInfo.scanReceipt != null)
+                        {
+                            <div class="tab-pane fade show active" id="receipt" role="tabpanel" aria-labelledby="receipt-tab">
+                                <iframe src="@Url.Action("ViewReceipt", "ReceiptInfo", new { urecNo = Model.EthicsApplication?.urecNo })" width="100%" height="600px" frameborder="0"></iframe>
+                            </div>
+                        }
+
+                        @foreach (var form in Model.EthicsApplicationForms)
+                        {
+                            <div class="tab-pane fade @((Model.ReceiptInfo == null || Model.ReceiptInfo.scanReceipt == null) && form == Model.EthicsApplicationForms.First() ? "show active" : "")" id="form-@form.ethicsFormId" role="tabpanel" aria-labelledby="form-@form.ethicsFormId-tab">
+                                <iframe src="@Url.Action("ViewFile", "EthicsApplicationForms", new { formid = form.ethicsFormId, urecNo = Model.EthicsApplication?.urecNo })" width="100%" height="600px" frameborder="0"></iframe>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>No forms submitted.</p>
+                }
+
+            </div>
+            <div class="col-md-4">
+                <h4>Evaluation Input</h4>
+                <form id="evaluationForm" asp-action="RespondToAssignment" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmission()">
+                    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+                    @foreach (var evaluation in Model.EthicsEvaluation)
+                    {
+                        <input type="hidden" name="evalId" value="@evaluation.evaluationId" />
+                        <!-- Other form elements here for each evaluation -->
+                    }
+
+                    <!-- Acceptance Dropdown -->
+                    <div class="form-group">
+                        <label for="acceptanceStatus">Accept Application</label>
+                        <select id="acceptanceStatus" name="acceptanceStatus" class="form-control" onchange="checkAcceptanceStatus()">
+                            <option value="">Select</option>
+                            <option value="Accepted">Accept</option>
+                            <option value="Declined">Reject</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Submit Decision</button>
+                </form>
+            </div>
+
+            <!-- Modal for Reason for Decline -->
+            <div class="modal fade" id="declineReasonModal" tabindex="-1" role="dialog" aria-labelledby="declineReasonModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="declineReasonModalLabel">Reason for Decline</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="reasonForm">
+                                <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+                                @foreach (var evaluation in Model.EthicsEvaluation)
+                                {
+                                    <input type="hidden" name="evalId" value="@evaluation.evaluationId" />
+                                   
+                                }
+                                <div class="form-group">
+                                    <label for="reasonForDecline">Please provide a reason for declining:</label>
+                                    <textarea id="reasonForDecline" name="reasonForDecline" class="form-control" required></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="submitReason()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for file view-->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" src="" width="100%" height="800px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyUrecNo() {
+            const urecNoText = document.getElementById("urecNoText").innerText;
+            navigator.clipboard.writeText(urecNoText.replace("UREC No.: ", "")).then(function () {
+                alert('UREC No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function copyDtsNo() {
+            const dtsNoText = document.getElementById("dtsNoText").innerText;
+            navigator.clipboard.writeText(dtsNoText.replace("DTS No.: ", "")).then(function () {
+                alert('DTS No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function openPdfInModal(pdfUrl) {
+            // Set the iframe source to the selected PDF
+            document.getElementById("pdfViewer").src = pdfUrl;
+
+            // Show the modal
+            $('#pdfModal').modal('show');
+        }
+        function confirmSubmission() {
+            return confirm("Are you sure you want to submit this decision?");
+        }
+        function checkAcceptanceStatus() {
+            const acceptanceStatus = document.getElementById("acceptanceStatus").value;
+            if (acceptanceStatus === "Declined") {
+                // Show the modal for entering the decline reason
+                $('#declineReasonModal').modal('show');
+            } else if (acceptanceStatus === "") {
+                alert("Please select either Accept or Decline.");
+            }
+        }
+
+        function submitReason() {
+            const reason = document.getElementById("reasonForDecline").value;
+
+            if (reason.trim() === "") {
+                alert("Reason for decline cannot be empty.");
+                return;
+            }
+
+            // Set the reason as a hidden input value in the form
+            const reasonInput = document.createElement("input");
+            reasonInput.type = "hidden";
+            reasonInput.name = "reasonForDecline";
+            reasonInput.value = reason;
+            document.getElementById("evaluationForm").appendChild(reasonInput);
+
+            // Submit the form
+            document.getElementById("evaluationForm").submit();
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Check if success query parameter is true
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                // Show the modal automatically on page load
+                $('#evaluationSuccessModal').modal('show');
+            }
+        });
+    </script>
+}

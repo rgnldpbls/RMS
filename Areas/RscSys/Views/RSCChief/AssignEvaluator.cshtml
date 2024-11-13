@@ -1,0 +1,429 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.AssignEvaluatorViewModel
+
+@{
+    ViewData["Title"] = "Technical Evaluation";
+    Layout = "_LayoutCPages";
+    var assignedEvaluatorIds = ViewData["AssignedEvaluatorIds"] as List<string>;
+}
+
+<style>
+    .uploaded-document {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .checklist {
+        background-color: #850000;
+        color: white;
+        max-height: 390px;
+        overflow-y: auto;
+    }
+
+    .eval-title h1 {
+        font-weight: 800;
+    }
+
+    .uploaded-docu {
+        height: auto;
+        max-height: 398px;
+        overflow-y: auto;
+    }
+
+    .add-btn {
+        border: 2px solid #850000;
+        color: #850000;
+    }
+
+    .assign-btn {
+        background-color: #850000;
+        color: white;
+    }
+
+    .modal-content {
+        background-color: #8B0000;
+        color: white;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-body {
+        padding: 0 1rem 1rem;
+    }
+
+    .evaluator-card {
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 10px;
+        height: 260px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .assign-btn {
+        background-color: #FFD700;
+        color: black;
+        border: none;
+        width: 100%;
+    }
+
+    .stats {
+        font-size: 0.8rem;
+    }
+
+    .spec {
+        font-size: 12px;
+    }
+
+    .view-file {
+        text-decoration: none;
+        color: white;
+    }
+
+    .evaluator-card.recommended {
+        border: 2px solid #007bff; /* Highlight with a blue border */
+        background-color: #e6f7ff; /* Light blue background */
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3 eval-title">
+    <h1>Assign Evaluator</h1>
+    <div>
+        <button class="btn btn-outline-danger" onclick="window.history.back();">Back</button>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="mb-1"><strong>DTS Number:</strong> @Model.Request.DtsNo</p>
+                    <p class="mb-1"><strong>APPLICATION TYPE:</strong> @Model.Request.ApplicationType</p>
+                    <p class="mb-1"><strong>FIELD OF STUDY:</strong> @Model.Request.FieldOfStudy</p>
+                    <p class="mb-1"><strong>APPLICANT NAME:</strong> @Model.Request.Name</p>
+                    @{
+                        var specificAssignment = Model.EvaluatorAssignments.FirstOrDefault(a => a.RequestId == Model.Request.RequestId);
+                    }
+
+                    @if (specificAssignment != null)
+                    {
+                        <p class="mb-1">
+                            <strong>No. of Days to Evaluate:</strong>
+                            @(specificAssignment.EvaluationDeadline.Subtract(specificAssignment.AssignedDate).Days) days
+                        </p>
+                    }
+                </div>
+
+            </div>
+            <div class="uploaded-docu">
+                <h5>UPLOADED DOCUMENTS</h5>
+                @if (Model.Requirements != null && Model.Requirements.Any())
+                {
+                    foreach (var document in Model.Requirements)
+                    {
+                     <div class="uploaded-document">
+                        <a href="#" class="view-file" data-requirement-id="@document.RequirementId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                            <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                        </a>
+                    </div>
+                    }
+                }
+                else
+                {
+                    <p>No documents uploaded for this request.</p>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-5 assign-evaluator">
+            <div class="card mb-4 checklist">
+                <div class="card-header">
+                    <h5 class="mb-0 text-center">Assigned Evaluators</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        @if (Model.EvaluatorAssignments != null && Model.EvaluatorAssignments.Any())
+                        {
+                            <div class="list-group">
+                                @foreach (var assignment in Model.EvaluatorAssignments)
+                                {
+                                    <div class="alert d-flex justify-content-between align-items-center alert-secondary" role="alert">
+                                        <i class="fas fa-user-circle evaluator-icon fa-2xl"></i>
+                                        @assignment.EvaluatorName
+
+                                        @if (assignment.EvaluationStatus == "Pending")
+                                        {
+                                            <span class="badge bg-secondary">@assignment.EvaluationStatus</span>
+                                        }
+                                        else if (assignment.EvaluationStatus == "Accepted")
+                                        {
+                                            <span class="badge bg-primary">@assignment.EvaluationStatus</span>
+                                        }
+                                        else if (assignment.EvaluationStatus == "Rejected")
+                                        {
+                                            <span class="badge bg-danger">@assignment.EvaluationStatus</span>
+                                        }
+                                        else if (assignment.EvaluationStatus == "Completed")
+                                        {
+                                            <span class="badge bg-success">@assignment.EvaluationStatus</span>
+                                        }
+
+                                    </div>
+                                    @* <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @assignment.EvaluatorName  <!-- Optionally, replace with evaluator's name if you have it -->
+                                        <span class="badge bg-primary">@assignment.EvaluationStatus</span>
+                                    </li> *@
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted text-center">No evaluators assigned yet.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Options:</h5>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn add-btn w-100 mb-2" data-bs-toggle="modal" data-bs-target="#evaluatorsModal">
+                        <i class="fa-solid fa-circle-plus me-2" style="color: #850000;"></i> ADD EVALUATOR
+                    </button>
+
+                    <form id="updateDeadlineForm" asp-controller="RSCChief" asp-action="UpdateAllEvaluatorsDeadline" method="post">
+                        <label for="evaluationDeadline" class="form-label me-2">Evaluation Deadline (Days):</label>
+                        <select id="evaluationDeadline" name="evaluationDeadline" class="form-select mb-2">
+                            <option value="3">3 Days</option>
+                            <option value="5">5 Days</option>
+                            <option value="10">10 Days</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        <input type="hidden" name="requestId" value="@Model.Request.RequestId" />
+                        <button type="button" class="btn btn-primary" onclick="confirmUpdate()">Update Deadline</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="modal fade" id="evaluatorsModal" tabindex="-1" aria-labelledby="evaluatorsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="evaluatorsModalLabel">LIST OF EVALUATORS</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Section for Recommended Evaluators -->
+                <div class="recommended-section mb-4">
+                    <h5 class="text-warning">Recommended Evaluators</h5>
+                    <div class="row">
+                        @foreach (var evaluator in Model.EvaluatorProfile)
+                        {
+                            if (evaluator.Specialization.Contains(Model.Request.FieldOfStudy) ||
+                                    (Model.Request.FieldOfStudy.Contains(evaluator.Specialization)))
+                            {
+                                <div class="col-md-4 mb-3 align-items-center">
+                                    <div class="evaluator-card recommended">
+                                        <div class="text-center mb-2">
+                                            <i class="fas fa-user-circle evaluator-icon fa-2xl"></i>
+                                        </div>
+                                        <h6 class="text-center">@evaluator.Name</h6>
+                                        <p class="text-center text-muted small spec">@evaluator.Specialization</p>
+                                        <div class="align-items-center justify-content-center mb-2 text-center">
+                                            @if (assignedEvaluatorIds.Contains(evaluator.EvaluatorId))
+                                            {
+                                                <button class="btn btn-danger" onclick="removeEvaluator('@evaluator.EvaluatorId')">
+                                                    Remove
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-success" onclick="assignEvaluator('@evaluator.EvaluatorId')">
+                                                    Assign
+                                                </button>
+                                            }
+                                        </div>
+                                        <div class="stats justify-content-between align-items-center">
+                                            <span>Completed: @evaluator.CompletedCount</span><br />
+                                            <span>Pending: @evaluator.PendingCount</span><br />
+                                            <span>Declined: @evaluator.DeclinedCount</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- Section for Other Evaluators -->
+                <div class="other-evaluators-section">
+                    <h5 class="text-white">Other Evaluators</h5>
+                    <div class="row">
+                        @foreach (var evaluator in Model.EvaluatorProfile)
+                        {
+                            if (!evaluator.Specialization.Contains(Model.Request.FieldOfStudy) ||
+                                (!Model.Request.FieldOfStudy.Contains(evaluator.Specialization)))
+                            {
+                                <div class="col-md-4 mb-3 align-items-center">
+                                    <div class="evaluator-card">
+                                        <div class="text-center mb-2">
+                                            <i class="fas fa-user-circle evaluator-icon fa-2xl"></i>
+                                        </div>
+                                        <h6 class="text-center">@evaluator.Name</h6>
+                                        <p class="text-center text-muted small spec">@evaluator.Specialization</p>
+                                        <div class="align-items-center justify-content-center mb-2 text-center">
+                                            @if (assignedEvaluatorIds.Contains(evaluator.EvaluatorId))
+                                            {
+                                                <button class="btn btn-danger" onclick="removeEvaluator('@evaluator.EvaluatorId')">
+                                                    Remove
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-success" onclick="assignEvaluator('@evaluator.EvaluatorId')">
+                                                    Assign
+                                                </button>
+                                            }
+                                        </div>
+                                        <div class="stats justify-content-between align-items-center">
+                                            <span>Completed: @evaluator.CompletedCount</span><br />
+                                            <span>Pending: @evaluator.PendingCount</span><br />
+                                            <span>Declined: @evaluator.DeclinedCount</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else if (evaluator.EvaluatorId == null)
+                            {
+                                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                                    <div class="evaluator-card text-center">
+                                        <p>No profile available for @evaluator.Name.</p>
+                                    </div>
+                                </div>
+                            } 
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function assignEvaluator(evaluatorId) {
+        $.ajax({
+            url: '@Url.Action("ManualAssignEvaluator", "RSCChief")', // Update with your controller and action name
+            type: 'POST',
+            data: {
+                evaluatorId: evaluatorId,
+                requestId: '@Model.Request.RequestId' // Pass the current request ID
+            },
+            success: function (response) {
+                alert('Evaluator assigned successfully');
+                location.reload(); // Reload the page to reflect changes
+            },
+            error: function (xhr, status, error) {
+                alert('Error assigning evaluator: ' + xhr.responseText);
+            }
+        });
+    }
+
+    function removeEvaluator(evaluatorId) {
+        $.ajax({
+            url: '@Url.Action("RemoveEvaluator", "RSCChief")',  // Update with your controller and action name
+            type: 'POST',
+            data: {
+                evaluatorId: evaluatorId,
+                requestId: '@Model.Request.RequestId' // Pass the current request ID
+            },
+            success: function (response) {
+                alert('Evaluator removed successfully');
+                location.reload(); // Reload the page to reflect changes
+            },
+            error: function (xhr, status, error) {
+                alert('Error removing evaluator: ' + xhr.responseText);
+            }
+        });
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileLinks = document.querySelectorAll('.view-file');
+        const fileViewer = document.getElementById('fileViewer');
+
+        fileLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const requirementId = link.getAttribute('data-requirement-id');
+                fileViewer.src = '@Url.Action("ViewFile", "RSCChief", new { requirementId = "__REQUIREMENT_ID__" })'.replace('__REQUIREMENT_ID__', requirementId);
+            });
+        });
+    });
+</script>
+
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger me-2"
+        },
+        buttonsStyling: false
+    });
+
+    function confirmUpdate() {
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form programmatically if the user confirms
+                document.getElementById('updateDeadlineForm').submit();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your evaluation days are unchanged.",
+                    icon: "error"
+                });
+            }
+        });
+    }
+</script>

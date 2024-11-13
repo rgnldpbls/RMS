@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CRE.Models.EthicsForm>
+@{
+    ViewData["Title"] = "Forms";
+
+    // Filter the forms based on the condition (whether the ID starts with "FORM")
+    var formForms = Model.Where(f => f.ethicsFormId.StartsWith("FORM")).ToList();
+    var nonFormForms = Model.Where(f => !f.ethicsFormId.StartsWith("FORM")).ToList();
+}
+<head>
+    <link rel="stylesheet" href="~/css/downloadforms.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<h1 id="h1">APPLICATION FORMS</h1>
+
+<div class="row">
+    <!-- Left column: Forms starting with "FORM" -->
+    <div class="column">
+        <div class="card text-black mb-3">
+            <div class="card-header text-center">
+                <h2 id="h2">
+                    Ethics Form Requirements
+                </h2>
+            </div>
+            @foreach (var form in formForms)
+            {
+                <div class="card-body text-center">
+                    <a href="@Url.Action("DownloadForm", "EthicsForm", new { id = form.ethicsFormId })" class="form-link">
+                        <i class="fas fa-file-pdf me-2"></i>@form.ethicsFormId - @form.formName
+                    </a>
+                    <br />
+                    <i class="text-secondary">@form.formDescription</i>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Right column: Non-FORM Forms -->
+    <div class="column">
+        <div class="card text-black mb-3">
+            <div class="card-header text-center">
+                <h2 id="h2">
+                    Other Documentary Requirements
+                </h2>
+            </div>
+            @foreach (var form in nonFormForms)
+            {
+                <div class="card-body text-center">
+                    <a href="@Url.Action("DownloadForm", "EthicsForm", new { id = form.ethicsFormId })" class="form-link">
+                        <i class="fas fa-file-pdf me-2"></i>@form.ethicsFormId - @form.formName
+                    </a>
+                    <br />
+                    <i class="form-description">@form.formDescription</i>
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <p class="note">To maintain research integrity in every research work, researchers must first secure a Research Ethics Clearance from the Center for Research Ethics after the proposal defense and before data gathering. This is to guarantee the scientific and ethical soundness of each research protocol involving human participants.</p>
+        <a asp-area="" asp-controller="EthicsApplication" asp-action="Applications" class="apply-button">Apply for Ethics Clearance</a>
+    </div>
+</div>

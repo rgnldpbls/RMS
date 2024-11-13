@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Applications";
+    Layout = "Faculty_Layout";
+}
+<link href="~/css/faculty-applications.css" rel="stylesheet" />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<div>
+    <div class="application-container mt-0">
+
+        <div class="d-flex align-items-center justify-content-between ms-2 me-2 mb-4">
+            <h2 class="-header mb-0 mt-5">Applications</h2>
+            <a class="btn back-btn mt-5 mb-0" asp-controller="Faculty" asp-action="Index">
+                <i class="bx bx-arrow-back"></i> Back to <strong>Home</strong>
+            </a>
+        </div>
+
+        <div class="col">
+            <div class="application-card">
+                <h5>Fundings</h5>
+                <p class="subtitle">Research Evaluation and Monitoring Center</p>
+                <p class="description mb-3">Check the current status of your funding application/s</p>
+                <a href="#" class="btn btn-application-status d-inline-flex align-items-center w-100">
+                    <span class="mx-auto">See Application Status</span>
+                    <span class="ms-2 mt-1"><i class='bx bx-right-arrow-alt bx-sm'></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="application-card">
+                <h5>Incentives/Grants/Assistance</h5>
+                <p class="subtitle">Research Support Center</p>
+                <p class="description mb-3">Check the current status of your Incentives/Grants/Assistance application/s</p>
+                <a href="#" class="btn btn-application-status d-inline-flex align-items-center w-100">
+                    <span class="mx-auto">See Application Status</span>
+                    <span class="ms-2 mt-1"><i class='bx bx-right-arrow-alt bx-sm'></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="application-card">
+                <h5>Ethics Clearance</h5>
+                <p class="subtitle">Center for Research Ethics</p>
+                <p class="description mb-3">Check the current status of your Ethics Clearance application/s</p>
+                <a href="#" class="btn btn-application-status d-inline-flex align-items-center w-100">
+                    <span class="mx-auto">See Application Status</span>
+                    <span class="ms-2 mt-1"><i class='bx bx-right-arrow-alt bx-sm'></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="application-card">
+                <h5>Presentation</h5>
+                <p class="subtitle">Center for Research Dissemination and Linkages</p>
+                <p class="description mb-3">Check the current status of your Presentation application/s</p>
+                <a href="#" class="btn btn-application-status d-inline-flex align-items-center w-100">
+                    <span class="mx-auto">See Application Status</span>
+                    <span class="ms-2 mt-1"><i class='bx bx-right-arrow-alt bx-sm'></i></span>
+                </a>
+            </div>
+        </div>
+
+        <a class="btn back-btn mt-2 mb-5 w-100" asp-asp-controller="Faculty" asp-action="Index">
+            <i class="bx bx-arrow-back"></i> Back to <strong>Home</strong>
+        </a>
+    </div>
+
+
+    <script src="~/js/faculty-applications.js"></script>
+
+</div>

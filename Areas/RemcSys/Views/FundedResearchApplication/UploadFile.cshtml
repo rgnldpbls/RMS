@@ -1,0 +1,186 @@
+﻿@model IEnumerable<FundedResearchApplication>
+@{
+    Layout = "_NavTeamLeader2";
+}
+<div class="application-requirements">
+    <h1>DOCUMENTARY REQUIREMENTS</h1>
+
+    @foreach (var item in Model)
+    {
+        <div class="research-info">
+            <h4><b>Research Type:</b> @item.fra_Type</h4>
+            <h2><b>Research Title:</b> @item.research_Title</h2>
+            <h6>
+                <b>Proponent/s:</b><br>@item.applicant_Name <br>
+                @if (!item.team_Members.Contains("N/A"))
+                {
+                    @foreach (var member in item.team_Members)
+
+                    {
+                        @member <br>
+                    }
+                }
+            </h6>
+        </div>
+    }
+    <div class="upload-container">
+        <!-- Your Attachments -->
+        <div class="upload-section">
+            <h3>Your Attachments</h3><hr />
+            <p><b>NOTE:</b> Please follow the file naming format (Ex: FORM # - FormName.pdf)</p>
+
+            <div class="attachments">
+                <form id="uploadForm" method="post" enctype="multipart/form-data">
+                    <div class="file-input">
+                        <label for="capsulizedResearch">Capsulized Research Proposal:</label>
+                        <input type="file" id="capsulizedResearch" name="capsulizedResearch" accept=".pdf" required>
+                        <button type="button" class="preview-btn" data-for="capsulizedResearch" disabled>Preview</button>
+                    </div>
+                    <div class="file-input">
+                        <label for="form1">Form 1 - Term of Reference:</label>
+                        <input type="file" id="form1" name="form1" accept=".pdf" required>
+                        <button type="button" class="preview-btn" data-for="form1" disabled>Preview</button>
+                    </div>
+                    <div class="file-input">
+                        <label for="form2">Form 2 - Line Item Budget:</label>
+                        <input type="file" id="form2" name="form2" accept=".pdf" required>
+                        <button type="button" class="preview-btn" data-for="form2" disabled>Preview</button>
+                    </div>
+                    <div class="file-input">
+                        <label for="form3">Form 3 - Schedule of Outputs/Tranche Release:</label>
+                        <input type="file" id="form3" name="form3" accept=".pdf" required>
+                        <button type="button" class="preview-btn" data-for="form3" disabled>Preview</button>
+                    </div>
+                    <div class="file-input">
+                        <label for="form4">Form 4 - Workplan:</label>
+                        <input type="file" id="form4" name="form4" accept=".pdf" required>
+                        <button type="button" class="preview-btn" data-for="form4" disabled>Preview</button>
+                    </div>
+                    <hr />
+                    <div id="additionalFiles"></div>
+                    <button class="upload-btn" id="addFileBtn">+ Add Another File</button>
+                </form>
+            </div>
+        </div>
+        <!-- Submit button -->
+        <div class="file-upload-section">
+            <button class="submit-btn" id="uploadFilesBtn">UPLOAD FILES</button>
+        </div>
+    </div>
+</div>
+
+<!-- Warning Pop-up -->
+<div class="warning_section" id="warningPopup" style="display: none">
+    <div class="card">
+        <i class="bi bi-exclamation-circle-fill" style="font-size: 100px; color:#850000; text-align: center;"></i>
+        <span class="title">Please review all the files before submitting.</span>
+        <div class="d-grid gap-3 col-14 mx-auto">
+            <p>Changes may not be possible after submission.</p>
+        </div>
+        <button class="wsubmit-btn" id="confirmSubmitBtn">Submit</button>
+        <button class="wback-btn" id="backBtn">Back</button>
+    </div>
+</div>
+
+<script>
+    function validateFileInputs() {
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        let allFilesUploaded = true;
+
+        fileInputs.forEach(input => {
+            if (input.files.length === 0) {
+                allFilesUploaded = false;
+            }
+        });
+        return allFilesUploaded;
+    }
+
+    // Show warning pop-up when Upload Files button is clicked
+    document.getElementById('uploadFilesBtn').addEventListener('click', function () {
+        if (validateFileInputs()) {
+            document.getElementById('warningPopup').style.display = 'block';
+        } else {
+            alert('Please upload all required files before proceed.');
+        }
+    });
+
+    // Close the pop-up when Back button is clicked
+    document.getElementById('backBtn').addEventListener('click', function () {
+        document.getElementById('warningPopup').style.display = 'none';
+    });
+
+    // Submit the form when the Submit button in the pop-up is clicked
+    document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
+        document.getElementById('uploadForm').submit();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('uploadForm');
+        const addFileBtn = document.getElementById('addFileBtn');
+        const additionalFiles = document.getElementById('additionalFiles');
+        let fileCount = 5;
+
+        function addFileNameListener(input) {
+            input.addEventListener('change', function () {
+                const fileName = this.files[0] ? this.files[0].name : '';
+                const previewBtn = this.nextElementSibling;
+
+                if (fileName) {
+                    previewBtn.disabled = false;
+                    previewBtn.textContent = `Preview`;
+                } else {
+                    previewBtn.disabled = true;
+                    previewBtn.textContent = 'Preview';
+                }
+            });
+        }
+
+        function addFilePreviewListener(button) {
+            button.addEventListener('click', function () {
+                const inputId = this.getAttribute('data-for');
+                const input = document.getElementById(inputId);
+                if (input.files && input.files[0]) {
+                    const fileURL = URL.createObjectURL(input.files[0]);
+                    window.open(fileURL, '_blank');
+                }
+            });
+        }
+
+        // Add listeners to existing file inputs
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            addFileNameListener(input);
+            addFilePreviewListener(input.nextElementSibling);
+        });
+
+        addFileBtn.addEventListener('click', function () {
+            if (fileCount < 10) {
+                const newFileInput = document.createElement('div');
+                newFileInput.className = 'file-input';
+                newFileInput.innerHTML = `
+                                <label for="additionalFile${fileCount}">Additional File ${fileCount - 4}:</label>
+                                <input type="file" id="additionalFile${fileCount}" name="additionalFile${fileCount}" accept=".pdf" required>
+                                        <button type="button" class="preview-btn" data-for="additionalFile${fileCount}" disabled>Preview</button>
+                                        <button type="button" class="remove-file" style=" background-color: #850000;color: #fff;padding: 5px 10px; border-radius: 5px; border: 2px solid white">X</button>
+                            `;
+                additionalFiles.appendChild(newFileInput);
+
+                const input = newFileInput.querySelector('input[type="file"]');
+                const previewBtn = newFileInput.querySelector('.preview-btn');
+                addFileNameListener(input);
+                addFilePreviewListener(previewBtn);
+
+
+                const removeBtn = newFileInput.querySelector('.remove-file');
+                removeBtn.addEventListener('click', function () {
+                    newFileInput.remove();
+                    fileCount--;
+                });
+
+                fileCount++;
+            } else {
+                alert('You can only add up to 5 files.');
+            }
+        });
+    });
+</script>

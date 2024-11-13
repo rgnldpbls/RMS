@@ -1,0 +1,79 @@
+﻿@model CRE.ViewModels.ApplyForCompletionCertificateViewModel
+
+@{
+    ViewData["Title"] = "Apply for Completion Certificate";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @* Display all relevant information in one card *@
+    <div class="card mt-3">
+        <div class="card-header">
+            <h5>Application Information</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>UREC Number:</strong> @Model.EthicsApplication.urecNo</p>
+            <p><strong>Research Title:</strong> @Model.NonFundedResearchInfo.title</p>
+            <p><strong>College/Department:</strong> @Model.NonFundedResearchInfo.college</p>
+
+            @* Display Ethics Clearance Details if available *@
+            @if (Model.EthicsClearance != null)
+            {
+                <p><strong>Issued Date:</strong> @Model.EthicsClearance.issuedDate</p>
+                <p><strong>Expiration Date:</strong> @Model.EthicsClearance.expirationDate</p>
+
+                @* Optionally, show download button if a file exists *@
+                @if (Model.EthicsClearance.file != null)
+                {
+                    <a href="@Url.Action("DownloadClearanceFile", "EthicsApplicationForms", new { urecNo = Model.EthicsApplication.urecNo })" class="btn btn-primary">
+                        Download Ethics Clearance Document
+                    </a>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning mt-3">
+                    <strong>Notice:</strong> Ethics Clearance has not been issued yet. You cannot apply for the completion certificate without it.
+                </div>
+            }
+
+            @* Completion Certificate Application Form *@
+            <form method="post" asp-action="ApplyForCompletionCertificate" enctype="multipart/form-data">
+                <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+
+                <div class="form-group mt-3">
+                    <label for="urecNo">UREC Number</label>
+                    <input type="text" class="form-control" id="urecNo" name="urecNo" value="@Model.EthicsApplication.urecNo" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="researchTitle">Research Title</label>
+                    <input type="text" class="form-control" id="researchTitle" name="researchTitle" value="@Model.NonFundedResearchInfo.title" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="college">College/Department</label>
+                    <input type="text" class="form-control" id="college" name="college" value="@Model.NonFundedResearchInfo.college" readonly />
+                </div>
+
+                @* Research Start Date *@
+                <div class="form-group">
+                    <label for="researchStartDate">Research Start Date</label>
+                    <input type="date" class="form-control" id="researchStartDate" name="researchStartDate"
+                           required="required" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span class="text-danger" id="researchStartDateError"></span>
+                </div>
+
+                @* Upload Form 18 - Terminal Report *@
+                <div class="form-group">
+                    <label for="form18">Upload Form 18 - Terminal Report</label>
+                    <input type="file" class="form-control" id="form18" name="form18" accept=".pdf, .doc, .docx, .jpg, .png" required />
+                    <span class="text-danger" id="form18Error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">Apply for Completion Certificate</button>
+            </form>
+        </div>
+    </div>
+</div>

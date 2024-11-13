@@ -1,0 +1,533 @@
+﻿@using System.Security.Claims
+@model List<rscSys_final.Models.ApplicationType>
+
+@{
+    ViewData["Title"] = "Checklist";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+    .customhead th {
+        background-color: #850000;
+        color: white;
+    }
+
+    .custom-tabs .nav-link.active {
+        background-color: #850000; /* Set the active tab background color */
+        color: #ffffff; /* Set the active tab text color */
+        font-weight: 700;
+    }
+
+    .custom-tabs .nav-link {
+        background-color: #D9D9D9;
+        color: black; /* Set the default tab text color */
+    }
+
+    .title-app {
+        font-size: 50px;
+        font-weight: 800;
+    }
+
+    .btn-view {
+        font-weight: 700;
+        color: #850000;
+    }
+
+        .btn-view i {
+            margin: 0px 10px;
+        }
+
+    .btn-assign {
+        font-weight: 700;
+    }
+
+        .btn-assign i {
+            margin: 0px 10px;
+        }
+
+    .add-buttons {
+        margin-left: auto; /* Push the buttons to the right */
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .customhead th {
+        background-color: #850000;
+        color: white;
+        white-space: nowrap;
+    }
+
+    .custom-tabs {
+        display: flex; /* Ensure that tabs are laid out in a row */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        white-space: nowrap; /* Prevent text from wrapping in tabs */
+
+    }
+
+</style>
+
+<h1 class="title-app">Services & Checklists</h1>
+
+<div class="add-buttons mb-2">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#typeModal">Add Application Type</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subModal">Add Subcategory</button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkModal">Add Checklist</button>
+</div>
+<ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+    <li class="nav-item me-1" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#applicationType" type="button" role="tab">Application Type</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link me-1" id="profile-tab" data-bs-toggle="tab" data-bs-target="#subcategory" type="button" role="tab">Subcategory</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#Checklist" type="button" role="tab">Checklist</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="applicationType" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>Application Type</th>
+                    <th>Date Created</th>
+                    <th>Amount</th>
+                    <th>Date Modified</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var appType in Model)
+                    {
+                        <tr>
+                            <td>@appType.ApplicationTypeName</td>    
+                            <td>@appType.ApplicationTypeCreated</td>
+                            <td>@appType.Amount</td>
+                            <td>@appType.ApplicationTypeUpdated</td>
+                            <td class="text-center">
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-@appType.ApplicationTypeId"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+
+                                    <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+                               
+                                <!-- Delete button with form -->
+                                    <form asp-action="DeleteApplicationType" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this checklist?');">
+                                        <input type="hidden" name="id" value="@appType.ApplicationTypeId" />
+                                        <button type="submit" class="btn" @* onclick="confirmDelete(this.form)" *@>
+                                            <i class="fa-solid fa-trash fa-xl" style="color: #850000"></i>
+                                        </button>
+                                    </form>
+
+                                    <!-- Edit Modal -->
+                                    <div class="modal fade" id="editModal-@appType.ApplicationTypeId" tabindex="-1" aria-labelledby="editModalLabel-@appType.ApplicationTypeId" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel-@appType.ApplicationTypeId">Edit Application Type</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form asp-action="EditAppType" asp-controller="RSCChief" method="post" enctype="multipart/form-data">
+                                                        <input type="hidden" name="id" value="@appType.ApplicationTypeId" />
+                                                        <div class="mb-3">
+                                                            <label for="applicationtypeName" class="form-label">Application Type</label>
+                                                            <input type="text" class="form-control" id="applicationtypeName" name="applicationtypeName" value="@appType.ApplicationTypeName" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="applicationtypeAmount" class="form-label">Amount</label>
+                                                            <input type="number" class="form-control" id="applicationtypeAmount" name="applicationtypeAmount" value="@appType.Amount" required>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No application types found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="subcategory" role="tabpanel" aria-labelledby="subcategory" tabindex="0">
+      <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    @* <th>Subcategory Id</th> *@
+                    <th>Application Type</th>
+                    <th>Subcategory Name</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any(c => c.ApplicationSubCategories != null && c.ApplicationSubCategories.Any()))
+                {
+                    foreach (var appType in Model)
+                    {
+                        foreach (var subCategory in appType.ApplicationSubCategories)
+                        {
+                            <tr>
+                                @* <td>@subCategory.CategoryId</td> *@
+                                <td>@appType.ApplicationTypeName</td>
+                                <td>@subCategory.CategoryName</td>
+                                <td>@subCategory.SubAmount</td>
+                                <td class="text-center">
+                                    <button class="btn"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+                                    <form asp-action="DeleteSubcategory" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this checklist?');">
+                                        <input type="hidden" name="id" value="@subCategory.CategoryId" />
+                                        <button type="submit" class="btn" @* onclick="confirmDelete(this.form)" *@>
+                                            <i class="fa-solid fa-trash fa-xl" style="color: #850000"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No subcategories found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="Checklist" role="tabpanel" aria-labelledby="completedApplication" tabindex="0">
+            <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>Application Type</th>
+                    <th>Subcategory</th>
+                    <th>Checklist Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any(c => c.Checklists != null && c.Checklists.Any()) || Model.Any(c => c.ApplicationSubCategories.Any(asc => asc.Checklists != null && asc.Checklists.Any())))
+                {
+                    foreach (var appType in Model)
+                    {
+                        // Display checklists directly linked to the ApplicationType
+                        if (appType.Checklists != null)
+                        {
+                            foreach (var checklist in appType.Checklists)
+                            {
+                                <tr>
+                                    <td>@appType.ApplicationTypeName</td> 
+                                    <td>N/A</td>                           
+                                    <td>@checklist.ChecklistName</td> 
+                                    <td class="text-center">
+                                        <button class="btn"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+                                            <form asp-action="DeleteCheck" method="post" style="display:inline;" onsubmit="deleteApplicationType(event)">
+                                                <input type="hidden" name="id" value="@checklist.ChecklistId" />
+                                                <button type="submit" class="btn">
+                                                    <i class="fa-solid fa-trash fa-xl" style="color: #850000"></i>
+                                                </button>
+                                            </form>
+                                           
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        // Display checklists linked through Subcategories
+                        foreach (var subCategory in appType.ApplicationSubCategories)
+                        {
+                            foreach (var checklist in subCategory.Checklists)
+                            {
+                                <tr>
+                                    <td>@appType.ApplicationTypeName</td>  <!-- Application Type Name -->
+                                    <td>@subCategory.CategoryName</td>     <!-- Subcategory Name -->
+                                    <td>@checklist.ChecklistName</td>      <!-- Checklist Name -->
+                                    <td class="text-center">
+                                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-@checklist.ChecklistId"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+                                            <form asp-action="DeleteCheck" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this checklist?');">
+                                                <input type="hidden" name="id" value="@checklist.ChecklistId" />
+                                                <button type="submit" class="btn">
+                                                    <i class="fa-solid fa-trash fa-xl" style="color: #850000"></i>
+                                                </button>
+                                            </form>
+
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal-@checklist.ChecklistId" tabindex="-1" aria-labelledby="editModalLabel-@checklist.ChecklistId" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel-@checklist.ChecklistId">Edit Checklist</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form asp-action="EditChecklist" asp-controller="RSCChief" method="post" enctype="multipart/form-data">
+                                                                <input type="hidden" name="id" value="@checklist.ChecklistId" />
+                                                                <div class="mb-3">
+                                                                    <label for="checklistName" class="form-label">Checklist Name</label>
+                                                                    <input type="text" class="form-control" id="checklistName" name="checklistName" value="@checklist.ChecklistName" required>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No checklists found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+   </div>
+</div>
+
+
+<!-- APPLICATION TYPE MODAL -->
+<div class="modal fade" id="typeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="AddApplicationType" method="post">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Application Type</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="ApplicationTypeName" class="form-label">Application Type Name</label>
+                        <input type="text" class="form-control" id="ApplicationTypeName" name="ApplicationTypeName" placeholder="Enter application type name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Amount" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="Amount" name="Amount" placeholder="Enter amount" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CHECKLIST MODAL -->
+<div class="modal fade" id="checkModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="AddChecklist" method="post">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Checklist</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="checklistContainer">
+                    <div class="mb-3">
+                        <label for="ApplicationTypeId" class="form-label">Application Type</label>
+                        <select class="form-select" id="ApplicationTypeId" name="ApplicationTypeId" required onchange="toggleDropdowns()">
+                            <option value="">Select Application Type</option>
+                            @foreach (var applicationType in ViewBag.ApplicationTypes)
+                            {
+                                <option value="@applicationType.ApplicationTypeId">@applicationType.ApplicationTypeName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ApplicationSubCategoryId" class="form-label">Subcategory</label>
+                        <select class="form-select" id="ApplicationSubCategoryId" name="ApplicationSubCategoryId" onchange="toggleDropdowns()">
+                            <option value="">Select Subcategory</option>
+                            @if (ViewBag.Subcategories != null && ViewBag.Subcategories.Count > 0)
+                            {
+                                foreach (var subCategory in ViewBag.Subcategories)
+                                {
+                                    <option value="@subCategory.CategoryId" class="subcategory" data-typeid="@subCategory.ApplicationTypeId">@subCategory.CategoryName</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="-1">No subcategories available</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Checklist Names</label>
+                        <div id="checklistNames">
+                            <input type="text" class="form-control mb-2" name="ChecklistNames" placeholder="Enter checklist name" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="addChecklist">Add Another Checklist</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- SUBCATEGORY MODAL -->
+<div class="modal fade" id="subModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="AddSubcategory" method="post">
+                <!-- Adjusted to match your controller action -->
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Subcategory</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="ApplicationTypeId" class="form-label">Application Type</label>
+                        <select class="form-select" id="ApplicationTypeId" name="ApplicationTypeId" required>
+                            <option value="">Select Application Type</option>
+                            @foreach (var appType in ViewBag.ApplicationTypes)
+                            {
+                                <option value="@appType.ApplicationTypeId">@appType.ApplicationTypeName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="CategoryName" class="form-label">Subcategory Name</label>
+                        <input type="text" class="form-control" id="CategoryName" name="CategoryName" placeholder="Enter subcategory name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Amount" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="Amount" name="Amount" placeholder="Enter amount" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmDelete(form) {
+        if (confirm("Are you sure you want to delete this checklist?")) {
+            form.submit();
+        }
+    }
+</script>
+@* 
+<script>
+    function confirmDelete(form) {
+        if (confirm("Are you sure you want to delete this checklist?")) {
+            form.submit();
+        }
+    }
+</script> *@
+
+<script>
+    document.getElementById('addChecklist').addEventListener('click', function () {
+        var checklistDiv = document.createElement('input');
+        checklistDiv.type = 'text';
+        checklistDiv.name = 'ChecklistNames';
+        checklistDiv.className = 'form-control mb-2';
+        checklistDiv.placeholder = 'Enter checklist name';
+        document.getElementById('checklistNames').appendChild(checklistDiv);
+    });
+
+    function updateSubcategories(applicationTypeId) {
+        const subcategorySelect = document.getElementById('ApplicationSubCategoryId');
+        const subcategoryOptions = Array.from(subcategorySelect.options);
+
+        // Show or hide subcategory options based on selected application type
+        subcategoryOptions.forEach(option => {
+            option.style.display = option.getAttribute('data-typeid') == applicationTypeId ? 'block' : 'none';
+        });
+
+        // Reset subcategory selection
+        subcategorySelect.value = '';
+    }
+</script>
+
+<script>
+    function toggleDropdowns() {
+        const applicationTypeDropdown = document.getElementById("ApplicationTypeId");
+        const subcategoryDropdown = document.getElementById("ApplicationSubCategoryId");
+
+        if (applicationTypeDropdown.value) {
+            subcategoryDropdown.disabled = true; // Disable subcategory if application type is selected
+        } else if (subcategoryDropdown.value) {
+            applicationTypeDropdown.disabled = true; // Disable application type if subcategory is selected
+        } else {
+            applicationTypeDropdown.disabled = false; // Enable both if nothing is selected
+            subcategoryDropdown.disabled = false;
+        }
+    }
+</script>
+
+<script>
+    function deleteApplicationType(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const form = event.target; // Reference to the form element
+        const applicationTypeId = form.querySelector('input[name="id"]').value;
+
+        // Confirm deletion
+        if (!confirm("Are you sure you want to delete this application type?")) {
+            return; // Exit if the user cancels the confirmation
+        }
+
+        // Send AJAX request to delete
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify({ id: applicationTypeId })
+        })
+            .then(response => response.json()) // Parse JSON response
+            .then(data => {
+                const errorMessageDiv = document.getElementById('errorMessage');
+
+                if (data.success) {
+                    // Success: reload the page to reflect the deletion
+                    location.reload();
+                } else {
+                    // Display error message within the page
+                    errorMessageDiv.innerText = data.message;
+                    errorMessageDiv.style.display = 'block';
+                }
+            })
+            .catch((error) => {
+                // Display a generic error message if the request fails
+                const errorMessageDiv = document.getElementById('errorMessage');
+                errorMessageDiv.innerText = "An unexpected error occurred. Please try again.";
+                errorMessageDiv.style.display = 'block';
+            });
+    }
+</script>

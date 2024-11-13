@@ -1,0 +1,219 @@
+﻿@model IEnumerable<Evaluation>
+@{
+    ViewData["Title"] = "Evaluator Dashboard";
+    Layout = "_NavEvaluator1";
+}
+
+    <div class="dashboard-evaluator">
+        <div class="welcome-section">
+            <h1>Evaluator Dashboard</h1>
+        </div>
+
+    <div class="row justify-content-end" style="margin-bottom: 20px;">
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-white">
+                <div class="card-body text-center">
+                    <h2 class="text">@ViewBag.Pending</h2>
+                    <p class="mb-0 text"><strong>TOTAL</strong></p>
+                </div>
+                <div class="card-footer justify-content-center text-center Peval">
+                    Pending<br />Evaluations
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-white">
+                <div class="card-body text-center">
+                    <h2 class="text">@ViewBag.Missed</h2>
+                    <p class="mb-0 text"><strong>TOTAL</strong></p>
+                </div>
+                <div class="card-footer justify-content-center text-center Meval">
+                    Missed<br />Evaluations
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-white">
+                <div class="card-body text-center">
+                    <h2 class="text">@ViewBag.Evaluated</h2>
+                    <p class="mb-0 text"><strong>TOTAL</strong></p>
+                </div>
+                <div class="card-footer justify-content-center text-center Eeval">
+                    Evaluated<br />Applications
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <!-- Calendar -->
+    <div id="calendar"></div>
+
+    <!-- Add Event Modal -->
+    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="AddEvent" method="post">
+                        <div class="mb-3">
+                            <label for="event-title" class="form-label">Event Title</label>
+                            <input type="text" class="form-control" id="event-title" name="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="event-start" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="event-start" name="startDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="event-end" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="event-end" name="endDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Event</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="upcoming-deadlines">
+            <h2>Upcoming Deadline</h2>
+            @if(Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="deadline">
+                        <p><b>Evaluate:</b> @item.fundedResearchApplication?.research_Title</p>
+                        <span class="due-date">@item.evaluation_Deadline.ToString("MM/dd")</span>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No upcoming deadline/s.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const addEventModal = new bootstrap.Modal(document.getElementById('addEventModal'));
+        const eventForm = document.getElementById('eventForm');
+
+        async function fetchEvents() {
+            const response = await fetch('/Evaluator/GetUserEvents');
+            const events = await response.json();
+            return events;
+        }
+
+        // Get stored events from localStorage or initialize
+        let storedEvents = JSON.parse(localStorage.getItem('events')) || [];
+
+        // Function to remove underlines and style the day colors
+        const removeUnderlines = () => {
+            document.querySelectorAll('#calendar a').forEach(el => {
+                el.style.textDecoration = 'none';
+                el.style.color = 'black';
+            });
+        };
+
+        // Function to delete an event by its ID
+        const deleteEvent = (eventId) => {
+            $.ajax({
+                url: '@Url.Action("DeleteEvent", "Evaluator")',
+                type: 'POST',
+                data: {
+                    id: eventId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Event deleted successfully!');
+                        window.location.href = '/Evaluator/EvaluatorDashboard';
+                    }
+                    else {
+                        alert('The event is broadcasted cannot be deleted!');
+                        window.location.href = '/Evaluator/EvaluatorDashboard';
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Error deleting event. Please try again.');
+                }
+            });
+        };
+
+        // Initialize FullCalendar
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            nextDayThreshold: '00:00:00',
+            customButtons: {
+                addEventButton: {
+                    text: 'Add Event',
+                    click: function () {
+                        // Show modal to add event
+                        addEventModal.show();
+                    }
+                }
+            },
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'addEventButton dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: fetchEvents,
+            editable: true,
+            droppable: true,
+            datesSet: removeUnderlines, // Remove underlines after rendering
+            eventContent: function (arg) {
+                // Remove underline and create delete button with the event title
+                const deleteButton = `<button class="delete-event-btn" data-id="${arg.event.id}" style="background-color:#850000; color: #fff; border:none; cursor:pointer;">x</button>`;
+                const eventHtml = `<div style="background-color:#FFDB89; display: flex; justify-content: space-between; align-items: center; color: black; border: 2px solid #ff943d;">
+                                                        <span>${arg.event.title}</span> ${deleteButton}
+                                                       </div>`;
+
+                return { html: eventHtml };
+            },
+            eventDidMount: function (info) {
+                // Add event listener to the delete button
+                const deleteButton = info.el.querySelector('.delete-event-btn');
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (confirm('Are you sure you want to delete this event?')) {
+                            const eventId = deleteButton.getAttribute('data-id');
+                            deleteEvent(eventId);
+                        }
+                    });
+                }
+            }
+        });
+
+        // Render calendar
+        calendar.render();
+
+        // Initial underline removal after calendar renders
+        removeUnderlines();
+
+        // Style the buttons
+        document.querySelectorAll('.fc-button').forEach(button => {
+            button.style.backgroundColor = '#850000';
+            button.style.color = '#fff';
+            button.style.border = 'none';
+        });
+
+        // Style the month title
+        document.querySelectorAll('.fc-toolbar-title').forEach(title => {
+            title.style.color = '#000'; // Month title color
+        });
+
+        // Style the day numbers (inside the day grid)
+        document.querySelectorAll('.fc-daygrid-day-number').forEach(dayNumber => {
+            dayNumber.style.color = 'black'; // Day numbers color
+        });
+    });
+</script>

@@ -1,0 +1,215 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        html, body {
+            min-height: 90vh;
+           
+            background-image: url('/images/login-bg.jpg');
+            background-size: cover;
+        }
+
+        #main {
+            background: rgb(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px);
+            width: fit-content;
+        }
+
+        h4, h6 {
+            color: white;
+            text-align: center;
+        }
+
+        h4 {
+            font-family: "Poppins";
+            font-weight: bold;
+        }
+
+        h6 {
+            font-family: "Montserrat";
+        }
+
+        img {
+            height: 100px;
+        }
+
+        #title {
+            color: white;
+            font-family: "Inter";
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        #message {
+            color: rgba(255, 255, 255, 0.7);
+            font-family: "Inter";
+            font-size: 15px;
+        }
+
+        input, select {
+            font-family: "Inter";
+        }
+
+            input[type="submit"] {
+                background: #850000;
+                border-radius: 15px;
+                height: 50px;
+                padding: 0px 30px;
+                color: white;
+                font-size: 20px;
+                border: none;
+                outline: none;
+                transition: .1s;
+            }
+
+                input[type="submit"]:hover {
+                    background: #560000;
+                }
+
+        a {
+            font-size: 18px;
+            color: #FFDB89;
+            font-family: "Inter";
+            background: none;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center">
+    <div class="container border border-white border-5 rounded-5 p-5" id="main">
+        <!--Logo Section-->
+        <div class="d-flex justify-content-center align-items-center">
+           
+            <img src="~/images/rmologo.png" alt="rmo-logo" class="rounded-circle" />
+            <div class="ms-3">
+                <h4>Research Management Office</h4>
+                <h6>Polytechnic University of the Philippines</h6>
+            </div>
+        </div>
+
+        <!--Title-->
+        <div id="title" class="d-flex justify-content-center align-items-center">
+            Register
+        </div>
+
+        <!-- Form Section -->
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <!-- First Name -->
+            <div class="form-floating mt-3">
+                <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
+                <label asp-for="Input.FirstName">First Name</label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+
+            <!-- Middle Name -->
+            <div class="form-floating mt-3">
+                <input asp-for="Input.MiddleName" class="form-control" placeholder="Middle Name" />
+                <label asp-for="Input.MiddleName">Middle Name</label>
+                <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-floating mt-3">
+                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
+                <label asp-for="Input.LastName">Last Name</label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+            <!-- Campus -->
+            <div class="form-floating mt-3">
+                <input asp-for="Input.Campus" class="form-control" placeholder="Campus" />
+                <label asp-for="Input.Campus">Campus</label>
+                <span asp-validation-for="Input.Campus" class="text-danger"></span>
+            </div>
+
+            <!-- Role -->
+            <div class="form-floating mt-3">
+                <select asp-for="Input.Role" class="form-control">
+                    <option value="">-- Select Role --</option>
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty</option>
+                    <option value="external researcher">External Researcher</option>
+                    <option value="stakeholder">Stakeholder</option>
+                </select>
+                <label asp-for="Input.Role">Role</label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-floating mt-3">
+                <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-floating mt-3">
+                <input asp-for="Input.Password" class="form-control" type="password" placeholder="Password" id="pas"/>
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <input type="checkbox" class="bg-danger form-check-input" onclick="myFunction()"> <span class="mt-2 text-white">Show Password</span>
+
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-floating mt-3 mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" type="password" placeholder="Confirm Password" id="conpas" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                <input type="checkbox" class="bg-danger form-check-input" onclick="myFunctiontwo()"> <span class="mt-2 text-white">Show Password</span>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center mt-3">
+                <button type="submit" class="btn btn-danger">Register</button>
+            </div>
+        </form>
+
+        <!-- Links Section -->
+        <div class="d-flex justify-content-center align-items-center mt-2">
+            <a href="Login">Already have an account? Log in</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("pas");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    function myFunctiontwo() {
+        var x = document.getElementById("conpas");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

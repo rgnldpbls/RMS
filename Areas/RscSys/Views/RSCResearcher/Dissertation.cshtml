@@ -1,0 +1,230 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.Draft
+
+@{
+    ViewData["Title"] = "View Application";
+    Layout = "_LayoutRPages";
+}
+
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .main-content {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .page-title {
+        color: #850000;
+        font-weight: bold;
+    }
+
+    .requirements-box {
+        background-color: #d8d8d8;
+        border-radius: 5px;
+        padding: 20px;
+        height: 523px;
+        margin-bottom: 15px;
+    }
+
+    .requirements-box ul li {
+        color: black;
+     }
+
+     .requirement {
+         margin: 15px 0 0 0;
+         font-size: 17px;
+     }
+
+    .modaltitle {
+        border-bottom: 2px solid black; 
+    }
+
+    .modaltitle h2{
+        font-weight: 800;
+        font-size: 30px;
+    }
+
+    .upload-btn {
+        border: 2px solid #850000;
+        color: #850000;
+    }
+
+    .submit-btn {
+        background-color: #850000;
+        border: none;
+    }
+</style>
+
+<div class="container-fluid main-content">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+            <h1 class="page-title">DISSERTATION</h1>
+            <a asp-area="" asp-controller="RSCResearcher" asp-action="Drafts">
+            <button type="button" class="btn btn-outline-danger">Back</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card requirements-box">
+                <div class="text-center modaltitle">
+                    <h2 class="h5 mb-3">Checklists</h2>
+                </div>
+                <ul class="requirement">
+                    <p>
+                    1. Letter of Application <br/>
+                    2. Employment Certificate <br/>
+                    3. At least two (2) copies of the hardbound and one (1) soft copy in a CD of good quality completed thesis/dissertation <br/>
+                    4. Diploma or certification of degree completion. <br/>
+                    5. Affidavit <br/>
+                    6. Other documents (e.g Certification of verified accreditation of School/University in cases where its reputation is doubtful, etc.)
+                    </p>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3 class="h5 card-title">Your Attachments</h3>
+                    <p class="card-text"><small>NOTE: Complete your Documentary Requirements to process your application request</small></p>
+                    <div class="mb-3">
+                        <label class="form-label">DTS Number:</label>
+                        <input type="text" class="form-control" id="dtsNumber" value="@Model.DtsNo" readonly>
+                    </div>
+                    <div class="text-center">
+                        @if (Model.Requirements != null && Model.Requirements.Any())
+                        {
+                            foreach (var requirement in Model.Requirements)
+                            {
+                                <div class="d-flex align-items-center bg-danger text-white p-2 mb-2 rounded">
+                                    <i class="fas fa-file-pdf me-2"></i>
+                                    <span>@requirement.FileType</span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <i class="far fa-file-alt fa-3x text-secondary"></i>
+                                <p class="mt-2">No Attachments</p>
+                            </div>
+                        }      
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="h5 card-title">Options</h3>
+                    <button type="button" class="btn upload-btn w-100 mb-2" data-bs-toggle="modal" data-bs-target="#upload"><i class="fas fa-upload me-2"></i> UPLOAD FILES</button>
+                    <button class="btn btn-warning w-100 mb-2">ADD TO DRAFTS</button>
+                    <form asp-controller="RSCResearcher" asp-action="SubmitAsRequest" method="post">
+                        <input type="hidden" name="draftId" value="@Model.DraftId" />
+                        <button type="submit" class="btn btn-danger submit-btn w-100">SUBMIT APPLICATION</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="upload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Upload Files</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="UploadFiles" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file1" class="form-label">1. Letter of Application</label>
+                        <div class="input-group">
+                            <input type="file" name="files" class="form-control" />
+                            <input type="hidden" name="fileTypes" value="Letter of Application" />
+                            <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file2" class="form-label">2. Employment Certificate</label>
+                        <div class="input-group">
+                            <input type="file" name="files" class="form-control" />
+                            <input type="hidden" name="fileTypes" value="Employment Certificate" />
+                            <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file3" class="form-label">3. At least two (2) copies of the hardbound and one (1) soft copy in a CD of good quality completed thesis/dissertation</label>
+                        <div class="input-group">
+                            <input type="file" name="files" class="form-control" />
+                            <input type="hidden" name="fileTypes" value="Good Quality Completed Thesis/Dissertation" />
+                            <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file4" class="form-label">4. Diploma or certification of degree completion</label>
+                        <div class="input-group">
+                            <input type="file" name="files" class="form-control" />
+                            <input type="hidden" name="fileTypes" value="Diploma or Certification of Degree Completion" />
+                            <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file5" class="form-label">5. Affidavit</label>
+                        <div class="input-group">
+                            <input type="file" name="files" class="form-control" />
+                            <input type="hidden" name="fileTypes" value="Affidavit" />
+                            <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="file6" class="form-label">6. Other documents (e.g Certification of verified accreditation of School/University in cases where its reputation is doubtful, etc.)</label>
+                        <div class="input-group">
+                            <input type="file" name="files" class="form-control" />
+                            <input type="hidden" name="fileTypes" value="Other documents" />
+                            <button class="btn btn-outline-light" type="button"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-block text-center">
+                        <input type="hidden" name="draftId" value="@Model.DraftId" />
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function deleteFile(requirementId) {
+            if (confirm('Are you sure you want to delete this file?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFile", "RSCResearcher")',
+                    type: 'POST',
+                    data: { requirementId: requirementId },
+                    success: function (result) {
+                        if (result.success) {
+                            location.reload();
+                        } else {
+                            alert('Error deleting file');
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+}

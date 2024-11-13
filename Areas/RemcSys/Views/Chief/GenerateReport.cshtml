@@ -1,0 +1,104 @@
+﻿@model IEnumerable<GenerateReport>
+@{
+    ViewData["Title"] = "Generate Reports";
+    Layout = "_NavChief1";
+}
+
+<div class="generate-report-container">
+    <div class="report-categories">
+        <a href="@Url.Action("GenerateReport", "Chief", new {area = "RemcSys"})" class="report-category generate">
+            <h3>Generate Report</h3>
+        </a>
+        <a href="@Url.Action("ArchivedReport", "Chief", new {area = "RemcSys"})" class="report-category submit">
+            <h3>Archived Report </h3>
+        </a>
+    </div>
+    <hr />
+    <div class="category-dropdown">
+        <select id="specialization" class="category-select">
+            <option value="" disabled selected>Select Report Type...</option>
+            <option value="Application">Funded Research Application</option>
+            <option value="OngoingUFR">Ongoing University Funded Research</option>
+            <option value="OngoingEFR">Ongoing Externally Funded Research</option>
+            <option value="OngoingUFRL">Ongoing University Funded Research Load</option>
+            <option value="ResearchProduction">Research Production</option>
+            @* <option value="ForecastedUFRFunds">Forcasted UFR Funds</option> *@
+            <option value="Evaluator">University Funded Research - Evaluators</option>
+        </select>
+    </div>
+
+    <div class="date-wrapper">
+        <div class="date-container" id="dateContainer">
+            <div class="date-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" class="date-input">
+            </div>
+            <div class="date-separator">
+                <span>-</span>
+            </div>
+            <div class="date-group">
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" class="date-input">
+            </div>
+        </div>
+        <button class="generate-btn">Generate Report</button>
+    </div>
+
+    <div class="recent-reports">
+        <h4>Recent Generated Reports</h4>
+        @if(Model != null && Model.Any())
+        {
+            <ul>
+                @foreach (var report in Model)
+                {
+                    <li>
+                        <span>@report.gr_fileName - Generated @ActionLog.GetTimeAgo(report.generateDate)</span>
+                        <a href="@Url.Action("PreviewFile", new {id = report.gr_Id})">[Download]</a>
+                        <a href="@Url.Action("ArchiveReport", new {id = report.gr_Id})">[Move to Archive]</a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No recent generated report yet.</p>
+        }
+    </div>
+</div>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("startDate").setAttribute("max", today);
+    document.getElementById("endDate").setAttribute("max", today);
+
+    const reportType = document.getElementById("specialization");
+    const dateContainer = document.getElementById("dateContainer");
+
+    reportType.addEventListener('change', function () {
+        const selectedValue = this.value;
+        if (selectedValue == "Evaluator" || selectedValue == "ForecastedUFRFunds") {
+            dateContainer.style.display = 'none';
+        }
+        else {
+            dateContainer.style.display = 'flex';
+        }
+    });
+
+    document.querySelector('.generate-btn').addEventListener('click', function () {
+        const selectedType = document.getElementById("specialization").value;
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        if ((selectedType != "Evaluator" && selectedType != "ForecastedUFRFunds") && startDate && endDate) {
+            const url = `/Chief/GenerateReports?reportType=${selectedType}&startDate=${startDate}&endDate=${endDate}`;
+            window.location.href = url;
+        }
+        else if (selectedType == "Evaluator" || selectedType == "ForecastedUFRFunds") {
+            const url = `/Chief/GenerateReports?reportType=${selectedType}&startDate=null&endDate=null`;
+            window.location.href = url;
+        }
+        else {
+            alert("Please select all the necessary fields.");
+        }
+    });
+</script>

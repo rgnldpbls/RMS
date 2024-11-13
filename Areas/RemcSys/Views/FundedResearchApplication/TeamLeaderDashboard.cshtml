@@ -1,0 +1,303 @@
+﻿@model List<FundedResearchApplication>
+@{
+    if (Model != null && Model.Any())
+    {
+        if(Model.First().isArchive == false)
+        {
+            ViewBag.Type = Model.First().fra_Type;
+            ViewBag.Status = Model.First().application_Status;
+            ViewBag.IsFraArchived = false;
+            if(Model.First().FundedResearch != null)
+            {
+                ViewBag.IsFunded = true;
+                ViewBag.IsFrArchived = Model.First().FundedResearch.isArchive;
+            }
+            else
+            {
+                ViewBag.IsFunded = false;
+            }
+            Layout = "_NavTeamLeader2";
+        }
+        else if(Model.First().isArchive == true)
+        {
+            ViewBag.Type = Model.First().fra_Type;
+            ViewBag.Status = Model.First().application_Status;
+            ViewBag.IsFraArchived = true;
+            if (Model.First().FundedResearch != null)
+            {
+                ViewBag.IsFunded = true;
+                ViewBag.IsFrArchived = Model.First().FundedResearch.isArchive;
+            }
+            else
+            {
+                ViewBag.IsFunded = false;
+            }
+            Layout = "_NavTeamLeader2";
+        }
+    }
+    else
+    {
+        Layout = "_NavTeamLeader";
+    }
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FullCalendar and Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+
+<div class="dashboard-teamleader">
+    <div class="welcome-section">
+        <h1>DASHBOARD</h1>
+    </div>
+    <div class="container">
+        <!-- Calendar -->
+        <div id="calendar"></div>
+
+        <!-- Add Event Modal -->
+        <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-action="AddEvent" method="post">
+                            <div class="mb-3">
+                                <label for="event-title" class="form-label">Event Title</label>
+                                <input type="text" class="form-control" id="event-title" name="eventTitle" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-start" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="event-start" name="startDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-end" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="event-end" name="endDate" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Event</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* <div class="upcoming-deadlines">
+            <h2>Upcoming Deadline</h2>
+            <div class="deadline">
+                <p><b>Submit:</b> Progress Report 1</p>
+                <span class="due-date">08/20 DUE</span>
+            </div>
+            <div class="deadline">
+            </div>
+            <div class="deadline">
+            </div>
+            <div class="deadline">
+            </div>
+            <div class="deadline">
+            </div>
+        </div> *@
+    </div>
+    <div class="attachments-section">
+    <h2>List of Funded Researches</h2>
+    @{
+        var archivedApplication = Model.Where(f => f.isArchive == true).ToList();
+    }
+    <hr />
+    <div class="attachments-container">
+            @if(archivedApplication != null && archivedApplication.Any())
+            {
+                @foreach (var research in archivedApplication)
+                {
+                    <div class="attachment-card">
+                        <div class="attachment-info">
+                            <p><strong>Research Title:</strong> @research.research_Title</p>
+                            <p><strong>Research Status:</strong>
+                                @if(research.application_Status == "Proceed")
+                                {
+                                    @if (research.FundedResearch.isArchive == true)
+                                    {
+                                        @research.FundedResearch.status
+                                    }
+                                    else
+                                    {
+                                        @research.application_Status
+                                    }
+                                }  
+                                else
+                                {
+                                    @research.application_Status
+                                }
+                            </p>
+                            <p><strong>Research Type:</strong> @research.fra_Type</p>
+                            <p>
+                                <strong>Documentary Requirements:</strong> <a href="@Url.Action("ApplicationStatus", "FundedResearchApplication",
+                                    new {id = research.fra_Id})" style="color: #850000;">View</a>
+                            </p>
+                            @if(research.fra_Type == "University Funded Research" && research.application_Status != "Withdrawn")
+                            {
+                                <p>
+                                    <strong>Evaluation Results:</strong> <a href="@Url.Action("EvaluationResult", "FundedResearchApplication",
+                                        new {id = research.fra_Id})" style="color: #850000;">View</a>
+                                </p>
+
+                                @if (research.application_Status == "Proceed")
+                                {
+                                    @if (research.FundedResearch.isArchive == true)
+                                    {
+                                        <p>
+                                            <strong>Progress Reports:</strong> <a href="@Url.Action("ProgressReportStatus", "ProgressReport",
+                                                new {id = research.FundedResearch.fr_Id})" style="color: #850000;">View</a>
+                                        </p>
+                                    }
+                                }
+                            }
+                            else if((research.fra_Type == "Externally Funded Research" || research.fra_Type == "University Funded Research Load") &&
+                                research.application_Status != "Withdrawn")
+                            {
+                                @if (research.FundedResearch.isArchive == true)
+                                {
+                                    <p>
+                                        <strong>Progress Reports:</strong> <a href="@Url.Action("ProgressReportStatus", "ProgressReport",
+                                    new {id = research.FundedResearch.fr_Id})" style="color: #850000;">View</a>
+                                    </p>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No funded research yet.</p>   
+            }
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const addEventModal = new bootstrap.Modal(document.getElementById('addEventModal'));
+        const eventForm = document.getElementById('eventForm');
+
+        async function fetchEvents() {
+            const response = await fetch('/FundedResearchApplication/GetUserEvents');
+            const events = await response.json();
+            return events;
+        }
+
+        // Get stored events from localStorage or initialize
+        let storedEvents = JSON.parse(localStorage.getItem('events')) || [];
+
+        // Function to remove underlines and style the day colors
+        const removeUnderlines = () => {
+            document.querySelectorAll('#calendar a').forEach(el => {
+                el.style.textDecoration = 'none';
+                el.style.color = 'black';
+            });
+        };
+
+        // Function to delete an event by its ID
+        const deleteEvent = (eventId) => {
+            $.ajax({
+                url: '@Url.Action("DeleteEvent", "FundedResearchApplication")',
+                type: 'POST',
+                data: {
+                    id: eventId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Event deleted successfully!');
+                        window.location.href = '/FundedResearchApplication/TeamLeaderDashboard';
+                    }
+                    else {
+                        alert('The event is broadcasted cannot be deleted!');
+                        window.location.href = '/FundedResearchApplication/TeamLeaderDashboard';
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Error deleting event. Please try again.');
+                }
+            });
+        };
+
+        // Initialize FullCalendar
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            nextDayThreshold: '00:00:00',
+            customButtons: {
+                addEventButton: {
+                    text: 'Add Event',
+                    click: function () {
+                        // Show modal to add event
+                        addEventModal.show();
+                    }
+                }
+            },
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'addEventButton dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: fetchEvents,
+            editable: true,
+            droppable: true,
+            datesSet: removeUnderlines, // Remove underlines after rendering
+            eventContent: function (arg) {
+                // Remove underline and create delete button with the event title
+                const deleteButton = `<button class="delete-event-btn" data-id="${arg.event.id}" style="background-color:#850000; color: #fff; border:none; cursor:pointer;">x</button>`;
+                const eventHtml = `<div style="background-color:#FFDB89; display: flex; justify-content: space-between; align-items: center; color: black; border: 2px solid #ff943d;">
+                                                    <span>${arg.event.title}</span> ${deleteButton}
+                                                   </div>`;
+
+                return { html: eventHtml };
+            },
+            eventDidMount: function (info) {
+                // Add event listener to the delete button
+                const deleteButton = info.el.querySelector('.delete-event-btn');
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (confirm('Are you sure you want to delete this event?')) {
+                            const eventId = deleteButton.getAttribute('data-id');
+                            deleteEvent(eventId);
+                        }
+                    });
+                }
+            }
+        });
+
+        // Render calendar
+        calendar.render();
+
+        // Initial underline removal after calendar renders
+        removeUnderlines();
+
+        // Style the buttons
+        document.querySelectorAll('.fc-button').forEach(button => {
+            button.style.backgroundColor = '#850000';
+            button.style.color = '#fff';
+            button.style.border = 'none';
+        });
+
+        // Style the month title
+        document.querySelectorAll('.fc-toolbar-title').forEach(title => {
+            title.style.color = '#000'; // Month title color
+        });
+
+        // Style the day numbers (inside the day grid)
+        document.querySelectorAll('.fc-daygrid-day-number').forEach(dayNumber => {
+            dayNumber.style.color = 'black'; // Day numbers color
+        });
+    });
+</script>

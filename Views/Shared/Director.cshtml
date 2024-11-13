@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ResearchManagementSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/84ccdc0b43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navvbg navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center me-5">
+                    <div class="" onclick="toggleSidebar()">
+                        <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="me-3 ms-3">
+                            <img src="~/images/RMOLogo.png" alt="RMO Logo" style="width: 60px; height: 60px; border-radius: 60px" />
+                        </div>
+                        <div class="d-flex flex-column text-white">
+                            <div class="rmo">Research Management Office</div>
+                            <div class="pup">Polytechnic University of the Philippines</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Director" asp-action="Index">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Director" asp-action="DirectorAccomplishments">Accomplishment</a>
+                        </li>
+                    </ul>
+                    <div class="ms-auto d-flex justify-content-end align-items-center">
+                        <div class="dropdown me-3">
+                            <button class="btn bg-none border-white text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Director
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="hoverfxright me-2 p-2 rounded-2">
+                            <a asp-controller="Director" asp-action="DirectorCenters"><i class="fa-solid fa-landmark fa-lg" style="color: #ffffff;"></i></a>
+                        </div>
+                        <div class="hoverfxright me-2 p-2 rounded-2">
+                            <a asp-controller="Director" asp-action="DirectorNotifications"><i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i></a>
+                        </div>
+                        <div class="hoverfxright me-2 p-2 rounded-2">
+                            <a asp-controller="Director" asp-action="DirectorProfile"><i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i></a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a class="text-decoration-none text-white" asp-controller="Director" asp-action="DirectorProfile">
+            <div class="profile-section">
+                <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 me-3">
+                <div class="profile-info">
+                    <h3>User Name</h3>
+                    <p class="user-email my-0">User Webmail</p>
+                    <p class="user-id my-0">User ID</p>
+                </div>
+            </div>
+        </a>
+
+        <div class="menu-section">
+            <ul>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Director" asp-action="DirectorHelp"><i class="fa-solid fa-person-circle-question fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Help</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Director" asp-action="DirectorRateUs"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Rate Us</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Director" asp-action="DirectorReportGenerateReport"><i class="fa-solid fa-file-export fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Report</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Director" asp-action="DirectorAbout"><i class="fa-solid fa-circle-info fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">About</span></a></li>
+            </ul>
+        </div>
+
+        <div class="logout-section">
+            <a href="#" class="logout-button sideitemz p-2 rounded-2">
+                <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
+            </a>
+        </div>
+
+    </div>
+
+    <div class="container mt-5">
+        <main role="main" class="pt-5 pb-5">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/sidebar.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

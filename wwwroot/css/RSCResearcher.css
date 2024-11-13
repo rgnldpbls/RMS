@@ -1,0 +1,146 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #850000;
+}
+
+.btn.btn-custom {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Make the text bold */
+    background-color: #FFDB89; /* Custom button background */
+    color: #850000; /* Button text color */
+    padding: 10px 30px; /* Custom padding */
+    border-radius: 43px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+    .btn.btn-custom:hover {
+        background-color: #e6c567; /* Darker shade for hover effect */
+        color: #ffffff; /* Change text color on hover */
+    }
+
+@media (max-width: 576px) {
+    .btn.btn-custom {
+        font-size: 16px; /* Slightly smaller font size on mobile */
+        padding: 10px 15px; /* Adjust padding for mobile */
+    }
+}
+
+.btn.btn-custom-1 {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Make the text bold */
+    background-color: #D7D7D7; /* Custom button background */
+    color: #850000; /* Button text color */
+    padding: 10px 30px; /* Custom padding */
+    border-radius: 43px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.custom-modal {
+    background-color: #850000; /* Custom background color */
+    color: white; /* Custom text color */
+}
+
+.modal-header {
+    background-color: #850000; /* Darker header */
+    border-bottom: 2px solid #fff; /* Custom border */
+    display: flex;
+    justify-content: center;
+}
+
+.modal-title {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-weight: bold;
+    color: white; /* Custom title color */
+}
+
+.modal-body {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-weight: 400;
+    background-color: #850000; /* Custom body background */
+    color: white; /* Custom body text color */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.moda-footer {
+    background-color: #850000; /* Custom body background */
+}
+
+.btn-close {
+    position: absolute;
+    right: 15px; /* Adjust close button to be on the right */
+    top: 15px;
+}
+
+.btn-close-white {
+    filter: invert(100%); /* Make the close button white */
+}
+
+.modal-body .text-background {
+    background-color: rgba(0,0,0,0.5); /* Background color for the text */
+    color: #ddd; /* Text color */
+    padding: 20px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    margin: 10px 0; /* Margin around the text block */
+}
+
+/* RESEARCHER HOME */
+
+.memorandum-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    .memorandum-list li {
+        margin-bottom: 10px;
+        font-weight: 300;
+    }
+
+.memorandums-section {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: relative;
+    height: 40vh;
+    display: flex;
+    align-items: flex-start;
+    margin: 30px;
+}
+
+.btn.btn-dl {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Make the text bold */
+    background-color: #FFDB89; /* Custom button background */
+    color: #850000; /* Button text color */
+    padding: 10px 30px; /* Custom padding */
+    border-radius: 43px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.memorandums-section h2, li {
+    color: white;
+}

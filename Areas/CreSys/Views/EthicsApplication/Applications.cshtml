@@ -1,0 +1,165 @@
+﻿@model CRE.ViewModels.ApplicationsViewModel
+@{
+    ViewBag.Title = "Applications";
+}
+<head>
+    <link rel="stylesheet" href="~/css/application.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="applications-container">
+    <div class="header-section">
+        <h2>ETHICS CLEARANCE APPLICATIONS</h2>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search by title, status, or UREC No..." onkeyup="filterApplications()" />
+            </div>
+            <div class="header-controls">
+                <div class="user-greeting">
+                    Hello, @User.Identity.Name!
+                </div>
+                <div class="view-controls">
+                    <button id="gridViewBtn" onclick="setView('grid')" class="active">
+                        <i class="fas fa-th-large"></i>
+                        <span>Grid</span>
+                    </button>
+                    <button id="listViewBtn" onclick="setView('list')">
+                        <i class="fas fa-list"></i>
+                        <span>List</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.EthicsApplication.Any())
+        {
+            <div id="applicationsView" class="grid-view">
+                @foreach (var application in Model.EthicsApplication)
+                {
+                    var researchInfo = Model.NonFundedResearchInfo
+                    .FirstOrDefault(nr => nr.urecNo == application.urecNo);
+                    var latestLog = Model.EthicsApplicationLog
+                    .FirstOrDefault(log => log.urecNo == application.urecNo);
+
+                    <div class="research-card"
+                         data-title="@researchInfo?.title.ToLower()"
+                         data-status="@(latestLog?.status?.ToLower() ?? "pending")"
+                         data-urecno="@application.urecNo">
+
+                        <div class="research-preview">
+                            <img src="/images/BG-Header.png" alt="Document Preview" />
+                        </div>
+                        <div class="research-info">
+                            <h3 class="research-title">@researchInfo?.title</h3>
+                            <div class="research-status">
+                                <strong>Status:</strong>
+                                <span class="status-@(latestLog?.status?.ToLower() ?? "pending")">
+                                    @(latestLog?.status ?? "Pending")
+                                </span>
+                            </div>
+                            <p><strong>Submission Date:</strong> @application.submissionDate.ToShortDateString()</p>
+                            <p><strong>UREC No:</strong> @application.urecNo</p>
+                            <a href="@Url.Action("UploadForms", "EthicsApplicationForms", new { urecNo = application.urecNo })"
+                               class="view-application-btn">
+                                View Application
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="inbox-container">
+                <div class="inbox-empty">
+                    <i class="fas fa-inbox"></i>
+                    <p>You have no applications submitted.</p>
+                </div>
+            </div>
+        }
+
+        <button class="floating-action-button" onclick="location.href='@Url.Action("ApplyEthics", "EthicsApplication")'">
+            +
+        </button>
+    </div>
+
+
+    <!-- Modal Structure -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Application Submitted</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <p>@TempData["SuccessMessage"]</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                var successMessage = "@TempData["SuccessMessage"]";
+                if (successMessage) {
+                    $('#successModal').modal('show');
+                }
+            });
+
+            function filterApplications() {
+                const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+                const cards = document.querySelectorAll(".research-card");
+
+                cards.forEach(card => {
+                    const title = card.getAttribute("data-title") || "";
+                    const status = card.getAttribute("data-status") || "";
+                    const urecNo = card.getAttribute("data-urecno") || "";
+
+                    // Check if title, status, or UREC No. includes the search term
+                    if (
+                        title.includes(searchTerm) ||
+                        status.includes(searchTerm) ||
+                        normalizeUrecNo(urecNo).includes(normalizeUrecNo(searchTerm))
+                    ) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+
+            // Normalize UREC No. to remove spaces, hyphens, etc. for consistent search
+            function normalizeUrecNo(value) {
+                return value.replace(/[\s-]/g, "").toLowerCase();
+            }
+
+            function setView(view) {
+                const applicationsView = document.getElementById("applicationsView");
+                const gridBtn = document.getElementById("gridViewBtn");
+                const listBtn = document.getElementById("listViewBtn");
+
+                if (view === 'grid') {
+                    applicationsView.classList.add("grid-view");
+                    applicationsView.classList.remove("list-view");
+                    gridBtn.classList.add("active");
+                    listBtn.classList.remove("active");
+                } else {
+                    applicationsView.classList.add("list-view");
+                    applicationsView.classList.remove("grid-view");
+                    listBtn.classList.add("active");
+                    gridBtn.classList.remove("active");
+                }
+            }
+        </script>
+    }

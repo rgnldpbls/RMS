@@ -1,0 +1,209 @@
+﻿/* application-tracking.css */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    font-size: 30px;
+    margin: 20px 0;
+    color: #850000;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.application-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dts-number {
+    font-size: 14px;
+}
+
+.btn-back {
+    padding: 5px 15px;
+    background-color: #990000;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* Timeline styles */
+.timeline-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin: 2rem 0;
+}
+
+/* Timeline connector line */
+.timeline-item {
+    position: relative;
+    flex: 1;
+    text-align: center;
+}
+
+    .timeline-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 25px;
+        left: calc(50% + 25px);
+        width: calc(100% - 50px);
+        height: 2px;
+        background-color: #e5e7eb; /* Default gray color */
+        z-index: 1;
+    }
+
+    .timeline-item.completed:not(:last-child)::after {
+        background-color: #059669; /* Green color when completed */
+    }
+
+/* Icon circle styles */
+.timeline-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #e5e7eb; /* Default gray border */
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+    .timeline-icon.completed {
+        border-color: #059669; /* Green border when completed */
+    }
+
+    /* Icon styles */
+    .timeline-icon i {
+        font-size: 1.25rem;
+        color: #9ca3af; /* Default gray color */
+    }
+
+    .timeline-icon.completed i {
+        color: #850000; /* Green color when completed */
+    }
+
+/* Content styles */
+.timeline-content {
+    margin-top: 1rem;
+    min-width: 120px;
+}
+
+.timeline-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    font-family: 'Poppins', sans-serif;
+}
+    
+
+
+.timeline-date {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+/* Details container styles */
+.details-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.application-details,
+.document-history {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.document-history {
+    max-height: 300px; /* Set a max height for the history container */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    border: 1px solid #ccc; /* Optional: add a border for better visibility */
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.detail-item {
+    margin-bottom: 15px;
+}
+
+    .detail-item label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    gap: 15px;
+}
+
+.history-status {
+    width: 24px;
+    height: 24px;
+    min-width: 24px; /* Ensure consistent width for alignment */
+    background-color: #008756;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+    .history-status i {
+        font-size: 12px;
+        color: white;
+    }
+
+.history-content {
+    flex: 1;
+}
+
+.history-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.history-text {
+    font-size: 14px;
+}

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<CRE.ViewModels.CompletionReportViewModel>
+
+@{
+    ViewData["Title"] = "Completion Reports";
+}
+<head>
+    <link rel="stylesheet" href="~/css/CompletionReport.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>UREC No</th>
+                    <th>Research Title</th>
+                    <th>College/Department</th>
+                    <th>Completion Report Status</th>
+                    <th>Completion Certificate Status</th>
+                    <th>Research Start Date</th>
+                    <th>Issued Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model)
+                {
+                    <tr>
+                        <td>@report.EthicsApplication.urecNo</td>
+                        <td>@report.NonFundedResearchInfo.title</td>
+                        <td>@report.NonFundedResearchInfo.college</td>
+                        <td>@report.EthicsApplication.EthicsApplicationLog.LastOrDefault().status</td>
+                        <td>
+                            @if (report.CompletionCertificate != null)
+                            {
+                                @report.EthicsApplication.EthicsApplicationLog.LastOrDefault().status
+                            }
+                            else
+                            {
+                                <span class="text-warning">Not Issued</span>
+                            }
+                        </td>
+                        <td>@report.CompletionReport.researchStartDate</td>
+                        <td>
+                            @if (report.CompletionCertificate != null)
+                            {
+                                @report.CompletionCertificate.issuedDate
+                            }
+                            else
+                            {
+                                <span class="text-muted">N/A</span>
+                            }
+                        </td>
+                        <td>
+                            
+                            @* You can add a button for issuing certificates, updating status, etc. *@
+                            @if (report.CompletionCertificate == null)
+                            {
+                                <a href="@Url.Action("GetCompletionReport", "Chief", new { urecNo = report.EthicsApplication.urecNo })" class="btn btn-success btn-sm">
+                                    Issue Certificate
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">No completion reports found.</div>
+    }
+</div>

@@ -1,0 +1,276 @@
+﻿@{
+    ViewData["Title"] = "Faculty";
+    Layout = "Faculty_Layout";
+}
+<link href="~/css/Faculty-Home.css" rel="stylesheet" />
+
+<style>
+    canvas {
+        min-width: 400px;
+        margin: 0 auto;
+    }
+
+    .info-desk-icon {
+        position: absolute;
+        bottom: 10%;
+        right: 10%;
+    }
+
+    .info-desk-btn {
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        border: none;
+        background: #850000;
+    }
+
+        .info-desk-btn:hover {
+            background: #650000;
+        }
+
+    .info-head {
+        background: #850000;
+        color: white;
+    }
+
+    .int-reply {
+        background-color: #f1f1f1;
+        border-radius: 15px 15px 15px 0;
+        align-self: flex-start;
+        width: 50%;
+        display: none;
+    }
+
+    .sel-int {
+        background-color: #850000;
+        border-radius: 15px 15px 0 15px;
+        color: white;
+        align-self: flex-end;
+        width: 50%;
+        display: none;
+    }
+
+    .interaction-btn {
+        background: #E8E6E6;
+    }
+
+        .interaction-btn:hover {
+            background: #dd7f7f;
+        }
+</style>
+<div>
+    <div class="dashboardtxt container mt-4 display-6 fw-bold">
+        Dashboard
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row justify-content-evenly">
+
+                    <div class="col-lg-2 col-sm-12 mb-4 me-5">
+                        <div class="col-lg-12 col-sm-12 fw-bold fs-3">
+                            Welcome,
+                        </div>
+                        <div class="col-lg-12 col-sm-12 fw-bolder display-5">
+                            Faculty!
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-12 text-center mb-4">
+                        <div class="shadow rounded-4">
+                            <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                <span class="d-block fs-1 fw-bold">0</span>
+                                <span class="fs-5 fw-bold">TOTAL</span>
+                            </div>
+                            <div class="submittedapp p-3 rounded-bottom-4">
+                                <span class="d-block fw-bold fs-5 text-white">Submitted</span>
+                                <span class="fs-6 text-white">Applications</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-12 text-center mb-4">
+                        <div class="shadow rounded-4">
+                            <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                <span class="d-block fs-1 fw-bold">0</span>
+                                <span class="fs-5 fw-bold">TOTAL</span>
+                            </div>
+                            <div class="approvedapp p-3 rounded-bottom-4">
+                                <span class="d-block fw-bold fs-5 text-white">Approved</span>
+                                <span class="fs-6 text-white">Applications</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-12 text-center mb-4">
+                        <div class="shadow rounded-4">
+                            <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                <span class="d-block fs-1 fw-bold">0</span>
+                                <span class="fs-5 fw-bold">TOTAL</span>
+                            </div>
+                            <div class="rejectedapp p-3 rounded-bottom-4">
+                                <span class="d-block fw-bold fs-5 text-white">Rejected</span>
+                                <span class="fs-6 text-white">Applications</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--research analytics-->
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="dashboardtxt container mt-4 fs-3 fw-semibold">Research Analytics</div>
+                    </div>
+                </div>
+
+
+                <div class="row justify-content-evenly mb-3">
+                    <!--submitted-->
+                    <div class="col-lg-3 col-sm-4 mb-3">
+                        <a href="#" class="text-decoration-none">
+                            <div class="row justify-content-center bg-white rounded-4 shadow">
+                                <div class="iconfx rounded-4 col-lg-3 col-sm-12 p-2 d-flex justify-content-center align-items-center">
+                                    <div class="rounded-5 text-center">
+                                        <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-sm-12 p-2">
+                                    <span class="listofapp text-dark">LIST OF APPLICATIONS</span>
+                                    <span class="d-block fw-bold fs-6 text-dark">SUBMITTED</span>
+                                </div>
+                                <div class="col-lg-2 col-sm-12 p-2 d-flex justify-content-center align-items-center">
+                                    <div class="hoverfxlist p-2 rounded-5 text-center">
+                                        <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!--approved-->
+                    <div class="col-lg-3 col-sm-4 mb-3">
+                        <a href="#" class="text-decoration-none">
+                            <div class="row justify-content-center bg-white rounded-4 shadow">
+                                <div class="iconfx rounded-4 col-lg-3 col-sm-12 p-2 d-flex justify-content-center align-items-center">
+                                    <div class="rounded-5 text-center">
+                                        <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-sm-12 p-2">
+                                    <span class="listofapp text-dark">LIST OF APPLICATIONS</span>
+                                    <span class="d-block fw-bold fs-6 text-dark">APPROVED</span>
+                                </div>
+                                <div class="col-lg-2 col-sm-12 p-2 d-flex justify-content-center align-items-center">
+                                    <div class="hoverfxlist p-2 rounded-5 text-center">
+                                        <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!--rejected-->
+                    <div class="col-lg-3 col-sm-4 mb-3">
+                        <a href="#" class="text-decoration-none">
+                            <div class="row justify-content-center bg-white rounded-4 shadow">
+                                <div class="iconfx rounded-4 col-lg-3 col-sm-12 p-2 d-flex justify-content-center align-items-center">
+                                    <div class="rounded-5 text-center">
+                                        <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-sm-12 p-2">
+                                    <span class="listofapp text-dark">LIST OF APPLICATIONS</span>
+                                    <span class="d-block fw-bold fs-6 text-dark">REJECTED</span>
+                                </div>
+                                <div class="col-lg-2 col-sm-12 p-2 d-flex justify-content-center align-items-center">
+                                    <div class="hoverfxlist p-2 rounded-5 text-center">
+                                        <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <canvas id="applicationsPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row mb-2">
+            <div class="col-lg-12">
+                <div class="dashboardtxt container mt-4 fs-3 fw-semibold">Research Centers</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2">
+                <a href="@Url.Action("Index", "Home", new {area = "RemcSys"})" class="text-decoration-none">
+                    <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
+                        Research Evaluation and Monitoring Center
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" class="text-decoration-none">
+                    <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
+                        Research Support Center
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="@Url.Action("Index", "Home", new {area = "CreSys"})" class="text-decoration-none">
+                    <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
+                        Center for Research Ethics
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="text-decoration-none">
+                    <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
+                        Center for Research Dissemination and Linkages
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--info desk btn-->
+    <button type="button" class="info-desk-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
+    </button>
+
+    <!-- info desk Modal -->
+    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="info-desk-icon modal-dialog w-75">
+            <div class="modal-content">
+                <div class="info-head modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Information Desk</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mb-2">
+                        <button id="interactionBtn" class="interaction-btn p-2 rounded-3 w-100 border border-none text-start">Interaction 1</button>
+                    </div>
+                    <div class="container d-flex flex-column">
+                        <div id="selectedInteraction" class="sel-int p-2 mb-1">
+                            Selected Interaction
+                        </div>
+                        <div id="reply" class="int-reply p-2 mb-1">
+                            Reply
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/Faculty-Home.js"></script>
+
+</div>

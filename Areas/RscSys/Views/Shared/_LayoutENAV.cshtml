@@ -1,0 +1,181 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EvaluatorDashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Research Management Office</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/RSCEvaluator.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
+    <link href="~/font-awesome/css/all.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 navbar-custom">
+            <div class="container-fluid">
+                <a class="btn" data-bs-toggle="offcanvas" href="#sidebar" role="button" aria-controls="sidebar">
+                    <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+                </a>
+                <a class="navbar-brand" asp-area="" asp-controller="RSCEvaluator" asp-action="Index">
+                    <img src="~/images/rmo.png" alt="Logo" width="50" height="auto" class="d-inline-block align-text-top">           
+                </a>
+                <div class="research-management-office d-none d-sm-block">
+                    Research Management Office <br />
+                    <div class="polytechnic-university">
+                        Polytechnic University of the Philippines
+                    </div>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="RscSys" asp-controller="RSCEvaluator" asp-action="Index" data-page="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="RscSys" asp-controller="RSCEvaluator" asp-action="Applications" data-page="applications">Applications</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <!-- Role Switching Dropdown -->
+                        @if (User.IsInRole("Faculty") || User.IsInRole("RSC Chief") || User.IsInRole("RSC Evaluator"))
+                        {
+                            <div class="dropdown" style="display:inline;">
+                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Evaluator
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                           
+                                    @if (User.IsInRole("RSC Chief"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Index", "RSCChief")">Switch As Chief</a>
+                                    }
+                                    @if (User.IsInRole("Faculty"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Index", "RSCResearcher")">Switch As Researcher</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="dropdown-item">No Roles Available</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <button class="btn me-1" type="button">
+                            <a asp-area="RscSys" asp-controller="RSCEvaluator" asp-action="Notifications"> <i class="fa-solid fa-bell fa-2xl" style="color: #ffffff;"></i></a>
+                        </button>
+                        <div class="dropdown">
+                            <button class="btn me-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-circle-user fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="@Url.Action("ViewProfile", "Account")">View Profile</a></li>
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <li><button id="logout" type="submit" class="dropdown-item">Logout</button></li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+            </div>
+            <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Dropdown button
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="memorandums-section">
+        <div class="container h-100 d-flex flex-column">
+            <h2 class="mb-4 memotitle">Memorandums</h2>
+            <div class="flex-grow-1 overflow-auto">
+                <ul class="memorandum-list">
+                    @if (Model.Memorandums != null && Model.Memorandums.Any())
+                    {
+                            @foreach (var memo in Model.Memorandums)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="#" class="memo-file" data-requirement-id="@memo.memorandumId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                                    @memo.memorandumName
+                                </a>
+                                </li>
+                            }
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No memorandums available.</p>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Modal for Document Viewing -->
+    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileLinks = document.querySelectorAll('.memo-file');
+            const fileViewer = document.getElementById('fileViewer');
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    const memorandumId = link.getAttribute('data-requirement-id');
+                    // Update the iframe src to display the memo in the modal
+                    fileViewer.src = `@Url.Action("ViewMemo", "RSCEvaluator")?memorandumId=${memorandumId}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2305 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\controllers\\fundedresearchapplicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\controllers\\fundedresearchapplicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\views\\fundedresearchapplication\\applicationstatus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\fundedresearchapplication\\applicationstatus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\controllers\\userrolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\userrolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\shared\\faculty_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\faculty_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\data\\contextseed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:data\\contextseed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\data\\remcdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\data\\remcdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\rscSysfinalDb\\20241107090952_add rscdbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\rscSysfinalDb\\20241107090952_add rscdbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\20241107090845_Initial Create.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20241107090845_Initial Create.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107090030_add cre changes2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\CreDb\\20241107090030_add cre changes2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\data\\credbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\data\\credbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107085832_add cre changes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\CreDb\\20241107085832_add cre changes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\views\\fundedresearchapplication\\selectfrethics.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\fundedresearchapplication\\selectfrethics.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\forecasting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\forecasting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\director\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\director\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\shared\\rmcc_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\rmcc_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\controllers\\addfaqscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:controllers\\addfaqscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\identity\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\shared\\superadmin_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\shared\\superadmin_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\addfaqs\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\addfaqs\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\addfaqs\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\addfaqs\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\addfaqs\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\addfaqs\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\addfaqs\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\addfaqs\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\addfaqs\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\addfaqs\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\Migrations\\20241107072509_AddFAQsProperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Data\\Migrations\\20241107072509_AddFAQsProperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\models\\addfaqs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:models\\addfaqs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\enum\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:enum\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\views\\rscchief\\reports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\views\\rscchief\\reports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\completioncertificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\completioncertificate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\views\\shared\\_layoutcnav.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\views\\shared\\_layoutcnav.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\views\\rscchief\\applications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\views\\rscchief\\applications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\models\\evaluatorassignment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\models\\evaluatorassignment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\views\\rscresearcher\\applications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\views\\rscresearcher\\applications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\controllers\\rscchiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\controllers\\rscchiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\rscsys\\views\\rscchief\\evaluationdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\views\\rscchief\\evaluationdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsevaluationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsevaluationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chairperson\\selectapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chairperson\\selectapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\initialreviewservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\initialreviewservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\chief.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\chief.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\ethicsevaluation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\ethicsevaluation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\ethicsevaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\ethicsevaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\evaluatedexemptapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\evaluatedexemptapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\interfaces\\iethicsevaluationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\interfaces\\iethicsevaluationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\viewevaluationdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\viewevaluationdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\evaluateapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\evaluateapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsapplicationforms\\uploadforms.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsapplicationforms\\uploadforms.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\chiefevaluationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\chiefevaluationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\secretariatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\secretariatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\initialreviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\initialreviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsapplicationlog\\trackapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsapplicationlog\\trackapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsapplicationlogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsapplicationlogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\ethicsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\ethicsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\ethicsapplicationforms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\ethicsapplicationforms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsapplicationformscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsapplicationformscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\uploadformsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\uploadformsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsapplication\\applications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsapplication\\applications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsapplication\\applyethics.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsapplication\\applyethics.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\nonfundedresearchinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\nonfundedresearchinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsapplicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsapplicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\applyethicsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\applyethicsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsapplicationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsapplicationservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\receiptinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\receiptinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\nonfundedresearchinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\nonfundedresearchinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\expertisecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\expertisecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsformcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsformcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsevaluatorexpertisecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsevaluatorexpertisecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsevaluatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsevaluatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\ethicsevaluationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\ethicsevaluationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\coproponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\coproponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\completionreportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\completionreportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\completioncertificatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\completioncertificatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\controllers\\chairpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\controllers\\chairpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107021225_add ethics area.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\CreDb\\20241107021225_add ethics area.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\faculty\\facultycenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\faculty\\facultycenters.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\initialreview\\initialreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\initialreview\\initialreview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\initialreview\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\initialreview\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsform\\downloadforms.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsform\\downloadforms.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsevaluator\\respondtoassignment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsevaluator\\respondtoassignment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsevaluator\\evaluatorview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsevaluator\\evaluatorview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsevaluator\\evaluationdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsevaluator\\evaluationdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsevaluator\\evaluated.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsevaluator\\evaluated.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsevaluation\\results.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsevaluation\\results.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsevaluation\\allapplications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsevaluation\\allapplications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\ethicsapplicationforms\\_editdtsmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\ethicsapplicationforms\\_editdtsmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\remcsys\\views\\shared\\_navchief.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\shared\\_navchief.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\issueapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\issueapplication.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\getcompletionreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\getcompletionreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\filteredapplications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\filteredapplications.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\evaluations.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\evaluations.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chief\\completionreports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chief\\completionreports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\views\\chairperson\\assignevaluators.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\views\\chairperson\\assignevaluators.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\ethicsapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\ethicsapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\assignevaluatorsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\assignevaluatorsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\secretariatservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\secretariatservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\receiptinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\receiptinfoservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsevaluatorexpertiseservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsevaluatorexpertiseservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsclearanceservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsclearanceservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsapplicationlogservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsapplicationlogservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\coproponentservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\coproponentservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\completionreportservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\completionreportservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\nonfundedresearchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\nonfundedresearchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\completioncertificateservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\completioncertificateservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\chiefservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\chiefservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\chairpersonservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\chairpersonservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsformservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsformservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\expertiseservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\expertiseservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\services\\ethicsevaluatorservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\services\\ethicsevaluatorservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\evaluationdetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\evaluationdetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\faculty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\faculty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\evaluatedfullreviewapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\evaluatedfullreviewapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\pendingissuance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\pendingissuance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\evaluationresultsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\evaluationresultsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\initialreviewviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\initialreviewviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\evaluatedexpeditedapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\evaluatedexpeditedapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\completionreportviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\completionreportviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\assignreviewtypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\assignreviewtypeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\applyforcompletioncertificateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\applyforcompletioncertificateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\applicationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\applicationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\viewmodels\\applicationrequirementsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\viewmodels\\applicationrequirementsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\data\\validations\\requiredifhumansubjects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\data\\validations\\requiredifhumansubjects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\data\\seed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\data\\seed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\initialreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\initialreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\secretariat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\secretariat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\areas\\cresys\\models\\memorandum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\cresys\\models\\memorandum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\downloads\\researchmanagementsystem\\views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AddFAQsController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Controllers\\AddFAQsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AddFAQsController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Controllers\\AddFAQsController.cs",
+              "RelativeToolTip": "Controllers\\AddFAQsController.cs",
+              "ViewState": "AQIAALsAAAAAAAAAAADwv78AAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T07:27:10.801Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FundedResearchApplicationController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\FundedResearchApplicationController.cs",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Controllers\\FundedResearchApplicationController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\FundedResearchApplicationController.cs",
+              "RelativeToolTip": "Areas\\RemcSys\\Controllers\\FundedResearchApplicationController.cs",
+              "ViewState": "AQIAAH4BAAAAAAAAAAAIwIgBAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T09:31:51.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicationStatus.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\FundedResearchApplication\\ApplicationStatus.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\FundedResearchApplication\\ApplicationStatus.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\FundedResearchApplication\\ApplicationStatus.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\FundedResearchApplication\\ApplicationStatus.cshtml",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABcAAACBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T09:29:12.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserRolesController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Controllers\\UserRolesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserRolesController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Controllers\\UserRolesController.cs",
+              "RelativeToolTip": "Controllers\\UserRolesController.cs",
+              "ViewState": "AQIAAHsAAAAAAAAAAAAtwJAAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T09:15:28.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RemcDBContext.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Data\\RemcDBContext.cs",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Data\\RemcDBContext.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Data\\RemcDBContext.cs",
+              "RelativeToolTip": "Areas\\RemcSys\\Data\\RemcDBContext.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAQwBAAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T09:11:11.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20241107090952_add rscdbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\rscSysfinalDb\\20241107090952_add rscdbContext.cs",
+              "RelativeDocumentMoniker": "Migrations\\rscSysfinalDb\\20241107090952_add rscdbContext.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\rscSysfinalDb\\20241107090952_add rscdbContext.cs",
+              "RelativeToolTip": "Migrations\\rscSysfinalDb\\20241107090952_add rscdbContext.cs",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T09:09:52.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ContextSeed.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\ContextSeed.cs",
+              "RelativeDocumentMoniker": "Data\\ContextSeed.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\ContextSeed.cs",
+              "RelativeToolTip": "Data\\ContextSeed.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowCgAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T08:09:27.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Faculty_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Shared\\Faculty_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Faculty_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Shared\\Faculty_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Faculty_Layout.cshtml",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAJMAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:34:44.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "20241107090845_Initial Create.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\20241107090845_Initial Create.cs",
+              "RelativeDocumentMoniker": "Migrations\\20241107090845_Initial Create.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\20241107090845_Initial Create.cs",
+              "RelativeToolTip": "Migrations\\20241107090845_Initial Create.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T09:08:46.067Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20241107090030_add cre changes2.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107090030_add cre changes2.cs",
+              "RelativeDocumentMoniker": "Migrations\\CreDb\\20241107090030_add cre changes2.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107090030_add cre changes2.cs",
+              "RelativeToolTip": "Migrations\\CreDb\\20241107090030_add cre changes2.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T09:00:30.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20241107085832_add cre changes.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107085832_add cre changes.cs",
+              "RelativeDocumentMoniker": "Migrations\\CreDb\\20241107085832_add cre changes.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107085832_add cre changes.cs",
+              "RelativeToolTip": "Migrations\\CreDb\\20241107085832_add cre changes.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T08:58:32.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SelectFREthics.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\FundedResearchApplication\\SelectFREthics.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\FundedResearchApplication\\SelectFREthics.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\FundedResearchApplication\\SelectFREthics.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\FundedResearchApplication\\SelectFREthics.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T08:55:08.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Director\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Director\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Director\\Index.cshtml",
+              "RelativeToolTip": "Views\\Director\\Index.cshtml",
+              "ViewState": "AQIAAGIBAAAAAAAAAAAtwG0BAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T08:38:10.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Forecasting.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\Forecasting.cshtml",
+              "ViewState": "AQIAALcAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T08:39:44.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CreDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Data\\CreDbContext.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Data\\CreDbContext.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Data\\CreDbContext.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Data\\CreDbContext.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAywCIAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:10:35.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ChiefController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\ChiefController.cs",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Controllers\\ChiefController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\ChiefController.cs",
+              "RelativeToolTip": "Areas\\RemcSys\\Controllers\\ChiefController.cs",
+              "ViewState": "AQIAAN4IAAAAAAAAAAAAAOwIAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T08:40:47.683Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RMCC_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Shared\\RMCC_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\RMCC_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Shared\\RMCC_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\RMCC_Layout.cshtml",
+              "ViewState": "AQIAACQAAAAAAAAAAAAowCwAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T08:34:20.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
+              "ViewState": "AQIAAHYAAAAAAAAAAAAAAIAAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T07:38:35.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAtwBIAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T13:27:01.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SuperAdmin_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\SuperAdmin_Layout.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIUAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:44:10.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Delete.cshtml",
+              "RelativeDocumentMoniker": "Views\\AddFAQs\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Delete.cshtml",
+              "RelativeToolTip": "Views\\AddFAQs\\Delete.cshtml",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAYwBgAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:58:04.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\AddFAQs\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Details.cshtml",
+              "RelativeToolTip": "Views\\AddFAQs\\Details.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:30:34.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\AddFAQs\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Index.cshtml",
+              "RelativeToolTip": "Views\\AddFAQs\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:29:04.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "20241107072509_AddFAQsProperties.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\Migrations\\20241107072509_AddFAQsProperties.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\20241107072509_AddFAQsProperties.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\Migrations\\20241107072509_AddFAQsProperties.cs",
+              "RelativeToolTip": "Data\\Migrations\\20241107072509_AddFAQsProperties.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T07:25:09.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAAAIkAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T06:23:16.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\AddFAQs\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Create.cshtml",
+              "RelativeToolTip": "Views\\AddFAQs\\Create.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:32:02.41Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\AddFAQs\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\AddFAQs\\Edit.cshtml",
+              "RelativeToolTip": "Views\\AddFAQs\\Edit.cshtml",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAYwBYAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T07:33:16.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAkwB4AAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T07:22:53.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "AddFAQs.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Models\\AddFAQs.cs",
+              "RelativeDocumentMoniker": "Models\\AddFAQs.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Models\\AddFAQs.cs",
+              "RelativeToolTip": "Models\\AddFAQs.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T07:21:59.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAOkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T06:43:56.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Enum\\Roles.cs",
+              "RelativeDocumentMoniker": "Enum\\Roles.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Enum\\Roles.cs",
+              "RelativeToolTip": "Enum\\Roles.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T06:34:27.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "_LayoutCNAV.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\Shared\\_LayoutCNAV.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Views\\Shared\\_LayoutCNAV.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\Shared\\_LayoutCNAV.cshtml",
+              "RelativeToolTip": "Areas\\RscSys\\Views\\Shared\\_LayoutCNAV.cshtml",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAAAFEAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T06:05:26.759Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Applications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\Applications.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Views\\RSCChief\\Applications.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\Applications.cshtml",
+              "RelativeToolTip": "Areas\\RscSys\\Views\\RSCChief\\Applications.cshtml",
+              "ViewState": "AQIAAAEBAAAAAAAAAAAtwBABAAB8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T05:54:13.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Applications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCResearcher\\Applications.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Views\\RSCResearcher\\Applications.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCResearcher\\Applications.cshtml",
+              "RelativeToolTip": "Areas\\RscSys\\Views\\RSCResearcher\\Applications.cshtml",
+              "ViewState": "AQIAABMBAAAAAAAAAAAtwOIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T05:53:48.093Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ViewState": "AQIAAIEAAAAAAAAAAAAowJYAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T06:36:49.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Reports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\Reports.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Views\\RSCChief\\Reports.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\Reports.cshtml",
+              "RelativeToolTip": "Areas\\RscSys\\Views\\RSCChief\\Reports.cshtml",
+              "ViewState": "AQIAAIYAAAAAAAAAAAAAADgAAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T05:44:47.761Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "CompletionCertificate.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\CompletionCertificate.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\CompletionCertificate.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\CompletionCertificate.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\CompletionCertificate.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:30:20.922Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ChiefController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ChiefController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\ChiefController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ChiefController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\ChiefController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:08:51.472Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "EvaluatorAssignment.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Models\\EvaluatorAssignment.cs",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Models\\EvaluatorAssignment.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Models\\EvaluatorAssignment.cs",
+              "RelativeToolTip": "Areas\\RscSys\\Models\\EvaluatorAssignment.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:55:14.197Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "Chief.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Chief.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\Chief.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Chief.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\Chief.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:27:21.324Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "EthicsEvaluationServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsEvaluationServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsEvaluationServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsEvaluationServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsEvaluationServices.cs",
+              "ViewState": "AQIAAN0BAAAAAAAAAAAUwOgBAABWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:39:16.746Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "RSCChiefController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "RelativeToolTip": "Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "ViewState": "AQIAANkDAAAAAAAAAAAtwOEDAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:36:41.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "EvaluationDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\EvaluationDetails.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Views\\RSCChief\\EvaluationDetails.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\EvaluationDetails.cshtml",
+              "RelativeToolTip": "Areas\\RscSys\\Views\\RSCChief\\EvaluationDetails.cshtml",
+              "ViewState": "AQIAAG0AAAAAAAAAAAAAAHcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T05:39:39.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "EthicsEvaluation.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsEvaluation.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\EthicsEvaluation.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsEvaluation.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\EthicsEvaluation.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAwwAwAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T03:43:23.196Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "EthicsEvaluator.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsEvaluator.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\EthicsEvaluator.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsEvaluator.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\EthicsEvaluator.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAYwBgAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T05:27:36.501Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "InitialReviewServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\InitialReviewServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\InitialReviewServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\InitialReviewServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\InitialReviewServices.cs",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAqwFQAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T04:39:18.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "SelectApplication.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chairperson\\SelectApplication.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chairperson\\SelectApplication.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chairperson\\SelectApplication.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chairperson\\SelectApplication.cshtml",
+              "ViewState": "AQIAAB8BAAAAAAAAAAAswDEBAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:00:44.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "EvaluatedExemptApplication.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluatedExemptApplication.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\EvaluatedExemptApplication.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluatedExemptApplication.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\EvaluatedExemptApplication.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAA7wBAAAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:16.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "IEthicsEvaluationServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Interfaces\\IEthicsEvaluationServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Interfaces\\IEthicsEvaluationServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Interfaces\\IEthicsEvaluationServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Interfaces\\IEthicsEvaluationServices.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAEwBAAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:51:40.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "ViewEvaluationDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\ViewEvaluationDetails.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\ViewEvaluationDetails.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\ViewEvaluationDetails.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\ViewEvaluationDetails.cshtml",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAAAF4AAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:10:36.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "UploadForms.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplicationForms\\UploadForms.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsApplicationForms\\UploadForms.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplicationForms\\UploadForms.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsApplicationForms\\UploadForms.cshtml",
+              "ViewState": "AQIAAFwCAAAAAAAAAAAtwGkCAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:28:16.418Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "EvaluateApplication.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\EvaluateApplication.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\EvaluateApplication.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\EvaluateApplication.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\EvaluateApplication.cshtml",
+              "ViewState": "AQIAADsAAAAAAAAAAAAtwEgAAABZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:04:36.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "SecretariatController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\SecretariatController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\SecretariatController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\SecretariatController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\SecretariatController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:32:07.193Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "ChiefEvaluationViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ChiefEvaluationViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\ChiefEvaluationViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ChiefEvaluationViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\ChiefEvaluationViewModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAgAAABJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:31:41.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAADQAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:44:22.19Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-06T13:25:35.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "InitialReviewController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\InitialReviewController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\InitialReviewController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\InitialReviewController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\InitialReviewController.cs",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAswDMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:31:25.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "TrackApplication.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplicationLog\\TrackApplication.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsApplicationLog\\TrackApplication.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplicationLog\\TrackApplication.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsApplicationLog\\TrackApplication.cshtml",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAtwGkAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T03:58:07.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Shared\\Error.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Shared\\Error.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:49:36.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "EthicsApplicationLogController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsApplicationLogController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsApplicationLogController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsApplicationLogController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsApplicationLogController.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAA3wCYAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:29:18.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "EthicsApplicationFormsController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsApplicationFormsController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsApplicationFormsController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsApplicationFormsController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsApplicationFormsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:29:06.64Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "EthicsForm.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsForm.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\EthicsForm.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsForm.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\EthicsForm.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAwwAwAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T03:50:55.182Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "EthicsApplicationForms.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsApplicationForms.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\EthicsApplicationForms.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsApplicationForms.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\EthicsApplicationForms.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T03:43:24.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "Applications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplication\\Applications.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsApplication\\Applications.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplication\\Applications.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsApplication\\Applications.cshtml",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAADQAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:27:50.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "NonFundedResearchInfoServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\NonFundedResearchInfoServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\NonFundedResearchInfoServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\NonFundedResearchInfoServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\NonFundedResearchInfoServices.cs",
+              "ViewState": "AQIAAEYAAAAAAAAAAAAAwFIAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:57:35.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "UploadFormsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\UploadFormsViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\UploadFormsViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\UploadFormsViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\UploadFormsViewModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAuwA0AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:38.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "EthicsApplicationController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsApplicationController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsApplicationController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsApplicationController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsApplicationController.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAhwJIAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:16:11.423Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "ApplyEthics.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplication\\ApplyEthics.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsApplication\\ApplyEthics.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplication\\ApplyEthics.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsApplication\\ApplyEthics.cshtml",
+              "ViewState": "AQIAAHsAAAAAAAAAAAAAAHoAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:50:10.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "ApplyEthicsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplyEthicsViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\ApplyEthicsViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplyEthicsViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\ApplyEthicsViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:31:23.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
+              "Title": "EthicsApplicationServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsApplicationServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsApplicationServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsApplicationServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsApplicationServices.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAAtwEEAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:06:46.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 70,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAABAAAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:40:45.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 75,
+              "Title": "EthicsFormController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsFormController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsFormController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsFormController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsFormController.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAAABkAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:13:02.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 71,
+              "Title": "ReceiptInfoController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ReceiptInfoController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\ReceiptInfoController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ReceiptInfoController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\ReceiptInfoController.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAwBQAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:31:47.793Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 72,
+              "Title": "NonFundedResearchInfoController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\NonFundedResearchInfoController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\NonFundedResearchInfoController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\NonFundedResearchInfoController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\NonFundedResearchInfoController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:31:41.213Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAADwAAAAAAAAAAAAYwAoAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:31:20.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 74,
+              "Title": "ExpertiseController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ExpertiseController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\ExpertiseController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ExpertiseController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\ExpertiseController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:13:16.887Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 76,
+              "Title": "EthicsEvaluatorExpertiseController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsEvaluatorExpertiseController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsEvaluatorExpertiseController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsEvaluatorExpertiseController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsEvaluatorExpertiseController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:31:00.805Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 77,
+              "Title": "EthicsEvaluatorController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsEvaluatorController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsEvaluatorController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsEvaluatorController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsEvaluatorController.cs",
+              "ViewState": "AQIAAB8BAAAAAAAAAAAwwC0BAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:30:54.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 78,
+              "Title": "EthicsEvaluationController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsEvaluationController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\EthicsEvaluationController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\EthicsEvaluationController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\EthicsEvaluationController.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAAYwDcAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:30:49.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 79,
+              "Title": "CoProponentController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\CoProponentController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\CoProponentController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\CoProponentController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\CoProponentController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T00:28:36.097Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 80,
+              "Title": "CompletionReportController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\CompletionReportController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\CompletionReportController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\CompletionReportController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\CompletionReportController.cs",
+              "ViewState": "AQIAAFkAAAAAAAAAAAAgwGQAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:15:37.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 81,
+              "Title": "CompletionCertificateController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\CompletionCertificateController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\CompletionCertificateController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\CompletionCertificateController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\CompletionCertificateController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:15:19.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 82,
+              "Title": "ChairpersonController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ChairpersonController.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Controllers\\ChairpersonController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Controllers\\ChairpersonController.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Controllers\\ChairpersonController.cs",
+              "ViewState": "AQIAAIsAAAAAAAAAAAAkwGwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T02:30:18.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 83,
+              "Title": "20241107021225_add ethics area.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107021225_add ethics area.cs",
+              "RelativeDocumentMoniker": "Migrations\\CreDb\\20241107021225_add ethics area.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Migrations\\CreDb\\20241107021225_add ethics area.cs",
+              "RelativeToolTip": "Migrations\\CreDb\\20241107021225_add ethics area.cs",
+              "ViewState": "AQIAAMsCAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T02:12:26.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 84,
+              "Title": "FacultyCenters.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Faculty\\FacultyCenters.cshtml",
+              "RelativeDocumentMoniker": "Views\\Faculty\\FacultyCenters.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Faculty\\FacultyCenters.cshtml",
+              "RelativeToolTip": "Views\\Faculty\\FacultyCenters.cshtml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAowBgAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-06T13:42:02.715Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 85,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:49:33.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 86,
+              "Title": "InitialReview.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\InitialReview\\InitialReview.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\InitialReview\\InitialReview.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\InitialReview\\InitialReview.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\InitialReview\\InitialReview.cshtml",
+              "ViewState": "AQIAABoBAAAAAAAAAAAAACMBAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:41:23.549Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 87,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\InitialReview\\Details.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\InitialReview\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\InitialReview\\Details.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\InitialReview\\Details.cshtml",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAACQAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:41:03.128Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 88,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:40:46.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 89,
+              "Title": "DownloadForms.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsForm\\DownloadForms.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsForm\\DownloadForms.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsForm\\DownloadForms.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsForm\\DownloadForms.cshtml",
+              "ViewState": "AQIAADkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:40:30.103Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 90,
+              "Title": "RespondToAssignment.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\RespondToAssignment.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsEvaluator\\RespondToAssignment.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\RespondToAssignment.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsEvaluator\\RespondToAssignment.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABcAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:39:58.994Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 91,
+              "Title": "EvaluatorView.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluatorView.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluatorView.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluatorView.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluatorView.cshtml",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:39:54.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 92,
+              "Title": "EvaluationDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluationDetails.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluationDetails.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluationDetails.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsEvaluator\\EvaluationDetails.cshtml",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACQAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:39:41.166Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 93,
+              "Title": "Evaluated.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\Evaluated.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsEvaluator\\Evaluated.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluator\\Evaluated.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsEvaluator\\Evaluated.cshtml",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAADMAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:39:06.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 94,
+              "Title": "Results.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluation\\Results.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsEvaluation\\Results.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluation\\Results.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsEvaluation\\Results.cshtml",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAC4AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:36:06.135Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 95,
+              "Title": "AllApplications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluation\\AllApplications.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsEvaluation\\AllApplications.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsEvaluation\\AllApplications.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsEvaluation\\AllApplications.cshtml",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAADsAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:32:58.265Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 96,
+              "Title": "_editDtsModal.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplicationForms\\_editDtsModal.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\EthicsApplicationForms\\_editDtsModal.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\EthicsApplicationForms\\_editDtsModal.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\EthicsApplicationForms\\_editDtsModal.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:28:12.941Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 97,
+              "Title": "_NavChief.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "RelativeToolTip": "Areas\\RemcSys\\Views\\Shared\\_NavChief.cshtml",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:20:42.02Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 98,
+              "Title": "IssueApplication.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\IssueApplication.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\IssueApplication.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\IssueApplication.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\IssueApplication.cshtml",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAAEIAAABPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:18:36.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 99,
+              "Title": "GetCompletionReport.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\GetCompletionReport.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\GetCompletionReport.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\GetCompletionReport.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\GetCompletionReport.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:10:18.609Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 100,
+              "Title": "FilteredApplications.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\FilteredApplications.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\FilteredApplications.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\FilteredApplications.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\FilteredApplications.cshtml",
+              "ViewState": "AQIAAEQBAAAAAAAAAAAAAFcBAABTAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:08:55.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 101,
+              "Title": "Evaluations.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\Evaluations.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\Evaluations.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\Evaluations.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\Evaluations.cshtml",
+              "ViewState": "AQIAAMUBAAAAAAAAAAAAAM0BAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:04:54.545Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 102,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\Details.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\Details.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\Details.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB0AAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:04:00.931Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 103,
+              "Title": "CompletionReports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\CompletionReports.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chief\\CompletionReports.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chief\\CompletionReports.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chief\\CompletionReports.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T01:03:55.114Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 104,
+              "Title": "AssignEvaluators.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chairperson\\AssignEvaluators.cshtml",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Views\\Chairperson\\AssignEvaluators.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Views\\Chairperson\\AssignEvaluators.cshtml",
+              "RelativeToolTip": "Areas\\CreSys\\Views\\Chairperson\\AssignEvaluators.cshtml",
+              "ViewState": "AQIAAPQAAAAAAAAAAAAowNUAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-07T00:54:50.046Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 106,
+              "Title": "AssignEvaluatorsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\AssignEvaluatorsViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\AssignEvaluatorsViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\AssignEvaluatorsViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\AssignEvaluatorsViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:31:35.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 105,
+              "Title": "EthicsApplication.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsApplication.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\EthicsApplication.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\EthicsApplication.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\EthicsApplication.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABQAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:04:48.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 107,
+              "Title": "SecretariatServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\SecretariatServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\SecretariatServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\SecretariatServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\SecretariatServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:08:03.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 108,
+              "Title": "ReceiptInfoServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ReceiptInfoServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\ReceiptInfoServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ReceiptInfoServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\ReceiptInfoServices.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAwAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:07:53.407Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 109,
+              "Title": "EthicsEvaluatorExpertiseServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsEvaluatorExpertiseServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsEvaluatorExpertiseServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsEvaluatorExpertiseServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsEvaluatorExpertiseServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:07:48.541Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 110,
+              "Title": "EthicsClearanceServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsClearanceServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsClearanceServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsClearanceServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsClearanceServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:07:37.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 111,
+              "Title": "EthicsApplicationLogServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsApplicationLogServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsApplicationLogServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsApplicationLogServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsApplicationLogServices.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAxwA8AAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:06:36.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 112,
+              "Title": "CoProponentServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\CoProponentServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\CoProponentServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\CoProponentServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\CoProponentServices.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAzwA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:06:25.71Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 114,
+              "Title": "NonFundedResearchInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\NonFundedResearchInfo.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\NonFundedResearchInfo.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\NonFundedResearchInfo.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\NonFundedResearchInfo.cs",
+              "ViewState": "AQIAACgAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:05:49.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 113,
+              "Title": "CompletionReportServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\CompletionReportServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\CompletionReportServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\CompletionReportServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\CompletionReportServices.cs",
+              "ViewState": "AQIAAHsAAAAAAAAAAAAowHoAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:03:37.323Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 115,
+              "Title": "CompletionCertificateServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\CompletionCertificateServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\CompletionCertificateServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\CompletionCertificateServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\CompletionCertificateServices.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAwA0AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:03:29.773Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 116,
+              "Title": "ChiefServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ChiefServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\ChiefServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ChiefServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\ChiefServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:03:22.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 117,
+              "Title": "ChairpersonServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ChairpersonServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\ChairpersonServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ChairpersonServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\ChairpersonServices.cs",
+              "ViewState": "AQIAAJQAAAAAAAAAAADwv60AAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T23:02:20.202Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 118,
+              "Title": "EthicsFormServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsFormServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsFormServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsFormServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsFormServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:57:23.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 119,
+              "Title": "ExpertiseServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ExpertiseServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\ExpertiseServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\ExpertiseServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\ExpertiseServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:57:18.449Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 120,
+              "Title": "EthicsEvaluatorServices.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsEvaluatorServices.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Services\\EthicsEvaluatorServices.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Services\\EthicsEvaluatorServices.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Services\\EthicsEvaluatorServices.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:57:04.486Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 122,
+              "Title": "Faculty.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Faculty.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\Faculty.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Faculty.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\Faculty.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:44:56.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 121,
+              "Title": "EvaluationDetailsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluationDetailsViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\EvaluationDetailsViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluationDetailsViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\EvaluationDetailsViewModel.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAzwAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:54.229Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 123,
+              "Title": "EvaluatedFullReviewApplication.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluatedFullReviewApplication.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\EvaluatedFullReviewApplication.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluatedFullReviewApplication.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\EvaluatedFullReviewApplication.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAADwvwoAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:47.717Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 124,
+              "Title": "PendingIssuance.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\PendingIssuance.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\PendingIssuance.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\PendingIssuance.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\PendingIssuance.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:43.349Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 125,
+              "Title": "EvaluationResultsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluationResultsViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\EvaluationResultsViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluationResultsViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\EvaluationResultsViewModel.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAUAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:31.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 126,
+              "Title": "InitialReviewViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\InitialReviewViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\InitialReviewViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\InitialReviewViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\InitialReviewViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:22.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 127,
+              "Title": "EvaluatedExpeditedApplication.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluatedExpeditedApplication.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\EvaluatedExpeditedApplication.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\EvaluatedExpeditedApplication.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\EvaluatedExpeditedApplication.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:11.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 128,
+              "Title": "CompletionReportViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\CompletionReportViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\CompletionReportViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\CompletionReportViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\CompletionReportViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:32:04.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 129,
+              "Title": "AssignReviewTypeViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\AssignReviewTypeViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\AssignReviewTypeViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\AssignReviewTypeViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\AssignReviewTypeViewModel.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:31:48.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 130,
+              "Title": "ApplyForCompletionCertificateViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplyForCompletionCertificateViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\ApplyForCompletionCertificateViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplyForCompletionCertificateViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\ApplyForCompletionCertificateViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:31:29.997Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 131,
+              "Title": "ApplicationViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplicationViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\ApplicationViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplicationViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\ApplicationViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:31:18.801Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 132,
+              "Title": "ApplicationRequirementsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplicationRequirementsViewModel.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\ViewModels\\ApplicationRequirementsViewModel.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\ViewModels\\ApplicationRequirementsViewModel.cs",
+              "RelativeToolTip": "Areas\\CreSys\\ViewModels\\ApplicationRequirementsViewModel.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAA+wAgAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:30:52.381Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 133,
+              "Title": "RequiredIfHumanSubjects.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Data\\Validations\\RequiredIfHumanSubjects.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Data\\Validations\\RequiredIfHumanSubjects.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Data\\Validations\\RequiredIfHumanSubjects.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Data\\Validations\\RequiredIfHumanSubjects.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:29:04.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 134,
+              "Title": "Seed.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Data\\Seed.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Data\\Seed.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Data\\Seed.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Data\\Seed.cs",
+              "ViewState": "AQIAAJMAAAAAAAAAAAAAAJ4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:20:07.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 135,
+              "Title": "InitialReview.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\InitialReview.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\InitialReview.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\InitialReview.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\InitialReview.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:19:51.119Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 136,
+              "Title": "Secretariat.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Secretariat.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\Secretariat.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Secretariat.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\Secretariat.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAhwAwAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:19:22.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 137,
+              "Title": "Memorandum.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Memorandum.cs",
+              "RelativeDocumentMoniker": "Areas\\CreSys\\Models\\Memorandum.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Areas\\CreSys\\Models\\Memorandum.cs",
+              "RelativeToolTip": "Areas\\CreSys\\Models\\Memorandum.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAvwAwAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T22:16:52.501Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 138,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Student\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Student\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\Views\\Student\\Index.cshtml",
+              "RelativeToolTip": "Views\\Student\\Index.cshtml",
+              "ViewState": "AQIAAM8AAAAAAAAAAAAAAN8AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-06T21:53:36.175Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1226,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1058,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

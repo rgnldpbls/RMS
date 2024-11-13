@@ -1,0 +1,809 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ResearchManagementSystem.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ResearchManagementSystem.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\CERTIFICATE OF VALIDITY.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\CERTIFICATE OF VALIDITY.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\CO-AUTHORSHIP-AGREEMENT.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\CO-AUTHORSHIP-AGREEMENT.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-10-Research-Study Protocol.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-10-Research-Study Protocol.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-10.1-NON-HUMAN-DETERMINANT-TEMPLATE.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-10.1-NON-HUMAN-DETERMINANT-TEMPLATE.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-11-Informed Consent Form.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-11-Informed Consent Form.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-12-Assent Form for Minors-Participants.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-12-Assent Form for Minors-Participants.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-15-Application for Ethics Review of Amendments.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-15-Application for Ethics Review of Amendments.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-16-Application for Cancellation of Ethics Review.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-16-Application for Cancellation of Ethics Review.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-18-Terminal-Report-Template.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-18-Terminal-Report-Template.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\FORM-9-Application for Ethics Review of New Protocol.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\FORM-9-Application for Ethics Review of New Protocol.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\LETTER OF INTENT.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\LETTER OF INTENT.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\FormFiles\\RESEARCHER CURRICULUM VITAE.docx",
+      "PackagePath": "staticwebassets\\FormFiles\\RESEARCHER CURRICULUM VITAE.docx"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\AssignEval.css",
+      "PackagePath": "staticwebassets\\css\\AssignEval.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-About.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-About.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Accomplishmentadd.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Accomplishmentadd.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Accomplishmentdetails.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Accomplishmentdetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Centers.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Centers.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Faculty-AddFaculty.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Faculty-AddFaculty.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Faculty-EditFaculty.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Faculty-EditFaculty.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Faculty-FacultyList.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Faculty-FacultyList.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Faculty-RankHistory.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Faculty-RankHistory.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Help.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Help.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Home.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Home.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Notifications.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Notifications.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Profile.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Profile.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-RateUs.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-RateUs.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Report-GenerateReport-Preview.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Report-GenerateReport-Preview.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Report-GenerateReport.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Report-GenerateReport.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Report-SubmitReport-Preview.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Report-SubmitReport-Preview.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Report-SubmitReport.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Report-SubmitReport.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Research-AddResearch.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Research-AddResearch.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Research-ResearchDetails.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Research-ResearchDetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Research-ResearchEdit.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Research-ResearchEdit.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Research-ResearchList.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Research-ResearchList.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-ReturnedSubmissions-Details.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-ReturnedSubmissions-Details.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-ReturnedSubmissions-Edit.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-ReturnedSubmissions-Edit.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-ReturnedSubmissions-List.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-ReturnedSubmissions-List.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Submissions-SubmissionDetails.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Submissions-SubmissionDetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Submissions-SubmissionEdit.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Submissions-SubmissionEdit.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-Submissions-SubmissionsList.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-Submissions-SubmissionsList.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-ToEvaluate-List.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-ToEvaluate-List.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-ToReview-Details.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-ToReview-Details.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-ToReview-List.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-ToReview-List.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-accomplishmentlist.css",
+      "PackagePath": "staticwebassets\\css\\ClusterCoordinator-accomplishmentlist.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\CompletionReport.css",
+      "PackagePath": "staticwebassets\\css\\CompletionReport.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\CompletionReportDetails.css",
+      "PackagePath": "staticwebassets\\css\\CompletionReportDetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\DetailsInitialReview.css",
+      "PackagePath": "staticwebassets\\css\\DetailsInitialReview.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\EvaluationDetails.css",
+      "PackagePath": "staticwebassets\\css\\EvaluationDetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\EvaluatorView.css",
+      "PackagePath": "staticwebassets\\css\\EvaluatorView.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\Faculty-Home.css",
+      "PackagePath": "staticwebassets\\css\\Faculty-Home.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\InitialReview.css",
+      "PackagePath": "staticwebassets\\css\\InitialReview.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RMOSections.css",
+      "PackagePath": "staticwebassets\\css\\RMOSections.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RSCChief.css",
+      "PackagePath": "staticwebassets\\css\\RSCChief.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RSCChiefPages.css",
+      "PackagePath": "staticwebassets\\css\\RSCChiefPages.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RSCEvaluator.css",
+      "PackagePath": "staticwebassets\\css\\RSCEvaluator.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RSCEvaluatorPages.css",
+      "PackagePath": "staticwebassets\\css\\RSCEvaluatorPages.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RSCResearcher.css",
+      "PackagePath": "staticwebassets\\css\\RSCResearcher.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\RSCResearcherPages.css",
+      "PackagePath": "staticwebassets\\css\\RSCResearcherPages.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SelectApplication.css",
+      "PackagePath": "staticwebassets\\css\\SelectApplication.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SlateTheme.css",
+      "PackagePath": "staticwebassets\\css\\SlateTheme.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-Accounts-AddUser.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministrator-Accounts-AddUser.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-Accounts-EditUser.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministrator-Accounts-EditUser.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-Accounts-Manage.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministrator-Accounts-Manage.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-FAQs.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministrator-FAQs.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-InformationDesk.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministrator-InformationDesk.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-RoleManager.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministrator-RoleManager.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministratorUserRole.css",
+      "PackagePath": "staticwebassets\\css\\SystemAdministratorUserRole.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\TrackApplication.css",
+      "PackagePath": "staticwebassets\\css\\TrackApplication.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\application.css",
+      "PackagePath": "staticwebassets\\css\\application.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\applyethics.css",
+      "PackagePath": "staticwebassets\\css\\applyethics.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\downloadforms.css",
+      "PackagePath": "staticwebassets\\css\\downloadforms.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\faculty-accomplishment.css",
+      "PackagePath": "staticwebassets\\css\\faculty-accomplishment.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\faculty-applications.css",
+      "PackagePath": "staticwebassets\\css\\faculty-applications.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\landing.css",
+      "PackagePath": "staticwebassets\\css\\landing.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\site2.css",
+      "PackagePath": "staticwebassets\\css\\site2.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\student.css",
+      "PackagePath": "staticwebassets\\css\\student.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\css\\uploadform.css",
+      "PackagePath": "staticwebassets\\css\\uploadform.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\BG-Header.png",
+      "PackagePath": "staticwebassets\\images\\BG-Header.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\Group 9104.png",
+      "PackagePath": "staticwebassets\\images\\Group 9104.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\OrgStruct.png",
+      "PackagePath": "staticwebassets\\images\\OrgStruct.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\RMOLogo.png",
+      "PackagePath": "staticwebassets\\images\\RMOLogo.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\RMOSection-res.jpg",
+      "PackagePath": "staticwebassets\\images\\RMOSection-res.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\RMOSection-rlds.jpg",
+      "PackagePath": "staticwebassets\\images\\RMOSection-rlds.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\RMOSection-rss.jpg",
+      "PackagePath": "staticwebassets\\images\\RMOSection-rss.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\about.png",
+      "PackagePath": "staticwebassets\\images\\about.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\background.jpg",
+      "PackagePath": "staticwebassets\\images\\background.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\bg.jpg",
+      "PackagePath": "staticwebassets\\images\\bg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\card1.jfif",
+      "PackagePath": "staticwebassets\\images\\card1.jfif"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\card2.jpg",
+      "PackagePath": "staticwebassets\\images\\card2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\card3.jpg",
+      "PackagePath": "staticwebassets\\images\\card3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\card4.jpg",
+      "PackagePath": "staticwebassets\\images\\card4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\director.jpg",
+      "PackagePath": "staticwebassets\\images\\director.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\facebook-brands-solid.svg",
+      "PackagePath": "staticwebassets\\images\\facebook-brands-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\linkedin.svg",
+      "PackagePath": "staticwebassets\\images\\linkedin.svg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\login-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\login-bg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\logout.png",
+      "PackagePath": "staticwebassets\\images\\logout.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\ph-g.svg",
+      "PackagePath": "staticwebassets\\images\\ph-g.svg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\profile.png",
+      "PackagePath": "staticwebassets\\images\\profile.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\qna.png",
+      "PackagePath": "staticwebassets\\images\\qna.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\rate.png",
+      "PackagePath": "staticwebassets\\images\\rate.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\report.png",
+      "PackagePath": "staticwebassets\\images\\report.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\research-management-logo.png",
+      "PackagePath": "staticwebassets\\images\\research-management-logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\rmo page.jpg",
+      "PackagePath": "staticwebassets\\images\\rmo page.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\rmo.png",
+      "PackagePath": "staticwebassets\\images\\rmo.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\x.svg",
+      "PackagePath": "staticwebassets\\images\\x.svg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\images\\youtube.svg",
+      "PackagePath": "staticwebassets\\images\\youtube.svg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\About.js",
+      "PackagePath": "staticwebassets\\js\\About.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Citation.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Citation.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Copyright.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Copyright.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Faculty-AddFaculty.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Faculty-AddFaculty.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Faculty-EditFaculty.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Faculty-EditFaculty.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Faculty-RankHistory.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Faculty-RankHistory.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-RateUs.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-RateUs.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Report-GenerateReport.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Report-GenerateReport.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Report-SubmitReport.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Report-SubmitReport.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Research-AddResearch-year.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Research-AddResearch-year.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Research-AddResearch.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Research-AddResearch.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Research-ResearchEdit-year.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Research-ResearchEdit-year.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Research-ResearchEdit.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Research-ResearchEdit.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-ReturnedSubmissions-Edit-year.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-ReturnedSubmissions-Edit-year.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-ReturnedSubmissions-Edit.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-ReturnedSubmissions-Edit.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Submissions-SubmissionEdit-year.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Submissions-SubmissionEdit-year.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-Submissions-SubmissionEdit.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-Submissions-SubmissionEdit.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-acc-AddResearch-year.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-acc-AddResearch-year.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\ClusterCoordinator-acc-AddResearch.js",
+      "PackagePath": "staticwebassets\\js\\ClusterCoordinator-acc-AddResearch.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\Faculty-Home.js",
+      "PackagePath": "staticwebassets\\js\\Faculty-Home.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\RMOActivities.js",
+      "PackagePath": "staticwebassets\\js\\RMOActivities.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\SystemAdministrator-Accounts-AddUser.js",
+      "PackagePath": "staticwebassets\\js\\SystemAdministrator-Accounts-AddUser.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\SystemAdministrator-Accounts-EditUser.js",
+      "PackagePath": "staticwebassets\\js\\SystemAdministrator-Accounts-EditUser.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\SystemAdministratorUserRole.js",
+      "PackagePath": "staticwebassets\\js\\SystemAdministratorUserRole.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\faculty-accomplishment.js",
+      "PackagePath": "staticwebassets\\js\\faculty-accomplishment.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\faculty-accomplishments.js",
+      "PackagePath": "staticwebassets\\js\\faculty-accomplishments.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\faculty-applications.js",
+      "PackagePath": "staticwebassets\\js\\faculty-applications.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\landing.js",
+      "PackagePath": "staticwebassets\\js\\landing.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\sidebar.js",
+      "PackagePath": "staticwebassets\\js\\sidebar.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ResearchManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ResearchManagementSystem.props",
+      "PackagePath": "build\\ResearchManagementSystem.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ResearchManagementSystem.props",
+      "PackagePath": "buildMultiTargeting\\ResearchManagementSystem.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ResearchManagementSystem.props",
+      "PackagePath": "buildTransitive\\ResearchManagementSystem.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

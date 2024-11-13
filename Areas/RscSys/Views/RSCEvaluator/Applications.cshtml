@@ -1,0 +1,153 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EvaluationListViewModel
+
+@{
+    ViewData["Title"] = "Evaluation";
+    Layout = "_LayoutEPages";
+}
+
+<style>
+
+    .customhead th {
+        background-color: #850000;
+        color: white;
+    }
+
+    .custom-tabs .nav-link.active {
+        background-color: #850000; /* Set the active tab background color */
+        color: #ffffff; /* Set the active tab text color */
+        font-weight: 700;
+    }
+
+    .custom-tabs .nav-link {
+        background-color: #D9D9D9;
+        color: black; /* Set the default tab text color */
+    }
+
+    .title-app {
+        font-size: 50px;
+        font-weight: 700;
+    }
+
+    .btn-view {
+        font-weight: 700;
+        color: #850000;
+    }
+
+        .btn-view i {
+            margin: 0px 10px;
+        }
+
+    .btn-assign {
+        font-weight: 700;
+    }
+
+        .btn-assign i {
+            margin: 0px 10px;
+        }
+
+    .nav-tabs .nav-item {
+        background-color: #850000;
+        border-radius: 5px;
+        margin-right: 5px;
+    }
+
+</style>
+
+<h1 class="title-app">Applications</h1>
+<ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#ToBeEvaluatedApplications" type="button" role="tab" aria-controls="activeApplications" aria-selected="true">To Be Evaluated</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#evaluatedApplication" type="button" role="tab" aria-controls="completedApplication" aria-selected="false">Evaluated</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="ToBeEvaluatedApplications" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Details</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ToBeEvaluated.Any())
+                {
+                    foreach (var evaluation in Model.ToBeEvaluated)
+                    {
+                        <tr>
+                            <td>@evaluation.Request.DtsNo</td>
+                            <td>
+                                <strong>Applicant Name:</strong> @evaluation.Request.Name <br />
+                                <strong>Application Type:</strong> @evaluation.Request.ApplicationType <br />
+                                <strong>Field of Study:</strong> @evaluation.Request.FieldOfStudy <br />
+                                <strong>Filed Date:</strong> @evaluation.AssignedDate.ToShortDateString()
+                            </td>
+                            <td class="text-center">
+                                <span class="badge rounded-pill text-bg-warning">@evaluation.EvaluationStatus</span>
+                            </td>
+                            <td class="text-center">
+                                <a href="@Url.Action("EvaluateDocuments", new { id = evaluation.AssignmentId })" class="btn btn-view">
+                                    <i class="fa-solid fa-eye" style="color: #850000;"></i> Evaluate Documents
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No assigned tasks.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="evaluatedApplication" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Details</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Evaluated.Any())
+                {
+                    foreach (var evaluation in Model.Evaluated)
+                    {
+                        <tr>
+                            <td>@evaluation.Request.DtsNo</td>
+                            <td>
+                                <strong>Applicant Name:</strong> @evaluation.Request.Name <br />
+                                <strong>Application Type:</strong> @evaluation.Request.ApplicationType <br />
+                                <strong>Field of Study:</strong> @evaluation.Request.FieldOfStudy <br />
+                                <strong>Filed Date:</strong> @evaluation.AssignedDate.ToShortDateString()
+                            </td>
+                            <td class="text-center">
+                                <span class="badge rounded-pill text-bg-success">Completed</span>
+                            </td>
+                            <td class="text-center">
+                                <!-- Optionally, add actions for evaluated applications here -->
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No assigned tasks.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

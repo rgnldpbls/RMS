@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CRE.ViewModels.ApplicationEvaluationsViewModel>
+
+<h2>Application Evaluations</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UREC No</th>
+            <th>Applicant Name</th>
+            <th>Evaluator Name</th>
+            <th>Protocol Recommendation</th>
+            <th>Consent Recommendation</th>
+            <th>Evaluation Date</th>
+            <th>Chief's ID</th> <!-- Chief's ID column -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var application in Model)
+        {
+            // Check if there are evaluations for the application
+            if (application.EthicsEvaluations != null && application.EthicsEvaluations.Any())
+            {
+                foreach (var evaluation in application.EthicsEvaluations)
+                {
+                    <tr>
+                        @if (evaluation == application.EthicsEvaluations.First()) // Display application details only for the first evaluation
+                        {
+                            <td>@application.UrecNo</td>
+                            <td>@application.EthicsEvaluations.First().EthicsApplication.Name</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                            <td></td> <!-- Empty cells for subsequent evaluations -->
+                        }
+
+                        <td>@evaluation.EthicsEvaluator?.Faculty?.Name</td>
+                        <td>@evaluation.ProtocolRecommendation</td>
+                        <td>@evaluation.ConsentRecommendation</td>
+                        <td>@evaluation.endDate?.ToString("yyyy-MM-dd")</td>
+
+                        <!-- Display the chief's ID if ReviewType is "exempt" -->
+                        <td>
+                            @if (application.InitialReview?.ReviewType == "exempt")
+                            {
+                                @application.EthicsEvaluations.First().Chief.Name
+                            }
+                            else
+                            {
+                                <span>N/A</span> <!-- Or leave empty if preferred -->
+                            }
+                        </td>
+                    </tr>
+                }
+                    
+            }
+            else
+            {
+                // If there are no evaluations, display the application details with empty cells for evaluations
+                <tr>
+                    <td>@application.UrecNo</td>
+                    <td>@application.EthicsEvaluations.First().EthicsApplication.Name</td>
+                    <td colspan="5">No Evaluations</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

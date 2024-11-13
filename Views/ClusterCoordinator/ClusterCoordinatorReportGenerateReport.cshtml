@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Report";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Report-GenerateReport.css" rel="stylesheet" />
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReport" id="aactive">Generate Report</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportSubmitReport" id="inaactive">Submit Report</a>
+            </div>
+        </div>
+    </div>
+    <!--input fields-->
+    <form action="" class="container">
+        <div class="container shadow h4 p-4 mb-3" id="title">
+            Select Report Type
+        </div>
+
+        <label class="form-check-label p-3 mb-2" for="production" id="smaller-container">
+            <div class="container d-flex justify-content-between">
+                <div class="ppp">Production</div>
+                <input class="form-check-input" type="radio" name="reports" id="production">
+            </div>
+        </label>
+        <label class="form-check-label p-3 mb-2" for="publication" id="smaller-container">
+            <div class="container  d-flex justify-content-between">
+                <div class="ppp">Publication</div>
+                <input class="form-check-input" type="radio" name="reports" id="publication">
+            </div>
+        </label>
+        <label class="form-check-label p-3 mb-2" for="presentation" id="smaller-container">
+            <div class="container  d-flex justify-content-between">
+                <div class="ppp">Presentation</div>
+                <input class="form-check-input" type="radio" name="reports" id="presentation">
+            </div>
+        </label>
+
+        <div class="container mt-3">
+            <div class="row d-flex justify-content-between align-items-end">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="form-label" for="start_date">Start Date</label>
+                    <input class="form-control mb-3" type="date" id="start_date" placeholder="Start Date">
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <label class="form-label" for="end_date">End Date</label>
+                    <input class="form-control mb-3" type="date" id="end_date" placeholder="End Date">
+                </div>
+
+                <div class="col-lg-8 col-sm-12 d-flex justify-content-end align-items-end">
+                    <div class="me-2">
+                        <button asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReportPreview" class="report me-2 mb-3">Report Preview</button>
+                    </div>
+                    <div>
+                        <button class="report mb-3">Generate Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="~/js/ClusterCoordinator-Report-GenerateReport.js"></script>
+
+</div>

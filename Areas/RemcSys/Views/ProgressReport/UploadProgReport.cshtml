@@ -1,0 +1,142 @@
+﻿@model IEnumerable<GeneratedForm>
+@{
+    Layout = "_NavTeamLeader2";
+}
+<div class="application-requirements">
+    <h1>Upload Progress Report</h1>
+
+    <div class="research-info">
+        <h2><b>Research Title:</b> @ViewBag.Research</h2>
+        <h6>
+            <b>Proponents:</b><br />@ViewBag.Lead
+            @if (!ViewBag.Members.Contains("N/A"))
+            {
+                @foreach (var member in ViewBag.Members)
+                {
+                    <br />
+                    @member
+                }
+            }
+        </h6>
+    </div>
+
+    <div class="upload-container">
+        <!-- Your Attachments -->
+        <div class="upload-section">
+            <h4>Progress Report Template</h4>
+            <p>Kindly download it for your reference.</p>
+            @foreach (var doc in Model)
+            {
+                <a class="btn-outline-secondary" href="@Url.Action("Download", "ProgressReport", new {id = doc.Id})">
+                    @doc.FileName
+                </a>
+            }<hr />
+            <p><b>NOTE:</b> Please follow the file naming format (Ex: Progress Report # - ResearchTitle)</p>
+
+            <div class="attachments" id="attachments">
+                <p>No Attachments</p>
+            </div>
+        </div>
+
+        <!-- Upload and Submit button -->
+        <div class="file-upload-section">
+            <h3>Your Uploads</h3><hr />
+            <form id="uploadForm" enctype="multipart/form-data" method="post" action="@Url.Action("SubmitProgressReport", "ProgressReport")">
+                <label for="fileUpload" class="upload-btn">
+                    <span class="upload-icon">+</span> Upload Files
+                </label>
+                <input type="file" id="fileUpload" name="file" accept=".pdf" style="display:none;" required>
+                <input type="hidden" name="id" value="@ViewBag.Id" />
+                <button type="submit" class="submit-btn">SUBMIT REPORT</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Warning Pop-up -->
+<div class="warning_section" style="display: none;">
+    <div class="card">
+        <i class="bi bi-exclamation-circle-fill" style="font-size: 100px; color:#850000; text-align: center;"></i>
+        <span class="title">Please review all information before submitting.</span>
+        <div class="d-grid gap-3 col-14 mx-auto">
+            <p>Changes may not be possible after submission.</p>
+        </div>
+        <button class="wsubmit-btn" id="confirmSubmit"> Submit</button>
+        <button class="wback-btn">Back</button>
+    </div>
+</div>
+
+<script>
+    document.querySelector('#fileUpload').addEventListener('change', function (event) {
+        const attachmentsDiv = document.getElementById('attachments');
+        attachmentsDiv.innerHTML = ''; // Clear existing attachments
+        const files = event.target.files;
+
+        if (files.length > 0) {
+            for (const file of files) {
+                const fileContainer = document.createElement('div');
+                fileContainer.textContent = file.name;
+                fileContainer.style.display = 'flex';
+                fileContainer.style.alignItems = 'center';
+                fileContainer.style.marginBottom = '5px';
+                fileContainer.style.gap = '10px';
+
+                // Preview button (file link)
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(file);
+                link.textContent = 'Preview';
+                link.target = "_blank"; // Open file in a new tab
+                // Apply preview button styles directly
+                link.style.backgroundColor = 'white';
+                link.style.color = 'blue';
+                link.style.padding = '5px 10px';
+                link.style.cursor = 'pointer';
+                link.style.borderRadius = '5px';
+                link.style.border = '2px solid blue';
+                link.style.textDecoration = 'none';
+                link.addEventListener('mouseover', () => {
+                    link.style.backgroundColor = 'blue';
+                    link.style.color = 'white';
+                });
+                link.addEventListener('mouseout', () => {
+                    link.style.backgroundColor = 'white';
+                    link.style.color = 'blue';
+                });
+                fileContainer.appendChild(link);
+
+                // Remove button
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                // Apply remove button styles directly
+                removeButton.style.backgroundColor = '#850000';
+                removeButton.style.color = 'white';
+                removeButton.style.border = 'none';
+                removeButton.style.padding = '5px 10px';
+                removeButton.style.border = '2px solid #fff';
+                removeButton.style.cursor = 'pointer';
+                removeButton.style.borderRadius = '3px';
+                removeButton.addEventListener('click', function () {
+                    fileContainer.remove(); // Remove this file's display
+                });
+                fileContainer.appendChild(removeButton);
+
+                attachmentsDiv.appendChild(fileContainer);
+            }
+        } else {
+            attachmentsDiv.innerHTML = '<p>No Attachments</p>';
+        }
+    });
+
+    document.querySelector('.submit-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelector('.warning_section').style.display = 'block';
+    });
+
+    document.querySelector('.wback-btn').addEventListener('click', function () {
+        document.querySelector('.warning_section').style.display = 'none';
+    });
+
+    document.querySelector('#confirmSubmit').addEventListener('click', function () {
+        document.getElementById('uploadForm').submit();
+    });
+</script>

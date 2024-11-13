@@ -1,0 +1,378 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ResearchManagementSystem.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model CRE.ViewModels.ApplyEthicsViewModel
+@{
+    ViewBag.Title = "Submit Application";
+
+    // DROP DOWN DATAs
+    var fieldOfStudies = new List<string>
+    {
+        "Education",
+        "Computer Science, Information Systems, and Technology",
+        "Engineering, Architecture, and Design",
+        "Humanities, Language, and Communication",
+        "Business",
+        "Social Sciences",
+        "Science, Mathematics, and Statistics"
+    };
+
+    var campuses = new List<string>
+    {
+       "Sta. Mesa (MAIN CAMPUS)",
+        "Taguig City (BRANCH)",
+        "Quezon City (BRANCH)",
+        "San Juan City (BRANCH)",
+        "Parañaque City (CAMPUS)",
+        "Bataan (BRANCH)",
+        "Sta. Maria, Bulacan (CAMPUS)",
+        "Pulilan, Bulacan (CAMPUS)",
+        "Cabiao, Nueva Ecija (CAMPUS)",
+        "Lopez, Quezon (BRANCH)",
+        "Malunay, Quezon (BRANCH)",
+        "Unisan, Quezon (BRANCH)",
+        "Ragay, Camarines Sur (BRANCH)",
+        "Sto. Tomas, Batangas (BRANCH)",
+        "Maragondon, Cavite (BRANCH)",
+        "Bansud, Oriental Mindoro (BRANCH)",
+        "Sablayan, Occidental Mindoro (BRANCH)",
+        "Biñan, Laguna (CAMPUS)",
+        "San Pedro, Laguna (CAMPUS)",
+        "Sta. Rosa, Laguna (CAMPUS)",
+        "Calauan, Laguna (CAMPUS)"
+    };
+
+    var colleges = new List<string>
+    {
+        "College of Accountancy and Finance (CAF)",
+        "College of Architecture, Design and the Built Environment (CADBE)",
+        "College of Arts and Letters (CAL)",
+        "College of Business Administration (CBA)",
+        "College of Communication (COC)",
+        "College of Computer and Information Sciences (CCIS)",
+        "College of Education (COED)",
+        "College of Engineering (CE)",
+        "College of Human Kinetics (CHK)",
+        "College of Law (CL)",
+        "College of Political Science and Public Administration (CPSPA)",
+        "College of Social Sciences and Development (CSSD)",
+        "College of Science (CS)",
+        "College of Tourism, Hospitality and Transportation Management (CTHTM)",
+        "Institute of Technology"
+    };
+
+    var universities = new List<string>
+    {
+        "Polytechnic University of the Philippines"
+    };
+
+    var user = await UserManager.GetUserAsync(User);
+    var roles = await UserManager.GetRolesAsync(user);
+    bool isExternalResearcher = roles.Contains("external researcher") == true;
+}
+<head>
+    <link rel="stylesheet" href="~/css/applyethics.css" asp-append-version="true" />
+</head>
+<div class="container-fluid mt-3">
+    <div class="d-flex justify-content-center">
+        <form asp-action="ApplyEthics" method="post" enctype="multipart/form-data" style="width: 80%;">
+            <div class="card border-secondary mb-3">
+                <div class="card-header text-bg-danger text-white text-center">General Information</div>
+                <div class="card-body bg-white">
+                    <!-- DTS No -->
+                    <div class="row mb-3">
+                        <label asp-for="EthicsApplication.dtsNo" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">DTS No.:</label>
+                        <div class="col-sm-8">
+                            <!-- DTS Input with pattern attribute for validation -->
+                            @Html.TextBoxFor(model => model.EthicsApplication.dtsNo, new
+                                {
+                                    @class = "form-control",
+                                    id = "dtsNoInput",
+                                    placeholder = "DTS No. (Optional)",
+                                    pattern = "\\d{4}-\\d{4}-\\d{2}",
+                                    title = "DTS No. must be in the format xxxx-xxxx-xx"
+                                })
+                            <!-- Error message placeholder -->
+                            <span id="dtsNoError" class="text-danger"></span>
+                            @Html.ValidationMessageFor(model => model.EthicsApplication.dtsNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!-- Research Project Title -->
+                    <div class="row mb-3">
+                        @Html.LabelFor(model => model.NonFundedResearchInfo.title,
+                                 new { @class = "text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end" })
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.NonFundedResearchInfo.title,
+                                     new { @class = "form-control", required = "required", minlength = "5", maxlength = "100", placeholder = "Research Title" })
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Project Leader -->
+                    <div class="row mb-3">
+                        <label asp-for="Name" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Project Proponent: </label>
+                        <div class="col-sm-8">
+                            @if (user != null)
+                            {
+                                var fullName = $"{user.FirstName} {user.LastName}";
+                                @Html.TextBox("Name", fullName, new { @class = "form-control"})
+                            }
+                            else
+                            {
+                                @Html.TextBox("NoUserId", "", new { @class = "form-control", placeholder = "No User Id Detected", @disabled = "disabled" })
+                            }
+
+                        </div>
+                    </div>
+
+
+                    <div id="coProponentsContainer">
+                        @for (int i = 0; i < Model.CoProponent.Count; i++)
+                        {
+                            <div class="coProponentRow row mb-3">
+                                <!-- Co-Proponent Name -->
+                                <div class="row mb-3">
+                                    <label asp-for="CoProponent[i].coProponentName" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Project Co-Proponent:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.CoProponent[i].coProponentName, new { @class = "form-control", placeholder = "Name" })
+                                        @Html.ValidationMessageFor(model => model.CoProponent[i].coProponentName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>  
+                                <!-- Remove Button -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-8 offset-sm-3">
+                                        <button type="button" class="btn btn-danger removeCoProponentBtn">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Add Co-Proponent Button -->
+                    <div class="row mb-3">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-8 d-flex align-items-start">
+                            <button type="button" class="btn btn-secondary" id="addCoProponentBtn">Add Co-Proponent</button>
+                        </div>
+                    </div>
+
+                    <!-- Field of Study Dropdown -->
+                    <div class="row mb-3">
+                        <label asp-for="EthicsApplication.fieldOfStudy" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Field of Study: </label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(model => model.EthicsApplication.fieldOfStudy, new SelectList(fieldOfStudies), "Select Field of Study", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EthicsApplication.fieldOfStudy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Campus Dropdown/Input -->
+                    <div class="row mb-3">
+                        <label asp-for="NonFundedResearchInfo.campus" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Campus: </label>
+                        <div class="col-sm-8">
+                            @if (isExternalResearcher)
+                            {
+                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.campus, new { @class = "form-control", placeholder = "Enter Campus" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.NonFundedResearchInfo.campus, new SelectList(campuses), "Select Campus", new { @class = "form-control" })
+                            }
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.campus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- College Dropdown/Input -->
+                    <div class="row mb-3">
+                        <label asp-for="NonFundedResearchInfo.college" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">College: </label>
+                        <div class="col-sm-8">
+                            @if (isExternalResearcher)
+                            {
+                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.college, new { @class = "form-control", placeholder = "Enter College" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.NonFundedResearchInfo.college, new SelectList(colleges), "Select College", new { @class = "form-control" })
+                            }
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.college, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- University Dropdown/Input -->
+                    <div class="row mb-3">
+                        <label asp-for="NonFundedResearchInfo.university" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">University: </label>
+                        <div class="col-sm-8">
+                            @if (isExternalResearcher)
+                            {
+                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.university, new { @class = "form-control", placeholder = "Enter University" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.NonFundedResearchInfo.university, new SelectList(universities), "Select Univeristy", new { @class = "form-control" })
+                            }
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.university, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Receipt Information Section -->
+        @if (isExternalResearcher)
+            {
+            <div class="card border-secondary mb-3">
+                <div class="card-header text-bg-danger text-white text-center">Payment Receipt Details</div>
+                <div class="card-body bg-white">
+                    <div class="row mb-3">
+                        <label asp-for="ReceiptInfo.receiptNo" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Receipt Number: </label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.ReceiptInfo.receiptNo, new { @class = "form-control", placeholder = "Receipt Number", required = "required" })
+                            @Html.ValidationMessageFor(model => model.ReceiptInfo.receiptNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ReceiptInfo.amountPaid" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Amount Paid: </label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.ReceiptInfo.amountPaid, new
+                                {
+                                    @class = "form-control",
+                                    placeholder = "Amount Paid",
+                                    required = "required",
+                                    type = "text",
+                                    pattern = @"^\d+(\.\d{1,2})?$", // This pattern allows numbers and up to 2 decimal places
+                                    title = "Please enter a valid amount (e.g., 123.45)" // Tooltip for guidance
+                                })
+                            @Html.ValidationMessageFor(model => model.ReceiptInfo.amountPaid, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="ReceiptInfo.datePaid" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Date Paid: </label>
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.ReceiptInfo.datePaid, new
+                                {
+                                    @class = "form-control",
+                                    type = "date",
+                                    required = "required",
+                                    max = DateTime.Now.ToString("yyyy-MM-dd") // Set max to today's date
+                                })
+                            @Html.ValidationMessageFor(model => model.ReceiptInfo.datePaid, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Upload Receipt:</label>
+                        <div class="col-sm-8">
+                            <input type="file" name="receiptFile" class="form-control" accept=".pdf" required />
+                            <span class="text-danger">@Html.ValidationMessageFor(model => model.receiptFile, "", new { @class = "text-danger" })</span>
+                            <small class="form-text text-muted">Please upload the scanned PDF copy of the payment receipt.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            <div class="card-footer">
+                <div class="button-group">
+                    <a asp-area="" asp-controller="EthicsApplication" asp-action="Applications" class="btn btn-cancel">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const maxCoProponents = 4;
+            let coProponentIndex = @Model.CoProponent.Count; // Start at the current count of co-proponents
+            const coProponentsContainer = document.getElementById('coProponentsContainer');
+            const addCoProponentBtn = document.getElementById('addCoProponentBtn');
+
+            // Function to add a new co-proponent row
+            function addCoProponent() {
+                if (coProponentIndex >= maxCoProponents) {
+                    alert('You can add a maximum of 4 co-proponents.');
+                    return;
+                }
+
+                const newCoProponentHtml = `
+                                    <div class="coProponentRow row mb-3">
+                                        <div class="row mb-3">
+                                            <label class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Co-Proponent Name:</label>
+                                            <div class="col-sm-8">
+                                                <input name="CoProponent[${coProponentIndex}].coProponentName" class="form-control" placeholder="Name" />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-8 offset-sm-3">
+                                        <button type="button" class="btn btn-danger removeCoProponentBtn">Remove</button>
+                                    </div>
+                                </div>
+                                    </div>`;
+
+                coProponentsContainer.insertAdjacentHTML('beforeend', newCoProponentHtml);
+                coProponentIndex++; // Increment the index
+                bindRemoveButtons();
+            }
+
+            // Function to remove a co-proponent row
+            function removeCoProponent(event) {
+                const coProponentRow = event.target.closest('.coProponentRow');
+                if (coProponentRow) {
+                    coProponentRow.remove();
+                    coProponentIndex--; // Decrement the index
+                }
+            }
+
+            // Bind the remove button functionality
+            function bindRemoveButtons() {
+                const removeButtons = document.querySelectorAll('.removeCoProponentBtn');
+                removeButtons.forEach(button => {
+                    button.removeEventListener('click', removeCoProponent); // Remove any previously bound event
+                    button.addEventListener('click', removeCoProponent);   // Bind the remove function
+                });
+            }
+
+            // Bind add button click event
+            addCoProponentBtn.addEventListener('click', addCoProponent);
+
+            // Initially bind remove buttons for existing co-proponents
+            bindRemoveButtons();
+        });
+    </script>
+    @* <script>
+        // Client-side validation using JavaScript
+        document.getElementById('dtsNoInput').addEventListener('input', function () {
+            var dtsNoInput = document.getElementById('dtsNoInput');
+            var errorMessage = document.getElementById('dtsNoError');
+            var dtsPattern = /^\d{4}-\d{4}-\d{2}$/;
+
+            if (!dtsPattern.test(dtsNoInput.value)) {
+                errorMessage.textContent = "DTS No. must be in the format xxxx-xxxx-xx.";
+            } else {
+                errorMessage.textContent = ""; // Clear error if valid
+            }
+        });
+    </script> *@
+    <script>
+        $(document).ready(function() {
+            $('#dtsNoInput').on('change', function() {
+                var dtsNo = $(this).val();
+                if (dtsNo) {
+                    $.ajax({
+                        url: '@Url.Action("CheckDtsNumber", "EthicsApplication")',
+                        type: 'GET',
+                        data: { dtsNo: dtsNo },
+                        success: function(response) {
+                            if (!response.isValid) {
+                                $('#dtsNoError').text(response.message);
+                            } else {
+                                $('#dtsNoError').text('');
+                            }
+                        }
+                    });
+                } else {
+                    $('#dtsNoError').text('');
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<RemcSys.Models.ActionLog>
+@{
+    Layout = "_NavEvaluator1";
+    ViewData["Title"] = "Notification";
+}
+
+<div class="notifications-container">
+    <div class="notifications-header">
+        <h1>Notifications</h1>
+        <hr />
+    </div>
+    @foreach (var log in Model)
+    {
+        <a href="EvaluatorPending" class="notification-link">
+            <div class="notification-card">
+                <span class="notification-text">
+                    @log.Action
+                </span>
+                <span class="notification-time">@ActionLog.GetTimeAgo(log.Timestamp)</span>
+            </div>
+        </a>
+    }
+</div>

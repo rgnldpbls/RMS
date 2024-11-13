@@ -1,0 +1,376 @@
+﻿@using System.Security.Claims;
+@model List<Request>
+
+@{
+    ViewData["Title"] = "Applications";
+    Layout = "_LayoutCPages";
+}
+
+<style>  
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .customhead th {
+        background-color: #850000;
+        color: white;    
+        white-space: nowrap;
+    }
+
+    .dts-column {
+        white-space: nowrap;
+    }
+
+    .custom-tabs .nav-link.active {
+        background-color: #850000; /* Set the active tab background color */
+        color: #ffffff; /* Set the active tab text color */
+        font-weight: 700;
+    }
+
+    .custom-tabs .nav-link {
+        background-color: #D9D9D9;
+        color: black;/* Set the default tab text color */
+    }
+
+    .title-app {
+        font-size: 50px;
+        font-weight: 700;
+    }
+
+    .btn-view {
+        font-weight: 700;
+        color: #850000;
+    }
+
+    .btn-view i {
+        margin: 0px 10px;
+        
+    }
+
+    .btn-hard {
+        font-weight: 700;
+        color: #0d6efd;
+    }
+
+        .btn-hard i {
+            margin: 0px 10px;
+        }
+
+    .btn-reject {
+        font-weight: 700;
+        color: #850000;
+    }
+
+    .btn-assign {
+        font-weight: 700;
+    }
+
+    .btn-assign i {
+        margin: 0px 10px;
+    }
+
+    .nav-tabs .nav-item {
+        border-radius: 5px;
+        margin-right: 5px;
+    }
+
+    /* MODAL */
+    .modal-content {
+        background-color: #8B0000;
+        color: white;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-header h5 {
+        color: #FFDB89;
+    }
+
+    .modal-body {
+        padding-top: 0;
+    }
+
+    .evaluator-card {
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        width: 200px;
+    }
+
+    .evaluator-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .assign-btn {
+        background-color: #FFA500;
+        border: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    .stats {
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+
+    .details-column {
+        width: 600px; /* Set a fixed width for the Details column */
+/*         white-space: nowrap; /* Prevent wrapping in the Details column */ */
+        overflow: hidden; /* Prevent content from overflowing */
+        text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    }
+</style>
+
+<h1 class="title-app">Applications</h1>
+<ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#activeApplications" type="button" role="tab" aria-controls="activeApplications" aria-selected="true">Active Applications</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#completedApplication" type="button" role="tab" aria-controls="completedApplication" aria-selected="false">Completed</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="activeApplications" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+       <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>DTS No.</th>
+                    <th >Details</th>
+                    <th>Assigned Evaluators</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model.Where(r => r.Status == "For Evaluation" || r.Status == "For Compliance"))
+                {
+                    <tr>
+                            <td class="dts-column">@request.DtsNo</td>
+                        <td class="details-column">
+                            <strong>Applicant Name:</strong> @request.Name  <br />
+                            <strong>College:</strong> @request.College  <br />
+                            <strong>Application Type:</strong> @request.ApplicationType <br />
+                            <strong>Research Title:</strong> @request.ResearchTitle <br />
+                            <strong>Field of Study:</strong> @request.FieldOfStudy <br />
+                            <strong>Filed Date:</strong> @request.CreatedDate
+                        </td>
+                        <td class="text-center">
+                            @if (request.EvaluatorAssignments != null && request.EvaluatorAssignments.Any())
+                            {
+                                foreach (var assignment in request.EvaluatorAssignments)
+                                {
+                                    if (assignment != null)
+                                    {
+                                        <span class="badge rounded-pill text-bg-success">@assignment.Evaluators.Name</span> <br/>
+                                    }
+                                }
+                                <a class="btn btn-primary mt-2" href="@Url.Action("EvaluationDetails", "RSCChief", new { requestId = request.RequestId })">Status</a>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill text-bg-secondary">No evaluator Assigned</span>
+                            }
+
+                           
+                        </td>
+                        <td class="text-center">
+                            @if (@request.Status == "For Compliance")
+                            {
+                                <span class="badge rounded-pill text-bg-warning">@request.Status</span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill text-bg-secondary">@request.Status</span>
+                            }
+                           
+                        </td>
+                        <td class="justify-content-center text-center">
+                            @if (@request.Status == "For Compliance")
+                            {
+                                <a href="#" class="btn btn-view mb-1 disabled">
+                                <i class="fa-solid fa-eye" style="color: #850000;"></i> View Documents
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("TechEval", "RSCChief", new { requestId = request.RequestId })" class="btn btn-view">
+                                    <i class="fa-solid fa-eye" style="color: #850000;"></i> View Documents
+                                </a>
+                            }
+                            
+                            @if (request.DocumentHistories != null && request.DocumentHistories.Any(d => d.Comments.Contains("Notice to Proceed:")))
+                            {
+                                
+                                <a href="@Url.Action("AssignEvaluator", "RSCChief", new { requestId = request.RequestId })" class="btn btn-assign">
+                                    <i class="fa-solid fa-user-plus" style="color: black;"></i> Assign Evaluator
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-assign" hidden>
+                                    <i class="fa-solid fa-user-plus" style="color: black;"></i> Assign Evaluator
+                                </button> 
+                            }
+                             
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="completedApplication" role="tabpanel" aria-labelledby="completedApplication" tabindex="0">
+      <div class="table-responsive">
+        @if (!Model.Any(r => r.Status == "Rejected" || r.Status == "Approved" || r.Status == "Endorsed by RMO"))
+        {
+            <div class="alert alert-info text-center" role="alert">
+                No completed applications available.
+            </div>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead class="thead-dark customhead">
+                    <tr>
+                        <th>DTS No.</th>
+                        <th>Details</th>
+                        <th>Assigned Evaluators</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model.Where(r => r.Status == "Rejected" || r.Status == "Approved" || r.Status == "Endorsed by RMO"))
+                    {
+                        <tr>
+                            <td class="dts-column">@request.DtsNo</td>
+                            <td class="details-column">
+                                <strong>Applicant Name:</strong> @request.Name  <br />
+                                <strong>Application Type:</strong> @request.ApplicationType <br />
+                                <strong>College:</strong> @request.College  <br />
+                                <strong>Research Title:</strong> @request.ResearchTitle <br />
+                                <strong>Field of Study:</strong> @request.FieldOfStudy <br />                               
+                                <strong>Filed Date:</strong> @request.CreatedDate
+                            </td>
+                            <td>
+                                @if (request.EvaluatorAssignments != null && request.EvaluatorAssignments.Any())
+                                {
+                                    foreach (var assignment in request.EvaluatorAssignments)
+                                    {
+                                        if (assignment != null)
+                                        {
+                                                <span class="badge rounded-pill text-bg-success">@assignment.Evaluators.Name</span> <br />
+                                        }
+                                    }
+                                    <a class="btn btn-primary mt-2" href="@Url.Action("EvaluationDetails", "RSCChief", new { requestId = request.RequestId })">Status</a>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill text-bg-secondary">No evaluator Assigned</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (@request.Status == "Approved")
+                                {
+                                    <span class="badge rounded-pill text-bg-success">@request.Status</span>
+                                }
+                                else if (@request.Status == "Rejected")
+                                {
+                                    <span class="badge rounded-pill text-bg-danger">@request.Status</span>
+                                }
+                                else if (@request.Status == "Endorsed by RMO")
+                                {
+                                    <span class="badge rounded-pill text-bg-primary">@request.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill text-bg-secondary">@request.Status</span>
+                                }
+                            </td>
+                            <td class="justify-content-center text-center">
+                                @if (request.Status == "Endorsed by RMO")
+                                {
+                                    <strong><i>Completed</i></strong>
+                                }
+                                    else if (request.Status == "Rejected")
+                                    {
+                                        <a href="@Url.Action("Disapprove", "RSCChief", new { requestId = request.RequestId })" class="btn btn-reject">
+                                            <i class="fa-solid fa-paper-plane" style="color: #850000;"></i> Send Letter of Disapproval
+                                        </a>
+                                    }
+                                else
+                                {
+                                    @if (request.IsHardCopyReceived)
+                                    {
+                                        <a href="@Url.Action("Endorse", "RSCChief", new { requestId = request.RequestId })" class="btn btn-hard">
+                                            <i class="fa-solid fa-paper-plane" style="color: #0d6efd;"></i> Send Endorsement Letter
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <form asp-action="MarkHardCopyAsReceived" asp-controller="RSCChief" method="post" id="RecievedHardCopyForm">
+                                            <input type="hidden" name="requestId" value="@request.RequestId" />
+                                            <button type="button" class="btn btn-view" onclick="confirmHardCopy()">
+                                                <i class="fa-solid fa-clipboard-check" style="color: #850000;"></i> Received Hard Copy
+                                            </button>
+                                        </form>
+                                        <button class="btn btn-hard" disabled>
+                                            <i class="fa-solid fa-paper-plane" style="color: #0d6efd;"></i> Send Endorsement Letter
+                                        </button>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger me-2"
+        },
+        buttonsStyling: false
+    });
+
+    function confirmHardCopy() {
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, I received the Hard Copy!",
+            cancelButtonText: "No, cancel it!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form programmatically if the user confirms
+                document.getElementById('RecievedHardCopyForm').submit();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "",
+                    icon: "error"
+                });
+            }
+        });
+    }
+</script>

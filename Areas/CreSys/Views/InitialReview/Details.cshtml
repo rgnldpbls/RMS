@@ -1,0 +1,253 @@
+﻿@model CRE.ViewModels.InitialReviewViewModel
+
+@{
+    ViewData["Title"] = "Application Details";
+}
+<head>
+
+    <link rel="stylesheet" href="~/css/DetailsInitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="header-container">
+    <h2 class="title">Application Details</h2>
+    <button class="btn-back" onclick="goBack()">Back</button>
+</div>
+
+<div class="card border-light mb-3" style="width: contain;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col text-start">
+                <p id="urecNoText">
+                    <strong>UREC No.: </strong> @Model.EthicsApplication.urecNo
+                </p>
+                <button id="copybut" type="button" class="btn-outline-transparent btn-sm ms-2" onclick="copyUrecNo()">
+                    <i class="fas fa-copy"></i>
+                </button>
+
+                <h4><strong>Research Title:</strong> @Model.NonFundedResearchInfo?.title</h4>
+                <p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Proponent/s:</strong><br />
+                            @($"{Model.NonFundedResearchInfo.EthicsApplication.Name}")
+                            <br />
+                            @if (Model.CoProponent != null && Model.CoProponent.Any())
+                            {
+                                foreach (var proponent in Model.CoProponent)
+                                {
+                                    @proponent.coProponentName <br />
+                                }
+                            }
+                        </div>
+                    </div>
+                </p>
+                <p><strong>Field of Study:</strong> @Model.EthicsApplication.fieldOfStudy</p>
+                <p><strong>College: </strong> @Model.NonFundedResearchInfo?.college</p>
+                <p><strong>Branch/Campuses: </strong> @Model.NonFundedResearchInfo?.campus</p>
+            </div>
+
+            <!-- Display DTS No. or Edit Button -->
+            <div class="col text-end">
+                <p id="dtsNoText">
+                    <strong>DTS No.:</strong>
+                    @if (string.IsNullOrEmpty(Model.EthicsApplication.dtsNo))
+                    {
+                        <button id="editbut" class="btn-outline-transparent btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editDtsModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <span id="dtsNoValue">@Model.EthicsApplication.dtsNo</span>
+                    }
+                </p>
+
+                <!-- Button to Copy DTS No. if it exists -->
+                @if (!string.IsNullOrEmpty(Model.EthicsApplication.dtsNo))
+                {
+                    <button id="copybut" type="button" class="btn-outline-transparent btn-sm ms-2" onclick="copyDtsNo()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                }
+            </div>
+        </div>
+        <p><strong>Submission Date:</strong> @Model.EthicsApplication?.submissionDate.ToShortDateString()</p>
+
+        @* Highlight status with a badge *@
+        <p>
+            <strong>Status:</strong>
+            <span class="badge @(Model.EthicsApplicationLog.FirstOrDefault()?.status == "Approved" ? "bg-success" : "bg-warning")">
+                @Model.EthicsApplicationLog.FirstOrDefault()?.status
+            </span>
+        </p>
+    </div>
+
+    <div class="card-body">
+
+
+
+        <h4 id="appDetails">Attachments:</h4>
+
+        @if (Model.ReceiptInfo != null && Model.ReceiptInfo.scanReceipt != null)
+        {
+            <div class="mb-3">
+                <label><strong>Receipt:</strong></label>
+                <button id="red-background" class="" onclick="openPdfInModal('@Url.Action("ViewReceipt", "ReceiptInfo", new { urecNo = Model.EthicsApplication?.urecNo })')">
+                    <i class="fas fa-file-pdf text-white"></i>View Receipt (PDF)
+                </button>
+            </div>
+        }
+
+        @if (Model.EthicsApplicationForms != null && Model.EthicsApplicationForms.Any())
+        {
+            <ul class="list-unstyled">
+                @foreach (var form in Model.EthicsApplicationForms)
+                {
+                    <li class="list-group-item red-background">
+                        <button id="red-background" class="" onclick="openPdfInModal('@Url.Action("ViewFile", "EthicsApplicationForms", new { formid = form.ethicsFormId, urecNo = Model.EthicsApplication.urecNo })')">
+                            <i class="fas fa-file-pdf text-white"></i> @form.fileName
+                        </button>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No forms submitted.</p>
+        }
+
+
+    </div>
+
+</div>
+@* Action Buttons *@
+<div class="d-flex justify-content-end mt-3 gap-3">
+    @if (Model.EthicsApplicationLog.FirstOrDefault()?.status == "Pending for Evaluation")
+    {
+        <button type="button" class="btns btn-success" data-bs-toggle="modal" data-bs-target="#returnModal" id="return">
+            Return Application
+        </button>
+        <button type="button" class="btns btn-danger" data-bs-toggle="modal" data-bs-target="#approveModal" id="approve">
+            Approve for Evaluation
+        </button>
+    }
+</div>
+
+<!-- Modal for Approval Feedback -->
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="approveModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveModalLabel">Approval Feedback</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="approveForm" asp-action="ApproveApplication" method="post">
+                    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+                    <div class="mb-3">
+                        <label for="feedback" class="form-label">Feedback</label>
+                        <textarea class="form-control" id="feedback" name="comments" rows="3" >No mistakes found</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit Approval</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Return Feedback -->
+<div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="returnModalLabel">Return Feedback</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="returnForm" asp-action="ReturnApplication" method="post" onsubmit="return validateReturnForm()">
+                    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+                    <div class="mb-3">
+                        <label for="returnFeedback" class="form-label">Feedback</label>
+                        <textarea class="form-control" id="returnFeedback" name="comments" rows="3" placeholder="Provide feedback on why the application is being returned..."></textarea>
+                        <div id="feedbackError" class="text-danger mt-2" style="display: none;">
+                            Please provide feedback before submitting.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Submit Return</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for file view-->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" src="" width="100%" height="800px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyUrecNo() {
+            const urecNoText = document.getElementById("urecNoText").innerText;
+            navigator.clipboard.writeText(urecNoText.replace("UREC No.: ", "")).then(function () {
+                alert('UREC No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function copyDtsNo() {
+            const dtsNoText = document.getElementById("dtsNoText").innerText;
+            navigator.clipboard.writeText(dtsNoText.replace("DTS No.: ", "")).then(function () {
+                alert('DTS No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function openPdfInModal(pdfUrl) {
+            // Set the iframe source to the selected PDF
+            document.getElementById("pdfViewer").src = pdfUrl;
+
+            // Show the modal
+            $('#pdfModal').modal('show');   
+        }
+        function goBack() {
+            window.history.back();
+        }
+        function validateReturnForm() {
+            const feedbackInput = document.getElementById("returnFeedback");
+            const feedbackError = document.getElementById("feedbackError");
+
+            if (feedbackInput.value.trim() === "") {
+                feedbackError.style.display = "block";
+                return false; // Prevent form submission
+            } else {
+                feedbackError.style.display = "none";
+                return true; // Allow form submission
+            }
+        }
+    </script>
+}

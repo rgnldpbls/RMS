@@ -1,0 +1,653 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "Director";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+<style>
+    .info-desk-icon {
+        position: absolute;
+        bottom: 10%;
+        right: 10%;
+    }
+
+    .info-desk-btn {
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        border: none;
+        background: #850000;
+    }
+
+        .info-desk-btn:hover {
+            background: #650000;
+        }
+
+    .info-head {
+        background: #850000;
+        color: white;
+    }
+
+    .int-reply {
+        background-color: #f1f1f1;
+        border-radius: 15px 15px 15px 0;
+        align-self: flex-start;
+        width: 50%;
+        display: none;
+    }
+
+    .sel-int {
+        background-color: #850000;
+        border-radius: 15px 15px 0 15px;
+        color: white;
+        align-self: flex-end;
+        width: 50%;
+        display: none;
+    }
+
+    .interaction-btn {
+        background: #E8E6E6;
+    }
+
+        .interaction-btn:hover {
+            background: #dd7f7f;
+        }
+
+
+    .time-filter {
+        display: flex;
+        border-radius: 20px;
+        overflow: hidden;
+        background-color: #FFEBAD;
+        border: 2px solid #6A0E0F;
+        width: auto;
+    }
+
+    .btn {
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        color: #6A0E0F;
+    }
+
+    .month-btn {
+        background-color: #6A0E0F;
+        color: #FFEBAD;
+    }
+
+    .week-btn {
+        background-color: #FFEBAD;
+        color: #6A0E0F;
+    }
+
+
+    .calendar-container {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        max-width: 100%; /* Ensure it doesn't overflow the screen width */
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #a94542;
+        font-size: 1.2rem; /* Responsive font size */
+        margin-bottom: 10px;
+    }
+
+        .calendar-header button {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            color: #a94542;
+        }
+
+    .calendar-days,
+    .calendar-dates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+
+        .calendar-days div,
+        .calendar-date {
+            aspect-ratio: 1; /* Makes each cell a square */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5dede;
+            color: #a94542;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+    .calendar-date {
+        background-color: transparent; /* Override background for dates */
+        color: #333;
+        cursor: pointer;
+    }
+
+        .calendar-date:hover {
+            background-color: #faeceb;
+        }
+
+        .calendar-date.selected {
+            border: 2px solid #a94542;
+        }
+
+    .info-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 120px;
+        margin: 5px;
+    }
+
+        .info-card h2 {
+            color: #901716;
+            font-size: 2rem;
+            margin-bottom: 0;
+            padding-top: 1rem;
+            font-weight: bolder;
+        }
+
+        .info-card p.total {
+            color: #901716;
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        .info-card .footer {
+            color: #fff;
+            font-weight: bold;
+            border-radius: 0 0 10px 10px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+    .funding {
+        background-color: #b0b0b0;
+    }
+
+    .ethics {
+        background-color: #800000;
+    }
+
+    .assistance {
+        background-color: #4caf50;
+    }
+
+    .event {
+        background-color: #3f51b5;
+    }
+
+    .pie-chart-container {
+        max-width: 500px;
+        width: 100%;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .progress-circle {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .progress-circle .inner-content {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #F1F1F1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .progress-circle .percentage {
+            font-size: 1.5em;
+            color: black;
+        }
+
+        .progress-circle .label {
+            font-size: 1em;
+            color: #666;
+        }
+</style>
+
+<div class="container my-4" style="background-color: #F1F1F1;">
+    <h1 class="fw-bold" style="color: #901716;">Dashboard</h1>
+    <div class="row d-flex align-items-stretch">
+        <div class="col-8 d-flex flex-column">
+            <div class="container pe-4 flex-grow-1">
+                <!-- Welcome Section -->
+                <div class="row rounded-3 p-4 mb-3" style="background-color: #901716; color: #FFDB89;">
+                    <h2 class="fw-bold mb-0">Welcome, Director!</h2>
+                    <p class="mb-0">Check the research activity reports and summaries</p>
+                </div>
+
+                <!-- RMO Activities Section -->
+                <div class="row rounded-3 p-4 mb-3 flex-grow-1" style="background-color: #FFECC1; color: #901716;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="fw-bold mb-0">RMO Activities</h4>
+                        <div class="time-filter">
+                            <button class="btn btn-outline-secondary month-btn">This month</button>
+                            <button class="btn btn-outline-secondary week-btn">This week</button>
+                        </div>
+                    </div>
+                    <canvas id="activityChart" height="540"></canvas>
+                </div>
+
+                <div class="d-flex align-items-center flex-wrap align-items-start">
+                    <!-- Research Center Title -->
+                    <div class="col-3 me-5 mb-3">
+                        <h5>Research</h5>
+                        <h1 class="fw-bold" style="color: #901716">Center</h1>
+                    </div>
+
+                    <!-- Info Cards -->
+                    <div class="col-2 mb-3">
+                        <div class="info-card text-center">
+                            <h2>30</h2>
+                            <p class="total">TOTAL</p>
+                            <div class="footer funding">Funding Application</div>
+                        </div>
+                    </div>
+                    <div class="col-2 mb-3">
+                        <div class="info-card text-center">
+                            <h2>30</h2>
+                            <p class="total">TOTAL</p>
+                            <div class="footer ethics">Ethics Clearance</div>
+                        </div>
+                    </div>
+                    <div class="col-2 mb-3">
+                        <div class="info-card text-center">
+                            <h2>30</h2>
+                            <p class="total">TOTAL</p>
+                            <div class="footer assistance">Research Assistance</div>
+                        </div>
+                    </div>
+                    <div class="col-2 mb-3">
+                        <div class="info-card text-center">
+                            <h2>30</h2>
+                            <p class="total">TOTAL</p>
+                            <div class="footer event">Event and Linkages</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row rounded-3 p-4 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                            <h3 class="mb-0">TOP</h3>
+                            <h1 class="fw-bolder">3</h1>
+                        </div>
+                        <div class="col-10 d-flex align-items-center">
+                            <div>
+                                <h3 class="mb-0 fw-bolder">Most Funded Research</h3>
+                                <h6>University and Externally-Funded Research</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row rounded-4 mb-2 p-2" style="background-color: #FEDA87; color: #901716">
+                        <h5 class="fw-bold mb-0">
+                            1.&nbsp;<img src="images/ccis.png" class="align-middle" style="height: 2em; width: auto;">&nbsp;&nbsp;College of Computer of Information and Sciences
+                        </h5>
+                    </div>
+
+
+                    <div class="row justify-content-end">
+                        <div class="col-11 rounded-4 mb-2 p-2" style="background-color: #FFECC1; color: black">
+                            <h5 class="fw-bold mb-0 ps-2">
+                                2.&nbsp;<img src="images/ccis.png" class="align-middle" style="height: 2em; width: auto;">&nbsp;&nbsp;College of Law
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <div class="col-11 rounded-4 mb-2 p-2" style="background-color: #FFECC1; color: black">
+                            <h5 class="fw-bold mb-0 ps-2">
+                                3.&nbsp;<img src="images/ccis.png" class="align-middle" style="height: 2em; width: auto;">&nbsp;&nbsp;College of Science
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-4 d-flex flex-column">
+            <div class="container flex-grow-1">
+                <div class="row rounded-3 flex-grow-1">
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button onclick="prevMonth()">&lt;</button>
+                            <h5 id="monthYear">August 2024</h5>
+                            <button onclick="nextMonth()">&gt;</button>
+                        </div>
+                        <div class="calendar-days">
+                            <div>S</div>
+                            <div>M</div>
+                            <div>T</div>
+                            <div>W</div>
+                            <div>T</div>
+                            <div>F</div>
+                            <div>S</div>
+                        </div>
+                        <div class="calendar-dates" id="calendarDates">
+                            <!-- Dates will be generated here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                    <div class="col-10">
+                        <h5 class="fw-bold mb-0">Research Production</h5>
+                        <p class="mb-0 fs-6">See details</p>
+                    </div>
+                    <div class="col-2"><a href="~/RemcSys/Chief/GenerateReports?reportType=ResearchProduction&startDate=null&endDate=null"><i class="bi bi-chevron-right fs-1"></i></a></div>
+                </div>
+
+                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                    <div class="col-10">
+                        <h5 class="fw-bold mb-0">Research Publication</h5>
+                        <p class="mb-0 fs-6">See details</p>
+                    </div>
+                    <div class="col-2"><i class="bi bi-chevron-right fs-1"></i></div>
+                </div>
+
+                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                    <div class="col-10">
+                        <h5 class="fw-bold mb-0">Research Presentation</h5>
+                        <p class="mb-0 fs-6">See details</p>
+                    </div>
+                    <div class="col-2"><i class="bi bi-chevron-right fs-1"></i></div>
+                </div>
+
+                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                    <div class="col-10">
+                        <h5 class="fw-bold mb-0">Research Citation</h5>
+                        <p class="mb-0 fs-6">See details</p>
+                    </div>
+                    <div class="col-2"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
+                </div>
+
+                <div class="mt-5">
+                    <div class="container w-75 justify-content-end mt-5">
+                        <div class="row rounded-3 p-2" style="background-color: #901716; color: #F1F1F1;">
+                            <div class="col-12 d-flex justify-content-center">
+                                <h5 class="fw-bold mb-0 text-center">Progress Report per<br>TRACK</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row pie-chart-container d-flex justify-content-center">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-3 d-flex justify-content-center align-items-center">
+            <div class="progress-circle" style="background: conic-gradient(#FED81D 0% 30%, #FF8887 30% 40%, #850001 40% 65%, #FF8887 65% 80%, #9D7B78 80% 90%, #FED81D 90% 100%);">
+                <div class="inner-content text-center">
+                    <div class="percentage">Faculty<br>Rank</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                <div class="col-1 text-center fs-1">
+                    <i class="bi bi-circle-fill" style="color:gray;"></i>
+                </div>
+                <div class="col-9 text-start">
+                    <p class="mb-0 fs-6">See details</p>
+                    <h5 class="fw-bold mb-0">
+                        Research Faculties | RMCC's | Chief's | Evaluators
+                    </h5>
+                </div>
+                <div class="col-2 text-end"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
+            </div>
+
+            <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                <div class="col-1 text-center fs-1">
+                    <i class="bi bi-circle-fill" style="color:gray;"></i>
+                </div>
+                <div class="col-9 text-start">
+                    <p class="mb-0 fs-6">See details</p>
+                    <h5 class="fw-bold mb-0">
+                        Research Faculties | RMCC's | Chief's | Evaluators
+                    </h5>
+                </div>
+                <div class="col-2 text-end"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
+            </div>
+
+            <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+                <div class="col-1 text-center fs-1">
+                    <i class="bi bi-circle-fill" style="color:gray;"></i>
+                </div>
+                <div class="col-9 text-start">
+                    <p class="mb-0 fs-6">See details</p>
+                    <h5 class="fw-bold mb-0">
+                        Research Faculties | RMCC's | Chief's | Evaluators
+                    </h5>
+                </div>
+                <div class="col-2 text-end"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row rounded-3 my-3 p-3 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
+        <div class="col-10 ms-auto">
+            <h5 class="fw-bold mb-0">Generate Report</h5>
+            <p class="mb-0 fs-6">See details</p>
+        </div>
+
+        <div class="col-2 text-end"><i class="bi bi-chevron-right fs-1"></i></div>
+    </div>
+
+    <!--info desk btn-->
+    <button type="button" class="info-desk-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
+    </button>
+
+    <!-- info desk Modal -->
+    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="info-desk-icon modal-dialog w-75">
+            <div class="modal-content">
+                <div class="info-head modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Information Desk</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mb-2">
+                        <button id="interactionBtn" class="interaction-btn p-2 rounded-3 w-100 border border-none text-start">Interaction 1</button>
+                    </div>
+                    <div class="container d-flex flex-column">
+                        <div id="selectedInteraction" class="sel-int p-2 mb-1">
+                            Selected Interaction
+                        </div>
+                        <div id="reply" class="int-reply p-2 mb-1">
+                            Reply
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script>
+        // Initialize Chart.js
+    const ctx = document.getElementById('activityChart').getContext('2d');
+    const activityChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [
+          {
+            label: 'Research Production',
+            data: [20, 40, 50, 30, 60, 70, 40],
+            backgroundColor: '#800000',
+          },
+          {
+            label: 'Research Publication',
+            data: [30, 20, 40, 50, 30, 60, 120],
+            backgroundColor: '#d19a7d',
+          },
+          {
+            label: 'Research Presentation',
+            data: [40, 30, 20, 60, 50, 30, 70],
+            backgroundColor: '#b0b0ff',
+          },
+          {
+            label: 'Research Citation',
+            data: [40, 30, 20, 60, 50, 30, 70],
+            backgroundColor: '#5cbfec',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+      },
+    });
+</script>
+<script>
+    const monthYear = document.getElementById("monthYear");
+    const calendarDates = document.getElementById("calendarDates");
+
+    let currentYear = 2024;
+    let currentMonth = 7; // August (0-based index for JavaScript Date)
+
+    function generateCalendar(year, month) {
+        calendarDates.innerHTML = "";
+        monthYear.textContent = new Date(year, month).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+        });
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const lastDate = new Date(year, month + 1, 0).getDate();
+
+        // Blank spaces for days before first day of the month
+        for (let i = 0; i < firstDay; i++) {
+            calendarDates.insertAdjacentHTML("beforeend", `<div></div>`);
+        }
+
+        // Dates
+        for (let i = 1; i <= lastDate; i++) {
+            const dateElement = document.createElement("div");
+            dateElement.textContent = i;
+            dateElement.classList.add("calendar-date");
+
+            dateElement.onclick = () => {
+                document.querySelectorAll(".calendar-date").forEach((el) => {
+                    el.classList.remove("selected");
+                });
+                dateElement.classList.add("selected");
+            };
+
+            calendarDates.appendChild(dateElement);
+        }
+    }
+
+    function prevMonth() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        generateCalendar(currentYear, currentMonth);
+    }
+
+    function nextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        generateCalendar(currentYear, currentMonth);
+    }
+
+    // Initialize calendar
+    generateCalendar(currentYear, currentMonth);
+</script>
+<script>
+    // JavaScript for rendering the pie chart
+    const ctx1 = document.getElementById('myPieChart').getContext('2d');
+
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['CCIS', 'Business', 'Acc and Fin', 'EATBE', 'Educ'],
+            datasets: [{
+                data: [35, 20, 10, 15, 20],
+                backgroundColor: ['#7F0001', '#A93226', '#CB4335', '#FADBD8', '#7F0001'],
+                hoverBackgroundColor: ['#5C0001', '#8B1E26', '#B03A2E', '#F7C6C2', '#5C0001'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false // Disable the legend
+                },
+                datalabels: {
+                    color: '#000', // Label color
+                    anchor: 'end', // Positions label outside the pie
+                    align: 'end',  // Aligns label outside the pie
+                    formatter: (value, context) => `${context.chart.data.labels[context.dataIndex]}: ${value}%`,
+                    font: {
+                        weight: 'bold',
+                        size: 12
+                    }
+                }
+            },
+            layout: {
+                padding: 80
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+</script>
+
+<script>
+    document.getElementById("interactionBtn").addEventListener("click", function () {
+        document.getElementById("selectedInteraction").style.display = "block";
+        document.getElementById("reply").style.display = "block";
+    });
+</script>

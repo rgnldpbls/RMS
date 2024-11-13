@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ViewEvaluationVM>
+@{
+    ViewData["Title"] = "Evaluator Missed Evaluations";
+    Layout = "_NavEvaluator1";
+}
+<div class="pending-evaluations-container">
+    <h2 class="title">EVALUATIONS</h2>
+    <div class="eval-categories">
+        <a href="@Url.Action("EvaluatorPending", "Evaluator", new {area = "RemcSys"})" class="eval-category to-be">
+            <h3>To be Evaluated</h3>
+        </a>
+        <a href="@Url.Action("EvaluatorMissed", "Evaluator", new {area = "RemcSys"})" class="eval-category missed">
+            <h3>Missed </h3>
+        </a>
+        <a href="@Url.Action("EvaluatorEvaluated", "Evaluator", new {area = "RemcSys"})" class="eval-category evaluated">
+            <h3>Evaluated</h3>
+        </a>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <table class="document-table">
+            <thead>
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Details</th>
+                    <th>Application Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @(item.dts_No != null ? item.dts_No : "-")
+                        </td>
+                        <td style="text-align: left;">
+                            <b>Research Title:</b> @item.research_Title<br />
+                            <b>Field of Study:</b> @item.field_of_Study
+                        </td>
+                        <td>
+                            @item.evaluation_deadline?.ToString("MMMM d, yyyy")
+                        </td>
+                        <td>
+                            <span class="status underevaluation">
+                                @item.application_Status
+                            </span>
+                        </td>
+                        <td class="action-buttons">
+                            <a asp-action="EvaluationForm" asp-route-id="@item.fra_Id" class="fillup-btn">
+                                <i class="bi bi-journal-text" style="color: #000;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No missed evaluations at this time.</p>
+    }
+    <a href="/Evaluator/EvaluatorDashboard" class="back-btn">Back</a>
+</div>

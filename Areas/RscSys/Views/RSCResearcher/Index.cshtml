@@ -1,0 +1,80 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.DraftViewModel
+
+@{
+    ViewData["Title"] = "Researcher Home";
+    Layout = "_LayoutRNAV";
+}
+
+<style>
+    .memorandum-list {
+    list-style-type: none; /* Optional: remove default list styling */
+    padding: 0; /* Optional: remove default padding */
+}
+
+.memorandum-list a {
+    color: white; /* Change text color to white */
+    text-decoration: none; /* Remove underline */
+}
+
+.memorandum-list a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+</style>
+
+<div class="memorandums-section">
+    <div class="container h-100 d-flex flex-column">
+        <h2 class="mb-4">Memorandums</h2>
+        <div class="flex-grow-1 overflow-auto">
+            <ul class="memorandum-list">
+                @* <li>Memorandum 13 - Revised Implementing Guidelines for Thesis and Dissertation Grant</li>
+                <li>Memorandum 15 - Revised Implementing Guidelines on Incentives for Publication and Citation</li>
+                <li>Memorandum 16 - Revised Implementing Guidelines on International and National Paper Presentation Financial Assistance</li>
+                <li>Executive No. 15 - Revised Policy on Merit Promotion Through Research Production, Publication, and Citation</li>
+                <li>Executive No. 19 - Policy on Funding Support to Students for Research Production, Paper Presentation, Publication, Citation, and Patent</li>
+                <li>Executive No. 22 - Revised Policy on Implementing Guidelines on University Publication Assistance (UPA) and Publication and Citation Incentives</li> *@
+                @foreach (var memo in Model.Memorandums)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="#" class="memo-file" data-requirement-id="@memo.memorandumId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                            @memo.memorandumName
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileLinks = document.querySelectorAll('.memo-file');
+        const fileViewer = document.getElementById('fileViewer');
+
+        fileLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const memorandumId = link.getAttribute('data-requirement-id');
+                // Update the iframe src to display the memo in the modal
+                fileViewer.src = `@Url.Action("ViewMemo", "RSCResearcher")?memorandumId=${memorandumId}`;
+            });
+        });
+    });
+</script>
+
+

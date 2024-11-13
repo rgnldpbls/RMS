@@ -1,0 +1,67 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.Draft
+
+@{
+    ViewData["Title"] = "Upload Documents";
+    Layout = "_LayoutRPages";
+}
+
+<h2>Upload Documents for Draft: @Model.DtsNo</h2>
+
+<form asp-action="UploadDocuments" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="DraftId" />
+
+    <div class="form-group">
+        <label for="files">Upload Files</label>
+        <input type="file" name="files" class="form-control" multiple required />
+        <span asp-validation-for="Requirements" class="text-danger"></span> <!-- Adjust this as needed -->
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<h3>Uploaded Requirements</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>File Path</th>
+            <th>Upload Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Requirements != null && Model.Requirements.Any())
+        {
+            foreach (var requirement in Model.Requirements)
+            {
+                <tr>
+                    <td>@requirement.FileName</td>
+                    @* <td>@requirement.FilePath</td> *@
+                    <td>@requirement.UploadDate.ToString("g")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3">No documents uploaded yet.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- New form for submitting the draft as a request -->
+<form asp-action="SubmitAsRequest" method="post">
+    <input type="hidden" asp-for="DraftId" />
+    <button type="submit" class="btn btn-success">Submit as Request</button>
+</form>
+
+<div>
+    <a asp-action="ViewDraft">Back to Drafts</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

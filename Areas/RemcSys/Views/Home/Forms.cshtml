@@ -1,0 +1,24 @@
+﻿@model List<Guidelines>
+@{
+    Layout = "_NavTeamLeader";
+}
+<div class="container">
+    <!-- List of Documentary Requirements -->
+    <div class="document-section">
+        <h5>List of Executive Orders</h5><hr />
+        <p>These documents should be read if you’re applying Funded Research Work.</p>
+        <ul class="doc-list">
+            @if (Model != null)
+            {
+                @foreach (var file in Model)
+                {
+                    <li>
+                        <a class="btn" href="@Url.Action("PreviewFile", new {id = file.Id})" target="_blank"><i class="bi bi-file-pdf" style="margin-right: 10px;"></i>@file.file_Name</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+
+<a class="proceed-btn" href="@Url.Action("FRType", "Home")">Proceed</a>

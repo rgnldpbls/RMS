@@ -1,0 +1,202 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EvaluationViewModel
+
+@{
+    ViewData["Title"] = "Documents Evaluation";
+    Layout = "_LayoutEPages";
+}
+
+<style>
+    .uploaded-document {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .checklist {
+        background-color: #850000;
+        color: white;
+        height: auto;
+        max-height: 1000px;
+        overflow-y: auto;
+    }
+
+    .eval-title h1 {
+        font-weight: 800;
+    }
+
+    .uploaded-docu {
+        height: auto;
+        max-height: 398px;
+        overflow-y: auto;
+    }
+
+    .document-preview {
+        border: 1px solid #ddd;
+        height: 687px;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3 eval-title">
+    <h1>Document Evaluation</h1>
+    <div>
+        <button class="btn btn-outline-danger" onclick="window.history.back();">Back</button>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p class="mb-1"><strong>DTS Number:</strong> @Model.DtsNo </p>
+        <p class="mb-1"><strong>APPLICATION TYPE:</strong> @Model.ApplicationType </p>
+        <p class="mb-1"><strong>FIELD OF STUDY:</strong> @Model.FieldOfStudy </p>
+        <p class="mb-1"><strong>APPLICANT NAME:</strong> @Model.ApplicantName </p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-7">
+            
+            <div class="uploaded-docu">
+                <h5>SUBMITTED DOCUMENTS</h5>
+                @if (Model.SubmittedDocuments != null && Model.SubmittedDocuments.Any())
+                {
+                    foreach (var document in Model.SubmittedDocuments)
+                    {
+                        if (Model.ApplicationType.Contains("Master's Thesis") || Model.ApplicationType.Contains("Dissertation"))
+                        {
+                            // Check if the document filename contains "thesis" or "dissertation"
+                            if (document.FileName.Contains("At-least", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else if (Model.ApplicationType.Contains("National Paper Presentation for Student") || Model.ApplicationType.Contains("National Paper Presentation for Faculty"))
+                        {
+                            // Check if the document filename contains "thesis" or "dissertation"
+                            if (document.FileName.Contains("Full-copy", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else if (Model.ApplicationType.Contains("International Paper Presentation for Student") || Model.ApplicationType.Contains("International Paper Presentation for Faculty"))
+                        {
+                            // Check if the document filename contains "thesis" or "dissertation"
+                            if (document.FileName.Contains("Full-paper", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else if (Model.ApplicationType.Contains("Publication and Citation Incentives for Student") || Model.ApplicationType.Contains("Publication and Citation Incentives for Faculty"))
+                        {
+                            // Check if the document filename contains "thesis" or "dissertation"
+                            if (document.FileName.Contains("Copy-of-the-published", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                        }
+
+                        // For other application types, show all documents
+                        else
+                        {
+                            <div class="uploaded-document bg-danger position-relative">
+                                <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                    <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                </a>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <div>No documents submitted.</div>
+                }
+            </div>
+            <!-- Document Preview -->
+            <div class="document-preview">
+                <iframe id="pdfPreview" src="" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card mb-4 checklist">
+                <div class="card-header">
+                    <h5 class="mb-0">Evaluation Form</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.EvaluationForms != null && Model.EvaluationForms.Any())
+                    {
+                        foreach (var form in Model.EvaluationForms)
+                        {
+                            <form asp-action="SubmitEvaluationResponse" method="post">
+                                <input type="hidden" name="evaluatorAssignmentId" value="@Model.EvaluatorAssignmentId" /> <!-- Include the evaluator assignment ID -->
+                                @for (int i = 0; i < form.Criteria.Count; i++)
+                                {
+                                    var criterion = form.Criteria[i];
+                                    <div class="mb-3">
+                                        <label class="form-label">@criterion.Name - @criterion.Percentage%</label>
+                                        <input type="number" class="form-control"
+                                               name="criteriaResponses[@i].UserPercentage"
+                                               placeholder="Enter percentage"
+                                               required
+                                               max="@criterion.Percentage"
+                                               oninput="this.value = Math.min(this.value, @criterion.Percentage)" />
+                                        <textarea class="form-control mt-2"
+                                                  name="criteriaResponses[@i].Comment"
+                                                  rows="3"
+                                                  placeholder="Type your feedback here."
+                                                  required></textarea>
+                                        <input type="hidden" name="criteriaResponses[@i].CriterionId" value="@criterion.CriterionId" />
+                                    </div>
+                                }
+
+                                <div class="mb-3">
+                                    <label class="form-label">General Comments</label>
+                                    <textarea class="form-control" name="comments" rows="3" placeholder="Type your feedback here." required></textarea>
+                                </div>
+
+                                <input type="hidden" name="evaluatorId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" /> <!-- Get evaluator ID -->
+                                <button type="submit" class="btn btn-success">Submit Evaluation</button>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            No evaluation forms available for this application type.
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openPreview(url) {
+        // Set the iframe source to the document URL
+        document.getElementById('pdfPreview').src = url;
+
+        // Optional: You can scroll to the document preview section
+        document.querySelector('.document-preview').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>

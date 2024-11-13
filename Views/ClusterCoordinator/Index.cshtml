@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "RMCC_Layout";
+}
+
+<link href="~/css/ClusterCoordinator-Home.css" rel="stylesheet" />
+<style>
+    .info-desk-icon {
+        position: absolute;
+        bottom: 10%;
+        right: 10%;
+    }
+
+    .info-desk-btn {
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        border: none;
+        background: #850000;
+    }
+
+        .info-desk-btn:hover {
+            background: #650000;
+        }
+
+    .info-head {
+        background: #850000;
+        color: white;
+    }
+
+    .int-reply {
+        background-color: #f1f1f1;
+        border-radius: 15px 15px 15px 0;
+        align-self: flex-start;
+        width: 50%;
+        display: none;
+    }
+
+    .sel-int {
+        background-color: #850000;
+        border-radius: 15px 15px 0 15px;
+        color: white;
+        align-self: flex-end;
+        width: 50%;
+        display: none;
+    }
+
+    .interaction-btn {
+        background: #E8E6E6;
+    }
+
+        .interaction-btn:hover {
+            background: #dd7f7f;
+        }
+</style>
+<div class="container mt-4 mb-3 p-0 rounded-4 bg-white" id="content-rmcc-home">
+    <div class="container-fluid bg-white shadow rounded-top-4 p-4 fs-3 fw-bold" id="title">
+        Tasks
+    </div>
+    <div class="row p-4 text-center justify-content-evenly">
+        <div class="col-lg-4 col-sm-12 p-3">
+            <div class="row">
+                <div class="rolelblb fs-4 col-lg-12 col-sm-12 p-3 text-white shadow mb-3 rounded-4">
+                    Accomplishments
+                </div>
+            </div>
+            <a asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorOwnAccomplishments" class="text-decoration-none">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="hoverfx rounded-4">
+                            <div class="total_num rounded-top-4 fs-1 fw-bold p-3 pt-5 pb-5">0</div>
+                            <div class="laaabel rounded-bottom-4 fs-5 fw-bold pe-3 ps-3 mb-3">Total Accomplishments</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-4 col-sm-12 p-3">
+            <div class="row">
+                <div class="rolelblb fs-4 col-lg-12 col-sm-12 p-3 text-white shadow mb-3 rounded-4">
+                    RMCC
+                </div>
+            </div>
+            <a asp-controller="ClusterCoordinator" asp-action="ClusterCoordinator" class="text-decoration-none">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="hoverfx rounded-4">
+                            <div class="total_num rounded-top-4 fs-1 fw-bold p-3 pt-5 pb-5">0</div>
+                            <div class="laaabel rounded-bottom-4 fs-5 fw-bold pe-3 ps-3 mb-3">To Review of RMCC</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-4 col-sm-12 p-3">
+            <div class="row">
+                <div class="rolelblb fs-4 col-lg-12 col-sm-12 p-3 text-white shadow mb-3 rounded-4">
+                    Evaluator
+                </div>
+            </div>
+            <a asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorToEvaluateList" class="text-decoration-none">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="hoverfx rounded-4">
+                            <div class="total_num rounded-top-4 fs-1 fw-bold p-3 pt-5 pb-5">0</div>
+                            <div class="laaabel rounded-bottom-4 fs-5 fw-bold pe-3 ps-3">To Evaluate</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    <!--info desk btn-->
+    <button type="button" class="info-desk-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
+    </button>
+
+    <!-- info desk Modal -->
+    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="info-desk-icon modal-dialog w-75">
+            <div class="modal-content">
+                <div class="info-head modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Information Desk</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mb-2">
+                        <button id="interactionBtn" class="interaction-btn p-2 rounded-3 w-100 border border-none text-start">Interaction 1</button>
+                    </div>
+                    <div class="container d-flex flex-column">
+                        <div id="selectedInteraction" class="sel-int p-2 mb-1">
+                            Selected Interaction
+                        </div>
+                        <div id="reply" class="int-reply p-2 mb-1">
+                            Reply
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        document.getElementById("interactionBtn").addEventListener("click", function() {
+        document.getElementById("selectedInteraction").style.display = "block";
+        document.getElementById("reply").style.display = "block";
+    });
+</script>
+
+
+

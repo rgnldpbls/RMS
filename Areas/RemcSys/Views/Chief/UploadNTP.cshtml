@@ -1,0 +1,197 @@
+﻿@model IEnumerable<FundedResearchApplication>
+@{
+    ViewData["Title"] = "University Funded Research Applications";
+    Layout = "_NavChief1";
+}
+<div class="funded-research-container">
+    <div class="research-categories">
+        <a href="UFResearchApp" class="UFR">
+            <div class="research-category inactive">
+                <h3>University Funded Research</h3>
+            </div>
+        </a>
+
+
+        <a href="EFResearchApp" class="EFR">
+            <div class="research-category inactive">
+                <h3>Externally Funded Research</h3>
+            </div>
+        </a>
+
+        <a href="UFRLApp" class="UFRL">
+            <div class="research-category inactive">
+                <h3>University Funded Research Load</h3>
+            </div>
+        </a>
+
+        <a href="UEResearchApp" class="UFR-E">
+            <div class="research-category inactive">
+                <h3>UFR - Evaluation</h3>
+            </div>
+        </a>
+
+        <a href="UploadNTP" class="NTP">
+            <div class="research-category active">
+                <h3>Funded Research - Upload NTP</h3>
+            </div>
+        </a>
+    </div>
+    <h2 class="title">FUNDED RESEARCH APPLICATIONS - NOTICE TO PROCEED SUBMISSION</h2>
+    <hr />
+
+    @if(Model != null && Model.Any())
+    {
+        <div class="search-section">
+            <!-- Search Form -->
+            <form asp-controller="Chief" asp-action="UploadNTP" method="get" class="form-inline mb-3">
+                <input type="text" name="searchString" class="search-box" placeholder="Search by Research Title" value="@ViewData["currentFilter"]" />
+                <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
+        <table class="document-table">
+            <thead>
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Application Details</th>
+                    <th>Research Type</th>
+                    <th>Views</th>
+                    <th>Upload</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var app in Model)
+                {
+                    <tr>
+                        <td>
+                            @(app.dts_No != null ? app.dts_No : "-")
+                        </td>
+                        <td class="research-details">
+                            <b>Research Title:</b> @app.research_Title<br />
+                            <b>Field of Study:</b> @app.field_of_Study
+                        </td>
+                        <td>
+                            @app.fra_Type
+                        </td>
+                        <td>
+                            <form asp-action="GotoDocuList" asp-route-id="@app.fra_Id" method="post">
+                                <button type="submit" class="edit-btn"><i class="bi bi-file-pdf" style="color:#850000;"></i></button>
+                            </form>
+                            @if (app.fra_Type == "University Funded Research")
+
+                            {
+                                <a asp-action="ChiefEvaluationResult" asp-route-id="@app.fra_Id" class="edit-btn">
+                                    <i class="bi bi-file-word"></i>
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            <div class="file-upload-container">
+                                @if (app.dts_No == null || app.FundedResearchEthics == null)
+                                {
+                                    <div class="file-input-wrapper">
+                                        <input type="file" id="pdfFileInput_@app.fra_Id" accept=".pdf" required disabled />
+                                    </div>
+                                    <div class="submit-button-wrapper">
+                                        <button type="button" class="resubmit-btn" id="uploadFileBtn" disabled>
+                                            <i class="bi bi-upload"></i> Upload NTP
+                                        </button>
+                                    </div>
+                                }
+                                else if (app.FundedResearchEthics != null && app.FundedResearchEthics.file_Status != "Checked")
+                                {
+                                    <div class="file-input-wrapper">
+                                        <input type="file" id="pdfFileInput_@app.fra_Id" accept=".pdf" required disabled />
+                                    </div>
+                                    <div class="submit-button-wrapper">
+                                        <button type="button" class="resubmit-btn" id="uploadFileBtn" disabled>
+                                            <i class="bi bi-upload"></i> Upload NTP
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <form id="uploadForm" method="post" enctype="multipart/form-data" action="@Url.Action("UploadNotice", "Chief")">
+                                        <div class="file-input-wrapper">
+                                            <input type="file" name="file" id="pdfFileInput_@app.fra_Id" accept=".pdf" required />
+                                            <br />
+                                            <a href="#" id="previewLink_@app.fra_Id" target="_blank" style="display:none;">Click to preview</a>
+                                        </div>
+                                        <input type="hidden" name="fraId" value="@app.fra_Id" />
+                                        <div class="submit-button-wrapper">
+                                            <button type="submit" class="resubmit-btn" id="submitBtn">
+                                                <i class="bi bi-upload"></i> Upload NTP
+                                            </button>
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Funded Research Application yet.</p>
+    }
+</div>
+
+<!-- Warning Pop-up -->
+<div class="warning_section" id="warningPopup" style="display: none">
+    <div class="card">
+        <i class="bi bi-exclamation-circle-fill" style="font-size: 100px; color:#850000; text-align: center;"></i>
+        <span class="titleWarning">Please review the file before submitting.</span>
+        <div class="d-grid gap-3 col-14 mx-auto">
+            <p>Changes may not be possible after submission.</p>
+        </div>
+        <button class="wsubmit-btn" id="confirmSubmitBtn">Submit</button>
+        <button class="wback-btn" id="backBtn">Back</button>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function () {
+                const fileInput = this;
+                const file = fileInput.files[0];
+
+                // Get corresponding preview link
+                const previewLink = document.getElementById(`previewLink_${fileInput.id.split('_')[1]}`);
+
+                if (file && file.type === 'application/pdf') {
+                    const fileURL = URL.createObjectURL(file);
+
+                    // Set preview link href and display it
+                    previewLink.href = fileURL;
+                    previewLink.style.display = 'inline';
+                    previewLink.textContent = file.name;
+
+                    // When you preview, release the object URL afterward (optional cleanup)
+                    previewLink.addEventListener('click', () => {
+                        setTimeout(() => URL.revokeObjectURL(fileURL), 1000);
+                    });
+                } else {
+                    // Hide the preview link if not a PDF
+                    previewLink.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            document.getElementById('warningPopup').addEventListener.style.display = 'block';
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function () {
+            document.getElementById('warningPopup').addEventListener.style.display = 'none';
+        });
+
+        document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
+            document.getElementById('uploadForm').submit();
+        });
+
+    </script>
+}

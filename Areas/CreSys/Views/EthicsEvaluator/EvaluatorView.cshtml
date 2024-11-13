@@ -1,0 +1,327 @@
+﻿@model CRE.ViewModels.TabbedEvaluationViewModel
+
+@{
+    ViewBag.Title = "Evaluator View";
+    
+}
+<head>
+    <link rel="stylesheet" href="~/css/EvaluatorView.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+
+
+</head>
+
+<div class="title-section">
+<h2>Evaluations</h2>
+
+
+<!-- Tab Navigation -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <div class="d-flex" id="buttons">
+    <li class="nav-item" role="presentation">
+            <a class="btn-nav active" id="assignments-tab" data-bs-toggle="tab" href="#assignments" role="tab" aria-controls="assignments" aria-selected="true">Evaluation Assignments</a>
+    </li>
+    <li class="nav-item" role="presentation">
+            <a class="btn-nav" id="toBeEvaluated-tab" data-bs-toggle="tab" href="#toBeEvaluated" role="tab" aria-controls="toBeEvaluated" aria-selected="false">To Be Evaluated</a>
+    </li>
+    <li class="nav-item" role="presentation">
+            <a class="btn-nav" id="evaluated-tab" data-bs-toggle="tab" href="#evaluated" role="tab" aria-controls="evaluated" aria-selected="false">Evaluated</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="btn-nav" id="declined-tab" data-bs-toggle="tab" href="#declined" role="tab" aria-controls="declined" aria-selected="false">Declined Evaluations</a>
+    </li>
+    </div>
+</ul>
+</div>
+
+<div class="divider"></div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<div class="search-filter-container">
+    <!-- Search Bar with Icon -->
+    <div class="search-container">
+        <input type="text" id="searchBar" onkeyup="searchApplications()" placeholder="Search by Urec No or Title">
+        <i class="fas fa-search"></i>
+    </div>
+</div>                  
+
+
+<!-- Tab Content -->
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="assignments" role="tabpanel" aria-labelledby="assignments-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Details</th>
+                    <th>Application Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        @if (Model.EvaluationAssignments.Any())
+        {
+           
+                
+                    @foreach (var assignment in Model.EvaluationAssignments)
+                    {
+                        <tr>
+
+                            <td class ="urec-column">@assignment.EthicsApplication.urecNo</td>
+
+                            <td class = "title-column">@assignment.NonFundedResearchInfo.title</td>
+                            <td class = "date-column">@assignment.EthicsApplication.submissionDate.ToString("MM/dd/yyyy")</td>
+                            <td class = "status-column">@assignment.EthicsEvaluation.evaluationStatus</td>
+                            <td class = "action-column">
+                                <a href="@Url.Action("RespondToAssignment", "EthicsEvaluator", new { id = assignment.EthicsApplication.urecNo, evaluationId = assignment.EthicsEvaluation.evaluationId })" class="btn btn-info">View</a>
+                            </td>
+                        </tr>
+                    }
+                
+          
+        }
+        else
+        {
+                     <tr>
+                        <td colspan="5" class="text-center">
+                            <div style="text-align: center; padding: 20px; opacity: 50%;">
+                            <i class="fa-solid fa-file" style="font-size: 80px;"></i>
+                            <p style="font-size: 20px; font-family: 'Montserrat', sans-serif;">No Evaluation Assignments</p>
+                        </div>
+                        </td>
+                    </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="toBeEvaluated" role="tabpanel" aria-labelledby="toBeEvaluated-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Details</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        @if (Model.ToBeEvaluated.Any())
+        {
+           
+                
+                
+        @foreach (var evaluation in Model.ToBeEvaluated)
+        {
+            <tr>
+                <td class="urec-column">@evaluation.EthicsApplication.urecNo</td>
+                <td class="title-column">@evaluation.NonFundedResearchInfo.title</td>
+                <td class="date-column">@evaluation.EthicsEvaluation.startDate?.ToString("MM/dd/yyyy")</td>
+                <td class ="status-column">@evaluation.EthicsEvaluation.evaluationStatus</td>
+                <td class="action-column">
+                    <a href="@Url.Action("EvaluationDetails", "EthicsEvaluator", new { id = evaluation.EthicsApplication.urecNo })" class="action-button"><i class="fa-solid fa-pencil"></i></a>
+                </td>
+            </tr>
+        }
+                
+        }
+        else
+        {
+        <tr>
+            <td colspan="5" class="text-center">
+                <div style="text-align: center; padding: 20px; opacity: 50%;">
+                <i class="fa-solid fa-file" style="font-size: 80px;"></i>
+                <p style="font-size: 20px; font-family: 'Montserrat', sans-serif;">No To be Evaluated</p>
+            </div>
+            </td>
+        </tr>
+        }
+        </tbody>
+       </table>
+    </div>
+
+    <div class="tab-pane fade" id="evaluated" role="tabpanel" aria-labelledby="evaluated-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Details</th>
+                    <th>Evaluation Date</th>
+                    <th>Evaluation Results</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        @if (Model.Evaluated.Any())
+        {
+ 
+            @foreach (var evaluated in Model.Evaluated)
+            {
+                <tr>
+                    <td class="urec-column">@evaluated.EthicsApplication.urecNo</td>
+                    <td class="title-column">@evaluated.NonFundedResearchInfo.title</td>
+                    <td class="date-column">@evaluated.EthicsEvaluation.endDate?.ToString("MM/dd/yyyy")</td>
+                    <td class="status-column">@evaluated.EthicsEvaluation.evaluationStatus</td>
+                    <td class="action-column">
+                        <a href="@Url.Action("Evaluated", "EthicsEvaluator", new { urecNo = evaluated.EthicsApplication.urecNo, evaluationId = evaluated.EthicsEvaluation.evaluationId})" class="action-button"><i class="fa-solid fa-eye"></i></a>
+                    </td>
+                </tr>
+            }
+              
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div style="text-align: center; padding: 20px; opacity: 50%;">
+                    <i class="fa-solid fa-file" style="font-size: 80px;"></i>
+                    <p style="font-size: 20px; font-family: 'Montserrat', sans-serif;">No Evaluated</p>
+                </div>
+                </td>
+            </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+
+   
+    <div class="tab-pane fade" id="declined" role="tabpanel" aria-labelledby="declined-tab">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>UREC Number</th>
+                    <th>Details</th>
+                    <th>Decline Date</th>
+                    <th>Decline Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+        @if (Model.DeclinedEvaluations.Any())
+        {
+            
+            @foreach (var evaluation in Model.DeclinedEvaluations)
+            {
+                <tr>
+                    <td class="urec-column">@evaluation.EthicsApplication?.urecNo</td> <!-- Ensure null safety -->
+                    <td class="title-column">@evaluation.NonFundedResearchInfo?.title</td> <!-- Ensure null safety -->
+                    <td class="date-column">@evaluation.EthicsEvaluationDeclined.declineDate.ToString("MM/dd/yyyy")</td> <!-- Accessing declineDate -->
+                    <td class="status-column">@evaluation.EthicsEvaluationDeclined.reasonForDecline</td> <!-- Accessing reasonForDecline -->
+                </tr>
+            }
+              
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div style="text-align: center; padding: 20px; opacity: 50%;">
+                    <i class="fa-solid fa-file" style="font-size: 80px;"></i>
+                    <p style="font-size: 20px; font-family: 'Montserrat', sans-serif;">No Declined Evaluation</p>
+                </div>
+                </td>
+            </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!-- Success Modal -->
+<div class="modal fade" id="evaluationSuccessModal" tabindex="-1" role="dialog" aria-labelledby="evaluationSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="evaluationSuccessModalLabel">Evaluation Submitted</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your evaluation was submitted successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        // Function to search through all application tables
+function searchApplications() {
+    // Get the search query and convert to lowercase for case-insensitive search
+    const searchQuery = document.getElementById("searchBar").value.toLowerCase();
+
+    // Get all tables within tab-panes
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabPanes.forEach(tabPane => {
+        // Get all table rows except the header row (first row)
+        const rows = tabPane.querySelectorAll('table tbody tr');
+
+        // Track whether any rows are visible after filtering
+        let hasVisibleRows = false;
+
+        rows.forEach(row => {
+            // Skip if this is a "No applications found" row
+            if (row.cells.length === 1 && row.classList.contains('no-results-row')) {
+                return;
+            }
+
+            // Get the urecNo and title cells
+            const urecNoCell = row.querySelector('td:nth-child(1)');
+            const titleCell = row.querySelector('td:nth-child(2)');
+
+            // Get the text content, handling null values and the button inside urecNo cell
+            const urecNo = urecNoCell ? urecNoCell.textContent.trim().toLowerCase() : '';
+            const title = titleCell ? titleCell.textContent.trim().toLowerCase() : '';
+
+            // Show/hide row based on whether either field matches the search query
+            if (urecNo.includes(searchQuery) || title.includes(searchQuery)) {
+                row.style.display = '';
+                hasVisibleRows = true; // Mark row as visible
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Show "No results found" if all rows are hidden
+        let noResultsRow = tabPane.querySelector('.no-results-row');
+        if (!hasVisibleRows && searchQuery !== '') {
+            if (!noResultsRow) {
+                const tbody = tabPane.querySelector('tbody');
+                noResultsRow = document.createElement('tr');
+                noResultsRow.className = 'no-results-row';
+                noResultsRow.innerHTML = '<td colspan="5" class="text-center">No matching applications found.</td>';
+                tbody.appendChild(noResultsRow);
+            }
+        } else if (noResultsRow) {
+            // Remove the "No results found" row if there are visible rows
+            noResultsRow.remove();
+        }
+    });
+}
+
+// Activate the tab based on URL hash
+$(document).ready(function () {
+    const hash = window.location.hash;
+    if (hash) {
+        $('.nav-tabs a[href="' + hash + '"]').tab('show');
+    }
+
+    // Optional: Handle tab clicks for additional actions
+    $('.nav-tabs a').on('click', function () {
+        const target = $(this).attr('href');
+        // You can add additional actions here if needed
+    });
+});
+
+    </script>
+}

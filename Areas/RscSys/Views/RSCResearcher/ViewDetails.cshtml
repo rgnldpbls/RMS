@@ -1,0 +1,235 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.Request
+
+@{
+    ViewData["Title"] = "View Details";
+    Layout = "_LayoutRPages";
+
+    // Retrieve the status history for the request
+    var statusHistories = ViewData["StatusHistories"] as List<StatusHistory>;
+    var documentHistories = ViewData["DocumentHistories"] as List<DocumentHistory>;// Ensure you retrieve this from the ViewData in your controller
+
+    // Count the total number of statuses
+    int totalStatuses = 5; // Total statuses: Application Submitted, Requirements Under Review, Application Under Evaluation, Approved, Endorsed by RMO
+    int completedStatuses = 0;
+
+    // Determine if each status is completed and count them
+    bool isApplicationSubmitted = statusHistories?.Any(sh => sh.Status == "Application Submitted") == true;
+    bool isApplicationReview = statusHistories?.Any(sh => sh.Status == "Requirements Under Review") == true;
+    bool isApplicationEval = statusHistories?.Any(sh => sh.Status == "Application Under Evaluation") == true;
+    bool isApplicationApprove = statusHistories?.Any(sh => sh.Status == "Approved") == true;
+    bool isApplicationEndorse = statusHistories?.Any(sh => sh.Status == "Endorsed by RMO") == true;
+
+    if (isApplicationApprove)
+    {
+        completedStatuses = 4;
+    }
+    else
+    {
+        if (isApplicationSubmitted) completedStatuses++;
+        if (isApplicationReview) completedStatuses++;
+        if (isApplicationEval) completedStatuses++;
+    }
+
+
+    // Calculate the progress width in percentage
+    double progressPercentage = (double)completedStatuses / totalStatuses * 100;
+
+    // If "Approved" status is present, set completed statuses to 4
+   
+}
+
+<style>    
+        body { 
+            background-color: #f8f9fa; 
+        }
+
+        .timeline-container { 
+            position: relative; 
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            background-color: #adb5bd;
+            top: 25px;
+            left: 10%;
+            z-index: 1;
+        }
+
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            width: @progressPercentage%; /* Dynamically adjust the green width */
+            height: 2px;
+            background-color: #28a745; /* Green for completed steps */
+            top: 25px;
+            left: 10%;
+            z-index: 2;
+            transition: width 0.3s ease;
+        }
+
+        .timeline-item {
+            z-index: 2;
+            position: relative;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .document-history-item { 
+            border-left: 2px solid #198754; 
+        }
+
+        .card-body li {
+            color: black;
+        }
+
+        .app-details {
+            margin-bottom: 20px;
+        }
+
+        .title-details h1{
+            font-weight: 800;
+        }
+
+        .deets {
+            font-size: 20px;
+            margin: 10px;
+        }
+
+        .deets-title {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .app-history {
+            height: 400px;
+            max-height: 400px;
+        overflow-y: auto;
+        }
+
+        .deets-his {
+            font-size: 15px;
+        }
+
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3 title-details">
+            <h1>View Application</h1>
+            <div>
+                <button class="btn btn-outline-danger" onclick="window.history.back();">Back</button>
+            </div>
+</div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+        <div class="timeline-container">
+                    <div class="row text-center">
+                <div class="col timeline-item">
+                    <div class="timeline-icon mx-auto @(isApplicationSubmitted ? "bg-success" : "bg-secondary")">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <p class="mt-2 mb-0">Application Submitted</p>
+                    @if (isApplicationSubmitted)
+                    {
+                        <small>@statusHistories.First(sh => sh.Status == "Application Submitted").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                    }
+                </div>
+
+                <div class="col timeline-item">
+                    <div class="timeline-icon mx-auto @(isApplicationReview ? "bg-success" : "bg-secondary")">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <p class="mt-2 mb-0">Requirements Under Review</p>
+                    @if (isApplicationReview)
+                    {
+                        <small>@statusHistories.First(sh => sh.Status == "Requirements Under Review").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                    }
+                </div>
+
+                <div class="col timeline-item">
+                    <div class="timeline-icon mx-auto @(isApplicationEval || isApplicationApprove ? "bg-success" : "bg-secondary")">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <p class="mt-2 mb-0">Requirements Under Evaluation</p>
+                    @if (isApplicationEval)
+                    {
+                        <small>@statusHistories.First(sh => sh.Status == "Application Under Evaluation").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                    }
+                </div>
+
+                <div class="col timeline-item">
+                    <div class="timeline-icon mx-auto @(isApplicationApprove ? "bg-success" : "bg-secondary")">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <p class="mt-2 mb-0">Approved</p>
+                    @if (isApplicationApprove)
+                    {
+                        <small>@statusHistories.First(sh => sh.Status == "Approved").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                    }
+                </div>
+
+                <div class="col timeline-item">
+                    <div class="timeline-icon mx-auto @(isApplicationEndorse ? "bg-success" : "bg-secondary")">
+                        <i class="fas fa-stamp"></i>
+                    </div>
+                    <p class="mt-2 mb-0">Endorsed by RMO</p>
+                    @if (isApplicationEndorse)
+                    {
+                        <small>@statusHistories.First(sh => sh.Status == "Endorsed by RMO").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                    }
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 app-details">
+                <div class="card">
+                    <div class="card-body deets">
+                        <h5 class="card-title text-center deets-title">Application Details</h5>
+                        <p><strong>DTS Number:</strong> @Model.DtsNo</p>
+                        <p><strong>Applicant Name: </strong>@ViewData["ApplicantName"]</p>
+                        <p><strong>Field of Study:</strong> @Model.FieldOfStudy</p>
+                    </div>
+                </div>
+            </div>
+
+
+    <div class="col-md-6">
+        <div class="card app-history">
+            <div class="card-body deets-his">
+                    <h5 class="card-title text-center deets-title">Document History</h5>
+                        <ul class="list-unstyled">
+                        @if (documentHistories != null && documentHistories.Any())
+                        {
+                            foreach (var docHistory in documentHistories)
+                            {
+                                <li class="mb-3 pb-2 ps-3 document-history-item">
+                                    <strong>@docHistory.CreateDate.ToString("MM/dd/yyyy hh:mm tt")</strong><br>
+                                    @docHistory.Comments
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>No document history available.</li>
+                        }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>

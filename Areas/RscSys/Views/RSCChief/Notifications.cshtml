@@ -1,0 +1,86 @@
+﻿@using System.Security.Claims
+@model IEnumerable<rscSys_final.Models.Notifications>
+
+@{
+    ViewData["Title"] = "Chief Notifications";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+    body {
+        background-color: #d9d9d9;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .titlemodal h1 {
+        font-weight: bold;
+        font-size: 50px;
+    }
+
+    .titlemodal {
+        border-bottom: 2px solid black;
+        margin-bottom: 15px;
+    }
+
+    /* .notifications-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        } */
+
+
+    .notification-time {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+</style>
+
+@functions {
+    private string GetTimeAgo(DateTime dateTime)
+    {
+        var timeSpan = DateTime.Now - dateTime;
+
+        if (timeSpan.TotalMinutes < 1)
+            return "just now";
+        if (timeSpan.TotalMinutes < 60)
+            return $"{(int)timeSpan.TotalMinutes} min ago";
+        if (timeSpan.TotalHours < 24)
+            return $"{(int)timeSpan.TotalHours} hours ago";
+        if (timeSpan.TotalDays < 7)
+            return $"{(int)timeSpan.TotalDays} days ago";
+        return dateTime.ToString("MMM d, yyyy");
+    }
+}
+
+
+<div class="d-flex justify-content-between align-items-center titlemodal">
+    <h1 class="h2 mb-0">Notifications</h1>
+    <form asp-action="MarkAllAsRead" method="post" class="d-inline">
+        <button type="submit" class="btn btn-primary btn-sm">Mark all as Read</button>
+    </form>
+</div>
+
+<div class="notifications-container">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var notification in Model)
+        {
+            var alertClass = notification.NotificationStatus ? "alert-secondary" : "alert-light";
+
+            <div class="notification-item">
+                <div class="alert @alertClass" role="alert">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <p class="mb-0">@notification.NotificationMessage</p>
+                        <span class="notification-time ms-2">@GetTimeAgo(notification.NotificationCreationDate)</span>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No notifications available.</p>
+    }
+</div>

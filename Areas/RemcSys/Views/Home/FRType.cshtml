@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Funded Research Type";
+    ViewBag.Pending = false;
+    Layout = "_NavFaculty";
+}
+
+<div class="type-section">
+    <div class="card">
+        <span class="title">Select Research Type</span>
+        <div class="d-grid gap-3 col-14 mx-auto">
+            <a href="@Url.Action("Eligibility", "Home", new { type = "University Funded Research" })" class="btn btn-danger btn-lg">University Funded Research</a>
+            <a href="@Url.Action("Eligibility", "Home", new { type = "Externally Funded Research" })" class="btn btn-danger btn-lg">Externally Funded Research</a>
+            <a href="@Url.Action("Eligibility", "Home", new { type = "University Funded Research Load" })" class="btn btn-danger btn-lg">University Funded Research Load</a>
+        </div>
+    </div>
+</div>

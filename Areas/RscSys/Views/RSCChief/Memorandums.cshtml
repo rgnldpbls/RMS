@@ -1,0 +1,153 @@
+﻿@using System.Security.Claims
+@model List<rscSys_final.Models.Memorandum>
+
+@{
+    ViewBag.Title = "Upload Memorandum";
+    Layout = "_LayoutCPages";
+}
+
+<h2><strong>Memorandum</strong></h2>
+
+<button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
+    Upload New Memorandum
+</button>
+
+<style>
+    .table-header th {
+        background-color: #850000; /* Header background color */
+        color: white; /* Text color */
+        white-space: nowrap; /* Prevent line breaks */
+    }
+
+    .memo-file {
+        color: black;
+        text-decoration: none;
+    }
+</style>
+
+<table class="table table-striped">
+    <thead class="table-header">
+        <tr>
+            <th>Name</th>
+            <th class="text-center">Upload Date</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var memo in Model)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="memo-file" data-requirement-id="@memo.memorandumId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                    @memo.memorandumName
+                    </a>
+                </td>
+                <td class="text-center">@memo.memorandumUploadDate.ToString("d")</td>
+                <td class="text-center">
+                    <!-- Edit Button -->
+                    <button type="button" class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#editModal-@memo.memorandumId">Edit</button>
+
+                    <!-- Delete Button -->
+                    <form asp-action="DeleteMemorandum" asp-controller="RSCChief" method="post">
+                        <input type="hidden" name="id" value="@memo.memorandumId" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+
+                    <!-- Edit Modal -->
+                    <div class="modal fade" id="editModal-@memo.memorandumId" tabindex="-1" aria-labelledby="editModalLabel-@memo.memorandumId" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel-@memo.memorandumId">Edit Memorandum</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form asp-action="EditMemo" asp-controller="RSCChief" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="id" value="@memo.memorandumId" />
+                                        <div class="mb-3">
+                                            <label for="memorandumName" class="form-label">Memorandum Name</label>
+                                            <input type="text" class="form-control" id="memorandumName" name="memorandumName" value="@memo.memorandumName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="file" class="form-label">Replace File (Optional)</label>
+                                            <input type="file" class="form-control" id="file" name="file">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="3">No Memorandums found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Upload Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadModalLabel">Upload Memorandum</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="UploadMemorandum" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="memorandumName" class="form-label">Memorandum Name</label>
+                        <input type="text" class="form-control" id="memorandumName" name="memorandumName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">File</label>
+                        <input type="file" class="form-control" id="file" name="file" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileLinks = document.querySelectorAll('.memo-file');
+            const fileViewer = document.getElementById('fileViewer');
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    const memorandumId = link.getAttribute('data-requirement-id');
+                    // Update the iframe src to display the memo in the modal
+                    fileViewer.src = `@Url.Action("ViewMemo", "RSCChief")?memorandumId=${memorandumId}`;
+                });
+            });
+        });
+    </script>
+}

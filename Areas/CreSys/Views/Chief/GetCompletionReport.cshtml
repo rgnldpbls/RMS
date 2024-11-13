@@ -1,0 +1,69 @@
+﻿@model CRE.ViewModels.CompletionReportViewModel
+
+@{
+    ViewData["Title"] = "Completion Report Details and Issue Certificate";
+}
+<head>
+    <link rel="stylesheet" href="~/css/CompletionReportDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4>Completion Report Details</h4>
+            <p><strong>UREC No:</strong> @Model.EthicsApplication.urecNo</p>
+            <p><strong>Research Title:</strong> @Model.NonFundedResearchInfo.title</p>
+            <p><strong>Researcher:</strong> @Model.EthicsApplication.Name</p>
+
+            <!-- Display CoProponents -->
+            <h5>Co-Proponents:</h5>
+            <ul>
+                @foreach (var coProponent in Model.CoProponent)
+                {
+                    <li>@coProponent.coProponentName</li>
+                }
+            </ul>
+
+            <!-- iframe for displaying the Terminal Report PDF -->
+            <div id="reportContainer" style="display: none; margin-top: 20px;">
+                <iframe id="reportIframe" width="100%" height="800px" frameborder="0"></iframe>
+            </div>
+
+            <script type="text/javascript">
+                // This function will be called when the page loads
+                window.onload = function () {
+                    // Set the iframe src to load the terminal report
+                    document.getElementById("reportIframe").src = "@Url.Action("DownloadTerminalReport", "Chief", new { urecNo = Model.EthicsApplication.urecNo })";
+
+                    // Show the container now that the iframe source is set
+                    document.getElementById("reportContainer").style.display = "block";
+                };
+            </script>
+
+
+
+            <!-- Form for Issuing Completion Certificate -->
+            <form asp-action="IssueCompletionCertificate" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="EthicsApplication.urecNo" />
+
+                <div class="form-group">
+                    <label>Research End Date:</label>
+                    <input asp-for="CompletionReport.researchEndDate" class="form-control" type="date" required />
+                </div>
+                
+
+                <!-- File Upload for Completion Certificate -->
+                <div class="form-group">
+                    <label>Upload Certificate File:</label>
+                    <input asp-for="CertificateFile" class="form-control" type="file" accept=".pdf,.doc,.docx" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Issue Certificate</button>
+                <a asp-action="CompletionReports" class="btn btn-secondary mt-3">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

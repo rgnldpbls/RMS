@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        </li>
+
+        <li class="nav-item">
+            @{
+                string returnUrl;
+
+                // Set return URL based on user role
+                if (User.IsInRole("SuperAdmin"))
+                {
+                    returnUrl = Url.Action("Index", "RoleManager");
+                }
+                else if (User.IsInRole("Faculty"))
+                {
+                    returnUrl = Url.Action("Index", "Faculty");
+                }
+                else
+                {
+                    returnUrl = Url.Action("Index", "Home");
+                }
+            }
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@returnUrl">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

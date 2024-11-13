@@ -1,0 +1,151 @@
+﻿@model List<CRE.Models.EthicsApplicationLog>
+@{
+
+}
+<head>
+    <link rel="stylesheet" href="~/css/TrackApplication.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<h2>Track Application</h2>
+<div class="application-container">
+    <div class="header">
+        <div class="dts-number">
+            <strong>UREC No.: </strong>
+            <span id="urecNoValue">
+                @(ViewBag.UrecNo ?? "N/A")
+            </span>
+        </div>
+        <div class="back-button">
+            <button class="btn-back" onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline">
+            @* Application Submitted *@
+            <div class="timeline-item @(Model.Any(log => log.status == "Applied") ? "completed" : "")">
+                <div class="timeline-icon @(Model.Any(log => log.status == "Applied") ? "completed" : "")">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Application Submitted</div>
+                    <div class="timeline-date">
+                        @(Model.FirstOrDefault(log => log.status == "Applied")?.changeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* Requirements Under Review *@
+            <div class="timeline-item @(Model.Any(log => log.status == "Pending for Evaluation") ? "completed" : "")">
+                <div class="timeline-icon @(Model.Any(log => log.status == "Pending for Evaluation") ? "completed" : "")">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Requirements Under Review</div>
+                    <div class="timeline-date">
+                        @(Model.FirstOrDefault(log => log.status == "Pending for Evaluation")?.changeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* To Be Evaluated *@
+            <div class="timeline-item @(Model.Any(log => log.status == "Approved for Evaluation") ? "completed" : "")">
+                <div class="timeline-icon @(Model.Any(log => log.status == "Approved for Evaluation") ? "completed" : "")">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">To Be Evaluated</div>
+                    <div class="timeline-date">
+                        @(Model.FirstOrDefault(log => log.status == "Approved for Evaluation")?.changeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* Application Under Evaluation *@
+            <div class="timeline-item @(Model.Any(log => log.status == "Evaluators Assigned") ? "completed" : "")">
+                <div class="timeline-icon @(Model.Any(log => log.status == "Evaluators Assigned") ? "completed" : "")">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Application Under Evaluation</div>
+                    <div class="timeline-date">
+                        @(Model.FirstOrDefault(log => log.status == "Evaluators Assigned")?.changeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* Evaluation Complete *@
+            <div class="timeline-item @(Model.Any(log => log.status == "Clearance Issued") ? "completed" : "")">
+                <div class="timeline-icon @(Model.Any(log => log.status == "Clearance Issued") ? "completed" : "")">
+                    <i class="fas fa-check-double"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Evaluation Complete</div>
+                    <div class="timeline-date">
+                        @(Model.FirstOrDefault(log => log.status == "Clearance Issued")?.changeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <div class="application-details">
+            <h3>Application Details</h3>
+            <div class="detail-item">
+                <label>Research Title:</label>
+                <span>@ViewBag.Title</span>
+            </div>
+            <div class="detail-item">
+                <label>Author:</label>
+                <span>@ViewBag.Author</span>
+            </div>
+            <div class="detail-item">
+                <label>Field of Study:</label>
+                <span>@ViewBag.Field</span>
+            </div>
+        </div>
+
+        <div class="document-history">
+            <h3>Document History</h3>
+            <div class="history-list">
+                @foreach (var log in Model.OrderByDescending(x => x.changeDate))
+                {
+                    <div class="history-item">
+                        <div class="history-status">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="history-content">
+                            <div class="history-text">
+                                @if (!string.IsNullOrEmpty(log.comments))
+                                {
+                                    <span>@log.comments</span>
+                                    <span class="status-update">(@log.status)</span>
+                                }
+                                else if (!string.IsNullOrEmpty(log.status))
+                                {
+                                    <span class="status-update">@log.status</span>
+                                }
+                            </div>
+                            <div class="history-date">
+                                @log.changeDate.ToString("MM/dd/yyyy h:mmtt")
+
+                                @if (log.status == "Updated")
+                                {
+                                    <i class="fas fa-check" style="color: #008756; margin-left: 5px;"></i>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

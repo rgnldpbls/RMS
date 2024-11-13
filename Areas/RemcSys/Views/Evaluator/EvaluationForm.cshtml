@@ -1,0 +1,249 @@
+﻿@model Tuple<IEnumerable<FileRequirement>, IEnumerable<Criteria>>
+@{
+    ViewData["Title"] = "Research Evaluation Form";
+    Layout = "_NavEvaluator1";
+}
+
+<div class="evaluation-sheet-container">
+    <div class="card2">
+        <div class="tab-container">
+            @foreach (var file in Model.Item1)
+            {
+                <div class="tab">
+                    <button class="tablinks" onclick="openFile(event, 'file-@file.fr_Id')">
+                        @file.file_Name
+                    </button>
+                </div>
+            }
+        </div>
+        <div class="file-preview-container">
+            @foreach (var file in Model.Item1)
+            {
+                <div id="file-@file.fr_Id" class="tabcontent">
+                    <iframe src="@Url.Action("PreviewFile", "Evaluator", new {id = file.fr_Id})"
+                            width="100%;" height="1750px;" frameborder="0"></iframe>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="evaluation-form">
+            <h3>IR Evaluation Sheet</h3>
+            <p>For Reference: Kindly click the links below.</p>
+            <ul>
+                @if (ViewBag.exec != null)
+                {
+                    @foreach (var file in ViewBag.exec)
+                    {
+                        <li>
+                            <a href="@Url.Action("PreviewFile", new {id = file.Id})" target="_blank"
+                               style="color: #850000; text-decoration: none;">@file.file_Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+            <hr />
+            <form id="evalForm">
+                <input type="hidden" id="fraId" value="@ViewBag.Id" />
+                @foreach (var criteria in Model.Item2)
+                {
+                    <h6>@criteria.Name (@criteria.Weight%)</h6>
+                    <div class="criteria" data-weight="@criteria.Weight">
+                        @foreach (var subcategory in criteria.subCategory)
+                        {
+                            <div class="form-group">
+                                <label>@subcategory.Name</label>
+                                <select id="@subcategory.Id-score" class="form-control custom-select score-select" data-maxscore="@subcategory.MaxScore">
+                                    <option value="" disabled selected>Select score...</option>
+                                    @for (int i = 1; i <= subcategory.MaxScore; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
+                                <textarea id="@subcategory.Id-comment" class="form-control" placeholder="Type here your comments and suggestions" rows="3"></textarea>
+                            </div>
+                        }
+                        <hr />
+                    </div>
+                }
+                <!-- General Comments -->
+                <h5>General Comments and Suggestions</h5>
+                <textarea id="GenComment" class="form-control" placeholder="Type here your comments and suggestions" rows="10"></textarea>
+                <hr />
+
+                <h5>Total Score and Remark</h5>
+                <div>
+                    <span id="totalScore" style="font-weight: bold; font-size: 16px;">0 - Not Evaluated</span>
+                </div>
+                <button type="button" class="submit-btn" id="submitEvalBtn">Submit Evaluation</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Warning Pop-up -->
+<div class="warning_section" id="warningPopup" style="display:none;">
+    <div class="card3">
+        <i class="bi bi-exclamation-circle-fill" style="font-size: 100px; color:#850000; text-align: center;"></i><br />
+        <span class="wtitle">Please review all information before submitting.</span>
+        <div class="d-grid gap-3 col-14 mx-auto">
+            <p class="deets">Changes may not be possible after submission.</p>
+        </div>
+
+        <button class="wback-btn" id="backBtn">Back</button>
+        <button class="wsubmit-btn" id="confirmSubmitBtn">Submit</button>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function openFile(evt, fileId) {
+            var tabcontent = document.getElementsByClassName("tabcontent");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(fileId).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var defaultTab = document.getElementsByClassName("tablinks")[0];
+            if (defaultTab) {
+                defaultTab.click();
+            }
+        });
+
+        document.querySelectorAll('.score-select').forEach(select => {
+            select.addEventListener('change', calculateTotalScore);
+        });
+
+        function calculateTotalScore() {
+            let totalWeightedScore = 0;
+            
+            document.querySelectorAll('.criteria').forEach(criteria => {
+                let weight = parseFloat(criteria.getAttribute('data-weight')) || 0;
+                let maxScoreForCriteria = 0;
+                let totalScoreForCriteria = 0;
+
+                criteria.querySelectorAll('.score-select').forEach(select => {
+                    let maxScore = parseInt(select.getAttribute('data-maxscore')) || 0;
+                    let score = parseInt(select.value) || 0;
+                    maxScoreForCriteria += maxScore;
+                    totalScoreForCriteria += score;
+                });
+
+                let criteriaWeightedScore = (totalScoreForCriteria / maxScoreForCriteria) * weight;
+                totalWeightedScore += criteriaWeightedScore;
+            });
+
+            let remark = "";
+            if (totalWeightedScore >= 70) {
+                remark = "Approved";
+            } else{
+                remark = "Rejected";
+            }
+
+            document.getElementById('totalScore').innerText = `${totalWeightedScore.toFixed(2)} - ${remark}`;
+        }
+    </script>
+    <script>
+        function validateSelects() {
+            const selects = document.querySelectorAll('select');
+            let allSelectsFilled = true;
+
+            selects.forEach(select => {
+                if (select.value === "") {
+                    allSelectsFilled = false;
+                }
+            });
+
+            return allSelectsFilled;
+        }
+
+        function validateTextareas() {
+            const textAreas = document.querySelectorAll('textarea');
+            let allTextAreasFilled = true;
+
+            textAreas.forEach(textarea => {
+                if (textarea.value.trim() === "") {
+                    allTextAreasFilled = false;
+                }
+            });
+
+            return allTextAreasFilled;
+        }
+
+
+        document.getElementById('submitEvalBtn').addEventListener('click', function () {
+            if (validateSelects()) {
+                if (validateTextareas()) {
+                    document.getElementById('warningPopup').style.display = 'flex';
+                } else {
+                    alert('Please input all comments before proceed.');
+                }
+            } else {
+                alert('Please select scores in all fields before proceed.');
+            }
+        });
+
+        document.getElementById('confirmSubmitBtn').addEventListener('click', function () {
+            const AQScore = document.getElementById('1-score').value;
+            const AQComment = document.getElementById('1-comment').value;
+            const REScore = document.getElementById('2-score').value;
+            const REComment = document.getElementById('2-comment').value;
+            const RIScore = document.getElementById('3-score').value;
+            const RIComment = document.getElementById('3-comment').value;
+            const LCScore = document.getElementById('4-score').value;
+            const LCComment = document.getElementById('4-comment').value;
+            const RDScore = document.getElementById('5-score').value;
+            const RDComment = document.getElementById('5-comment').value;
+            const FFScore = document.getElementById('6-score').value;
+            const FFComment = document.getElementById('6-comment').value;
+            const GenComment = document.getElementById('GenComment').value;
+            const FraId = document.getElementById('fraId').value;
+
+            $.ajax({
+                url: '@Url.Action("SubmitEvaluation", "Evaluator")',
+                type: 'POST',
+                data: {
+                    aqScore: AQScore,
+                    aqComment: AQComment,
+                    reScore: REScore,
+                    reComment: REComment,
+                    riScore: RIScore,
+                    riComment: RIComment,
+                    lcScore: LCScore,
+                    lcComment: LCComment,
+                    rdScore: RDScore,
+                    rdComment: RDComment,
+                    ffScore: FFScore,
+                    ffComment: FFComment,
+                    genComment: GenComment,
+                    fraId: FraId
+                },
+                success: function (response) {
+                    alert('Evaluation submitted successfully!');
+                    window.location.href = '@Url.Action("EvaluatorEvaluated", "Evaluator", new {area = "RemcSys"})';
+                },
+                error: function (xhr, status, error) {
+                    alert('Error submitting evaluation. Please try again.');
+                }
+            });
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function () {
+            document.getElementById('warningPopup').style.display = 'none';
+        });
+    </script>
+}

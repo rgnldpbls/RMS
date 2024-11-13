@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Center for Research Ethics";
+
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>CREFRONTEND</title>
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+</head>
+<body>
+    <div id="welcome">
+        <div class="content-wrapper">
+            <div id="CRETITLE">CENTER FOR RESEARCH ETHICS</div>
+            <p id="welcome-content" class="mb-4">The Center for Research Ethics (CRE) facilitates the requests for ethics clearance. The centers ensure to protect potential participants in the research, but it must also consider potential risks and benefits for the community in which the research will be carried out. Its goal is to promote high ethical standards in research.</p>
+            <div class="my-3">
+                <a id="btn-apply" class="btn me-2" role="button" asp-area="CreSys" asp-controller="EthicsApplication" asp-action="Applications">Apply</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="ethics-clearance-requirements">
+        <h2>Application for Research Ethics Certification</h2>
+        <h3>Ethics Clearance Requirements</h3>
+        <p>To initiate the review process of the research proposal, the researcher/s must submit the following documents:</p>
+        <ol>
+            <li>Letter of Intent: Addressed to the Vice President for Research, Extension, and Development (VPRED);</li>
+            <li>Application Form: UREC Form 101 (for study involving human participants);</li>
+            <li>Accomplished Research Protocol: The research protocol should cover the following: Title of the Study, Significance of the Study, Literature Review, Objectives of the Study, Methodology and Procedures, Description of the Study Population, Data Collection Procedure and Instruments, Data Analysis, Plan for Dissemination of Results, and Plan for Disposal of Biological Specimens, if any;</li>
+            <li>Informed Consent: UREC Form 102 (for detailing ethical considerations). If the research involves non-human subjects, consent UREC Form 103 for Non-Human Subjects must be filled out;</li>
+            <li>Survey Questionnaire: If the study involves human respondents;</li>
+            <li>Assent Form: UREC Form 5 should be used for studies with minor respondents;</li>
+            <li>Research Questionnaire: with reliability or validity test results. In the case of an adapted research questionnaire, a copy of the original questionnaire should be provided along with proof of permission to use the said research questionnaire;</li>
+            <li>Certificate of Validity: Submit this document if the study instrument is researcher-made or adapted but modified;</li>
+            <li>Curriculum Vitae of the researcher/s; and</li>
+            <li>Co-authorship agreement for multiple authorship.</li>
+        </ol>
+        <a class="download-btn" asp-area="CreSys" asp-controller="EthicsForm" asp-action="DownloadForms">Download Forms</a>
+    </div>
+</body>
+
+
+
+@* @{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Welcome to the Home Page</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        Hello, @(ViewBag.User != null ? ViewBag.User.fName + " " + ViewBag.User.mName + " " + ViewBag.User.lName : "User")!
+        You are logged in as @User.Identity.Name.
+    </p>
+
+    @if (ViewBag.UserRoles != null && ViewBag.UserRoles.Count > 0)
+    {
+        <p>Your roles:</p>
+        <ul>
+            @foreach (var role in ViewBag.UserRoles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    }
+
+    <p>Your type: @(ViewBag.User != null ? ViewBag.User.type : "N/A")</p>
+}
+else
+{
+    <p>You are not logged in. Please <a asp-controller="AppUser" asp-action="Login">log in</a>.</p>
+} *@

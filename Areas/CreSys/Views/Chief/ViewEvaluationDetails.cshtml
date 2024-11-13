@@ -1,0 +1,189 @@
+﻿@model CRE.ViewModels.EvaluatedExemptApplication
+
+<head>
+    <link rel="stylesheet" href="~/css/DetailsInitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<div class="header-container">
+    <h2 class="title">Evaluation Details</h2>
+    <button class="btn-back" onclick="goBack()">Back</button>
+</div>
+<div class="container">
+
+
+    <div class="card border-light mb-3" style="width:contain">
+        <div class="card-header">
+            <div class="row">
+                <div class="col text-start">
+                    <p id="urecNoText">
+                        <strong>UREC No.: </strong> @Model.EthicsApplication.urecNo
+                    </p>
+                    <button id="copybut" type="button" class="btn-outline-transparent btn-sm ms-2" onclick="copyUrecNo()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+
+                    <h4><strong>Research Title:</strong> @Model.NonFundedResearchInfo.title</h4>
+                    <p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Proponent/s:</strong><br />
+                                @($"{Model.NonFundedResearchInfo.EthicsApplication.Name}") <!-- Using null-conditional operator -->
+                                <br />
+                                @if (Model.NonFundedResearchInfo != null && Model.NonFundedResearchInfo.CoProponent.Any())
+                                {
+                                    foreach (var proponent in Model.NonFundedResearchInfo.CoProponent)
+                                    {
+                                        @proponent.coProponentName <br />
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </p>
+                    <p><strong>Field of Study:</strong> @Model.EthicsApplication.fieldOfStudy</p>
+                    <p><strong>College: </strong> @Model.NonFundedResearchInfo.college</p>
+                    <p><strong>Branch/Campus: </strong> @Model.NonFundedResearchInfo.campus</p>
+                    <p><strong>Reviewer:</strong> @Model.ReviewerName</p>
+                </div>
+
+                <div class="col text-end">
+                    <p id="dtsNoText">
+                        <strong>DTS No.:</strong>
+                    </p>
+
+                    @if (!string.IsNullOrEmpty(Model.EthicsApplication.dtsNo))
+                    {
+                        <button class="btn-outline-secondary btn-sm ms-2" onclick="copyDtsNo()" title="Copy">
+                            <i class="fa-regular fa-copy copy-icon"></i>
+                        </button>
+                    }
+                </div>
+
+                <!-- Modal for Adding/Editing DTS No. -->
+                <div class="modal fade" id="editDtsModal" tabindex="-1" aria-labelledby="editDtsLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editDtsLabel">Edit DTS No.</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="errorMessages" class="text-danger mb-2"></div>
+                                <form id="editDtsForm" method="post" asp-action="UpdateDtsNo" asp-controller="EthicsApplicationForms">
+                                    <div class="mb-3">
+                                        <label for="dtsNoInput" class="form-label">DTS No.</label>
+                                        <input type="text" class="form-control" id="dtsNoInput" name="dtsNo"
+                                               value="@Model.EthicsApplication.dtsNo"
+                                               required
+                                               pattern="\d{4}-\d{4}-\d{2}"
+                                               title="DTS No. must be in the format xxxx-xxxx-xx" />
+                                        <span id="dtsNoError" class="text-danger"></span>
+                                        @Html.ValidationMessage("dtsNo", "", new { @class = "text-danger" })
+                                    </div>
+                                    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.urecNo" />
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="submitDtsForm">Save DTS No.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h4 class="text-center">Evaluation Sheets</h4>
+            <table class="table table-bordered">
+                <thead class="bg-danger text-white">
+                    <tr>
+                        <th>Evaluation Sheet</th>
+                        <th>Comments/Suggestions</th>
+                        <th>Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button id="viewBut" type="button" class=""
+                                    onclick="openPdfInModal('ProtocolReviewSheet', '@Model.EthicsApplication.urecNo', @Model.EthicsEvaluation.evaluationId)">
+                                View Protocol Review Sheet
+                            </button>
+                        </td>
+                        <td>
+                            @Model.EthicsEvaluation.ProtocolRemarks
+                        </td>
+                        <td>
+                            @Model.EthicsEvaluation.ProtocolRecommendation
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="viewBut" type="button" class=""
+                                    onclick="openPdfInModal('InformedConsentForm', '@Model.EthicsApplication.urecNo', @Model.EthicsEvaluation.evaluationId)">
+                                View Informed Consent Form
+                            </button>
+                        </td>
+                        <td>
+                            @Model.EthicsEvaluation.ConsentRemarks
+                        </td>
+                        <td>
+                            @Model.EthicsEvaluation.ConsentRecommendation
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for PDF view -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="pdfViewer" src="" width="100%" height="800px" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyUrecNo() {
+            const urecNoText = document.getElementById("urecNoText").innerText;
+            navigator.clipboard.writeText(urecNoText.replace("UREC No.: ", "")).then(function () {
+                alert('UREC No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function copyDtsNo() {
+            const dtsNoText = document.getElementById("dtsNoText").innerText;
+            navigator.clipboard.writeText(dtsNoText.replace("DTS No.: ", "")).then(function () {
+                alert('DTS No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function openPdfInModal(fileType, urecNo, evaluationId) {
+            const url = `@Url.Action("ViewFile", "Chief")?fileType=${fileType}&urecNo=${urecNo}&evaluationId=${evaluationId}`;
+            document.getElementById("pdfViewer").src = url;
+
+            // Show the modal
+            $('#pdfModal').modal('show');
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+}
