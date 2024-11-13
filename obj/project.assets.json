@@ -13654,11 +13654,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\ResearchManagementSystem.csproj",
+      "projectUniqueName": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\ResearchManagementSystem.csproj",
       "projectName": "ResearchManagementSystem",
-      "projectPath": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\ResearchManagementSystem.csproj",
+      "projectPath": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\ResearchManagementSystem.csproj",
       "packagesPath": "C:\\Users\\Regienald Pueblos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Regienald Pueblos\\Downloads\\ResearchManagementSystem\\obj\\",
+      "outputPath": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Regienald Pueblos\\AppData\\Roaming\\NuGet\\NuGet.Config",
