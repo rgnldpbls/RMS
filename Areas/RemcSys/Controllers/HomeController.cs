@@ -17,7 +17,7 @@ namespace RemcSys.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RemcDBContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager, 
+        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager,
             RemcDBContext context)
         {
             _logger = logger;
@@ -41,6 +41,80 @@ namespace RemcSys.Controllers
                 return RedirectToAction("Faculty");
             }
             return RedirectToAction("AccessDenied");
+        }
+
+        public async Task<IActionResult> ApplicationTracker()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("No user found!");
+            }
+
+            var fra = await _context.REMC_FundedResearchApplication
+                .Include(f => f.FundedResearch)
+                .Where(f => f.UserId == user.Id)
+                .OrderByDescending(f => f.submission_Date)
+                .ToListAsync();
+
+            if(fra != null && fra.Any())
+            {
+                if (fra.First().fra_Type == "University Funded Research")
+                {
+                    if (fra.First().FundedResearch != null)
+                    {
+                        if (fra.First().FundedResearch.isArchive == false)
+                        {
+                            return RedirectToAction("ProgressTracker", "ProgressReport", new { area = "RemcSys" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Forms", "Home");
+                        }
+                    }
+                    else if ((fra.First().application_Status == "Submitted" || fra.First().application_Status == "UnderEvaluation" || fra.First().application_Status == "Approved" ||
+                        fra.First().application_Status == "Rejected" || fra.First().application_Status == "Proceed") && fra.First().isArchive == false)
+                    {
+                        return RedirectToAction("ApplicationTracker", "FundedResearchApplication", new { area = "RemcSys" });
+                    }
+                    else if(fra.First().application_Status == "Pending" && fra.First().isArchive == false)
+                    {
+                        return RedirectToAction("GeneratedDocuments", "FundedResearchApplication", new { area = "RemcSys" });
+                    }
+                    else if(fra.First().isArchive == true)
+                    {
+                        return RedirectToAction("Forms", "Home");
+                    }
+                }
+                else if(fra.First().fra_Type == "Externally Funded Research" || fra.First().fra_Type == "University Funded Research Load")
+                {
+                    if(fra.First().FundedResearch != null)
+                    {
+                        if (fra.First().FundedResearch.isArchive == false)
+                        {
+                            return RedirectToAction("ProgressTracker", "ProgressReport", new { area = "RemcSys" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Forms", "Home");
+                        }
+                    }
+                    else if((fra.First().application_Status == "Submitted" || fra.First().application_Status == "Approved" ||
+                        fra.First().application_Status == "Proceed") && fra.First().isArchive == false)
+                    {
+                        return RedirectToAction("ApplicationTrackerII", "FundedResearchApplication", new { area = "RemcSys" });
+                    }
+                    else if(fra.First().application_Status == "Pending" && fra.First().isArchive == false)
+                    {
+                        return RedirectToAction("GeneratedDocuments", "FundedResearchApplication", new { area = "RemcSys" });
+                    }
+                    else if (fra.First().isArchive == true)
+                    {
+                        return RedirectToAction("Forms", "Home");
+                    }
+                }
+            }
+            return RedirectToAction("Forms", "Home");
         }
 
         public IActionResult Privacy() // Privacy Page

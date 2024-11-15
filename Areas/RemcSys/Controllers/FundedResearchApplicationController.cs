@@ -213,14 +213,29 @@ namespace RemcSys.Controllers
         [Authorize(Roles = "Faculty")]
         public async Task<IActionResult> FormFill(string type) // General Information of Research Application
         {
-            var user = await _userManager.GetUserAsync(User);
-            if(user == null)
+            var curUser = await _userManager.GetUserAsync(User);
+            if(curUser == null)
             {
                 return NotFound("No user found!");
             }
 
-            ViewBag.Name = $"{user.FirstName} {user.MiddleName} {user.LastName}";
+            var facultyUsers = new List<string>();
+            var allUsers = await _userManager.Users
+                .Where(u => u.Id != curUser.Id)
+                .OrderBy(u => u.FirstName)
+                .ToListAsync();
+
+            foreach(var user in allUsers)
+            {
+                if(await _userManager.IsInRoleAsync(user, "Faculty"))
+                {
+                    facultyUsers.Add($"{user.FirstName} {user.MiddleName} {user.LastName}");
+                }
+            }
+
+            ViewBag.Name = $"{curUser.FirstName} {curUser.MiddleName} {curUser.LastName}";
             ViewBag.Type = type;
+            ViewBag.FacultyUsers = facultyUsers;
             return View();
         }
 

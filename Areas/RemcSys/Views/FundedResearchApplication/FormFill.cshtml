@@ -45,8 +45,21 @@
                 <span asp-validation-for="ProjectLeader" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectMembers">Program/Project Co-Proponent's and Research Assistants: [Type N/A if Not Applicable]</label>
-                @Html.TextAreaFor(m => m.ProjectMembers, new { @class = "form-control", @placeholder = "Project Member1...\nProject Member2...\nProject Member3...", @rows = "3" })
+                <label asp-for="ProjectMembers">Program/Project Co-Proponent's and Research Assistants: [Select N/A if Not Applicable]</label>
+                <select id="memberSelect" class="form-control">
+                    <option value="" disabled selected>Select Members...</option>
+                    <option value="N/A">N/A</option>
+                    @if(ViewBag.FacultyUsers != null)
+                    {
+                        @foreach(var item in ViewBag.FacultyUsers)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    }
+                </select>
+                <i class="arrow-down"></i>
+                <div id="selectedMembers" class="mt-2"></div>
+                <input type="hidden" id="ProjectMembers" asp-for="ProjectMembers" class="required"/>
                 <span asp-validation-for="ProjectMembers" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -174,6 +187,65 @@
                 alert("A duplicate research title exists. Please revise the title before submitting.");
             }
         });
+
+        var selectedMembers = [];
+
+        // Initialize with existing value if any
+        var initialValue = $('#ProjectMembers').val();
+        if (initialValue) {
+            selectedMembers = initialValue.split('\n').filter(x => x);
+            updateMemberTags();
+        }
+
+        $('#memberSelect').change(function () {
+            var selectedMember = $(this).val();
+            if (selectedMember && !selectedMembers.includes(selectedMember)) {
+                selectedMembers.push(selectedMember);
+                updateMemberTags();
+                validateMembers();
+            }
+            $(this).val(''); // Reset select
+        });
+
+        function updateMemberTags() {
+            var tagsHtml = '';
+            var membersText = '';
+            selectedMembers.forEach(function (member) {
+                tagsHtml += `<span class="member-tag">
+                        ${member}
+                        <span class="remove-member" data-member="${member}">×</span>
+                    </span>`;
+                membersText += member + '\n';
+            });
+            $('#selectedMembers').html(tagsHtml);
+            $('#ProjectMembers').val(membersText.trim());
+        }
+
+        function validateMembers() {
+            if (selectedMembers.length === 0) {
+                $('#ProjectMembers').addClass('input-validation-error');
+                $('[data-valmsg-for="ProjectMembers"]').text('Please select at least one member.');
+                return false;
+            } else {
+                $('#ProjectMembers').removeClass('input-validation-error');
+                $('[data-valmsg-for="ProjectMembers"]').text('');
+                return true;
+            }
+        }
+
+        $(document).on('click', '.remove-member', function () {
+            var memberToRemove = $(this).data('member');
+            selectedMembers = selectedMembers.filter(member => member !== memberToRemove);
+            updateMemberTags();
+            validateMembers();
+        });
+
+        // Add form validation
+        $('form').submit(function (e) {
+            if (!validateMembers()) {
+                e.preventDefault();
+            }
+        });
     });
 
     function formatCurrency(input) {
@@ -189,3 +261,23 @@
         }
     }
 </script>
+
+<style>
+    .member-tag {
+        display: inline-block;
+        background-color: #e9ecef;
+        padding: 5px 10px;
+        margin: 2px;
+        border-radius: 3px;
+    }
+
+    .remove-member {
+        margin-left: 5px;
+        cursor: pointer;
+        color: #dc3545;
+    }
+
+    .input-validation-error {
+        border-color: #dc3545;
+    }
+</style>

@@ -37,9 +37,6 @@
             <div class="profile">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    var user = await UserManager.GetUserAsync(User);
-                    <span>Welcome, @user.FirstName!</span>
-
                     <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         REMC Evaluator
                     </button>
@@ -55,7 +52,7 @@
                     </ul>
                 }
                 <a asp-area="RemcSys" asp-controller="Evaluator" asp-action="EvaluatorSpecialization">
-                    <i class="bi bi-journal-check" style="font-size: 30px; color: #fff;"></i>
+                    <i class="bi bi-gear-fill" style="font-size: 30px; color: #fff;"></i>
                 </a>
                 <a asp-area="RemcSys" asp-controller="Evaluator" asp-action="EvaluatorNotif">
                     <i class="bi bi-bell-fill" style="font-size: 30px; color: #fff;"></i>

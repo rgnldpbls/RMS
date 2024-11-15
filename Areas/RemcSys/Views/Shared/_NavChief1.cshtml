@@ -40,9 +40,6 @@
                 <div class="profile">
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        var user = await UserManager.GetUserAsync(User);
-                        <span>Welcome, @user.FirstName!</span>
-
                         <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             REMC Chief
                         </button>

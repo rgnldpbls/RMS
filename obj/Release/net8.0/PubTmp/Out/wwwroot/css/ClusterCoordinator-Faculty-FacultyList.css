@@ -1,0 +1,133 @@
+﻿body {
+    background: #E8E6E6;
+}
+
+#title {
+    background: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 20px 20px 0px 0px;
+}
+
+#content {
+    background: white;
+    font-family: "Inter";
+    border-radius: 20px;
+}
+
+.nnvb {
+    border-bottom: 2px solid #850000;
+}
+
+.itm:hover {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.itm-active {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+#aactive {
+    color: #850000;
+    font-weight: bold;
+}
+#inaactive {
+    color: black;
+}
+label, input {
+    font-family: "Inter";
+    color: black;
+}
+
+.form-control {
+    border: 1px solid #850000;
+}
+
+input[type="submit"], input[type="reset"], #modalbtn, input[type="button"] {
+    background: #850000;
+    border-radius: 15px;
+    height: 50px;
+    padding: 0px 30px;
+    color: white;
+    font-family: "Inter";
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+    transition: ease-in-out .1s
+}
+
+    input[type="submit"]:hover, input[type="reset"]:hover, #modalbtn:hover, input[type="button"]:hover {
+        background: #560000;
+    }
+
+#dropdownMenuButton {
+    border: 1px solid #850000;
+    height: 37px;
+}
+
+.modal-body {
+    border: 4px solid #850000;
+}
+
+#modaltitle {
+    color: #850000;
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+#formcont {
+    border-radius: 0px 0px 20px 20px;
+}
+
+/*tables*/
+#tbl {
+    border-radius: 20px;
+}
+
+#action {
+    border: none;
+    background: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+    #action:hover {
+        background: rgb(133, 0, 0, 0.2);
+    }
+
+#content {
+    font-family: "Inter";
+    color: black;
+}
+
+th {
+    font-family: "Montserrat";
+    color: black;
+}
+
+td {
+    color: black;
+    font-family: "Inter";
+}
+
+
+table th, table td {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+table td {
+    min-width: 100px;
+}
+
+#name {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+.form-control, .form-select {
+    border: 1px solid #850000;
+}

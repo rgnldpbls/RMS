@@ -1,0 +1,55 @@
+﻿body {
+    background: #E8E6E6;
+}
+
+#title {
+    background: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 20px 20px 0px 0px;
+}
+
+#content {
+    background: white;
+    font-family: "Inter";
+    border-radius: 20px;
+}
+.nnvb {
+    border-bottom: 2px solid #850000;
+}
+
+.itm:hover {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.itm-active {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+#aactive {
+    color: #850000;
+    font-weight: bold;
+}
+
+#inaactive {
+    color: black;
+}
+label, input {
+    font-family: "Inter";
+    color: black;
+}
+
+.form-control {
+    border: 1px solid #850000;
+}
+
+#dropdownMenuButton {
+    border: 1px solid #850000;
+    height: 37px;
+}
+
+#formcont {
+    border-radius: 0px 0px 20px 20px;
+}

@@ -1,0 +1,92 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+*[b-s9hb3u2jqn] {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-custom[b-s9hb3u2jqn] {
+    background-color: #850000;
+}
+
+a.navbar-brand[b-s9hb3u2jqn] {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a[b-s9hb3u2jqn] {
+    color: #0077cc;
+}
+
+.btn-primary[b-s9hb3u2jqn] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-s9hb3u2jqn], .nav-pills .show > .nav-link[b-s9hb3u2jqn] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-s9hb3u2jqn] {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom[b-s9hb3u2jqn] {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-s9hb3u2jqn] {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-s9hb3u2jqn] {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.footer[b-s9hb3u2jqn] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.research-management-office[b-s9hb3u2jqn] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.polytechnic-university[b-s9hb3u2jqn] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+    margin-top: -7px;
+}
+
+.navbar-nav .nav-item[b-s9hb3u2jqn] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.section[b-s9hb3u2jqn] {
+    background-color: white;
+    min-height: 100vh;
+    margin: -24px 0px;
+    padding: 20px;
+}
+
+.nav-link.active-link[b-s9hb3u2jqn] {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}
