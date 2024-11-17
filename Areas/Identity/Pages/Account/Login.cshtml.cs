@@ -130,6 +130,10 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Index", "Faculty", new {area = ""});
                     }
+                    else if (roles.Contains("Stakeholder"))
+                    {
+                        return RedirectToAction("HomeStake", "Stakeholder", new { area = "CrdlSys" });
+                    }
                     else
                     {
                         return RedirectToAction("Index", "Home");

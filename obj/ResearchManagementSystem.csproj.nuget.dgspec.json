@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[24.10.0, )"
             },
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.104.2, )"
+            },
             "DocX": {
               "target": "Package",
               "version": "[3.0.1, )"
@@ -60,7 +64,7 @@
             },
             "EPPlus": {
               "target": "Package",
-              "version": "[7.4.2, )"
+              "version": "[7.5.0, )"
             },
             "MailKit": {
               "target": "Package",
@@ -92,15 +96,27 @@
             },
             "Microsoft.ML": {
               "target": "Package",
-              "version": "[3.0.1, )"
+              "version": "[4.0.0, )"
             },
             "Microsoft.ML.TimeSeries": {
               "target": "Package",
-              "version": "[3.0.1, )"
+              "version": "[4.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "SentimentAnalyzer": {
+              "target": "Package",
+              "version": "[1.2.3, )"
+            },
+            "TorchSharp-cpu": {
+              "target": "Package",
+              "version": "[0.103.1, )"
             },
             "itext7": {
               "target": "Package",

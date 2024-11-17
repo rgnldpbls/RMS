@@ -1,0 +1,297 @@
+﻿@model CrdlSys.ViewModels.CreateRCBAEventViewModel
+
+@{
+    ViewData["Title"] = "Create RCBA Event";
+    Layout = "_LayoutChiefEvents";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+<head>
+    <link href="~/css/ChiefCreateEvent.css" rel="stylesheet" asp-append-version="true">
+</head>
+<!-- Title -->
+<div class="title-section">
+    <h1 class="title">Create RCBA Events</h1>
+</div>
+
+<div class="container">
+    <form asp-action="CreateRCBAEvent" method="post" enctype="multipart/form-data" id="eventForm">
+        <!-- Hidden container for selected researchers -->
+        <div id="selectedResearchersContainer">
+            <!-- Hidden inputs will be dynamically added here -->
+        </div>
+
+        <!-- Event Name -->
+        <div class="mb-3" id="event-name">
+            <label asp-for="EventName" class="form-label">Event Name</label>
+            <input asp-for="EventName" class="form-control w-100" required />
+            <span asp-validation-for="EventName" class="text-danger"></span>
+        </div>
+
+        <!-- Event Description -->
+        <div class="mb-3" id="event-description">
+            <label asp-for="EventDescription" class="form-label">Event Description</label>
+            <textarea asp-for="EventDescription" class="form-control w-100" rows="3" required></textarea>
+            <span asp-validation-for="EventDescription" class="text-danger"></span>
+        </div>
+
+        <!-- Event Location -->
+        <div class="mb-3" id="event-location">
+            <label asp-for="EventLocation" class="form-label">Event Location</label>
+            <input asp-for="EventLocation" class="form-control w-100" required />
+            <span asp-validation-for="EventLocation" class="text-danger"></span>
+        </div>
+
+        <!-- Event Thumbnail (optional) -->
+        <div class="mb-3" id="event-thumbnail">
+            <label asp-for="EventThumbnail" class="form-label">Event Thumbnail (optional)</label>
+            <input asp-for="EventThumbnail" type="file" class="form-control w-100" accept="image/*" />
+            <span asp-validation-for="EventThumbnail" class="text-danger"></span>
+        </div>
+
+        <!-- Event Type -->
+        <div class="mb-3" id="event-type">
+            <label asp-for="EventType" class="form-label">Event Type</label>
+            <select asp-for="EventType" class="form-select w-100" required>
+                <option value="">-- Select Event Type --</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Seminar">Seminar</option>
+                <option value="Publication">Publication</option>
+                <option value="Others">Others</option>
+            </select>
+            <span asp-validation-for="EventType" class="text-danger"></span>
+        </div>
+
+        <!-- Registration Type -->
+        <div class="mb-3" id="registration-type">
+            <label asp-for="RegistrationType" class="form-label">Registration Type</label>
+            <select asp-for="RegistrationType" class="form-select w-100" id="registrationType" required>
+                <option value="">-- Select Registration Type --</option>
+                <option value="Open Registration">Open Registration</option>
+                <option value="Invitational">Invitational</option>
+            </select>
+            <span asp-validation-for="RegistrationType" class="text-danger"></span>
+        </div>
+        <!-- Event Date -->
+        <div class="mb-3" id="event-date">
+            <label asp-for="EventDate" class="form-label">Event Date</label>
+            <input asp-for="EventDate" type="datetime-local" class="form-control" required onchange="updateEndTime()" />
+            <span asp-validation-for="EventDate" class="text-danger"></span>
+        </div>
+
+        <!-- End Time -->
+        <div class="mb-3" id="end-time">
+            <label asp-for="EndTime" class="form-label">End Time</label>
+            <input asp-for="EndTime" type="datetime-local" class="form-control" required />
+            <span asp-validation-for="EndTime" class="text-danger"></span>
+        </div>
+        <!-- Registration Open -->
+        <div class="mb-3" id="reg-open">
+            <label asp-for="RegistrationOpen" class="form-label">Registration Open</label>
+            <input asp-for="RegistrationOpen" type="datetime-local" class="form-control" required />
+            <span asp-validation-for="RegistrationOpen" class="text-danger"></span>
+        </div>
+
+        <!-- Registration Deadline -->
+        <div class="mb-3" id="reg-dead">
+            <label asp-for="RegistrationDeadline" class="form-label">Registration Deadline</label>
+            <input asp-for="RegistrationDeadline" type="datetime-local" class="form-control" required />
+            <span asp-validation-for="RegistrationDeadline" class="text-danger"></span>
+        </div>
+        <!-- Participant Slot -->
+        <div class="mb-3" id="participant-slot">
+            <label asp-for="ParticipantSlot" class="form-label">Participant Slot</label>
+            <input asp-for="ParticipantSlot" type="number" class="form-control w-100" required value="1" />
+            <span asp-validation-for="ParticipantSlot" class="text-danger"></span>
+        </div>
+
+        <!-- Researcher Selection -->
+        <div class="mb-3" id="researcherDropdown" style="display: none;">
+            <label class="form-label">Select Researchers</label>
+            <div class="card">
+                <div class="card-header">
+                    <input type="text" id="researcherSearch" class="form-control" placeholder="Search for researchers..." />
+                </div>
+                <div class="card-body overflow-auto" style="max-height: 200px;" id="researcherList">
+                    <!-- Researchers will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-flex justify-content-end mt-2">
+            <button type="submit" class="btn" id="btn-publish">Create Event</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elements
+            const registrationTypeSelect = document.getElementById("registrationType");
+            const researcherDropdown = document.getElementById("researcherDropdown");
+            const researcherList = document.getElementById("researcherList");
+            const researcherSearch = document.getElementById("researcherSearch");
+            const participantSlotInput = document.getElementById("ParticipantSlot");
+            const selectedResearchersContainer = document.getElementById("selectedResearchersContainer");
+            const eventDateInput = document.querySelector('input[name="EventDate"]');
+            const endTimeInput = document.querySelector('input[name="EndTime"]');
+
+            let researchers = []; // Store full list of researchers
+            let selectedResearcherCount = 0;
+
+            // Update End Time based on Event Date
+            function updateEndTime() {
+                if (eventDateInput.value) {
+                    const eventDateParts = eventDateInput.value.split("T");
+                    const eventDate = eventDateParts[0];
+                    const eventTime = eventDateParts[1];
+
+                    const currentEndTimeParts = endTimeInput.value.split("T");
+                    const currentEndTime = currentEndTimeParts.length > 1 ? currentEndTimeParts[1] : eventTime;
+
+                    endTimeInput.value = eventDate + 'T' + currentEndTime;
+                    endTimeInput.removeAttribute('disabled');
+                    endTimeInput.setAttribute('min', eventDate + 'T' + eventTime);
+                    endTimeInput.setAttribute('max', eventDate + 'T23:59');
+                } else {
+                    endTimeInput.value = '';
+                    endTimeInput.setAttribute('disabled', 'disabled');
+                }
+            }
+
+            // Populate researcher list dynamically
+            function populateResearcherList(researchers) {
+                researcherList.innerHTML = '';
+                researchers.forEach(researcher => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'form-check';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'form-check-input';
+                    checkbox.value = researcher.userId;
+                    checkbox.id = `researcher-${researcher.userId}`;
+                    checkbox.addEventListener('change', logSelectedResearchers);
+
+                    const label = document.createElement('label');
+                    label.className = 'form-check-label';
+                    label.setAttribute('for', `researcher-${researcher.userId}`);
+                    label.textContent = `${researcher.firstName} ${researcher.lastName}`;
+
+                    listItem.appendChild(checkbox);
+                    listItem.appendChild(label);
+                    researcherList.appendChild(listItem);
+                });
+            }
+
+            function logSelectedResearchers(){
+                const selected = Array.from(researcherList.querySelectorAll("input[type='checkbox']:checked"))
+                    .map(checkbox => checkbox.value)
+                console.log("Selected Researchers:", selected);
+            }
+
+            // Handle researcher search
+            researcherSearch.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const filteredResearchers = researchers.filter(researcher =>
+                    `${researcher.firstName} ${researcher.lastName}`.toLowerCase().includes(searchTerm)
+                );
+                populateResearcherList(filteredResearchers);
+            });
+
+            // Validate researcher selection
+            researcherList.addEventListener('change', function (e) {
+                if (e.target.type === 'checkbox') {
+                    selectedResearcherCount = document.querySelectorAll("#researcherList input[type='checkbox']:checked").length;
+                    const maxSlots = parseInt(participantSlotInput.value) || 0;
+
+                    if (selectedResearcherCount > maxSlots) {
+                        e.target.checked = false;
+                        selectedResearcherCount--;
+                        alert(`You can only select up to ${maxSlots} participants. Please remove some selections first.`);
+                    }
+                }
+            });
+
+            // Handle participant slot change
+            participantSlotInput.addEventListener('change', function () {
+                const maxSlots = parseInt(this.value) || 0;
+                const currentSelected = document.querySelectorAll("#researcherList input[type='checkbox']:checked").length;
+
+                if (currentSelected > maxSlots) {
+                    alert(`Warning: You have ${currentSelected} researchers selected but only ${maxSlots} slots available. Please adjust your selection.`);
+                }
+            });
+
+            // Form submission handler
+            document.getElementById("eventForm").addEventListener("submit", function (e) {
+                if (registrationTypeSelect.value === "Invitational") {
+                    selectedResearchersContainer.innerHTML = ''; // Clear previous inputs
+                    const checkedResearchers = document.querySelectorAll("#researcherList input[type='checkbox']:checked");
+                    const maxSlots = parseInt(participantSlotInput.value) || 0;
+                    
+                    logSelectedResearchers();
+
+                    if (checkedResearchers.length > maxSlots) {
+                        e.preventDefault();
+                        alert(`Error: You have selected ${checkedResearchers.length} researchers but only have ${maxSlots} slots available.`);
+                        return;
+                    }
+
+                    if (checkedResearchers.length === 0) {
+                        e.preventDefault();
+                        alert("Please select at least one researcher for invitational events.");
+                        return;
+                    }
+
+                    // Add hidden inputs for selected researchers
+                    checkedResearchers.forEach(checkbox => {
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'SelectedResearchers';
+                        hiddenInput.value = checkbox.value;
+                        selectedResearchersContainer.appendChild(hiddenInput);
+                    });
+                }
+            });
+
+            // Handle registration type change
+            registrationTypeSelect.addEventListener('change', function () {
+                if (this.value === "Invitational") {
+                    researcherDropdown.style.display = "block";
+                    selectedResearcherCount = 0;
+
+                    // Fetch researchers dynamically
+                    fetch('/CrdlSys/Chief/GetResearchers')
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Fetched researchers:", data);
+                            researchers = data;
+                            populateResearcherList(researchers);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching researchers:', error);
+                            alert('Error loading researchers. Please try again later.');
+                        });
+                } else {
+                    researcherDropdown.style.display = "none";
+                    selectedResearcherCount = 0;
+                }
+            });
+
+            // Initialize end time logic
+            updateEndTime();
+            eventDateInput.addEventListener('change', updateEndTime);
+            if (!eventDateInput.value) {
+                endTimeInput.setAttribute('disabled', 'disabled');
+            }
+        });
+    </script>
+}

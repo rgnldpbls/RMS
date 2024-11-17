@@ -11,6 +11,8 @@ using rscSys_final.Data;
 using CRE.Data;
 using CRE.Interfaces;
 using CRE.Services;
+using CrdlSys.Data;
+using CrdlSys.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<RemcDBContext>(options =>
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<rscSysfinalDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("rscSysfinalDbContextConnection") ?? throw new InvalidOperationException("Connection string 'rscSysfinalDbContextConnection' not found.")));
 builder.Services.AddDbContext<CreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CreDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CreDbContextConnection' not found.")));
+builder.Services.AddDbContext<CrdlDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CrdlDbContextConnection") ?? throw new InvalidOperationException("Connection string 'CrdlDbContextConnection' not found.")));
 // Configure services
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                      ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -54,6 +58,8 @@ builder.Services.AddScoped<IInitialReviewServices, InitialReviewServices>();
 builder.Services.AddScoped<INonFundedResearchInfoServices, NonFundedResearchInfoServices>();
 builder.Services.AddScoped<IReceiptInfoServices, ReceiptInfoServices>();
 builder.Services.AddScoped<ISecretariatServices, SecretariatServices>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<ReportService>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();

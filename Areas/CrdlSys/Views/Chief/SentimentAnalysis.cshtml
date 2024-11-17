@@ -1,0 +1,294 @@
+﻿@model CrdlSys.Models.SentimentAnalysisViewModel
+
+@{
+    ViewData["Title"] = "Sentiment Analysis";
+    Layout = "_LayoutChiefDashboard";
+}
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="~/css/ChiefSentimentAnalysis.css" rel="stylesheet" asp-append-version="true">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="spinner-backdrop"></div>
+    <div class="loading-spinner">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div class="title-section">
+        <h1 class="title">Sentiment Analysis</h1>
+    </div>
+
+    <div class="container">
+        <div class="card p-4 mt-3">
+            <div class="form-container">
+
+                <form id="analyzeSentimentForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="researchEvent" class="form-label">Research Event</label>
+                        <select class="form-control event" id="researchEvent" name="researchEventId" required>
+                            <option value="">-- Select Research Event --</option>
+                            @foreach (var researchEvent in ViewBag.ResearchEvents)
+                            {
+                                <option value="@researchEvent.ResearchEventId">@researchEvent.EventName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="excelFile" class="form-label">Excel File</label>
+                        <input type="file" class="form-control excel" id="excelFile" name="excelFile" accept=".xlsx" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fileName" class="form-label">File Name</label>
+                        <input type="text" class="form-control fn" id="fileName" name="fileName" required />
+                    </div>
+
+                    <div class="row text-center align-content-lg-center mt-4 ms-xl-5">
+                        <button type="submit" class="btn btn-analyze col-md-5 mb-3">
+                            <i class="fas fa-chart-bar me-2"></i>Analyze
+                        </button>
+                        <button type="button" class="btn btn-table col-md-5 mb-3" data-bs-toggle="modal" data-bs-target="#reportsModal">
+                            <i class="fas fa-file-export me-2"></i>View Table
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure -->
+    <div class="modal fade" id="reportsModal" tabindex="-1" aria-labelledby="reportsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable custom-modal-width">
+            <div class="modal-content custom-modal-bg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportsModalLabel">Generated Reports</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>File Name</th>
+                                    <th>Event Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var analysis in Model.Analyses)
+                                {
+                                    <tr class="@(analysis.IsArchived ? "table-secondary" : "")">
+                                        <td>@analysis.SentimentAnalysisId</td>
+                                        <td>@analysis.FileName</td>
+                                        <td>@analysis.ResearchEvent?.EventName</td>
+                                        <td>
+                                            @if (!analysis.IsArchived)
+                                            {
+                                                <button class="btn btn-warning btn-sm"
+                                                        onclick="archiveAnalysis('@analysis.SentimentAnalysisId', true)">
+                                                    <i class="fas fa-archive"></i> Archive
+                                                </button>
+
+                                                <button class="btn btn-primary btn-sm"
+                                                        onclick="downloadReport('@analysis.SentimentAnalysisId', '@analysis.FileName')">
+                                                    <i class="fas fa-download"></i> Download Report
+                                                </button>
+
+                                                <button class="btn btn-success btn-sm"
+                                                        onclick="downloadSurvey('@analysis.SentimentAnalysisId', '@analysis.FileName')">
+                                                    <i class="fas fa-download"></i> Download Survey
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-info btn-sm"
+                                                        onclick="archiveAnalysis('@analysis.SentimentAnalysisId', false)">
+                                                    <i class="fas fa-box-open"></i> Unarchive
+                                                </button>
+                                                <button class="btn btn-danger btn-sm"
+                                                        onclick="deleteAnalysis('@analysis.SentimentAnalysisId')">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-kit-code.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#analyzeSentimentForm').on('submit', function (e) {
+                e.preventDefault();
+
+                var formData = new FormData(this);
+                var submitButton = $(this).find('button[type="submit"]');
+                var spinner = $('#loading-spinner');
+
+                submitButton.prop('disabled', true);
+                submitButton.hide();
+                spinner.show();
+
+                $.ajax({
+                    url: '/CrdlSys/Chief/AnalyzeSentiment',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            var newRow = `
+                                                        <tr>
+                                                            <td>${response.analysis.sentimentAnalysisId}</td>
+                                                            <td>${response.analysis.fileName}</td>
+                                                            <td>${response.analysis.researchEvent.eventName}</td>
+                                                            <td>
+                                                                <button class="btn btn-warning btn-sm"
+                                                                        onclick="archiveAnalysis('${response.analysis.sentimentAnalysisId}', true)">
+                                                                    <i class="fas fa-archive"></i> Archive
+                                                                </button>
+                                                                <button class="btn btn-primary btn-sm"
+                                                                        onclick="downloadReport('${response.analysis.sentimentAnalysisId}', '${response.analysis.fileName}')">
+                                                                    <i class="fas fa-download"></i> Download Report
+                                                                </button>
+                                                                <button class="btn btn-success btn-sm"
+                                                                        onclick="downloadSurvey('${response.analysis.sentimentAnalysisId}', '${response.analysis.fileName}')">
+                                                                    <i class="fas fa-download"></i> Download Survey
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    `;
+                            $('table tbody').prepend(newRow);
+                            $('#analyzeSentimentForm')[0].reset();
+                            alert('Analysis generated successfully!');
+                            downloadReport(response.analysis.sentimentAnalysisId, response.analysis.fileName);
+                        } else {
+                            alert(response.message || 'Failed to generate analysis. Please try again.');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('An error occurred. Please try again.');
+                        console.error('Error:', error);
+                    },
+                    complete: function () {
+                        submitButton.prop('disabled', false);
+                        spinner.hide();
+                        submitButton.show();
+                    }
+                });
+            });
+        });
+
+        function downloadReport(analysisId, fileName) {
+            $.ajax({
+                url: '@Url.Action("DownloadAnalysisReport", "Chief")',
+                type: 'GET',
+                data: { sentimentAnalysisId: analysisId },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data, status, xhr) {
+                    var blob = new Blob([data], { type: xhr.getResponseHeader('content-type') });
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName + '_Report.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Download error:', error);
+                    alert('Failed to download the report. Please try again.');
+                }
+            });
+        }
+
+        function downloadSurvey(analysisId, fileName) {
+            $.ajax({
+                url: '@Url.Action("DownloadAnalysisSurvey", "Chief")',
+                type: 'GET',
+                data: { sentimentAnalysisId: analysisId },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data, status, xhr) {
+                    var blob = new Blob([data], { type: xhr.getResponseHeader('content-type') });
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName + '_Survey.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Download error:', error);
+                    alert('Failed to download the survey. Please try again.');
+                }
+            });
+        }
+
+        function archiveAnalysis(id, archive) {
+            if (confirm(`Are you sure you want to ${archive ? 'archive' : 'unarchive'} this analysis?`)) {
+                $.ajax({
+                    url: '/CrdlSys/Chief/ToggleArchiveAnalysis',
+                    type: 'POST',
+                    data: {
+                        sentimentAnalysisId: id,
+                        archive: archive
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Operation failed. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            }
+        }
+
+        function deleteAnalysis(id) {
+            if (confirm('Are you sure you want to delete this analysis?')) {
+                $.ajax({
+                    url: '/CrdlSys/Chief/DeleteAnalysis',
+                    type: 'POST',
+                    data: { sentimentAnalysisId: id },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Delete failed. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            }
+        }
+    </script>
+}

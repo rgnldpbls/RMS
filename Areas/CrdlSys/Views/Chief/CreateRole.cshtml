@@ -1,0 +1,61 @@
+﻿@model DocumentTrackingSystemBackend.ViewModels.RoleViewModel
+
+@{
+    ViewData["Title"] = "Create Role";
+}
+
+<div class="container mt-5">
+    <h2>Create Role</h2>
+
+    <!-- Display Success/Error Messages -->
+    <div class="container mt-3">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    </div>
+
+    <!-- Role Creation Form -->
+    <form method="post" asp-action="Create" asp-controller="Chief">
+        <!-- Role Name -->
+        <div class="form-group mb-3">
+            <label asp-for="RoleName" class="control-label"></label>
+            <input asp-for="RoleName" class="form-control" required />
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Role</button>
+    </form>
+
+    <!-- Display List of Roles -->
+    <h3 class="mt-5">List of Roles</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Role ID</th>
+                <th>Role Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.Roles)
+            {
+                <tr>
+                    <td>@role.RoleId</td>
+                    <td>@role.RoleName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -128,8 +128,9 @@ namespace ResearchManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("evaluator_Id")
-                        .HasColumnType("int");
+                    b.Property<string>("evaluator_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("evaluator_Name")
                         .IsRequired()
@@ -168,11 +169,8 @@ namespace ResearchManagementSystem.Migrations
 
             modelBuilder.Entity("RemcSys.Models.Evaluator", b =>
                 {
-                    b.Property<int>("evaluator_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("evaluator_Id"));
+                    b.Property<string>("evaluator_Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -442,7 +440,7 @@ namespace ResearchManagementSystem.Migrations
                     b.Property<string>("gn_Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("generateDate")
@@ -477,7 +475,7 @@ namespace ResearchManagementSystem.Migrations
                     b.Property<string>("gr_Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("generateDate")

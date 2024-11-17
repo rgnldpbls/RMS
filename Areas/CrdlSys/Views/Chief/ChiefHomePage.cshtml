@@ -1,0 +1,591 @@
+﻿﻿@{
+    ViewData["Title"] = "Chief Home Page";
+    Layout = "_LayoutChiefDashboard";
+}
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+    <link href="~/css/ChiefDashboard.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Title -->
+    <div class="title-section">
+        <h1 class="title">Chief's Dashboard</h1>
+    </div>
+    <div class="upper">
+        <!-- Calendar -->
+        <div id="calendar"></div>
+        <div class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="eventForm">
+                            <div class="mb-3">
+                                <label for="event-title" class="form-label">Event Title</label>
+                                <input type="text" class="form-control" id="event-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-start" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="event-start" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-end" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="event-end">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-access">
+            <h3>Quick Access Menu</h3>
+            <ul>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#ManageDocsModal">
+                        <div class="icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <div class="text-container">
+                            <span>LIST OF MOAs AND MOUs</span>
+                            <strong>MANAGE DOCUMENTS</strong>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#ManageEventsModal">
+                        <div class="icon">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <div class="text-container">
+                            <span>LIST OF RCBA EVENTS</span>
+                            <strong>MANAGE RESEARCH EVENTS</strong>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/CrdlSys/Chief/SendDocument">
+                        <div class="icon">
+                            <i class="bi bi-send-fill"></i>
+                        </div>
+                        <div class="text-container">
+                            <span>SEND DOCUMENTS</span>
+                            <strong>SEND DOCUMENT</strong>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/CrdlSys/Chief/GenerateReport">
+                        <div class="icon">
+                            <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                        </div>
+                        <div class="text-container">
+                            <span>LIST OF RESEARCH TYPE</span>
+                            <strong>REPORT GENERATION</strong>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="SentimentAnalysis">
+                        <div class="icon">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <div class="text-container">
+                            <span></span>
+                            <strong>SENTIMENT ANAYSIS</strong>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="bottom">
+            <div class="top-section">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.PendingContractsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Pending">
+                                Pending Contracts
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.OngoingPartnersCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Ongoing">
+                                On-going Partners
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.ExpiredContractsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Expired">
+                                Expired Contracts
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.TerminatedContractsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Terminated">
+                                Terminated Contracts
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-section">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.UpcomingEventsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Upcoming">
+                                Upcoming Events
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.OngoingEventsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Ongoing">
+                                On-going Events
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.FinishedEventsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Finished">
+                                Finished Events
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2 class="text">@ViewBag.ExtendedContractsCount</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer Finished">
+                                Stakeholder Renewal
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-container">
+            <div class="chart-section">
+                <div class="chart">
+                    <div class="pie-chart">
+                        <canvas id="documentPieChart"></canvas>
+                        <div class="card-footer Ongoing">
+                            TOTAL MOAs and MOUs
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-section">
+                <div class="chart">
+                    <div class="pie-chart">
+                        <canvas id="eventPieChart"></canvas>
+                        <div class="card-footer Ongoing">
+                            TOTAL EVENTS
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="ManageDocsModal" tabindex="-1" aria-labelledby="ManageDocsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ManageDocsModal">Select Documents</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Account Type Buttons -->
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ViewChiefUploads" class="btn btn-custom">Chief Uploads</a>
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ViewStakeholderUploads" class="btn btn-custom">Stakeholder Uploads</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ManageEventsModal" tabindex="-1" aria-labelledby="ManageEventsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ManageEventsModal">Select Event Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Account Type Buttons -->
+                    <a data-bs-toggle="modal" data-bs-target="#CreateEventModal" class="btn btn-custom">Create Event</a>
+                    <a data-bs-toggle="modal" data-bs-target="#ViewEventModal" class="btn btn-custom">Manage Event</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="CreateEventModal" tabindex="-1" aria-labelledby="CreateEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="CreateEventModal">Select Event to Create</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Account Type Buttons -->
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="CreateRCBAEvent" class="btn btn-custom">RCBA Event</a>
+                    <a href="https://giphy.com/gifs/fXnRObM8Q0RkOmR5nf" target="_blank" class="btn btn-custom">Conference</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ViewEventModal" tabindex="-1" aria-labelledby="ViewEventtModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ViewEventModal">Select Event to View</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Account Type Buttons -->
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ManageRCBAEvent" class="btn btn-custom">RCBA Event</a>
+                    <a href="https://giphy.com/gifs/fXnRObM8Q0RkOmR5nf" target="_blank" class="btn btn-custom">Conference</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Structure -->
+    <div class="modal fade" id="analyzeSentimentModal" tabindex="-1" aria-labelledby="analyzeSentimentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-modal-content">
+                <div class="modal-header custom-modal-header">
+                    <h5 class="modal-title" id="analyzeSentimentModalLabel">Analyze Sentiment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-modal-body">
+                    <form asp-controller="Chief" asp-action="AnalyzeSentiment" method="post" enctype="multipart/form-data" onsubmit="return showLoading();">
+                        <div class="form-group mb-3">
+                            <label for="excelFile" class="form-label">Upload Excel File:</label>
+                            <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xlsx" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="fileName" class="form-label">Generated File Name:</label>
+                            <input type="text" class="form-control" id="fileName" name="fileName" placeholder="Enter file name (without extension)" required />
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn custom-btn">Analyze Sentiment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- FullCalendar and Moment.js JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<!-- Bootstrap JS for Modal -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Piechart JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var modal = new bootstrap.Modal(document.querySelector('.modal'));
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+            },
+            events: '/CrdlSys/Chief/GetCalendarEvents',
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: true
+            },
+            eventClick: function (info) {
+                showEventDetails(info.event);
+            },
+            eventDidMount: function (info) {
+                // Add tooltip with event details
+                $(info.el).tooltip({
+                    title: `
+                            ${info.event.title}
+                            Time: ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}
+                            Location: ${info.event.extendedProps.location}
+                            Type: ${info.event.extendedProps.eventType}
+                        `,
+                    html: true,
+                    placement: 'top',
+                    trigger: 'hover',
+                    container: 'body'
+                });
+            },
+            dayMaxEvents: true, // allow "more" link when too many events
+            themeSystem: 'bootstrap5',
+            height: 'auto',
+            contentHeight: 'auto'
+        });
+
+        calendar.render();
+
+        function showEventDetails(event) {
+            const modal = document.querySelector('.modal');
+            const modalBody = modal.querySelector('.modal-body');
+
+            // Clear previous form
+            modalBody.innerHTML = `
+                    <div class="event-details">
+                        <h3 class="mb-3">${event.title}</h3>
+                        <p><strong>Date:</strong> ${moment(event.start).format('MMMM D, YYYY')}</p>
+                        <p><strong>Time:</strong> ${moment(event.start).format('hh:mm A')} - ${moment(event.end).format('hh:mm A')}</p>
+                        <p><strong>Location:</strong> ${event.extendedProps.location}</p>
+                        <p><strong>Type:</strong> ${event.extendedProps.eventType}</p>
+                        <p><strong>Description:</strong></p>
+                        <p>${event.extendedProps.description}</p>
+                    </div>
+                `;
+
+            // Show the modal
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+        }
+
+        // Refresh calendar events every 5 minutes
+        setInterval(function () {
+            calendar.refetchEvents();
+        }, 300000);
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Initialize both pie charts
+        const documentCtx = document.getElementById('documentPieChart').getContext('2d');
+        const eventCtx = document.getElementById('eventPieChart').getContext('2d');
+        let documentPieChart;
+        let eventPieChart;
+
+        // Function to load document chart data
+        function loadDocumentChartData() {
+            $.ajax({
+                url: '/CrdlSys/Chief/GetDocumentTypeData',
+                method: 'GET',
+                success: function (response) {
+                    if (documentPieChart) {
+                        documentPieChart.destroy();
+                    }
+
+                    documentPieChart = new Chart(documentCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                data: response.data,
+                                backgroundColor: [
+                                    '#4e73df',  // Blue for MOA
+                                    '#1cc88a'   // Green for MOU
+                                ],
+                                borderColor: [
+                                    '#ffffff',
+                                    '#ffffff'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 20,
+                                        font: {
+                                            size: 12
+                                        }
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Distribution of MOAs and MOUs',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            const label = context.label || '';
+                                            const value = context.raw || 0;
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = Math.round((value / total) * 100);
+                                            return `${label}: ${value} (${percentage}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Update total documents count
+                    const totalDocuments = response.data.reduce((a, b) => a + b, 0);
+                    $('.chart-section:first .Ongoing').html(`TOTAL MOAs and MOUs: ${totalDocuments}`);
+                },
+                error: function (error) {
+                    console.error('Error loading document chart data:', error);
+                }
+            });
+        }
+
+        // Function to load research event chart data
+        function loadResearchEventData() {
+            $.ajax({
+                url: '/CrdlSys/Chief/GetResearchEventTypeData',
+                method: 'GET',
+                success: function (response) {
+                    if (eventPieChart) {
+                        eventPieChart.destroy();
+                    }
+
+                    eventPieChart = new Chart(eventCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                data: response.data,
+                                backgroundColor: [
+                                    '#4e73df',  // Blue for Workshop
+                                    '#1cc88a',  // Green for Seminar
+                                    '#f6c23e',  // Yellow for Publication
+                                    '#e74a3b'   // Red for Others
+                                ],
+                                borderColor: [
+                                    '#ffffff',
+                                    '#ffffff',
+                                    '#ffffff',
+                                    '#ffffff'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 20,
+                                        font: {
+                                            size: 12
+                                        }
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Distribution of Research Events',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            const label = context.label || '';
+                                            const value = context.raw || 0;
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = Math.round((value / total) * 100);
+                                            return `${label}: ${value} (${percentage}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Update total events count
+                    const totalEvents = response.data.reduce((a, b) => a + b, 0);
+                    $('.chart-section:last .Ongoing').html(`TOTAL EVENTS: ${totalEvents}`);
+                },
+                error: function (error) {
+                    console.error('Error loading research event data:', error);
+                }
+            });
+        }
+
+        // Load both charts when page loads
+        loadDocumentChartData();
+        loadResearchEventData();
+
+        // Refresh both charts every 5 minutes
+        setInterval(function () {
+            loadDocumentChartData();
+            loadResearchEventData();
+        }, 300000);
+    });
+</script>
+
+

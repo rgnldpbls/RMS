@@ -114,33 +114,37 @@ namespace ResearchManagementSystem.Controllers
         {
             if (!string.IsNullOrEmpty(selectedRole))
             {
-               if(selectedRole == "SuperAdmin")
-               {
+                if(selectedRole == "SuperAdmin")
+                {
                     return RedirectToAction("Index", "RoleManager");
-               }
-               else if(selectedRole == "Faculty")
-               {
+                }
+                else if(selectedRole == "Faculty")
+                {
                     return RedirectToAction("Index", "Faculty");
-               }
-               else if(selectedRole == "RMCC")
-               {
+                }
+                else if(selectedRole == "RMCC")
+                {
                     return RedirectToAction("Index", "ClusterCoordinator");
-               }
-               else if(selectedRole == "REMC Chief")
+                }
+                else if(selectedRole == "REMC Chief")
                 {
                     return RedirectToAction("Chief", "Home", new { area = "RemcSys" });
                 }
-               else if(selectedRole == "REMC Evaluator")
+                else if(selectedRole == "REMC Evaluator")
                 {
                     return RedirectToAction("Evaluator", "Home", new { area = "RemcSys" });
                 }
-               else if(selectedRole == "RSC Chief")
+                else if(selectedRole == "RSC Chief")
                 {
                     return RedirectToAction("Index", "RSCChief", new { area = "RscSys" });
                 }
-               else if(selectedRole == "RSC Evaluator")
+                else if(selectedRole == "RSC Evaluator")
                 {
                     return RedirectToAction("Index", "RSCEvaluator", new { area = "RscSys" });
+                }
+                else if(selectedRole == "CRDL Chief")
+                {
+                    return RedirectToAction("HomeChief", "Chief", new { area = "CrdlSys" });
                 }
                 
             }

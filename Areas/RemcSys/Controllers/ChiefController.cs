@@ -712,7 +712,7 @@ namespace RemcSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AssignEvaluator(int evaluatorId, string fraId)
+        public async Task<IActionResult> AssignEvaluator(string evaluatorId, string fraId)
         {
             var fra = await _context.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == fraId);
             if(fra == null)
@@ -1997,7 +1997,7 @@ namespace RemcSys.Controllers
                         gr_endDate = endDate,
                         gr_typeofReport = "Funded Research Applications",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateReports.Add(genRep);
@@ -2066,7 +2066,7 @@ namespace RemcSys.Controllers
                         gr_endDate = DateTime.Now,
                         gr_typeofReport = "UFR - Evaluators",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateReports.Add(genRep);
@@ -2143,7 +2143,7 @@ namespace RemcSys.Controllers
                         gr_endDate = endDate,
                         gr_typeofReport = "Ongoing University Funded Research",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateReports.Add(genRep);
@@ -2219,7 +2219,7 @@ namespace RemcSys.Controllers
                         gr_endDate = endDate,
                         gr_typeofReport = "Ongoing Externally Funded Research",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateReports.Add(genRep);
@@ -2296,7 +2296,7 @@ namespace RemcSys.Controllers
                         gr_endDate = endDate,
                         gr_typeofReport = "Ongoing University Funded Research Load",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateReports.Add(genRep);
@@ -2373,7 +2373,7 @@ namespace RemcSys.Controllers
                         gr_endDate = endDate,
                         gr_typeofReport = "Research Production",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateReports.Add(genRep);
@@ -2478,7 +2478,7 @@ namespace RemcSys.Controllers
                     gr_endDate = endDate,
                     gr_typeofReport = "Research Production",
                     generateDate = DateTime.Now,
-                    UserId = user.Id,
+                    UserType = "Chief",
                     isArchived = false
                 };
                 _context.REMC_GenerateReports.Add(genRep);
@@ -2689,7 +2689,7 @@ namespace RemcSys.Controllers
                         gn_Data = excelData,
                         gn_type = "GAWAD Tuklas",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateGAWADNominees.Add(genTuklas);
@@ -2763,7 +2763,7 @@ namespace RemcSys.Controllers
                         gn_Data = excelData,
                         gn_type = "GAWAD Lathala",
                         generateDate = DateTime.Now,
-                        UserId = user.Id,
+                        UserType = "Chief",
                         isArchived = false
                     };
                     _context.REMC_GenerateGAWADNominees.Add(genLathala);

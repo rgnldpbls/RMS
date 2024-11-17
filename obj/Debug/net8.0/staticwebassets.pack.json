@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\ResearchManagementSystem.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\App_Data\\negative-words.txt",
+      "PackagePath": "staticwebassets\\App_Data\\negative-words.txt"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\App_Data\\positive-words.txt",
+      "PackagePath": "staticwebassets\\App_Data\\positive-words.txt"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\FormFiles\\CERTIFICATE OF VALIDITY.docx",
       "PackagePath": "staticwebassets\\FormFiles\\CERTIFICATE OF VALIDITY.docx"
     },
@@ -53,8 +61,68 @@
       "PackagePath": "staticwebassets\\FormFiles\\RESEARCHER CURRICULUM VITAE.docx"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\assets\\Group 9105.png",
+      "PackagePath": "staticwebassets\\assets\\Group 9105.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\assets\\crdlBackground.png",
+      "PackagePath": "staticwebassets\\assets\\crdlBackground.png"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\assets\\rmologo.png",
+      "PackagePath": "staticwebassets\\assets\\rmologo.png"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\AssignEval.css",
       "PackagePath": "staticwebassets\\css\\AssignEval.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefCreateEvent.css",
+      "PackagePath": "staticwebassets\\css\\ChiefCreateEvent.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefDashboard.css",
+      "PackagePath": "staticwebassets\\css\\ChiefDashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefHome.css",
+      "PackagePath": "staticwebassets\\css\\ChiefHome.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefLinkNavBar.css",
+      "PackagePath": "staticwebassets\\css\\ChiefLinkNavBar.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefManageRCBAEvents.css",
+      "PackagePath": "staticwebassets\\css\\ChiefManageRCBAEvents.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefReports.css",
+      "PackagePath": "staticwebassets\\css\\ChiefReports.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefSendDocs.css",
+      "PackagePath": "staticwebassets\\css\\ChiefSendDocs.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefSentimentAnalysis.css",
+      "PackagePath": "staticwebassets\\css\\ChiefSentimentAnalysis.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefTracker.css",
+      "PackagePath": "staticwebassets\\css\\ChiefTracker.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefViewDocs.css",
+      "PackagePath": "staticwebassets\\css\\ChiefViewDocs.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefViewEvents.css",
+      "PackagePath": "staticwebassets\\css\\ChiefViewEvents.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ChiefViewStake.css",
+      "PackagePath": "staticwebassets\\css\\ChiefViewStake.css"
     },
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ClusterCoordinator-About.css",
@@ -189,6 +257,10 @@
       "PackagePath": "staticwebassets\\css\\CompletionReportDetails.css"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\CustomLayout.css",
+      "PackagePath": "staticwebassets\\css\\CustomLayout.css"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\DetailsInitialReview.css",
       "PackagePath": "staticwebassets\\css\\DetailsInitialReview.css"
     },
@@ -207,6 +279,14 @@
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\InitialReview.css",
       "PackagePath": "staticwebassets\\css\\InitialReview.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\Modals.css",
+      "PackagePath": "staticwebassets\\css\\Modals.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\NavBars.css",
+      "PackagePath": "staticwebassets\\css\\NavBars.css"
     },
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\RMOSections.css",
@@ -237,12 +317,36 @@
       "PackagePath": "staticwebassets\\css\\RSCResearcherPages.css"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ResearcherEvents.css",
+      "PackagePath": "staticwebassets\\css\\ResearcherEvents.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\ResearcherHome.css",
+      "PackagePath": "staticwebassets\\css\\ResearcherHome.css"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\SelectApplication.css",
       "PackagePath": "staticwebassets\\css\\SelectApplication.css"
     },
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\SlateTheme.css",
       "PackagePath": "staticwebassets\\css\\SlateTheme.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\StakeDocs.css",
+      "PackagePath": "staticwebassets\\css\\StakeDocs.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\StakeHome.css",
+      "PackagePath": "staticwebassets\\css\\StakeHome.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\StakeTracker.css",
+      "PackagePath": "staticwebassets\\css\\StakeTracker.css"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\StakeUpload.css",
+      "PackagePath": "staticwebassets\\css\\StakeUpload.css"
     },
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\SystemAdministrator-Accounts-AddUser.css",
@@ -289,6 +393,10 @@
       "PackagePath": "staticwebassets\\css\\downloadforms.css"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\events.css",
+      "PackagePath": "staticwebassets\\css\\events.css"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\css\\faculty-accomplishment.css",
       "PackagePath": "staticwebassets\\css\\faculty-accomplishment.css"
     },
@@ -323,6 +431,14 @@
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\files\\TEMPLATE - MEMORANDUM OF AGREEMENT.pdf",
+      "PackagePath": "staticwebassets\\files\\TEMPLATE - MEMORANDUM OF AGREEMENT.pdf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\files\\TEMPLATE - MEMORANDUM OF UNDERSTANDING.pdf",
+      "PackagePath": "staticwebassets\\files\\TEMPLATE - MEMORANDUM OF UNDERSTANDING.pdf"
     },
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\ResearchManagementSystem\\wwwroot\\images\\BG-Header.png",

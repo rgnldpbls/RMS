@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/NavBars.css" asp-append-="true" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/84ccdc0b43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="research-navbar">
+        <div class="navbar-container-left">
+            <div class="" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+            </div>
+            <div class="logo">
+                <img src="~/assets/rmologo.png" alt="Logo">
+                <div class="logo-text">
+                    <h5>Research Management Office</h5>
+                    <p>Polytechnic University of the Philippines</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Section: Dynamic Navigation Links -->
+        <nav class="navbar-links">
+            <ul id="nav-items">
+                <li><a asp-area="CrdlSys" asp-controller="Researcher" asp-action="ResearcherHomePage" id="home-link">Home</a></li>
+                <li><a asp-area="CrdlSys" asp-controller="Researcher" asp-action="ViewEvents" id="events-link" class="active">Events</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a class="text-dark text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <div class="profile-section d-block text-center">
+
+                <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 d-block mx-auto mb-2">
+
+                <!-- Clickable Hello, [Username] link -->
+
+                <p class="user-email my-0 fs-6 fw-light text-white">Hello, @User.Identity?.Name!</p>
+            </div>
+        </a>
+
+
+        <div class="menu-section">
+            <ul>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="AddFAQs" asp-action="Index"><i class="fa-solid fa-person-circle-question fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">FAQs</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyRateUs"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Rate Us</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyReportGenerateReport"><i class="fa-solid fa-file-export fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Report</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyAbout"><i class="fa-solid fa-circle-info fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">About</span></a></li>
+            </ul>
+        </div>
+
+        <div class="logout-section mt-3">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="logout-button btn btn-link text-white w-100">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
+                </button>
+            </form>
+        </div>
+    </div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</body>
+</html>
+<script src="~/js/sidebar.js"></script>
+<script>
+    // Get the header and navbar elements
+
+    const researchnavbar = document.getElementById('research-navbar');
+
+    // Get the position where the navbar should stick
+    const sticky = researchnavbar.offsetTop;
+
+    // Add scroll event listener to the window
+    window.onscroll = function () {
+        handleStickyNavbar();
+    };
+
+    function handleStickyNavbar() {
+        if (window.pageYOffset > sticky) {
+            navbar.classList.add("sticky");
+            topHeader.style.top = "-100px";  // Hide the top header
+        } else {
+            navbar.classList.remove("sticky");
+            topHeader.style.top = "0";  // Show the top header
+        }
+    }
+
+    function updateDropdownText(element) {
+        var dropdownButton = document.getElementById("dropdownMenuButton");
+        dropdownButton.textContent = element.textContent; // Update the button text with the selected item
+    }
+
+</script>

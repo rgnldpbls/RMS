@@ -190,7 +190,7 @@
         const eventForm = document.getElementById('eventForm');
 
         async function fetchEvents() {
-            const response = await fetch('/RemcSys/FundedResearchApplication/GetUserEvents');
+            const response = await fetch('/CrdlSys/Chief/GetCalendarEvents');
             const events = await response.json();
             return events;
         }

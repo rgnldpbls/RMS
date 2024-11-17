@@ -249,6 +249,7 @@ namespace RemcSys.Controllers
 
                 var evaluator = new Evaluator
                 {
+                    evaluator_Id = Guid.NewGuid().ToString(),
                     evaluator_Name = $"{user.FirstName} {user.MiddleName} {user.LastName}",
                     evaluator_Email = user.Email,
                     field_of_Interest = fieldOfInterests,

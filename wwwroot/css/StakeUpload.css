@@ -1,0 +1,286 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.title-section {
+    margin-top: 1.5rem ;
+    margin-bottom:-15px;
+    padding: 0 15px;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-left: 1.6%;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.container {
+    display: flex;
+    flex-direction: row; /* Make the left and right sections horizontal */
+    justify-content: space-between;
+    align-items: flex-start; /* Align items at the top */
+    margin:1.5rem auto;
+    padding: 15px;
+    background-color: #d3d3d3;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    min-height:36rem;
+    min-width: 64rem; /* Adjust as needed for overall width */
+    position: relative;
+}
+.upload {
+    display: flex;
+    flex-direction: column; /* Stack the containers vertically */
+    align-items: center; /* Align horizontally center (optional) */
+}
+.upload-container1{
+    width:600px; /* Set the width of containers if necessary */
+    background-color: #fff;
+    padding: 20px;
+    margin-left:0.5vh;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-document1, .card-document2 {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center buttons horizontally */
+    margin-bottom: 20px;
+    margin-left:1vh;
+    height:300px;
+    width:550px;
+    padding:20px;
+    border-radius: 10px;
+    background-color: #d3d3d3;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+    .card-document1 h5, .card-document2 h5 {
+        font-size:x-large;
+        font-weight:600;
+        margin-bottom: 10px;
+        font-family:"Montserrat";
+        margin-top:5%;
+
+    }
+.btn-open, .btn-download {
+    width: 200px;
+    font-weight: 600;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.btn-open {
+    margin-top: 3%;
+    background-color: #F7AD2B; /* Orange-yellow */
+}
+.a.btn-download, .a.btn-open{
+    opacity:0.9;
+}
+.btn-download {
+    background-color: #0D6B4A; /* Green */
+    margin-top: 2.5%;
+}
+
+.btn-upload {
+    margin-left: 74%;
+    background-color: #850000;
+    width: 140px;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight:600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.a.btn-open:hover, .btn-open:hover {
+    color: #f5a623; /* Slightly darker orange-yellow */
+    opacity:5;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effects for .btn-download */
+.a.btn-download:hover, .btn-download:hover {
+    color: #0c5f41; /* Slightly darker green */
+    opacity: 5;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effects for .btn-upload */
+.btn-upload:hover {
+    background-color: #730000; /* Slightly darker red */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-upload-div {
+    flex: 1 1 55%;
+    height:675px;
+    width:650px;
+    margin-top:3.5px;
+    border-radius:15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #d3d3d3;
+    margin-left:5vh;
+    padding:30px;
+
+}
+
+.card-upload-1 {
+    width:500px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin:5rem 0.7rem;
+    padding:30px;
+    font-size:20px;
+}
+
+.form-select{
+    text-align:left;
+}
+
+.form-label{
+    font-weight:600;
+}
+
+/* Sidebar styles */
+.sidebar {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 70px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    /*.sidebar .profile-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3 {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email, .sidebar .profile-info .user-id {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }*/
+
+    .sidebar .logout-section {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+
+.bbb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+    .nav-item:hover {
+        background: rgb(255, 246, 195, 0.2);
+        border-radius: 10px;
+    }
+
+.hoverfxright:hover {
+    background: rgb(255, 246, 195, 0.2);
+}
+
+.sideitemz:hover {
+    background: rgb(255, 246, 195, 0.2);
+}
+
+.pup {
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+
+.rmo {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}

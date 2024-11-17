@@ -1,0 +1,274 @@
+﻿@model IEnumerable<CrdlSys.ViewModels.ResearchEventViewModel>
+@{
+    ViewData["Title"] = "View Events";
+    Layout = "_LayoutResearcherEvents";
+}
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="~/css/ResearcherEvents.css" rel="stylesheet" asp-append-version="true">
+</head>
+
+<body>
+    <!-- Alerts -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!--UPCOMING EVENTS-->
+    <div class="title-section">
+        <h1 class="title">Upcoming Events</h1>
+    </div>
+    <div class="container" style="max-width:100%">
+        <div class="row row-cols-1 row-cols-md-3 g-2 ms-lg-5 mb-3">
+            @if (Model != null && Model.Any(e => e.EventDate >= DateTime.Now && e.EventStatus != "Cancelled" && !e.IsArchived))
+            {
+                foreach (var researchEvent in Model.Where(e => e.EventDate >= DateTime.Now && e.EventStatus != "Cancelled" && !e.IsArchived))
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card event-card" data-bs-toggle="modal" data-bs-target="#eventModal-@researchEvent.ResearchEventId" style="cursor: pointer;">
+                            @if (researchEvent.EventThumbnail != null && researchEvent.EventThumbnail.Length > 0)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(researchEvent.EventThumbnail)" class="card-img-top" alt="@(researchEvent.EventName ?? "Event")" />
+                            }
+                            else
+                            {
+                                <img src="~/images/BG-Header.png" class="card-img-top" alt="Default Background Header" />
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@researchEvent.EventName</h5>
+                                <p class="card-text">@researchEvent.EventType</p>
+                                <p class="card-text">Slots Remaining: @(researchEvent.ParticipantsSlot - researchEvent.ParticipantsCount)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Event Details -->
+                    <div class="modal fade" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eventModalLabel">@researchEvent.EventName</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Type:</strong> @researchEvent.EventType</p>
+                                    <p><strong>Date:</strong> @researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    <p><strong>End Time:</strong> @researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyy hh:mm tt"))</p>
+                                    <p><strong>Location:</strong> @researchEvent.EventLocation</p>
+                                    <p><strong>Attendees:</strong> @researchEvent.ParticipantsCount</p>
+                                    <p><strong>Description:</strong> @researchEvent.EventDescription</p>
+
+                                    @if (researchEvent.EventStatus == "Postponed")
+                                    {
+                                        <p class="text-danger">Registration is not available for postponed events.</p>
+                                    }
+                                    else if (DateTime.Now < researchEvent.RegistrationOpen)
+                                    {
+                                        <p class="text-danger">Registration will open on @researchEvent.RegistrationOpen.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.RegistrationOpen).ToString("MM/dd/yyy hh:mm tt"))</p>
+                                    }
+                                    else if (DateTime.Now > researchEvent.RegistrationDeadline)
+                                    {
+                                        <p class="text-danger">Registration is closed.</p>
+                                    }
+                                    else if (researchEvent.ParticipantsCount >= researchEvent.ParticipantsSlot)
+                                    {
+                                        <p class="text-danger">Event is fully booked.</p>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    @if (researchEvent.EventStatus != "Postponed" &&
+                                   DateTime.Now >= researchEvent.RegistrationOpen &&
+                                   DateTime.Now <= researchEvent.RegistrationDeadline &&
+                                   researchEvent.ParticipantsCount < researchEvent.ParticipantsSlot)
+                                    {
+                                        if (researchEvent.IsUserRegistered)
+                                        {
+                                            <p class="text-warning">You are already registered for this event.</p>
+                                        }
+                                        else if (researchEvent.RegistrationType == "Invitational")
+                                        {
+                                            if (researchEvent.IsInvited)
+                                            {
+                                                if (researchEvent.InvitationStatus == "Pending")
+                                                {
+                                                    <form action="@Url.Action("RespondToInvitation", "Researcher")" method="post" class="d-inline">
+                                                        <input type="hidden" name="eventId" value="@researchEvent.ResearchEventId" />
+                                                        <input type="hidden" name="response" value="Accept" />
+                                                        <button type="submit" class="btn btn-success">Accept</button>
+                                                    </form>
+                                                    <form action="@Url.Action("RespondToInvitation", "Researcher")" method="post" class="d-inline">
+                                                        <input type="hidden" name="eventId" value="@researchEvent.ResearchEventId" />
+                                                        <input type="hidden" name="response" value="Decline" />
+                                                        <button type="submit" class="btn btn-danger">Decline</button>
+                                                    </form>
+                                                }
+                                                else if (researchEvent.InvitationStatus == "Accepted")
+                                                {
+                                                    <p class="text-success">You have accepted the invitation.</p>
+                                                }
+                                                else if (researchEvent.InvitationStatus == "Declined")
+                                                {
+                                                    <p class="text-danger">You have declined the invitation.</p>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <p class="text-info">This is an invitational event. Only invited researchers can register.</p>
+                                            }
+                                        }
+                                        else if (researchEvent.RegistrationType == "Open Registration")
+                                        {
+                                            <form action="@Url.Action("RegisterForEvent", "Researcher")" method="post" class="d-inline">
+                                                <input type="hidden" name="eventId" value="@researchEvent.ResearchEventId" />
+                                                <button type="submit" class="btn btn-primary">Register for Event</button>
+                                            </form>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <p class="alert-container">No upcoming events found.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!--ONGOING EVENTS-->
+    <div class="title-section">
+        <h1 class="title">On-going Events</h1>
+    </div>
+    <div class="container" style="max-width:100%">
+        <div class="row row-cols-1 row-cols-md-3 g-2 ms-lg-5 mb-3">
+            @if (Model != null && Model.Any(e => e.EventDate <= DateTime.Now && e.EndTime > DateTime.Now && e.EventStatus != "Cancelled" && !e.IsArchived))
+            {
+                foreach (var researchEvent in Model.Where(e => e.EventDate <= DateTime.Now && e.EndTime > DateTime.Now && e.EventStatus != "Cancelled" && !e.IsArchived))
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card event-card" data-bs-toggle="modal" data-bs-target="#eventModal-@researchEvent.ResearchEventId" style="cursor: pointer;">
+                            @if (researchEvent.EventThumbnail != null && researchEvent.EventThumbnail.Length > 0)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(researchEvent.EventThumbnail)" class="card-img-top" alt="@(researchEvent.EventName ?? "Event")" />
+                            }
+                            else
+                            {
+                                <img src="~/images/BG-Header.png" class="card-img-top" alt="Default Background Header" />
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@researchEvent.EventName</h5>
+                                <p class="card-text">@researchEvent.EventType</p>
+                                <p class="card-text">Participant Slots: @researchEvent.ParticipantsSlot</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Event Details -->
+                    <div class="modal fade" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eventModalLabel">@researchEvent.EventName</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Type:</strong> @researchEvent.EventType</p>
+                                    <p><strong>Date:</strong> @researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    <p><strong>End Time:</strong> @researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    <p><strong>Location:</strong> @researchEvent.EventLocation</p>
+                                    <p><strong>Attendees:</strong> @researchEvent.ParticipantsCount</p>
+                                    <p><strong>Description:</strong> @researchEvent.EventDescription</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12"> <p class="alert-container">No ongoing events found.</p> </div>
+            }
+        </div>
+    </div>
+
+    <!--RECENT EVENTS-->
+    <div class="title-section">
+        <h1 class="title">Recent Events</h1>
+    </div>
+    <div class="container" style="max-width:100%">
+        <div class="row row-cols-1 row-cols-md-3 g-2 ms-lg-5 mb-3">
+            @if (Model != null && Model.Any(e => e.EndTime < DateTime.Now && e.EventStatus != "Cancelled" && !e.IsArchived))
+            {
+                foreach (var researchEvent in Model.Where(e => e.EndTime <= DateTime.Now && e.EventStatus != "Cancelled" && !e.IsArchived))
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card event-card" data-bs-toggle="modal" data-bs-target="#eventModal-@researchEvent.ResearchEventId" style="cursor: pointer;">
+                            @if (researchEvent.EventThumbnail != null && researchEvent.EventThumbnail.Length > 0)
+                            {
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(researchEvent.EventThumbnail)" class="card-img-top" alt="@(researchEvent.EventName ?? "Event")" />
+                            }
+                            else
+                            {
+                                <img src="~/images/BG-Header.png" class="card-img-top" alt="Default Background Header" />
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@researchEvent.EventName</h5>
+                                <p class="card-text">@researchEvent.EventType</p>
+                                <p class="card-text">Participant Slots: @researchEvent.ParticipantsSlot</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Event Details -->
+                    <div class="modal fade" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eventModalLabel">@researchEvent.EventName</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Type:</strong> @researchEvent.EventType</p>
+                                    <p><strong>Date:</strong> @researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    <p><strong>End Time:</strong> @researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyy hh:mm tt"))</p>                                    <p><strong>Location:</strong> @researchEvent.EventLocation</p>
+                                    <p><strong>Attendees:</strong> @researchEvent.ParticipantsCount</p>
+                                    <p><strong>Description:</strong> @researchEvent.EventDescription</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12"> <p class="alert-container">No recent events found.</p> </div>
+            }
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>

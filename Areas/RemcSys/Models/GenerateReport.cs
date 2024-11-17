@@ -13,7 +13,7 @@ namespace RemcSys.Models
         public DateTime gr_endDate { get; set; }
         public string gr_typeofReport { get; set; }
         public DateTime generateDate { get; set; }
-        public string? UserId { get; set; }
+        public string? UserType { get; set; }
         public bool isArchived { get; set; }
     }
 }

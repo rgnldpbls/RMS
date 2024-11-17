@@ -1,0 +1,409 @@
+﻿@model CrdlSys.ViewModels.ViewChiefUploadsViewModel
+
+@{
+    ViewData["Title"] = "View Chief Uploads";
+    Layout = "_LayoutChiefLinkages";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/ChiefViewDocs.css" asp-append-version="true" />
+</head>
+
+<!-- Display Success/Error Messages -->
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+else if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="title-section">
+    <h1 class="title">RCBA Event Documents</h1>
+</div>
+
+<!-- Filter Buttons -->
+<div class="d-flex" id="buttons">
+    <div class="d-flex" id="buttons">
+        <button class="btn btn-success filter-btn" data-filter="Active" data-type="ContractStatus">On Going</button>
+        <button class="btn btn-warning filter-btn" data-filter="Pending" data-type="Status">Pending</button>
+        <button class="btn btn-secondary filter-btn" data-filter="Expired" data-type="ContractStatus">Expired</button>
+        <button class="btn btn-danger filter-btn" data-filter="Terminated" data-type="ContractStatus">Terminated</button>
+        <button class="btn btn-dark filter-btn" data-filter="All">Show All</button>
+    </div>
+</div>
+<div class="d-flex mt-2 me-lg-2 custom-lowerbutton">
+<button id="openFormBtn" class="btn btn-add">
+    <i class="bi bi-plus-lg"></i>
+</button>
+<button class="btn filter-btn" id="openArchived" data-filter="Archived" data-type="IsArchived">
+    <i class="bi bi-archive-fill"></i>
+</button>
+</div>
+
+<!-- Display Table -->
+    <table class="table-responsive-xl table-bordered ms-lg-4 custom-table" style="width: 95%;">
+        <thead class="h-auto">
+        <thead>
+            <tr>
+                <th scope="col">Document ID</th>
+                <th scope="col">Details</th>
+                <th scope="col">Document Status</th>
+                <th scope="col">Contract Status</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Remarks</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var document in Model.UploadedDocuments)
+            {
+                <tr data-is-archived="@document.IsArchived.ToString().ToLower()"
+                    data-contract-status="@document.ContractStatus?.ToLower()"
+                    data-status="@document.Status.ToLower()">
+
+                    <td class="document-column">@document.DocumentId</td>
+                    <td class="details-column ms-3">
+                        <div class="title-paragraph">Document Type:<p class="content-paragraph"> @document.TypeOfDocument</p></div>
+                        <div class="title-paragraph">Document's Name:<p class="content-paragraph"> @document.NameOfDocument</p></div>
+                        <div class="title-paragraph">Stakeholder's Name:<p class="content-paragraph"> @document.StakeholderName</p></div>
+                        <div class="title-paragraph">Stakeholder's Email:<p class="content-paragraph"> @document.EmailOfStakeholder</p></div>
+                    </td>
+                    
+                    <form method="post" asp-action="Update" asp-controller="Chief">
+                        <input type="hidden" name="documentId" value="@document.DocumentId" />
+                    <td class="status-column">
+                            @{
+                                var statusOptions = new[] { "Pending", "Approved", "Rejected" };
+                            }
+                        <select name="status" class="form-select2">
+                                @foreach (var option in statusOptions)
+                                {
+                                    if (option == document.Status)
+                                    {
+                                    <option value="@option" selected>@option</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@option">@option</option>
+                                    }
+                                }
+                        </select>
+                    </td>
+
+                    <td class="type-column">
+                                @if (document.ContractStatus == "Active")
+                                {
+                            <span class="bg-approved">Active</span>
+                                }
+                                else if (document.ContractStatus == "Expired")
+                                {
+                            <span class="bg-expired">Expired</span>
+                                }
+                                else if (document.ContractStatus == "Terminated")
+                                {
+                            <span class="bg-terminated">Terminated</span>
+                                }
+                                else
+                                {
+                            <span class="bg-pending">Pending</span>
+                                }
+                    </td>
+
+                    <td class="start-date">
+                        <input type="date" name="contractStartDate" value="@document.ContractStartDate?.ToString("yyyy-MM-dd")" class="form-control" />
+                    </td>
+
+                    <td class="end-date">
+                        <input type="date" name="contractEndDate" value="@document.ContractEndDate?.ToString("yyyy-MM-dd")" class="form-control" />
+                    </td>
+
+                    <td>
+                        <textarea name="comment" class="form-control">@document.Comment</textarea>
+                    </td>
+
+                    <td class="action-column">
+                        <button type="submit" class="btn update-btn"><i class="bi bi-vector-pen"></i> Update</button>
+                            @if (document.IsArchived)
+                            {
+                            <a class="btn" id="view" href="@Url.Action("View", "Chief", new { id = document.DocumentId })" target="_blank"><i class="bi bi-eye"></i> View</a>
+                            <a class="btn unarchive-btn" id="unarchive" data-id="@document.DocumentId"><i class="bi bi-archive"></i>Unarchive</a>
+                            <a class="btn delete-btn" id="delete" data-id="@document.DocumentId"><i class="bi bi-trash"></i>Delete</a>
+                            }
+                            else
+                            {
+                            <a class="btn" id="view" href="@Url.Action("View", "Chief", new { id = document.DocumentId })" target="_blank"><i class="bi bi-eye"></i> View</a>
+                            <a class="btn archive-btn" id="archive" data-id="@document.DocumentId"><i class="bi bi-archive"></i> Archive</a>
+                            <a class="btn terminate-btn" data-id="@document.DocumentId"><i class="bi bi-trash"></i> Terminate</a>
+                            }
+                    </td>
+                    </form>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+<div id="popupForm" class="container mt-5"
+     style="display: none; position: fixed; top: 10%; left: 50%; transform: translate(-50%, 0);
+            z-index: 999; background-color: white; padding: 20px; border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); width: 90%; max-width: 600px;
+            max-height: 80vh; overflow-y: auto;">
+
+    <!-- Close Button -->
+    <button id="closeFormBtn" class="btn btn-danger mb-3" style="float: right;">X</button>
+
+    <!-- Name Of Document -->
+    <form asp-action="UploadDocument" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="NameOfDocument" class="form-label">Name of Document</label>
+            <input asp-for="NameOfDocument" class="form-control" />
+            <span asp-validation-for="NameOfDocument" class="text-danger"></span>
+        </div>
+
+        <!-- Type Of Document -->
+        <div class="mb-3">
+            <label asp-for="TypeOfDocument" class="form-label">Type of Document</label>
+            <select asp-for="TypeOfDocument" class="form-select">
+                <option value="">-- Select Type --</option>
+                <option value="MOA">MOA</option>
+                <option value="MOU">MOU</option>
+            </select>
+            <span asp-validation-for="TypeOfDocument" class="text-danger"></span>
+        </div>
+
+        <!-- Upload File -->
+        <div class="mb-3">
+            <label asp-for="DocumentFile" class="form-label">Upload Document</label>
+            <input asp-for="DocumentFile" type="file" class="form-control" accept=".pdf" />
+            <span asp-validation-for="DocumentFile" class="text-danger"></span>
+        </div>
+
+        <!-- Document Description -->
+        <div class="mb-3">
+            <label asp-for="DocumentDescription" class="form-label">Document Description</label>
+            <input asp-for="DocumentDescription" class="form-control" />
+            <span asp-validation-for="DocumentDescription" class="text-danger"></span>
+        </div>
+
+        <!-- Stakeholder Name -->
+        <div class="mb-3">
+            <label asp-for="StakeholderName" class="form-label">Stakeholder Name</label>
+            <input asp-for="StakeholderName" class="form-control" />
+            <span asp-validation-for="StakeholderName" class="text-danger"></span>
+        </div>
+
+        <!-- Email Of Stakeholder -->
+        <div class="mb-3">
+            <label asp-for="EmailOfStakeholder" class="form-label">Stakeholder Email</label>
+            <input asp-for="EmailOfStakeholder" class="form-control" />
+            <span asp-validation-for="EmailOfStakeholder" class="text-danger"></span>
+        </div>
+
+        <!-- Status -->
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-select" id="statusDropdown">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="For Revision">Rejected</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <!-- Contract Start Date (Initially Hidden) -->
+        <div class="mb-3" id="contractStartDateDiv" style="display:none;">
+            <label asp-for="ContractStartDate" class="form-label">Contract Start Date</label>
+            <input asp-for="ContractStartDate" type="date" class="form-control" />
+            <span asp-validation-for="ContractStartDate" class="text-danger"></span>
+        </div>
+
+        <!-- Contract End Date (Initially Hidden) -->
+        <div class="mb-3" id="contractEndDateDiv" style="display:none;">
+            <label asp-for="ContractEndDate" class="form-label">Contract End Date</label>
+            <input asp-for="ContractEndDate" type="date" class="form-control" />
+            <span asp-validation-for="ContractEndDate" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#statusDropdown').change(function () {
+                const selectedStatus = $(this).val();
+                if (selectedStatus === "Approved") {
+                    $('#contractStartDateDiv, #contractEndDateDiv').show();
+                } else {
+                    $('#contractStartDateDiv, #contractEndDateDiv').hide();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.filter-btn').click(function () {
+                var filterValue = $(this).data('filter').toLowerCase();
+                var typeValue = $(this).data('type');
+
+                $('tbody tr').each(function () {
+                    var row = $(this);
+                    var isArchived = row.data('is-archived') === true;
+                    var contractStatus = row.data('contract-status');
+                    var status = row.data('status');
+
+                    // Default visibility
+                    var showRow = true;
+
+                    // Filter Logic
+                    if (filterValue === 'all') {
+                        showRow = !isArchived;
+                    } else if (filterValue === 'archived') {
+                        showRow = isArchived;
+                    } else {
+                        showRow = !isArchived;
+                        if (typeValue === 'ContractStatus') {
+                            showRow = showRow && (contractStatus === filterValue);
+                        } else if (typeValue === 'Status') {
+                            showRow = showRow && (status === filterValue);
+                        }
+                    }
+
+                    row.toggle(showRow);
+                });
+            });
+
+            // Archive and Unarchive Button Logic
+            $('.archive-btn').click(function () {
+                var documentId = $(this).data('id');
+                if (confirm("Are you sure you want to archive this document?")) {
+                    $.ajax({
+                        url: '@Url.Action("ArchiveDocument", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            } else {
+                                alert("Failed to archive document.");
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while archiving the document.");
+                        }
+                    });
+                }
+            });
+
+            $('.unarchive-btn').click(function () {
+                var documentId = $(this).data('id');
+                if (confirm("Are you sure you want to unarchive this document?")) {
+                    $.ajax({
+                        url: '@Url.Action("UnarchiveDocument", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            } else {
+                                alert("Failed to unarchive document.");
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while unarchiving the document.");
+                        }
+                    });
+                }
+            });
+
+            // Delete Button Logic
+            $('.delete-btn').click(function () {
+                var documentId = $(this).data('id');
+                if (confirm("Are you sure you want to delete this document?")) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteDocument", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while deleting the document.");
+                        }
+                    });
+                }
+            });
+
+            // Trigger 'Show All' filter on page load
+            $('.filter-btn[data-filter="All"]').click();
+        });
+
+        // Terminate Button Logic
+        $(document).ready(function () {
+            // Terminate Button Logic
+            $('.terminate-btn').click(function () {
+                var documentId = $(this).data('id');
+                if (confirm("Are you sure you want to terminate this contract? This action cannot be undone.")) {
+                    $.ajax({
+                        url: '@Url.Action("TerminateContract", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error details:", error);
+                            alert("An error occurred while terminating the contract.");
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        // Open form button and popup
+        const openFormBtn = document.getElementById('openFormBtn');
+        const popupForm = document.getElementById('popupForm');
+        const closeFormBtn = document.getElementById('closeFormBtn');
+
+        // Open and close the form
+        openFormBtn.addEventListener('click', function () {
+            popupForm.style.display = 'block';
+        });
+
+        closeFormBtn.addEventListener('click', function () {
+            popupForm.style.display = 'none';
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Open the modal and populate it with details
+        document.querySelectorAll('.btn-details').forEach(button => {
+            button.addEventListener('click', function () {
+                const documentId = this.getAttribute('data-id');
+                document.getElementById('modalContent').innerHTML = `Details for Document ID: ${documentId}`;
+                var detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'), {});
+                detailsModal.show();
+            });
+        });
+    </script>
+}

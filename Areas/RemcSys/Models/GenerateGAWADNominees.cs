@@ -11,7 +11,7 @@ namespace RemcSys.Models
         public byte[] gn_Data { get; set; }
         public string gn_type { get; set; }
         public DateTime generateDate { get; set; }
-        public string? UserId { get; set; }
+        public string? UserType { get; set; }
         public bool isArchived { get; set; }
     }
 }
