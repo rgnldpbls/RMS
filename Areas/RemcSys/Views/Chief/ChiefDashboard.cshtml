@@ -269,7 +269,7 @@
         const eventForm = document.getElementById('eventForm');
 
         async function fetchEvents() {
-            const response = await fetch('/CrdlSys/Chief/GetCalendarEvents');
+            const response = await fetch('/RemcSys/Chief/GetUserEvents');
             const events = await response.json();
             return events;
         }
@@ -288,7 +288,7 @@
         // Function to delete an event by its ID
         const deleteEvent = (eventId) => {
             $.ajax({
-                url: '@Url.Action("DeleteEvent", "Chief", new {area = "RemcSys"})',
+                url: '@Url.Action("DeleteEvent", "Chief", new { area = "RemcSys" })',
                 type: 'POST',
                 data: {
                     id: eventId
@@ -329,8 +329,8 @@
                 // Remove underline and create delete button with the event title
                 const deleteButton = `<button class="delete-event-btn" data-id="${arg.event.id}" style="background-color:#850000; color: #fff; border:none; cursor:pointer;">x</button>`;
                 const eventHtml = `<div style="background-color:#FFDB89; display: flex; justify-content: space-between; align-items: center; color: black; border: 2px solid #ff943d;">
-                                                    <span>${arg.event.title}</span> ${deleteButton}
-                                                   </div>`;
+                                                        <span>${arg.event.title}</span> ${deleteButton}
+                                                       </div>`;
 
                 return { html: eventHtml };
             },

@@ -4,10 +4,10 @@
     Layout = "_NavEvaluator1";
 }
 
-    <div class="dashboard-evaluator">
-        <div class="welcome-section">
-            <h1>Evaluator Dashboard</h1>
-        </div>
+<div class="dashboard-evaluator">
+    <div class="welcome-section">
+        <h1>Evaluator Dashboard</h1>
+    </div>
 
     <div class="row justify-content-end" style="margin-bottom: 20px;">
         <div class="col-md-3 col-sm-6">
@@ -45,41 +45,41 @@
         </div>
     </div>
     <div class="container">
-    <!-- Calendar -->
-    <div id="calendar"></div>
+        <!-- Calendar -->
+        <div id="calendar"></div>
 
-    <!-- Add Event Modal -->
-    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form asp-action="AddEvent" method="post">
-                        <div class="mb-3">
-                            <label for="event-title" class="form-label">Event Title</label>
-                            <input type="text" class="form-control" id="event-title" name="eventTitle" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="event-start" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="event-start" name="startDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="event-end" class="form-label">End Date</label>
-                            <input type="date" class="form-control" id="event-end" name="endDate" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Event</button>
-                    </form>
+        <!-- Add Event Modal -->
+        <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-action="AddEvent" method="post">
+                            <div class="mb-3">
+                                <label for="event-title" class="form-label">Event Title</label>
+                                <input type="text" class="form-control" id="event-title" name="eventTitle" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-start" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="event-start" name="startDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-end" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="event-end" name="endDate" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Event</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="upcoming-deadlines">
             <h2>Upcoming Deadline</h2>
-            @if(Model != null && Model.Any())
+            @if (Model != null && Model.Any())
             {
                 @foreach (var item in Model)
                 {
@@ -106,7 +106,7 @@
         const eventForm = document.getElementById('eventForm');
 
         async function fetchEvents() {
-            const response = await fetch('/CrdlSys/Chief/GetCalendarEvents');
+            const response = await fetch('/RemcSys/Evaluator/GetUserEvents');
             const events = await response.json();
             return events;
         }
@@ -125,7 +125,7 @@
         // Function to delete an event by its ID
         const deleteEvent = (eventId) => {
             $.ajax({
-                url: '@Url.Action("DeleteEvent", "Evaluator", new {area = "RemcSys"})',
+                url: '@Url.Action("DeleteEvent", "Evaluator", new { area = "RemcSys" })',
                 type: 'POST',
                 data: {
                     id: eventId
@@ -172,8 +172,8 @@
                 // Remove underline and create delete button with the event title
                 const deleteButton = `<button class="delete-event-btn" data-id="${arg.event.id}" style="background-color:#850000; color: #fff; border:none; cursor:pointer;">x</button>`;
                 const eventHtml = `<div style="background-color:#FFDB89; display: flex; justify-content: space-between; align-items: center; color: black; border: 2px solid #ff943d;">
-                                                        <span>${arg.event.title}</span> ${deleteButton}
-                                                       </div>`;
+                                                            <span>${arg.event.title}</span> ${deleteButton}
+                                                           </div>`;
 
                 return { html: eventHtml };
             },
