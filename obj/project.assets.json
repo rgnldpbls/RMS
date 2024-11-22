@@ -216,19 +216,6 @@
           }
         }
       },
-      "Google.Protobuf/3.21.9": {
-        "type": "package",
-        "compile": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "Humanizer/2.14.1": {
         "type": "package",
         "dependencies": {
@@ -957,169 +944,6 @@
         "type": "package",
         "dependencies": {
           "itext.bouncy-castle-adapter": "8.0.5"
-        }
-      },
-      "libtorch-cpu/2.4.0": {
-        "type": "package",
-        "dependencies": {
-          "libtorch-cpu-linux-x64": "2.4.0",
-          "libtorch-cpu-osx-arm64": "2.4.0",
-          "libtorch-cpu-win-x64": "2.4.0"
-        },
-        "build": {
-          "buildTransitive/netstandard2.0/libtorch-cpu.props": {},
-          "buildTransitive/netstandard2.0/libtorch-cpu.targets": {}
-        }
-      },
-      "libtorch-cpu-linux-x64/2.4.0": {
-        "type": "package",
-        "build": {
-          "buildTransitive/netstandard2.0/libtorch-cpu-linux-x64.props": {},
-          "buildTransitive/netstandard2.0/libtorch-cpu-linux-x64.targets": {}
-        },
-        "runtimeTargets": {
-          "runtimes/linux-x64/native/libbackend_with_compiler.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libc10.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libgomp-98b21ff3.so.1": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libjitbackend_test.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libnnapi_backend.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libshm.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libtorch.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libtorch_cpu.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libtorch_global_deps.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libtorch_python.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/libtorchbind_test.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          }
-        }
-      },
-      "libtorch-cpu-osx-arm64/2.4.0": {
-        "type": "package",
-        "build": {
-          "buildTransitive/netstandard2.0/libtorch-cpu-osx-arm64.props": {},
-          "buildTransitive/netstandard2.0/libtorch-cpu-osx-arm64.targets": {}
-        },
-        "runtimeTargets": {
-          "runtimes/osx-arm64/native/libc10.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libfbjni.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libomp.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libpytorch_jni.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libshm.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libtorch.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libtorch_cpu.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libtorch_global_deps.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-arm64/native/libtorch_python.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          }
-        }
-      },
-      "libtorch-cpu-win-x64/2.4.0": {
-        "type": "package",
-        "build": {
-          "buildTransitive/netstandard2.0/libtorch-cpu-win-x64.props": {},
-          "buildTransitive/netstandard2.0/libtorch-cpu-win-x64.targets": {}
-        },
-        "runtimeTargets": {
-          "runtimes/win-x64/native/asmjit.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/c10.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/fbgemm.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/fbjni.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/libiomp5md.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/libiompstubs5md.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/pytorch_jni.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/torch.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/torch_cpu.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/torch_global_deps.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/uv.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          }
         }
       },
       "MailKit/4.8.0": {
@@ -3365,19 +3189,6 @@
           "lib/netstandard2.0/SentimentAnalyzer.dll": {}
         }
       },
-      "SharpZipLib/1.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/ICSharpCode.SharpZipLib.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/ICSharpCode.SharpZipLib.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "SixLabors.Fonts/1.0.0": {
         "type": "package",
         "compile": {
@@ -5051,54 +4862,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
-      },
-      "TorchSharp/0.103.1": {
-        "type": "package",
-        "dependencies": {
-          "Google.Protobuf": "3.21.9",
-          "SharpZipLib": "1.4.0",
-          "SkiaSharp": "2.88.6",
-          "System.Memory": "4.5.5"
-        },
-        "compile": {
-          "lib/net6.0/TorchSharp.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/TorchSharp.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/TorchSharp.props": {},
-          "buildTransitive/net6.0/TorchSharp.targets": {}
-        },
-        "runtimeTargets": {
-          "runtimes/linux-x64/native/libLibTorchSharp.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/osx-arm64/native/libLibTorchSharp.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/win-x64/native/LibTorchSharp.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          }
-        }
-      },
-      "TorchSharp-cpu/0.103.1": {
-        "type": "package",
-        "dependencies": {
-          "TorchSharp": "0.103.1",
-          "libtorch-cpu": "2.4.0"
-        },
-        "build": {
-          "buildTransitive/net6.0/TorchSharp-cpu.props": {},
-          "buildTransitive/net6.0/TorchSharp-cpu.targets": {}
-        }
       }
     }
   },
@@ -5391,29 +5154,6 @@
         "lib/netstandard1.0/ExcelNumberFormat.xml",
         "lib/netstandard2.0/ExcelNumberFormat.dll",
         "lib/netstandard2.0/ExcelNumberFormat.xml"
-      ]
-    },
-    "Google.Protobuf/3.21.9": {
-      "sha512": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg==",
-      "type": "package",
-      "path": "google.protobuf/3.21.9",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "google.protobuf.3.21.9.nupkg.sha512",
-        "google.protobuf.nuspec",
-        "lib/net45/Google.Protobuf.dll",
-        "lib/net45/Google.Protobuf.pdb",
-        "lib/net45/Google.Protobuf.xml",
-        "lib/net5.0/Google.Protobuf.dll",
-        "lib/net5.0/Google.Protobuf.pdb",
-        "lib/net5.0/Google.Protobuf.xml",
-        "lib/netstandard1.1/Google.Protobuf.dll",
-        "lib/netstandard1.1/Google.Protobuf.pdb",
-        "lib/netstandard1.1/Google.Protobuf.xml",
-        "lib/netstandard2.0/Google.Protobuf.dll",
-        "lib/netstandard2.0/Google.Protobuf.pdb",
-        "lib/netstandard2.0/Google.Protobuf.xml"
       ]
     },
     "Humanizer/2.14.1": {
@@ -6278,97 +6018,6 @@
         "gnu-agpl-v3.0.md",
         "itext7.bouncy-castle-adapter.8.0.5.nupkg.sha512",
         "itext7.bouncy-castle-adapter.nuspec"
-      ]
-    },
-    "libtorch-cpu/2.4.0": {
-      "sha512": "xi94/A0KdicljoLYVC186D8lHEr/iD6gnbWIAkp6LvGs7Q0R+9gbcGpj/w29tAulCGwaAySyMTLVZxReyCGEJg==",
-      "type": "package",
-      "path": "libtorch-cpu/2.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE-LIBTORCH.txt",
-        "buildTransitive/netstandard2.0/libtorch-cpu.props",
-        "buildTransitive/netstandard2.0/libtorch-cpu.targets",
-        "lib/netstandard2.0/_._/empty.txt",
-        "libtorch-cpu.2.4.0.nupkg.sha512",
-        "libtorch-cpu.nuspec"
-      ]
-    },
-    "libtorch-cpu-linux-x64/2.4.0": {
-      "sha512": "09UdfnWqqT8NYIaQQwfVSpX6ST/HiB9EHOm9FyEFmW+GHh664JYEfpVqXuM/DZPG3yAu97jxHE2d0svLdIhSfQ==",
-      "type": "package",
-      "path": "libtorch-cpu-linux-x64/2.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE-LIBTORCH.txt",
-        "buildTransitive/netstandard2.0/libtorch-cpu-linux-x64.props",
-        "buildTransitive/netstandard2.0/libtorch-cpu-linux-x64.targets",
-        "lib/netstandard2.0/_._/empty.txt",
-        "libtorch-cpu-linux-x64.2.4.0.nupkg.sha512",
-        "libtorch-cpu-linux-x64.nuspec",
-        "runtimes/linux-x64/native/libbackend_with_compiler.so",
-        "runtimes/linux-x64/native/libc10.so",
-        "runtimes/linux-x64/native/libgomp-98b21ff3.so.1",
-        "runtimes/linux-x64/native/libjitbackend_test.so",
-        "runtimes/linux-x64/native/libnnapi_backend.so",
-        "runtimes/linux-x64/native/libshm.so",
-        "runtimes/linux-x64/native/libtorch.so",
-        "runtimes/linux-x64/native/libtorch_cpu.so",
-        "runtimes/linux-x64/native/libtorch_global_deps.so",
-        "runtimes/linux-x64/native/libtorch_python.so",
-        "runtimes/linux-x64/native/libtorchbind_test.so"
-      ]
-    },
-    "libtorch-cpu-osx-arm64/2.4.0": {
-      "sha512": "Kpfir7rcXDqiRSADZkMcIMbY4jS+ZvLznu79GDWeEtTDqXCwr5Tcte58IDFMtBPRpO2dbcLe+Hoozr4EP1AWog==",
-      "type": "package",
-      "path": "libtorch-cpu-osx-arm64/2.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE-LIBTORCH.txt",
-        "buildTransitive/netstandard2.0/libtorch-cpu-osx-arm64.props",
-        "buildTransitive/netstandard2.0/libtorch-cpu-osx-arm64.targets",
-        "lib/netstandard2.0/_._/empty.txt",
-        "libtorch-cpu-osx-arm64.2.4.0.nupkg.sha512",
-        "libtorch-cpu-osx-arm64.nuspec",
-        "runtimes/osx-arm64/native/libc10.dylib",
-        "runtimes/osx-arm64/native/libfbjni.dylib",
-        "runtimes/osx-arm64/native/libomp.dylib",
-        "runtimes/osx-arm64/native/libpytorch_jni.dylib",
-        "runtimes/osx-arm64/native/libshm.dylib",
-        "runtimes/osx-arm64/native/libtorch.dylib",
-        "runtimes/osx-arm64/native/libtorch_cpu.dylib",
-        "runtimes/osx-arm64/native/libtorch_global_deps.dylib",
-        "runtimes/osx-arm64/native/libtorch_python.dylib"
-      ]
-    },
-    "libtorch-cpu-win-x64/2.4.0": {
-      "sha512": "yDKMeKttjbUZnKwr2cImfMwoFRPcYINwBebEQ43HBspySnprr/Ka5O3E+M/VF+6uiJh4ZB/RRETyW5AID0/BDw==",
-      "type": "package",
-      "path": "libtorch-cpu-win-x64/2.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE-LIBTORCH.txt",
-        "buildTransitive/netstandard2.0/libtorch-cpu-win-x64.props",
-        "buildTransitive/netstandard2.0/libtorch-cpu-win-x64.targets",
-        "lib/netstandard2.0/_._/empty.txt",
-        "libtorch-cpu-win-x64.2.4.0.nupkg.sha512",
-        "libtorch-cpu-win-x64.nuspec",
-        "runtimes/win-x64/native/asmjit.dll",
-        "runtimes/win-x64/native/c10.dll",
-        "runtimes/win-x64/native/fbgemm.dll",
-        "runtimes/win-x64/native/fbjni.dll",
-        "runtimes/win-x64/native/libiomp5md.dll",
-        "runtimes/win-x64/native/libiompstubs5md.dll",
-        "runtimes/win-x64/native/pytorch_jni.dll",
-        "runtimes/win-x64/native/torch.dll",
-        "runtimes/win-x64/native/torch_cpu.dll",
-        "runtimes/win-x64/native/torch_global_deps.dll",
-        "runtimes/win-x64/native/uv.dll"
       ]
     },
     "MailKit/4.8.0": {
@@ -10200,27 +9849,6 @@
         "lib/netstandard2.0/SentimentAnalyzer.dll",
         "sentimentanalyzer.1.2.3.nupkg.sha512",
         "sentimentanalyzer.nuspec"
-      ]
-    },
-    "SharpZipLib/1.4.0": {
-      "sha512": "CdkbBSPIpHD8xBlu+8kDJiqc1Tf9iV89BObnqcvEbwysXSj5h1MfaeLgeeaxPZmi7CTJO8FDofBBNxBW0Vml7A==",
-      "type": "package",
-      "path": "sharpziplib/1.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "images/sharpziplib-nuget-256x256.png",
-        "lib/net6.0/ICSharpCode.SharpZipLib.dll",
-        "lib/net6.0/ICSharpCode.SharpZipLib.pdb",
-        "lib/net6.0/ICSharpCode.SharpZipLib.xml",
-        "lib/netstandard2.0/ICSharpCode.SharpZipLib.dll",
-        "lib/netstandard2.0/ICSharpCode.SharpZipLib.pdb",
-        "lib/netstandard2.0/ICSharpCode.SharpZipLib.xml",
-        "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll",
-        "lib/netstandard2.1/ICSharpCode.SharpZipLib.pdb",
-        "lib/netstandard2.1/ICSharpCode.SharpZipLib.xml",
-        "sharpziplib.1.4.0.nupkg.sha512",
-        "sharpziplib.nuspec"
       ]
     },
     "SixLabors.Fonts/1.0.0": {
@@ -14229,46 +13857,6 @@
         "system.xml.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xmldocument.nuspec"
       ]
-    },
-    "TorchSharp/0.103.1": {
-      "sha512": "SM7q+63PW8fieDfovdfkCU7LRKNgtuTwv7xcbv6EoMcvahpp9iW5ml5buCrWDHhwdxxDplNU063qtbb8rwHxzQ==",
-      "type": "package",
-      "path": "torchsharp/0.103.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "buildTransitive/net6.0/TorchSharp.props",
-        "buildTransitive/net6.0/TorchSharp.targets",
-        "lib/net6.0/TorchSharp.dll",
-        "lib/net6.0/TorchSharp.xml",
-        "lib/netstandard2.0/TorchSharp.dll",
-        "lib/netstandard2.0/TorchSharp.xml",
-        "runtimes/linux-x64/native/libLibTorchSharp.so",
-        "runtimes/osx-arm64/native/libLibTorchSharp.dylib",
-        "runtimes/win-x64/native/LibTorchSharp.dll",
-        "torchsharp.0.103.1.nupkg.sha512",
-        "torchsharp.nuspec"
-      ]
-    },
-    "TorchSharp-cpu/0.103.1": {
-      "sha512": "lRiNqN3sfw4E9JjR9ML6a6Ni5bwFY+lNFaCdX19YihYjk3sPTk4npgSQIm3OTGuN9l9OKgXQ+fLs6BijSsW2/A==",
-      "type": "package",
-      "path": "torchsharp-cpu/0.103.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE-LIBTORCH.txt",
-        "LICENSE.txt",
-        "buildTransitive/net6.0/TorchSharp-cpu.props",
-        "buildTransitive/net6.0/TorchSharp-cpu.targets",
-        "buildTransitive/netstandard2.0/TorchSharp-cpu.props",
-        "buildTransitive/netstandard2.0/TorchSharp-cpu.targets",
-        "lib/net6.0/_._/empty.txt",
-        "lib/netstandard2.0/_._/empty.txt",
-        "torchsharp-cpu.0.103.1.nupkg.sha512",
-        "torchsharp-cpu.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -14290,7 +13878,6 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
       "Newtonsoft.Json >= 13.0.3",
       "SentimentAnalyzer >= 1.2.3",
-      "TorchSharp-cpu >= 0.103.1",
       "itext7 >= 8.0.5",
       "itext7.bouncy-castle-adapter >= 8.0.5"
     ]
@@ -14407,10 +13994,6 @@
           "SentimentAnalyzer": {
             "target": "Package",
             "version": "[1.2.3, )"
-          },
-          "TorchSharp-cpu": {
-            "target": "Package",
-            "version": "[0.103.1, )"
           },
           "itext7": {
             "target": "Package",

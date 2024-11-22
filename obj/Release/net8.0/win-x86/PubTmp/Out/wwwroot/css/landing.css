@@ -1,0 +1,641 @@
+/* General Styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Header */
+.top-header {
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: top 0.3s ease-out;
+}
+
+.h-container {
+    padding-left: 30px;
+}
+
+.pup-name {
+    text-align: left;
+    color: #850000;
+    font-size: 24px;
+    font-family: Tiro Devanagari Hindi;
+    font-weight: 400;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.auth-buttons {
+    right: 20px; /* Distance from the right */
+    display: flex;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.auth-buttons a{
+    text-decoration: none;
+}
+
+/* Button 1 (Login) Styling */
+.btn-1 {
+    right: 20px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #F2F2F7;
+    border-radius: 100px;
+    border: 2px #850000 solid;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    color: #850000; /* Font color */
+    font-size: 14px; /* Font size */
+    font-family: sans-serif; /* Font family */
+    font-weight: 700; /* Font weight */
+    text-align: center; /* Align text in the center */
+    cursor: pointer; /* Cursor changes to pointer */
+}
+
+    .btn-1:hover {
+        background-color: #FFCC00;
+        border: 2px #850000 solid;
+    }
+
+/* Button 2 (Sign Up) Styling */
+.btn-2 {
+    right: 120px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #FFCC00;
+    border-radius: 100px;
+    border: 1px #FFCC00 solid;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    color: #850000; /* Font color */
+    font-size: 14px; /* Font size */
+    font-family: sans-serif; /* Font family */
+    font-weight: 700; /* Font weight */
+    text-align: center; /* Align text in the center */
+    cursor: pointer; /* Cursor changes to pointer */
+}
+
+    .btn-2:hover {
+        background-color: white;
+        border: 2px #850000 solid;
+    }
+
+/* Navbar */
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    position: relative;
+    width: 100%;
+    top: 0;
+    z-index: 10000;
+    transition: all 0.3s ease;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+    .logo img {
+        width: 90px;
+        height: auto;
+        margin-right: 5px;
+        margin-left: 10px;
+    }
+
+.logo-text {
+    color: white;
+    font-family: 'Inter';
+    font-size: 40px;
+    font-weight: 800;
+    white-space: nowrap; /* prevent text from wrapping*/
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+    .navbar ul li {
+        margin: 0 15px;
+        position: relative;
+    }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 5px 0; /* Add padding for spacing */
+            position: relative; /* For underline effect */
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+            /* Hover effect with underline */
+            .navbar ul li a:hover {
+                background-color: rgb(92, 41, 53); /* Background color on hover */
+                color: white;
+            }
+
+            /* Underline effect */
+            .navbar ul li a::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                background-color: white;
+                left: 0;
+                bottom: 0;
+                transition: width 0.3s ease;
+            }
+
+            /* Expand underline on hover */
+            .navbar ul li a:hover::after {
+                width: 100%;
+            }
+
+/* Dropdown menu */
+ul li ul.dropdown {
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+    position: absolute;
+    left: 0;
+    top: 100%;
+    padding: 20px;
+    z-index: 999;
+    display: none;
+    border-radius: 5px; /* Add rounded corners for better look */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+
+    /* Dropdown items styling */
+    ul li ul.dropdown li {
+        margin: 0;
+        padding: 0px;
+        width: 200px;
+    }
+
+        ul li ul.dropdown li a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+            /* Hover effect on dropdown items */
+            ul li ul.dropdown li a:hover {
+                background-color: rgb(92, 41, 53); /* Match hover color with main links */
+            }
+
+/* Show dropdown on hover */
+ul li:hover ul.dropdown {
+    display: block;
+}
+
+/* Active link styling (emphasized color when clicked) */
+.navbar ul li a.active {
+    background-color: rgb(92, 41, 53); /* Background color for active link */
+    color: yellow; /* Emphasized text color */
+    font-weight: bold; /* Make the active link bold */
+}
+
+.navbar.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    
+}
+
+
+.content {
+    padding: 0;
+    /* Adjust margin to prevent content from hiding behind the fixed navbar */
+    /* Extra height to allow scrolling */
+}
+
+.search-border {
+    width: 100%;
+    height: 150%;
+    background: rgba(255, 246, 195, 0.74);
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.search-container {
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#search-input {
+    width: 800px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid#850000;
+    border-radius: 20px;
+    align-items: center;
+}
+
+#search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #850000;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+    #search-button:hover {
+        background-color: #850000;
+    }
+
+.overview-con {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    width: 100%;
+    height: 50vh; /* Adjusted to vh for better responsiveness */
+    background: #5c0303;
+}
+
+.overview-title {
+    color: #E8E6E6;
+    font-size: 40px;
+    font-family: Timmana;
+    font-weight: 400;
+    word-wrap: break-word;
+    align-items: center;
+    margin-right: 900px;
+    padding-top: 90px;
+}
+
+.overview-p {
+    color: white;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    text-align: justify;
+    align-items: center;
+    padding: 70px;
+    padding-top: 20px;
+}
+
+footer {
+    background-color: black;
+    color: #fff;
+    padding: 15px 80px;
+}
+
+/* Main Footer */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Space between the two columns */
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+    .footer-container > div {
+        flex-basis: 33%; /* Adjust this to control column width */
+        margin-bottom: 20px; /* Ensure spacing between rows on smaller screens */
+        padding: 20px;
+    }
+
+/* For footer bottom section to span full width */
+.footer-bottom {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.pup-website-info,
+.copyright {
+    width: 100%; /* Full width for smaller elements */
+}
+
+/* Responsive Design: Ensure everything stacks on small screens */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Stack elements in a column */
+        align-items: center;
+        text-align: center;
+    }
+
+        .footer-container > div {
+            flex-basis: 100%; /* Take full width on smaller screens */
+        }
+
+    .footer-bottom {
+        text-align: center;
+        flex-direction: column;
+    }
+}
+
+
+h3, h4, .copyright p {
+    margin-bottom: 15px;
+}
+
+ul li a, .contact p {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+ul {
+    padding-left: 30px;
+    list-style-type: disc;
+}
+
+    ul li a:hover {
+        text-decoration: underline;
+    }
+
+.online-services, .keep-in-touch, .quick-links {
+    margin-bottom: 20px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    margin-bottom: 75px;
+}
+
+    .social-icons a img {
+        width: 30px;
+        height: 30px;
+    }
+
+.contact a {
+    color: #fff;
+    text-decoration: none;
+}
+
+    .contact a:hover {
+        text-decoration: underline;
+    }
+
+.pup-website-info ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+    .pup-website-info ul li a:hover {
+        text-decoration: underline;
+    }
+
+.copyright {
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Government Footer */
+.gov-footer {
+    background-color: #282828;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding-left: 50px;
+    gap: 50px;
+}
+
+.gov-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.gov-info {
+    padding-top: 25px;
+}
+
+.gov-footer img {
+    width: 130px;
+    align-items: center;
+}
+
+.gov-info p {
+    font-size: 12px;
+    /* padding-left: 30px; */
+}
+
+.gov-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 200px;
+    /* padding-left: 100px; */
+}
+
+.gov-left-links ul, .gov-right-links ul {
+    padding: 0;
+    list-style: none;
+}
+
+    .gov-left-links ul li a, .gov-right-links ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 12px;
+    }
+
+        .gov-left-links ul li a:hover, .gov-right-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+.hero img {
+    height: auto;
+    width: 100%;
+    object-fit: cover
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+    z-index: 1;
+    padding-top: 100px;
+}
+
+/* search bar */
+.custom-search {
+    background-color: #FFFAE6; /* Match the background color */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.input-group {
+    width: 60%; /* Control width of the search bar */
+    position: relative;
+}
+
+.searchint {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border: 1px solid #8A0000; /* Border color */
+    z-index: 1; /* Make sure the input is above the button */
+}
+
+.btn-custom {
+    background-color: #8A0000; /* Button background color */
+    color: #FFD700; /* Button text color */
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border: 1px solid #8A0000; /* Match border color */
+    margin-left: -20px; /* Overlap effect */
+    z-index: 0; /* Make sure the button is slightly behind the input */
+    position: relative;
+}
+
+    .btn-custom:hover {
+        background-color: #FFDD44;
+        color: maroon;
+        border: 1px solid #8A0000;
+    }
+
+
+
+
+
+.articles, .events {
+    padding: 20px;
+}
+
+/* get started */
+.custom-button {
+    border: 2px solid maroon;
+    color: maroon;
+    background-color: #FFDD44;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0px 40px 10px 40px;
+}
+
+    .custom-button:hover {
+        background-color: maroon;
+        color: #FFDD44;
+    }
+
+.custom-anchor {
+    display: inline-block;
+    background-color: #FFDD44;
+    color: maroon;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 2px solid maroon;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    .custom-anchor:hover {
+        background-color: maroon;
+        color: #FFDD44;
+        text-decoration: none;
+    }
+
+.btn-container {
+    text-align: center;
+    padding: 0px;
+}
+
+.title h1 {
+    color: white;
+    font-size: 2.5rem;
+    padding: 1rem;
+}
+
+.contents h1 {
+    color: white;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.contents {
+    padding: 1rem;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+
+/* vission mission */
+
+
+/* footer */
+.footer-custom {
+    background-color: #8A0000;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.mission-container p, .mission-container ul li {
+    text-align: justify;
+}
+
+.mission {
+    color: white;
+}
+
+
+.pillar-box {
+    border: 3px solid #FFDB89; /* Thicker dark red border */
+    border-radius: 5px; /* Optional: round corners slightly */
+    text-align: left; /* Align text to the left inside boxes */
+}
+
+.h-100 {
+    max-height: auto;
+}

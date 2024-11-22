@@ -1,0 +1,153 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+*[b-b3us7x5cpc] {
+    font-family: 'Poppins', sans-serif;
+}
+
+body[b-b3us7x5cpc] {
+    background-color: #850000;
+}
+
+.navbar-custom[b-b3us7x5cpc] {
+    background-color: #850000;
+}
+
+a.navbar-brand[b-b3us7x5cpc] {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a[b-b3us7x5cpc] {
+    color: #0077cc;
+}
+
+.btn-primary[b-b3us7x5cpc] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-b3us7x5cpc], .nav-pills .show > .nav-link[b-b3us7x5cpc] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-b3us7x5cpc] {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom[b-b3us7x5cpc] {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-b3us7x5cpc] {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-b3us7x5cpc] {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.footer[b-b3us7x5cpc] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.research-management-office[b-b3us7x5cpc] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.polytechnic-university[b-b3us7x5cpc] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+    margin-top: -7px;
+}
+
+.navbar-nav .nav-item[b-b3us7x5cpc] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.memorandum-list[b-b3us7x5cpc] {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    .memorandum-list li[b-b3us7x5cpc] {
+        margin-bottom: 10px;
+        font-weight: 300;
+        color: white;
+    }
+
+    .memorandum-list .memorandum-link[b-b3us7x5cpc] {
+        color: white;
+        text-decoration: none;
+    }
+
+.memorandum-list a[b-b3us7x5cpc] {
+    color: white;
+    text-decoration: none;
+}
+
+.memorandum-list a:hover[b-b3us7x5cpc] {
+    text-decoration: underline;
+}
+
+.memotitle[b-b3us7x5cpc] {
+    margin: 20px 0px;
+}
+
+.memorandums-section[b-b3us7x5cpc] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: relative;
+    height: 40vh;
+    display: flex;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.btn.btn-dl[b-b3us7x5cpc] {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Make the text bold */
+    background-color: #FFDB89; /* Custom button background */
+    color: #850000; /* Button text color */
+    padding: 10px 30px; /* Custom padding */
+    border-radius: 43px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.memorandums-section h2[b-b3us7x5cpc], li[b-b3us7x5cpc] {
+    color: white;
+}
+
+.section[b-b3us7x5cpc] {
+    background-color: white;
+    min-height: 100vh;
+    margin: -24px 0px;
+    padding: 20px;
+}
+
+.modal-header[b-b3us7x5cpc], .modal-body[b-b3us7x5cpc] {
+    background-color: #850000;
+}
+
+.modal-title[b-b3us7x5cpc] {
+    color: white;
+}

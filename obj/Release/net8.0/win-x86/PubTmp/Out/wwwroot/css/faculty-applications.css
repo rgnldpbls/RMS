@@ -1,0 +1,62 @@
+body {
+    background-color: #E8E6E6;
+}
+
+.-header {
+    font-weight: 700;
+    font-size: 30px;
+    color: #850000;
+}
+
+.application-card {
+    border-radius: 15px;
+    background-color: #f7f7f7; /* Light background color */
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.application-card h5 {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.application-card p.subtitle {
+    color: #6c757d; /* Light gray for subtitle */
+    font-size: 0.9rem;
+}
+
+.application-card p.description {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.btn-application-status {
+    background-color: #870000; /* Dark red */
+    color: #fff;
+    border-radius: 8px;
+}
+
+.btn-application-status:hover {
+    background-color: #a00000; /* Slightly lighter red for hover */
+}
+
+
+.back-btn {
+    color: #850000;
+    border: #850000 solid 1px;
+    text-align: center;
+    align-items: center;
+    font-size: 16px;
+    margin-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 8px;
+}
+
+.btn:hover {
+    background-color: #ca0000;
+    color: #FFF;
+}
+

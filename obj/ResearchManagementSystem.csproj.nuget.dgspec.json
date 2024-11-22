@@ -114,10 +114,6 @@
               "target": "Package",
               "version": "[1.2.3, )"
             },
-            "TorchSharp-cpu": {
-              "target": "Package",
-              "version": "[0.103.1, )"
-            },
             "itext7": {
               "target": "Package",
               "version": "[8.0.5, )"

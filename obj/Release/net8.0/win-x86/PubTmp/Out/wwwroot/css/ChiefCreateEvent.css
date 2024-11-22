@@ -1,0 +1,116 @@
+﻿﻿﻿body {
+    background-color: #F1F0F0;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.title-section {
+    margin-top: 1.5rem;
+    margin-bottom: -15px;
+    padding: 0 15px;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-left: 1.6%;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    justify-content: normal;
+    align-items: flex-start; /* Align items at the top */
+    margin: 1.5rem auto;
+    padding: 15px;
+    background-color: #d3d3d3;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    min-height: 34.5rem;
+    max-width: 64rem; /* Adjust as needed for overall width */
+}
+
+.form-container {
+    max-width: 200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row; /* Make the left and right sections horizontal */
+    justify-content: space-between;
+    align-items: flex-start; /* Align items at the top */
+}
+
+.form-control, .form-select, #researcher {
+    margin-bottom: -2vh;
+    max-width: 62rem;
+    position: relative;
+}
+
+.form-header {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    margin: 0.5rem;
+    margin-left: 1vh;
+    margin-bottom: 0.5vh;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+#btn-publish {
+    background-color: #850000; /* Lighter color when inactive */
+    color: #FFFF;
+    font-weight: 600;
+    border-radius: 15px;
+    margin-top: 3%;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    text-align: center;
+}
+
+    #btn-publish:hover {
+        background-color: #85000094; /* Thicker/darker color when active */
+        color: #FFFF;
+    }
+
+#researcherDropdown .dropdown-menu {
+    width: 100%; /* Ensures dropdown matches button width */
+    position: absolute;
+    z-index: 1050; /* Keeps dropdown on top of other elements */
+    max-height: 200px; /* Limits height to make it scrollable if there are many options */
+    overflow-y: auto; /* Adds scroll if content is too long */
+    background-color: #f8f9fa; /* Light background color */
+    border: 1px solid #ced4da; /* Light border to match button */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Soft shadow for better visibility */
+}
+
+/* Style the "Select Researchers" button */
+.btn-researcher {
+    width: 99%;
+    border: none;
+}
+
+#researcherDropdownButton {
+    background-color: #8F8F8F;
+    color: #ffffff;
+}
+/* Adjust search input inside dropdown */
+#researcherSearch {
+    margin: 8px; /* Adds some space around the search input */
+    width: calc(100% - 16px); /* Ensures the input is nicely padded */
+}

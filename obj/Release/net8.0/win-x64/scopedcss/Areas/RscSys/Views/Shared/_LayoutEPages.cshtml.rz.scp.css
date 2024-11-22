@@ -1,0 +1,137 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+*[b-f1pz3kanr2] {
+    font-family: 'Poppins', sans-serif;
+}
+
+body[b-f1pz3kanr2] {
+    background-color: #850000;
+}
+
+.navbar-custom[b-f1pz3kanr2] {
+    background-color: #850000;
+}
+
+a.navbar-brand[b-f1pz3kanr2] {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a[b-f1pz3kanr2] {
+    color: #0077cc;
+}
+
+.btn-primary[b-f1pz3kanr2] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-f1pz3kanr2], .nav-pills .show > .nav-link[b-f1pz3kanr2] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-f1pz3kanr2] {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom[b-f1pz3kanr2] {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-f1pz3kanr2] {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-f1pz3kanr2] {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.footer[b-f1pz3kanr2] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.research-management-office[b-f1pz3kanr2] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.polytechnic-university[b-f1pz3kanr2] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+    margin-top: -7px;
+}
+
+.navbar-nav .nav-item[b-f1pz3kanr2] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.memorandum-list[b-f1pz3kanr2] {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    .memorandum-list li[b-f1pz3kanr2] {
+        margin-bottom: 10px;
+        font-weight: 300;
+        color: white;
+    }
+
+    .memorandum-list .memorandum-link[b-f1pz3kanr2] {
+        color: white;
+        text-decoration: none;
+    }
+
+.memotitle[b-f1pz3kanr2] {
+    margin: 20px 0px;
+}
+
+.memorandums-section[b-f1pz3kanr2] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: relative;
+    height: 40vh;
+    display: flex;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.btn.btn-dl[b-f1pz3kanr2] {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Make the text bold */
+    background-color: #FFDB89; /* Custom button background */
+    color: #850000; /* Button text color */
+    padding: 10px 30px; /* Custom padding */
+    border-radius: 43px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.memorandums-section h2[b-f1pz3kanr2], li[b-f1pz3kanr2] {
+    color: white;
+}
+
+.section[b-f1pz3kanr2] {
+    background-color: white;
+    min-height: 100vh;
+    margin: -24px 0px;
+    padding: 20px;
+
+}

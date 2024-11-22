@@ -1,0 +1,107 @@
+.submit-report-container[b-26ydw1nxz7] {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h3[b-26ydw1nxz7] {
+    font-weight: bold;
+    text-align: center;
+}
+
+.report-categories[b-26ydw1nxz7] {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.report-category:hover[b-26ydw1nxz7],
+.report-category:focus[b-26ydw1nxz7] {
+    background-color: #850000;
+    color: white;
+}
+
+.report-category[b-26ydw1nxz7] {
+    flex: 1;
+    padding: 3px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.generate[b-26ydw1nxz7] {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    text-decoration: none;
+}
+
+.submit[b-26ydw1nxz7] {
+    background-color: #8b0a0a;
+    color: white;
+    text-decoration: none;
+}
+
+.report-category h3[b-26ydw1nxz7] {
+    font-size: 16px;
+}
+
+hr[b-26ydw1nxz7] {
+    color: #850000;
+    border: 3px solid;
+    border-radius: 5px;
+}
+
+.search-section[b-26ydw1nxz7] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box[b-26ydw1nxz7] {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-btn[b-26ydw1nxz7] {
+    padding: 10px 20px;
+    background-color: #8b0a0a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .search-btn i[b-26ydw1nxz7] {
+        font-size: 18px;
+    }
+
+.document-table[b-26ydw1nxz7] {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .document-table th[b-26ydw1nxz7],
+    .document-table td[b-26ydw1nxz7] {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        height: 50px;
+    }
+
+    .document-table th[b-26ydw1nxz7] {
+        background-color: #850000;
+        color: white;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    .document-table td[b-26ydw1nxz7] {
+        height: 100%;
+    }

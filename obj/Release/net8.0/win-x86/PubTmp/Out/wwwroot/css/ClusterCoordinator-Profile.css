@@ -1,0 +1,114 @@
+﻿body {
+    background-color: #E8E6E6;
+}
+
+.card {
+    background-color: #E8E6E6;
+    border: none;
+}
+
+.mb-4 h2 {
+    text-align: left;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 40px;
+    color: #850000;
+}
+
+#user-info {
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.me-3 img {
+    border: #850000 solid 5px;
+}
+
+.nav {
+    display: flex;
+    border-bottom: solid 3px;
+    border-color: #850000;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+    .nav a {
+        font-weight: 500;
+        font-style: normal;
+        color: black;
+        text-decoration: none;
+    }
+
+.nav-pills .nav-link.active {
+    font-weight: bold;
+    color: #850000;
+    background-color: rgba(133, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.nav-pills .nav-link:hover {
+    font-weight: bold;
+    color: #850000;
+    border-radius: 12px;
+}
+
+.nav-link {
+    border-radius: 15px;
+    /* margin-right: 10px; */
+}
+
+#personal-info, #contact-details, #password {
+    background-color: #FFF;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+    #personal-info .mb-3, #contact-details .mb-3, #password .mb-3 {
+        padding: 12px;
+        font-size: 18px;
+        margin-bottom: 25px;
+        padding-left: 25px;
+        background-color: #FFF;
+        border-radius: 15px 15px 0px 00px;
+        box-shadow: 0 4px 4px rgba(75, 75, 75, 0.3);
+        font-weight: bold;
+    }
+
+form {
+    flex-direction: column;
+    gap: 1rem; /* Adds space between the elements */
+    width: 80%;
+    margin: auto; /* Centers the form */
+    padding: 1rem;
+}
+
+
+.btn {
+    font-weight: 600;
+    color: white;
+    font-size: 15px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#saveChangesModal {
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ffffffd7;
+    padding: 20px;
+    border: 1px solid #850000;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: 30px; /* changes */
+}

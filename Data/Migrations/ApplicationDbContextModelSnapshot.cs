@@ -240,7 +240,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("MembertwoId");
 
-                    b.ToTable("Production");
+                    b.ToTable("Production", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddCitation", b =>
@@ -318,7 +318,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("publicationId");
 
-                    b.ToTable("Citation");
+                    b.ToTable("Citation", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddFAQs", b =>
@@ -339,7 +339,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("added_by");
 
-                    b.ToTable("FAQs");
+                    b.ToTable("FAQs", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddPatent", b =>
@@ -363,7 +363,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Patent");
+                    b.ToTable("Patent", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddPresentation", b =>
@@ -414,7 +414,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Presentation");
+                    b.ToTable("Presentation", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddPublication", b =>
@@ -465,7 +465,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Publication");
+                    b.ToTable("Publication", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddUtilization", b =>
@@ -486,7 +486,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Utilization");
+                    b.ToTable("Utilization", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.ApplicationUser", b =>

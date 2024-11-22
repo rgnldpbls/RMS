@@ -1,0 +1,45 @@
+#body{
+    background: #E8E6E6;
+}
+.dashboardtxt{
+    font-family: "Poppins";
+    color: #850000;
+}
+.welcomefac{
+    color: black;
+    font-family: "Montserrat";
+}
+.submittedapp{
+    background: #374892;
+}
+.approvedapp{
+    background: #0D6B4A;
+}
+.rejectedapp{
+    background: #850000;
+}
+.totappnum{
+    color: #850000;
+}
+.iconfx{
+    background: rgb(133, 0, 0, 0.2);
+}
+.hoverfxlist:hover{
+    background: rgb(133, 0, 0, 0.2);
+}
+.centerh{
+    background-image: linear-gradient(45deg, #850000, #DC0000);
+    border: 7px solid #E8E6E6;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.centerh:hover{
+    border: 7px solid #FF4F4F;;
+}
+.listofapp{
+    font-size: 10px;
+}
+
+/*infodesk*/

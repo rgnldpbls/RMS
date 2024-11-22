@@ -1,0 +1,51 @@
+﻿#body {
+    background: #651424;
+}
+
+#section-title {
+    background: #FFDB89;
+    color: #651424;
+    font-weight: bold;
+    font-family: "Poppins";
+}
+
+#center-name {
+    background: #FFDB89;
+    font-weight: bold;
+    font-family: "Poppins";
+    color: #651424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#center-descrip {
+    font-family: "Inter";
+    color: white;
+    font-size: 15px;
+}
+
+#p-content {
+    font-family: "Inter";
+}
+
+#chief-name {
+    color: #FFDB89;
+    border-top: 1px solid #FFDB89;
+    border-bottom: 1px solid #FFDB89;
+    font-family: "Montserrat";
+}
+
+#chief-descrip {
+    font-family: "Inter";
+    border-top: 1px solid #FFDB89;
+}
+
+#sservices {
+    font-family: "Inter";
+    border: 1px solid #FFDB89;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

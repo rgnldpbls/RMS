@@ -1,0 +1,32 @@
+html[b-xj1g8xmrdl], body[b-xj1g8xmrdl] {
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-section[b-xj1g8xmrdl] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+}
+
+    .hero-section h1[b-xj1g8xmrdl] {
+        font-size: 60px;
+        margin: 0;
+        font-weight: bold;
+        color: #FFDB89;
+    }
+
+    .hero-section p[b-xj1g8xmrdl] {
+        font-size: 20px;
+        margin: 20px 0;
+    }
+
+    .hero-section .btn[b-xj1g8xmrdl] {
+        font-weight: bold;
+    }

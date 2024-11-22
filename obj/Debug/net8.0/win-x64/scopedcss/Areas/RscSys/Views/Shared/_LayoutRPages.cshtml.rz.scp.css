@@ -1,0 +1,135 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+*[b-u41b6yryjc] {
+    font-family: 'Poppins', sans-serif;
+}
+
+body[b-u41b6yryjc] {
+    background-color: #850000;
+}
+
+.navbar-custom[b-u41b6yryjc] {
+    background-color: #850000;
+}
+
+a.navbar-brand[b-u41b6yryjc] {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a[b-u41b6yryjc] {
+    color: #0077cc;
+}
+
+.btn-primary[b-u41b6yryjc] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-u41b6yryjc], .nav-pills .show > .nav-link[b-u41b6yryjc] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-u41b6yryjc] {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom[b-u41b6yryjc] {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-u41b6yryjc] {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-u41b6yryjc] {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.footer[b-u41b6yryjc] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.research-management-office[b-u41b6yryjc] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.polytechnic-university[b-u41b6yryjc] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+    margin-top: -7px;
+}
+
+.navbar-nav .nav-item[b-u41b6yryjc] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.hero-section[b-u41b6yryjc] {
+    background-image: url('../imgs/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: -20px;
+}
+
+    .hero-section[b-u41b6yryjc]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-section h1[b-u41b6yryjc] {
+        color: #FFDB89;
+    }
+
+.hero-content[b-u41b6yryjc] {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.btn.btn-apply[b-u41b6yryjc] {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: 600; /* Make the text bold */
+    background-color: #850000; /* Custom button background */
+    color: #F0F0F0; /* Button text color */
+    padding: 15px 40px; /* Custom padding */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+
+.nav-link.active-link[b-u41b6yryjc] {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Regienald Pueblos\.nuget\packages\</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.10.2</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="C:\Users\Regienald Pueblos\.nuget\packages\" />
+  </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)torchsharp\0.103.1\buildTransitive\net6.0\TorchSharp.props" Condition="Exists('$(NuGetPackageRoot)torchsharp\0.103.1\buildTransitive\net6.0\TorchSharp.props')" />
+    <Import Project="$(NuGetPackageRoot)libtorch-cpu-win-x64\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu-win-x64.props" Condition="Exists('$(NuGetPackageRoot)libtorch-cpu-win-x64\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu-win-x64.props')" />
+    <Import Project="$(NuGetPackageRoot)libtorch-cpu-osx-arm64\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu-osx-arm64.props" Condition="Exists('$(NuGetPackageRoot)libtorch-cpu-osx-arm64\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu-osx-arm64.props')" />
+    <Import Project="$(NuGetPackageRoot)libtorch-cpu-linux-x64\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu-linux-x64.props" Condition="Exists('$(NuGetPackageRoot)libtorch-cpu-linux-x64\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu-linux-x64.props')" />
+    <Import Project="$(NuGetPackageRoot)libtorch-cpu\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu.props" Condition="Exists('$(NuGetPackageRoot)libtorch-cpu\2.4.0\buildTransitive\netstandard2.0\libtorch-cpu.props')" />
+    <Import Project="$(NuGetPackageRoot)torchsharp-cpu\0.103.1\buildTransitive\net6.0\TorchSharp-cpu.props" Condition="Exists('$(NuGetPackageRoot)torchsharp-cpu\0.103.1\buildTransitive\net6.0\TorchSharp-cpu.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.ml\4.0.0\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml\4.0.0\build\netstandard2.0\Microsoft.ML.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.analyzers\3.3.4\buildTransitive\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.analyzers\3.3.4\buildTransitive\Microsoft.CodeAnalysis.Analyzers.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.10\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.10\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\8.0.10\build\net8.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\8.0.10\build\net8.0\Microsoft.EntityFrameworkCore.Design.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\8.0.10\build\Microsoft.AspNetCore.Identity.UI.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\8.0.10\build\Microsoft.AspNetCore.Identity.UI.props')" />
+  </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Regienald Pueblos\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.4</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgMicrosoft_CodeAnalysis_AnalyzerUtilities Condition=" '$(PkgMicrosoft_CodeAnalysis_AnalyzerUtilities)' == '' ">C:\Users\Regienald Pueblos\.nuget\packages\microsoft.codeanalysis.analyzerutilities\3.3.0</PkgMicrosoft_CodeAnalysis_AnalyzerUtilities>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Regienald Pueblos\.nuget\packages\microsoft.entityframeworkcore.tools\8.0.10</PkgMicrosoft_EntityFrameworkCore_Tools>
+    <PkgDocX Condition=" '$(PkgDocX)' == '' ">C:\Users\Regienald Pueblos\.nuget\packages\docx\3.0.1</PkgDocX>
+  </PropertyGroup>
+</Project>

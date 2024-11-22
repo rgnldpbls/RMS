@@ -1,8 +1,29 @@
 {
   "dependencies": {
+    "mssql2": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:rscSysfinalDbContextConnection"
+    },
+    "mssql3": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CreDbContextConnection"
+    },
+    "mssql4": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:RemcDBContext"
+    },
+    "mssql5": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CrdlDbContextConnection"
+    },
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:DefaultConnection"
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "dynamicId": null
     }
   }
 }

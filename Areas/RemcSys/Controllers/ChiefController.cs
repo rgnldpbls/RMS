@@ -1460,7 +1460,7 @@ namespace RemcSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadNotice(IFormFile file, string fraId)
+        public async Task<IActionResult> UploadNotice(IFormFile file, string fraId, double fundingAmount)
         {
             var fra = await _context.REMC_FundedResearchApplication.FindAsync(fraId);
             if(fra == null)
@@ -1492,8 +1492,9 @@ namespace RemcSys.Controllers
                 _context.REMC_FileRequirement.Add(fileRequirement);
             }
             fra.application_Status = "Proceed";
+            fra.total_project_Cost = fundingAmount;
             await _context.SaveChangesAsync();
-            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + "'s Notice to proceed already uploaded.", 
+            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + "'s Notice to proceed already uploaded and the Approved amount of funding is ₱ " + fundingAmount + ".", 
                 true, false, false, fra.fra_Id);
             await SendProceedEmail(fra.applicant_Email, fra.research_Title, fra.applicant_Name);
 
@@ -1936,7 +1937,7 @@ namespace RemcSys.Controllers
                     .Where(f => new[] {"Submitted", "UnderEvaluation","Approved"}.Contains(f.application_Status)
                         && DateOnly.FromDateTime(f.submission_Date) >= DateOnly.FromDateTime(startDate)
                         && DateOnly.FromDateTime(f.submission_Date) <= DateOnly.FromDateTime(endDate))
-                    .OrderBy(f => f.fra_Type)
+                    .OrderBy(f => f.submission_Date)
                     .ToListAsync();
 
                 if (application == null || !application.Any())
@@ -1969,7 +1970,14 @@ namespace RemcSys.Controllers
                         var involvement = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members.Select(_ => "Co-Lead"));
 
                         worksheet.Cells[row, 1].Value = item.dts_No;
-                        worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        if(item.college == null)
+                        {
+                            worksheet.Cells[row, 2].Value = item.branch;
+                        }
+                        if(item.college != null)
+                        {
+                            worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        }
                         worksheet.Cells[row, 3].Value = item.research_Title;
                         worksheet.Cells[row, 4].Value = item.fra_Type;
                         worksheet.Cells[row, 5].Value = item.applicant_Name + teamMembers;
@@ -2010,6 +2018,7 @@ namespace RemcSys.Controllers
             {
                 var evaluators = await _context.REMC_Evaluator
                     .Include(e => e.Evaluations)
+                    .OrderBy(e => e.evaluator_Name)
                     .ToListAsync();
 
                 if (evaluators == null || !evaluators.Any())
@@ -2623,7 +2632,7 @@ namespace RemcSys.Controllers
             {
                 var tuklas = await _context.REMC_FundedResearches
                     .Where(f => f.status == "Completed")
-                    .OrderBy(f => f.team_Leader)
+                    .OrderBy(f => f.research_Title)
                     .ToListAsync();
 
                 if (tuklas == null || !tuklas.Any())
@@ -2650,20 +2659,17 @@ namespace RemcSys.Controllers
                     worksheet.Cells["E2"].Value = "College/Branch";
                     worksheet.Cells["F2"].Value = "Field of Study";
                     worksheet.Cells["G2"].Value = "Email";
-                    worksheet.Cells["H2"].Value = "Research Co-Proponent/s";
-                    worksheet.Cells["I2"].Value = "Completion Date";
+                    worksheet.Cells["H2"].Value = "Completion Date";
 
-                    worksheet.Cells["A2:I2"].Style.Font.Bold = true;
-                    worksheet.Cells["A2:I2"].Style.Font.Size = 14;
-                    worksheet.Cells["A2:I2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheet.Cells["A2:I2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                    worksheet.Cells["A2:H2"].Style.Font.Bold = true;
+                    worksheet.Cells["A2:H2"].Style.Font.Size = 14;
+                    worksheet.Cells["A2:H2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheet.Cells["A2:H2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
 
                     // Add data to cells
                     int row = 3;
                     foreach (var item in tuklas)
                     {
-                        var teamMembers = item.team_Members.Contains("N/A") ? string.Empty : string.Join("/", item.team_Members);
-
                         worksheet.Cells[row, 1].Value = item.team_Leader;
                         worksheet.Cells[row, 2].Value = "Project Leader";
                         worksheet.Cells[row, 3].Value = item.research_Title;
@@ -2671,9 +2677,32 @@ namespace RemcSys.Controllers
                         worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
                         worksheet.Cells[row, 6].Value = item.field_of_Study;
                         worksheet.Cells[row, 7].Value = item.teamLead_Email;
-                        worksheet.Cells[row, 8].Value = teamMembers;
-                        worksheet.Cells[row, 9].Value = item.end_Date.ToString("MMMM d, yyyy");
+                        worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
                         row++;
+
+                        if (item.team_Members != null && item.team_Members.Any() && !item.team_Members.Contains("N/A"))
+                        {
+                            foreach (var member in item.team_Members)
+                            {
+                                var allUsers = await _userManager.Users.ToListAsync();
+
+                                foreach(var users in allUsers)
+                                {
+                                    if($"{users.FirstName} {users.MiddleName} {users.LastName}" == member)
+                                    {
+                                        worksheet.Cells[row, 1].Value = member;
+                                        worksheet.Cells[row, 2].Value = "Co-Proponent";
+                                        worksheet.Cells[row, 3].Value = item.research_Title;
+                                        worksheet.Cells[row, 4].Value = item.fr_Type;
+                                        worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
+                                        worksheet.Cells[row, 6].Value = item.field_of_Study;
+                                        worksheet.Cells[row, 7].Value = users.Email; // Assuming no email for team members
+                                        worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
+                                        row++;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     worksheet.Cells["A1:G1"].Style.Font.Bold = true;

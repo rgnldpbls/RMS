@@ -1,0 +1,793 @@
+﻿﻿body {
+    padding: 0;
+    margin: 0;
+    background-color: #e8e6e6;
+}
+
+.card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.card-body {
+    padding: 30px;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #333;
+}
+/* Title Section */
+.title-section {
+    margin: 2rem 0;
+    padding: 0 15px;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    margin-top: 20px;
+    text-align: left;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.title-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.header-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+/* Copy and edit button styles */
+#copybut, #editbut {
+    background-color: transparent; /* Dark red color */
+    border: none;
+    color: #850000;
+    padding: 8px 12px; /* Adjust padding as needed */
+    padding-top: -10px !important;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Add hover transition effect */
+}
+
+    #copybut:hover, #editbut:hover,
+    #copybut:active, #editbut:active,
+    #copybut:focus, #editbut:focus {
+        background-color: transparent; /* Same as the normal button color */
+        color: black; /* Same as the normal button color */
+        border-color: transparent;
+    }
+
+/* UREC No. and DTS No. text styles */
+#urecNoText, #dtsNoText {
+    font-size: 14px;
+    color: #333;
+    display: inline-block;
+    margin-right: 5px; /* Add some spacing between text and button */
+}
+
+#approve {
+    font-weight: bold;
+    color: white;
+    background-color: #0d6b4a;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+    #approve:hover {
+        color: white;
+        background-color: #28a745;
+    }
+
+#return {
+    font-weight: bold;
+    color: white;
+    background-color: #850000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+    #return:hover {
+        color: white;
+        background-color: #cc0000;
+    }
+
+.btn-back {
+    background-color: transparent;
+    border-color: #850000;
+    border-radius: 5px;
+    padding: 5px 50px;
+    font-weight: bold;
+    color: #850000;
+}
+
+    .btn-back:hover {
+        background-color: #FFDB89;
+        border-color: #FFDB89;
+        border-radius: 5px;
+        padding: 5px 50px;
+        font-weight: bold;
+        color: #850000;
+    }
+
+.btns {
+    margin-right: 10px;
+    font-weight: 600;
+    border-radius: 15px;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    height: 40px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    text-align: center;
+}
+
+#appDetails {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bolder;
+    font-size: 18px;
+    margin-bottom: 10px !important;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+    border: none;
+}
+
+    .list-group-item i {
+        margin-right: 10px;
+    }
+
+#red-background {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: #850000;
+    color: white;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Add transitions */
+    padding: 6px 30px;
+}
+
+
+    #red-background:hover {
+        background-color: red; /* Slightly darker red on hover */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Increase box-shadow on hover */
+    }
+
+    #red-background i {
+        color: white;
+        margin-right: 8px; /* Add some spacing between the icon and text */
+        transition: transform 0.3s ease; /* Add transition for icon transform */
+    }
+
+    #red-background:hover i {
+        transform: scale(1.1); /* Slightly enlarge the icon on hover */
+    }
+
+.card-header {
+    border-bottom: 1px solid #850000 !important; /* Dark red color */
+    padding: 25px 50px !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-outline-transparent {
+    background-color: transparent;
+    border-color: transparent;
+    color: #850000; /* Dark red color */
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+    .btn-outline-transparent:hover {
+        background-color: #850000; /* Dark red color */
+        color: white; /* White text color */
+    }
+
+
+
+/*MODAL DESIGN*/
+
+/* Modal styles */
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fa;
+}
+
+/* Modal header styles */
+.modal-header {
+    background-color: #850000; /* Dark red color */
+    color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 16px 24px;
+    border-bottom: none;
+}
+
+/* Modal title styles */
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Close button styles */
+.modal-header .close {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    padding: 0;
+    margin: -1rem -1rem -1rem auto;
+}
+
+    .modal-header .close:hover {
+        opacity: 1;
+        color: white;
+    }
+
+/* Modal styles */
+.modal-content {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+/* Modal header styles */
+.modal-header {
+    background-color: #850000; /* Dark red color */
+    color: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px 30px;
+    border-bottom: none;
+}
+
+    .modal-header .close {
+        color: #fff;
+        font-size: 24px;
+        font-weight: 700;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+    }
+
+        .modal-header .close:hover {
+            opacity: 1;
+        }
+
+/* Modal title styles */
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Modal body styles */
+.modal-body {
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+    /* Form elements */
+    .modal-body .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 10px;
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+
+    .modal-body .form-label {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+    }
+
+/* Modal footer styles */
+.modal-footer {
+    border-top: none;
+    padding: 20px 30px;
+    justify-content: flex-end;
+}
+
+    .modal-footer .btn {
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px;
+        padding: 10px 20px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .modal-footer .btn-secondary {
+        background-color: #f8f9fa;
+        color: #850000;
+    }
+
+        .modal-footer .btn-secondary:hover {
+            background-color: #e9ecef;
+            color: #850000;
+        }
+
+    .modal-footer .btn-primary {
+        background-color: #850000;
+        color: #fff;
+    }
+
+        .modal-footer .btn-primary:hover {
+            background-color: #680000;
+            color: #fff;
+        }
+
+/* Responsive styles */
+@media (max-width: 767px) {
+    .modal-dialog {
+        margin: 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+}
+
+.table-container {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.table {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 15px !important;
+    border-color: white;
+}
+
+    .table thead th {
+        background-color: #850000;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .table thead tr {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .table thead th:first-child {
+        border-top-left-radius: 15px;
+    }
+
+    .table thead th:last-child {
+        border-top-right-radius: 15px;
+    }
+
+    .table thead th {
+        text-align: center;
+        padding: 20px 15px;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+        padding: 20px 15px;
+        text-align: center;
+        word-wrap: break-word;
+        background-color: white;
+    }
+
+        .table tbody td:first-child {
+            border-bottom-left-radius: 15px;
+        }
+
+        .table tbody td:last-child {
+            border-bottom-right-radius: 15px;
+        }
+
+        .table tbody td.title-column,
+        .table tbody td.authors-column,
+        .table tbody td.status-column,
+        .table tbody td.date-column {
+            font-size: 18px;
+            padding: 20px 15px;
+            word-wrap: break-word;
+        }
+
+        .table tbody td.urec-column {
+            font-size: 20px;
+            padding: 20px 15px;
+            word-wrap: break-word;
+        }
+
+#viewBut {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+    #viewBut:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #viewBut#viewBut:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #viewBut::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    #viewBut:hover::after {
+        width: 300px;
+        height: 300px;
+    }
+
+
+/* Form Container */
+#issueApplicationForm {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-size: 16px;
+    }
+
+/* Select Input Styling */
+#applicationDecision {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    #applicationDecision:focus {
+        border-color: #850000;
+        box-shadow: 0 0 0 0.2rem rgba(133, 0, 0, 0.25);
+        outline: none;
+    }
+
+/* Textarea Styling */
+#remarks {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 150px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    #remarks:focus {
+        border-color: #850000;
+        box-shadow: 0 0 0 0.2rem rgba(133, 0, 0, 0.25);
+        outline: none;
+    }
+
+/* File Upload Styling */
+#uploadedFile {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #fff;
+    margin-top: 0.5rem;
+}
+
+    #uploadedFile:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
+/* Helper Text */
+.form-text {
+    color: #6c757d;
+    font-size: 12px;
+    margin-top: 0.25rem;
+}
+
+/* Submit Buttons */
+#formSubmitButton, #returnForAmendmentButton {
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    border: none;
+}
+
+#formSubmitButton {
+    background-color: #0d6b4a;
+    color: white;
+}
+
+    #formSubmitButton:hover {
+        background-color: #28a745;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+#returnForAmendmentButton {
+    background-color: #850000;
+    color: white;
+}
+
+    #returnForAmendmentButton:hover {
+        background-color: #cc0000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+/* Badge Styling */
+.badge {
+    display: inline-block;
+    padding: 0.5em 0.85em;
+    font-size: 0.95em;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Button Group Spacing */
+.mt-3 {
+    margin-top: 1rem;
+}
+/* Form Container */
+#issueApplicationForm {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-size: 16px;
+    }
+
+/* Select Input Styling */
+#applicationDecision {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    #applicationDecision:focus {
+        border-color: #850000;
+        box-shadow: 0 0 0 0.2rem rgba(133, 0, 0, 0.25);
+        outline: none;
+    }
+
+/* Textarea Styling */
+#remarks {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 150px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    #remarks:focus {
+        border-color: #850000;
+        box-shadow: 0 0 0 0.2rem rgba(133, 0, 0, 0.25);
+        outline: none;
+    }
+
+/* File Upload Styling */
+#uploadedFile {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #fff;
+    margin-top: 0.5rem;
+}
+
+    #uploadedFile:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
+/* Helper Text */
+.form-text {
+    color: #6c757d;
+    font-size: 12px;
+    margin-top: 0.25rem;
+}
+
+/* Submit Buttons */
+#formSubmitButton, #returnForAmendmentButton {
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    border: none;
+}
+
+#formSubmitButton {
+    background-color: #0d6b4a;
+    color: white;
+}
+
+    #formSubmitButton:hover {
+        background-color: #28a745;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+#returnForAmendmentButton {
+    background-color: #850000;
+    color: white;
+}
+
+    #returnForAmendmentButton:hover {
+        background-color: #cc0000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+/* Badge Styling */
+.badge {
+    display: inline-block;
+    padding: 0.5em 0.85em;
+    font-size: 0.95em;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Button Group Spacing */
+.mt-3 {
+    margin-top: 1rem;
+}
