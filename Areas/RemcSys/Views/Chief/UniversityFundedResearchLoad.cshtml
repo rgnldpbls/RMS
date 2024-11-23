@@ -1,0 +1,83 @@
+﻿@model IEnumerable<FundedResearch>
+@{
+    ViewData["Title"] = "University Funded Research Load";
+    Layout = "_NavChief1";
+}
+
+<div class="funded-research-container">
+    <div class="research-categories">
+        <a href="UniversityFundedResearch" class="UFR">
+            <div class="research-category inactive">
+                <h3>University Funded Research</h3>
+            </div>
+        </a>
+
+
+        <a href="ExternallyFundedResearch" class="EFR">
+            <div class="research-category inactive">
+                <h3>Externally Funded Research</h3>
+            </div>
+        </a>
+
+        <a href="UniversityFundedResearchLoad" class="UFRL">
+            <div class="research-category active">
+                <h3>University Funded Research Load</h3>
+            </div>
+        </a>
+
+    </div>
+    <h2 class="title">UNIVERSITY FUNDED RESEARCH LOAD</h2>
+    <hr />
+
+    @if(Model != null && Model.Any())
+    {
+        <div class="search-section">
+            <!-- Search Form -->
+            <form asp-controller="Chief" asp-action="UniversityFundedResearchLoad" method="get" class="form-inline mb-3">
+                <input type="text" name="searchString" class="search-box" placeholder="Search by Research Title" value="@ViewData["currentFilter"]" />
+                <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
+        <table class="document-table">
+            <thead>
+                <tr>
+                    <th>Research Work No.</th>
+                    <th>Research Work Details</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.fr_Id
+                        </td>
+                        <td class="research-details">
+                            <b>Research Title:</b> @item.research_Title<br />
+                            <b>Field of Study:</b> @item.field_of_Study
+                        </td>
+                        <td>
+                            @item.start_Date.ToString("MMMM d, yyyy")
+                        </td>
+                        <td>
+                            @item.status
+                        </td>
+                        <td>
+                            <a asp-action="ProgressReportList" asp-route-id="@item.fr_Id" class="edit-btn">
+                                <i class="bi bi-pencil-square" style="color:#000"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No University Funded Research Load yet.</p>
+    }
+</div>

@@ -1,0 +1,146 @@
+﻿body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.dashboard-teamleader {
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .search-bar input {
+        width: 80%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+.welcome-section h1 {
+    color: #850000;
+    font-size: 2.5rem;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 40px auto;
+}
+
+#calendar {
+    flex: 2;
+    width: 800px;
+    background-color: #f8f9fa; /* Light gray */
+    border-radius: 8px;
+    border: 2px solid #850000;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.upcoming-deadlines {
+    flex: 1;
+    background-color: #ffe6e6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    max-height: 550px;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+    .upcoming-deadlines h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.deadline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8d7da;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 50px;
+}
+
+.due-date {
+    background-color: #B22222;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+.attachments-section {
+    border: 2px solid #850000;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 10%;
+}
+
+    .attachments-section h2 {
+        color: #8B0000;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+.attachments-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.attachment-card {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    padding: 15px;
+    text-align: center;
+}
+
+.attachment-image {
+    background-color: #850000;
+    color: #fff;
+    border-radius: 5px;
+    height: 150px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.attachment-info p {
+    text-decoration: none;
+    color: #000;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.attachment-info .status {
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+/* Approved status color */
+.status.approved {
+    color: green;
+}
+
+/* Rejected or pending can have different colors */
+.status.rejected {
+    color: red;
+}

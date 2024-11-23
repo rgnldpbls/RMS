@@ -1,0 +1,28 @@
+﻿@page
+@model DownloadPersonalDataModel
+@{
+    ViewData["Title"] = "Download Your Data";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+<style>
+    .cat {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+        color: #850000;
+        font-weight: bolder;
+        font-family: "Poppins";
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #850000;
+    }
+</style>
+<div class="cat display-6 mb-3 pb-1">@ViewData["Title"]</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

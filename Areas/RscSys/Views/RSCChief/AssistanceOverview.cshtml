@@ -1,0 +1,76 @@
+﻿@model IEnumerable<rscSys_final.Models.AssistanceOverviewViewModel>
+@{
+    ViewData["Title"] = "Incentives Overview";
+    Layout = "_LayoutCPages";
+}
+
+<h1><strong>Number of Assistance Endorsed per College</strong></h1>
+
+<div class="mb-4">
+    <canvas id="approvedAssistanceBarChart"></canvas>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>College</th>
+            <th>Number of Assistance Endorsed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.College</td>
+                    <td>@item.NumberOfApprovedAssistance</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2" class="text-center">No data available</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('approvedAssistanceBarChart').getContext('2d');
+
+            var colleges = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.College)));
+            var numberOfAssistance = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.NumberOfApprovedAssistance)));
+
+            var approvedAssistanceBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: colleges,
+                    datasets: [{
+                        label: 'Number of Approved Assistance',
+                        data: numberOfAssistance,
+                        backgroundColor: 'rgba(25, 135, 84, 0.8)',
+                        borderColor: 'rgba(25, 135, 84, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: false,
+                                text: 'Number of Approved Assistance'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

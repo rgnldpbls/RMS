@@ -1,0 +1,38 @@
+﻿body {
+    background: #E8E6E6;
+}
+
+#title {
+    background: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 20px 20px 0px 0px;
+}
+
+#content {
+    background: white;
+    font-family: "Inter";
+    border-radius: 20px;
+}
+
+label, input {
+    font-family: "Inter";
+    color: black;
+}
+
+.form-control {
+    border: 1px solid #850000;
+}
+
+#dropdownMenuButton {
+    border: 1px solid #850000;
+    height: 37px;
+}
+
+#formcont {
+    border-radius: 0px 0px 20px 20px;
+}
+
+.form-control, .form-select {
+    border: 1px solid #850000;
+}

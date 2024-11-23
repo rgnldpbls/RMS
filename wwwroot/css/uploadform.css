@@ -1,0 +1,806 @@
+﻿
+/* Global Styles */
+body {
+    background-color: #E8E6E6;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Page Title */
+h1 {
+    font-size: 25px;
+    margin: 20px 0;
+    color: #850000;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+h2 {
+    color: #850000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 10px;
+}
+
+/* Card Styles */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+  
+}
+
+#yourup{
+    border-radius: 10px;
+}
+
+
+
+/* Header Card Specific Styles */
+#headercard {
+    background-color: #f8f8f8;
+    padding: 20px;
+}
+
+    /* Research Title and Info Section */
+    #headercard h4 {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    #headercard p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+/* UREC and DTS Number Styles */
+#urecNoText, #dtsNoText {
+    font-size: 14px;
+    color: #333;
+}
+
+
+/* Copy and Edit Button Styles */
+#copybut, #editbut {
+    background: transparent;
+    border: none;
+    color: #850000;
+    padding: 5px;
+}
+
+/* Container Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        margin: 10px;
+    }
+
+    #headercard {
+        padding: 15px;
+    }
+}
+
+/* Success Message Styles */
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+#attcard1 {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+#attcard2 {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.card-body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/*SUBMIT BUTTON*/
+
+.submit-button {
+    background-color: #850000;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(133, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+}
+
+    .submit-button:hover {
+        background-color: #a60000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(133, 0, 0, 0.3);
+    }
+
+    .submit-button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(133, 0, 0, 0.2);
+    }
+
+    .submit-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: transform 0.5s, opacity 0.3s;
+    }
+
+    .submit-button:hover::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+/* Track Application Button Styles */
+#trackApp {
+    display: inline-block;
+    background-color: #850000;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(133, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    text-decoration: none; /* Remove default link underline */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    #trackApp:hover {
+        background-color: #a60000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(133, 0, 0, 0.3);
+        color: white; /* Maintain white text on hover */
+        text-decoration: none; /* Remove hover underline */
+    }
+
+    #trackApp:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(133, 0, 0, 0.2);
+    }
+
+    #trackApp::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: transform 0.5s, opacity 0.3s;
+        pointer-events: none; /* Ensure the pseudo-element doesn't interfere with clicks */
+    }
+
+    #trackApp:hover::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    /* Optional: Add focus state for accessibility */
+    #trackApp:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(133, 0, 0, 0.3);
+    }
+
+    /* Optional: Add loading state styles */
+#trackApp.loading {
+    background-color: #6c0000;
+    cursor: wait;
+    pointer-events: none;
+}
+
+#resubmitButton {
+    background-color: #850000;
+}
+
+
+/* Form Group Container */
+.form-group {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(133, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(133, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .form-group:hover {
+        box-shadow: 0 4px 8px rgba(133, 0, 0, 0.2);
+    }
+
+    /* Labels */
+    .form-group label {
+        color: #850000;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: block;
+        font-size: 0.95rem;
+    }
+
+    .form-group .text-muted {
+        color: #666666 !important;
+        font-style: italic;
+    }
+
+    /* File Input Styling */
+    .form-group .form-control.pdf-upload {
+        border: 2px dashed rgba(133, 0, 0, 0.3);
+        padding: 0.75rem;
+        border-radius: 6px;
+        background-color: rgba(133, 0, 0, 0.02);
+        transition: all 0.3s ease;
+    }
+
+        .form-group .form-control.pdf-upload:hover {
+            border-color: #850000;
+            background-color: rgba(133, 0, 0, 0.05);
+        }
+
+        .form-group .form-control.pdf-upload:focus {
+            outline: none;
+            border-color: #850000;
+            box-shadow: 0 0 0 3px rgba(133, 0, 0, 0.1);
+        }
+
+    /* Buttons */
+    .form-group .btn {
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        margin-right: 0.5rem;
+        text-decoration: none;
+    }
+
+    .form-group .btn-primary {
+        background-color: #850000;
+        border-color: #850000;
+        color: white;
+    }
+
+        .form-group .btn-primary:hover {
+            background-color: #6a0000;
+            border-color: #6a0000;
+            transform: translateY(-1px);
+        }
+
+    .form-group .btn-secondary {
+        background-color: white;
+        border: 1px solid #850000;
+        color: #850000;
+    }
+
+        .form-group .btn-secondary:hover {
+            background-color: rgba(133, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
+
+    /* Validation Message */
+    .form-group .text-danger {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    /* Button Container */
+    .form-group p {
+        margin: 0;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+/* Condition Section Container */
+.condition-section {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(133, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(133, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .condition-section:hover {
+        box-shadow: 0 4px 8px rgba(133, 0, 0, 0.2);
+    }
+
+    /* Horizontal Rule */
+    .condition-section hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, rgba(133, 0, 0, 0.1), rgba(133, 0, 0, 0.3), rgba(133, 0, 0, 0.1));
+        margin: 1.5rem 0;
+    }
+
+    /* Question Paragraphs */
+    .condition-section p {
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    /* Strong Text */
+    .condition-section strong {
+        color: #850000;
+        font-weight: 600;
+        margin-right: 1rem;
+        flex: 1 1 100%;
+        font-size: 1rem;
+    }
+
+    /* Radio Button Labels */
+    .condition-section label {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        background-color: rgba(133, 0, 0, 0.02);
+        border: 1px solid rgba(133, 0, 0, 0.1);
+    }
+
+        .condition-section label:hover {
+            background-color: rgba(133, 0, 0, 0.05);
+            transform: translateY(-1px);
+        }
+
+    /* Radio Buttons */
+    .condition-section input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(133, 0, 0, 0.5);
+        border-radius: 50%;
+        margin-right: 8px;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .condition-section input[type="radio"]:checked {
+            border-color: #850000;
+            background-color: #ffffff;
+        }
+
+            .condition-section input[type="radio"]:checked::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 10px;
+                height: 10px;
+                background-color: #850000;
+                border-radius: 50%;
+                animation: radioScale 0.2s ease;
+            }
+
+/* Minors Question Section */
+#minors-question {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid rgba(133, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    #minors-question.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+/* Animation for Radio Button Check */
+@keyframes radioScale {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .condition-section p {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .condition-section label {
+        margin: 0.25rem 0;
+    }
+
+    #minors-question {
+        margin-left: 0;
+        padding-left: 0.5rem;
+    }
+}
+
+/* Form Group Styling for Ethics Forms */
+.ethics-forms-container > div {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(133, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(133, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.ethics-forms-container > div:hover {
+    box-shadow: 0 4px 8px rgba(133, 0, 0, 0.2);
+}
+
+/* Labels */
+.ethics-forms-container label {
+    color: #850000;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.ethics-forms-container label[for^="edit"] {
+    color: #666666 !important;
+    font-style: italic;
+}
+
+/* File Input Styling */
+.ethics-forms-container .form-control.pdf-upload {
+    border: 2px dashed rgba(133, 0, 0, 0.3);
+    padding: 0.75rem;
+    border-radius: 6px;
+    background-color: rgba(133, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+
+.ethics-forms-container .form-control.pdf-upload:hover {
+    border-color: #850000;
+    background-color: rgba(133, 0, 0, 0.05);
+}
+
+.ethics-forms-container .form-control.pdf-upload:focus {
+    outline: none;
+    border-color: #850000;
+    box-shadow: 0 0 0 3px rgba(133, 0, 0, 0.1);
+}
+
+/* Buttons */
+.ethics-forms-container .btn {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+    text-decoration: none;
+}
+
+.ethics-forms-container .btn-primary {
+    background-color: #850000;
+    border-color: #850000;
+    color: white;
+}
+
+.ethics-forms-container .btn-primary:hover {
+    background-color: #6a0000;
+    border-color: #6a0000;
+    transform: translateY(-1px);
+}
+
+.ethics-forms-container .btn-secondary {
+    background-color: white;
+    border: 1px solid #850000;
+    color: #850000;
+}
+
+.ethics-forms-container .btn-secondary:hover {
+    background-color: rgba(133, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Validation Message */
+.ethics-forms-container .text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Button Container */
+.ethics-forms-container p {
+    margin: 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* File Upload Button */
+.ethics-forms-container .form-control.pdf-upload::-webkit-file-upload-button {
+    background-color: #850000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ethics-forms-container .form-control.pdf-upload::-webkit-file-upload-button:hover {
+    background-color: #6a0000;
+}
+
+/* Edit Mode Specific Styles */
+.ethics-forms-container input[id^="edit"].form-control.pdf-upload {
+    border-color: rgba(102, 102, 102, 0.3);
+}
+
+.ethics-forms-container input[id^="edit"].form-control.pdf-upload::-webkit-file-upload-button {
+    background-color: #666666;
+}
+
+.ethics-forms-container input[id^="edit"].form-control.pdf-upload::-webkit-file-upload-button:hover {
+    background-color: #555555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ethics-forms-container > div {
+        padding: 1rem;
+    }
+    
+    .ethics-forms-container .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+
+/* Icon Button Base Styles */
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #850000;
+    background-color: white;
+    color: #850000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-icon i {
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-icon:hover {
+        background-color: #850000;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(133, 0, 0, 0.2);
+    }
+
+    .btn-icon:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Shine effect */
+    .btn-icon::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: transform 0.5s, opacity 0.3s;
+        pointer-events: none;
+    }
+
+    .btn-icon:hover::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    .btn-icon:hover i {
+        transform: scale(1.1);
+    }
+
+    /* Focus state */
+    .btn-icon:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(133, 0, 0, 0.3);
+    }
+
+/* Tooltip styles */
+.btn-icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+    .btn-icon-wrapper::before {
+        content: 'Download';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 6px 10px;
+        background-color: #333;
+        color: white;
+        font-size: 12px;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 5px;
+    }
+
+    .btn-icon-wrapper:hover::before {
+        opacity: 1;
+        visibility: visible;
+    }
+
+/* Update document actions container */
+.document-actions {
+    display: flex;
+    gap: 12px;
+   
+    align-items: center;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.ms-2 {
+    margin-left: 8px;
+}
+
+.red-background {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: #850000;
+    color: white;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .red-background i {
+        color: white;
+    }
+
+/* Modal styling */
+.modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Modal header styling */
+.modal-header {
+    background-color: #850000 !important;
+    color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Input styling */
+.form-control {
+    border-color: #850000;
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #a90000;
+        box-shadow: 0 0 5px rgba(133, 0, 0, 0.3);
+    }
+
+/* Button styling */
+.btn-primary {
+    background-color: #850000;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #a90000;
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+/* Error message styling */
+#errorMessages,
+#dtsNoError {
+    font-size: 0.9rem;
+}
+
+/* Padding and spacing adjustments */
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-footer {
+    border-top: none;
+    padding-top: 0;
+}

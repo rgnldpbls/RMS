@@ -1,0 +1,140 @@
+﻿/* Main Container Styles */
+.container {
+    padding: 2rem 3.5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Card Styles */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-header {
+    background-color: #850000;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Typography Styles */
+h2 {
+    color: #850000;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+h4 {
+    color: #333333;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    color: #333333;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+    p strong {
+        color: #850000;
+        font-weight: 600;
+    }
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+    .form-group label {
+        display: block;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 0.5rem;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #850000;
+        box-shadow: 0 0 0 0.2rem rgba(133, 0, 0, 0.15);
+        outline: none;
+    }
+
+/* Button Styles */
+.btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary {
+    background-color: #850000;
+    color: #ffffff;
+    border-bottom: 3px solid #5a0000;
+}
+
+    .btn-primary:hover {
+        background-color: #6b0000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        border-bottom-color: #3b0000;
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-bottom-color: #1c0000;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+}

@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "Accomplishments";
+    Layout = "Faculty_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+
+<div>
+
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Publication Details</div>
+
+            </div>
+        </div>
+        <div class="row shadow p-4" id="formcont">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Article/Title:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Article/Title</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Date of Publication:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Date of Publication</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Title of Journal Publication:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Title of Journal Publication</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Document Type:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Document Type</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Vol. No. & Issue No.:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Vol. No. & Issue No.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>ISSN/ISBN/ESSN:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>ISSN/ISBN/ESSN</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>DOI:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>DOI</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Indicate Where the Journal is Index:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Indicate Where the Journal is Index</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Supporting Documents:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Supporting Documents</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Link:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Link</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Manuscript in Journal Format:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">Manuscript in Journal Format.pdf</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--delete modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Delete Publication Details</h2>
+                    <p id="content">Are you sure you want to delete the publication details for research titled "[Research Title]"?</p>
+                    <strong id="content">This action cannot be undone.</strong>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

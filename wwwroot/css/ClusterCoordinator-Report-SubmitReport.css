@@ -1,0 +1,68 @@
+body{
+    background: #E8E6E6;
+}
+#title{
+    background: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 20px;
+}
+#smaller-container {
+    width: 100%;
+    background: white;
+    font-family: "Inter";
+    border-radius: 20px;
+}
+#smaller-container:hover{
+    background: rgb(133, 0, 0, 0.2);
+}
+.nnvb {
+    border-bottom: 2px solid #850000;
+}
+
+.itm:hover {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.itm-active {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+#aactive {
+    color: #850000;
+    font-weight: bold;
+}
+
+#inaactive {
+    color: black;
+}
+label, input{
+    font-family: "Inter";
+    color: black;
+}
+
+.form-control{
+    border: 1px solid #850000;
+}
+.report{
+    background: #850000;
+    border-radius: 15px;
+    height: 50px;
+    padding: 0px 30px;
+    color: white;
+    font-family: "Inter";
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+    transition: ease-in-out .1s
+}
+.report:hover{
+    background: #560000;
+}
+#dropdownMenuButton{
+    border: 1px solid #850000;
+    height: 37px;
+}

@@ -1,0 +1,75 @@
+﻿@model Tuple<List<ResearchManagementSystem.Models.AddAccomplishment.AccomplishmentViewModel>, List<ResearchManagementSystem.Models.AddAccomplishment.AccomplishmentViewModel>>
+@{
+    Layout = "RMCC_Layout";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Research Title</th>
+            <th>Lead Researcher</th>
+            <th>Email</th>
+            <th>College</th>
+            <th>Branch</th>
+            <th>Date Started</th>
+            <th>Date Completed</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Item1 != null && Model.Item1.Any())
+        {
+            @foreach (var item in Model.Item1)
+            {
+                <tr>
+                    <td>@item.ResearchTitle</td>
+                    <td>@item.LeadResearcherName</td>
+                    <td>@item.LeadResearcherEmail</td>
+                    <td>@item.College</td>
+                    <td>@item.BranchCampus</td>
+                    <td>@item.DateStarted.ToShortDateString()</td>
+                    <td>@item.DateCompleted?.ToShortDateString()</td>
+                    <td>
+                        <form asp-action="Approve" method="post">
+                            <input type="hidden" value="@item.ResearchTitle" name="researchTitle" />
+                            <button class="btn btn-success" type="submit">Approve</button>
+                        </form>
+                        <form asp-action="Reject" method="post">
+                            <input type="hidden" value="@item.ResearchTitle" name="researchTitle" />
+                            <button class="btn btn-danger" type="submit">Reject</button>
+                        </form>
+                        @* <a asp-action="Approve" asp-route-item="@item.ResearchTitle" class="btn btn-success">Approve</a>
+                <a asp-action="Reject" asp-route-item="@item.ResearchTitle" class="btn btn-danger">Reject</a> *@
+                    </td>
+                </tr>
+            }
+        }
+        @if(Model.Item2 != null && Model.Item2.Any())
+        {
+            @foreach (var item in Model.Item2)
+            {
+                <tr>
+                    <td>@item.ResearchTitle</td>
+                    <td>@item.LeadResearcherName</td>
+                    <td>@item.LeadResearcherEmail</td>
+                    <td>@item.College</td>
+                    <td>@item.BranchCampus</td>
+                    <td>@item.DateStarted.ToShortDateString()</td>
+                    <td>@item.DateCompleted?.ToShortDateString()</td>
+                    <td>
+                        <form asp-action="Approve" method="post">
+                            <input type="hidden" value="@item.ResearchTitle" name="researchTitle" />
+                            <button class="btn btn-success" type="submit">Approve</button>
+                        </form>
+                        <form asp-action="Reject" method="post">
+                            <input type="hidden" value="@item.ResearchTitle" name="researchTitle" />
+                            <button class="btn btn-danger" type="submit">Reject</button>
+                        </form>
+                        @* <a asp-action="Approve" asp-route-item="@item.ResearchTitle" class="btn btn-success">Approve</a>
+                <a asp-action="Reject" asp-route-item="@item.ResearchTitle" class="btn btn-danger">Reject</a> *@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

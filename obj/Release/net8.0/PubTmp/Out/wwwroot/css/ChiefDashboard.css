@@ -1,0 +1,469 @@
+﻿body {
+    background-color: #F1F0F0;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.title-section {
+    margin: 2rem 0;
+    padding: 0 15px;
+    position: relative;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-bottom: 0%;
+    margin-left: 1.5%;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.Pending, .Ongoing, .Expired, .Terminated, .Upcoming, .Finished {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.Terminated,.Finished {
+    background-color: #850000;
+    color: #FFDB89;
+}
+
+.Expired,.Upcoming {
+    background-color: #FFDB89;
+    color: #850000;
+}
+
+.Ongoing {
+    background-color: #0D6B4A;
+    color: #FFDB89;
+}
+
+.Pending {
+    background-color: #525252;
+    color: #FFDB89;
+}
+
+.bottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Controls spacing between top and bottom sections */
+    width: 60%;
+    height:22rem;
+    margin-left:5.5vh;
+    margin-top: 20px;
+    background-color: #d3d3d3;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom:20px;
+}
+.right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 32.5%;
+    height: 22rem;
+    margin-left: 5vh;
+    margin-top: 20px;
+    background-color: #d3d3d3;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.top-section,
+.bottom-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: left; /* Distributes cards evenly */
+    gap: 20px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 1.5vh;
+    margin-left: 1vh;
+}
+.upper, .content-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Distributes cards evenly */
+    width: 95%;
+    gap:5px;
+}
+@media(max-width:1380px){
+    .upper {
+        width: 98%;
+        margin-bottom:3vh;
+    }
+    .content-row {
+        width: 100%;
+        margin-left: -2vh;
+        margin-bottom:2vh;
+    }
+
+    .right-container {
+        width: 32%;
+    }
+
+}
+
+.card-footer {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: #4e73df;
+    border-top: 1px solid #e3e6f0;
+    margin-top: 10px;
+}
+
+.quick-access {
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin-left: -100px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    word-break:break-word;
+}
+.card {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 180px; /* Set fixed width for each card */
+}
+
+.chart-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+
+.chart {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin: 20px 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.chart .card-footer{
+    width:20rem;
+    margin-left:-3vh;
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+    color: #5B0404;
+}
+
+.card-footer {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 0 0 10px 10px;
+    position:relative;
+}
+
+.pie-chart {
+    height: 100%;
+    width: 100%;
+}
+
+#calendar {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+
+
+.quick-access {
+    align-content: center;
+    background-color: #e6d3c0;
+    margin-left:2%;
+    border-radius: 10px;
+    width: 450px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .quick-access h3 {
+        font-size: 1.5rem;
+        font-weight:800;
+        color: #850000;
+        margin-bottom: 15px;
+        margin-left:2vh;
+    }
+
+    .quick-access ul {
+        width: 320px;
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .quick-access li {
+        margin-bottom: 15px;
+    }
+
+    .quick-access a {
+        display: flex;
+        align-items: center;
+        background-color: #ffffff;
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #850000;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+        .quick-access a:hover {
+            background-color: #ffdb89;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-access a .icon {
+            background-color: #fff;
+            color: #850000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .quick-access a .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .quick-access a span,
+        .quick-access a strong {
+            color: #000;
+            margin: 0;
+        }
+
+
+        .quick-access a span {
+            font-size: 9px;
+            margin-right: 50px;
+        }
+
+        .quick-access a strong {
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 50px;
+        }
+
+        .quick-access a i.bi-chevron-right {
+            font-size: 1.2rem;
+            color: #850000;
+            margin-left: auto;
+        }
+
+.fc-toolbar-title {
+    font-size: 1.5em !important;
+    font-weight: bold !important;
+    color: #4e73df;
+}
+
+.fc-event {
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+/* Style and align the header buttons */
+@media (max-width: 768px) {
+    .fc-header-toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .fc-toolbar-chunk {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+    .modal .event-details {
+        padding: 15px;
+    }
+
+        .modal .event-details h3 {
+            color: #4e73df;
+            margin-bottom: 15px;
+        }
+
+        .modal .event-details p {
+            margin-bottom: 10px;
+        }
+
+
+    .fc-button {
+        background-color: #850000; /* Matches your chosen color */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .fc-button:hover {
+            background-color: #a30000; /* Darken color on hover */
+        }
+
+    /* Style Add Event button differently if needed */
+    .fc-addEventButton-button {
+        background-color: #ff943d; /* Or any other color you prefer */
+        color: #fff;
+        border-radius: 5px;
+        width: 6.8rem;
+        margin-left: -10vh;
+    }
+
+    .fc-daygrid-event {
+        white-space: normal !important;
+        align-items: normal !important;
+    }
+
+    /* Adjust calendar title spacing and font style */
+    .fc-daygrid-day-number {
+        color: black; /* Day numbers color */
+    }
+    /* Add these styles in your CSS file */
+
+    /* Custom Dropdown Styling */
+    .dropdown-toggle {
+        background-color: transparent;
+        border: 1px solid white;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+        .dropdown-toggle:hover, .dropdown-toggle:focus {
+            background-color: rgba(255, 255, 255, 0.2); /* Slight white on hover */
+        }
+
+    .dropdown-menu {
+        background-color: #850000;
+        border: 1px solid white;
+        border-radius: 0;
+    }
+
+    .dropdown-item {
+        color: white;
+    }
+
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Slight white background on hover */
+        }
+
+
+
+
+    .modal-content {
+        background-color: #850000; /* Deep red background */
+        border-radius: 15px;
+        padding: 20px;
+        color: #fff; /* White text */
+    }
+
+    .modal-header {
+        border-bottom: none; /* Remove the border at the bottom of the header */
+    }
+
+    .modal-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-align: center;
+        width: 250%;
+    }
+
+    .btn-close {
+        color: #fff;
+        background-color: transparent;
+        border: none;
+        font-size: 1rem;
+    }
+
+    .modal-body .btn-custom {
+        background-color: #FFDB89; /* Light yellow background */
+        color: #850000; /* Deep red text */
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.10rem;
+        border-radius: 30px;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+        .modal-body .btn-custom:hover {
+            background-color: #fcd96d; /* Slightly darker yellow on hover */
+        }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .modal-footer {
+        border-top: none; /* Remove border at the top of the footer */
+    }
+    /* Remove bottom border from the modal header */
+    #analyzeSentimentModal .custom-modal-header {
+        border-bottom: none;
+    }
+
+    #analyzeSentimentModal .form-label {
+        font-weight: 500;
+        font-family: Montserrat;
+    }
+    /* Set background color for the modal */
+    .custom-modal-content {
+        background-color: #850000;
+        color: #fff; /* Optional: Set text color to white for contrast */
+    }
+
+    /* Custom button style */
+    .custom-btn {
+        background-color: #FFDB89;
+        color: #850000;
+        border: none;
+        font-family: 'Poppins';
+        font-weight: 800;
+    }
+
+        /* Button hover effect */
+        .custom-btn:hover {
+            background-color: #FFD76A;
+            color: #850000;
+        }
+
+    #analyzeSentimentModal .btn-close {
+        color: white;
+        font-weight: 900;
+    }
+

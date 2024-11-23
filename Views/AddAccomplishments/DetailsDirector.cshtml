@@ -1,0 +1,441 @@
+﻿@model ResearchManagementSystem.Models.AddAccomplishment
+
+@{
+    ViewData["Title"] = "Details";
+
+    Layout = "Director";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+<link href="~/css/ClusterCoordinator-accomplishmentlist.css" rel="stylesheet" />
+<style>
+    td, th {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cat {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+        color: #850000;
+        font-weight: bolder;
+        font-family: "Poppins";
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #title{
+        background:#850000;
+        color: white;
+    }
+</style>
+<div>
+
+
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Production Details</div>
+
+            </div>
+        </div>
+        <dl class="row shadow p-4" id="formcont">
+            <!--research Title-->
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ResearchTitle)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ResearchTitle)
+            </dd>
+            <!--year-->
+            <dt class="col-sm-2">
+                Year
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+
+            <!--Lead Researcher-->
+            <dt class="col-sm-2">
+                Lead Researcher
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LeadResearcher.Id)
+            </dd>
+
+            <!--Co-Lead Researcher-->
+            <dt class="col-sm-2">
+                Co-Lead Researcher
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CoLeadResearcher.Id)
+            </dd>
+
+            <!--Member 1-->
+            <dt class="col-sm-2">
+                Member 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Memberone.Id)
+            </dd>
+
+            <!--Member 2-->
+            <dt class="col-sm-2">
+                Member 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Membertwo.Id)
+            </dd>
+
+            <!--Member 3-->
+            <dt class="col-sm-2">
+                Member 3
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Memberthree.Id)
+            </dd>
+
+            <!--College-->
+            <dt class="col-sm-2">
+                College
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.College)
+            </dd>
+
+            <!--Department-->
+            <dt class="col-sm-2">
+                Department
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+
+            <!--Funding Agency-->
+            <dt class="col-sm-2">
+                Funding Agency
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FundingAgency)
+            </dd>
+
+            <!--Funding Amount-->
+            <dt class="col-sm-2">
+                Funding Amount
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FundingAmount)
+            </dd>
+
+            <!--Date Started-->
+            <dt class="col-sm-2">
+                Date Started
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateStarted)
+            </dd>
+
+            <!--Date Completed-->
+            <dt class="col-sm-2">
+                Date Completed
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateCompleted)
+            </dd>
+
+            <!--SO/Abstract-->
+            <dt class="col-sm-2">
+                Manuscript
+            </dt>
+            <dd class="col-sm-10">
+
+                @if (Model.RequiredFile1Data != null)
+
+                {
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile1Data" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.RequiredFile1Name)
+                    </a>
+                }
+            </dd>
+            <!--Manuscript-->
+            <dt class="col-sm-2">
+                Manuscript
+            </dt>
+            <dd class="col-sm-10">
+
+                @if (Model.RequiredFile2Data != null)
+                {
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile2Data" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.RequiredFile2Name)
+                    </a>
+                }
+            </dd>
+
+            <!--Ethics Clearance-->
+            <dt class="col-sm-2">
+                Ethics Clearance
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.RequiredFile3Data != null)
+                {
+
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile3Data" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.RequiredFile3Name)
+                    </a>
+
+                }
+            </dd>
+
+            <!--Certificate of Agreement-->
+            <dt class="col-sm-2">
+                Certificate of Agreement
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.ConditionalFileData != null)
+                {
+
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="ConditionalFileData" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.ConditionalFileName)
+                    </a>
+
+                }
+            </dd>
+
+            <!--Is Student Involved?-->
+            <dt class="col-sm-2">
+                Is Student Involved?
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsStudentInvolved)
+            </dd>
+
+            <!--Notes-->
+            <dt class="col-sm-2">
+                Notes
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+            <!--Created On-->
+            <dt class="col-sm-2">
+                Created On
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedOn)
+            </dd>
+        </dl>
+    </div>
+
+    <!--presentation-->
+    <div class="cat display-6 mt-4 pb-1">Presentation</div>
+    <!--table-->
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent text-white" scope="col">Organizer</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">Date</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">Venue</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AddPresentations != null && Model.AddPresentations.Any())
+                {
+
+                    foreach (var presentation in Model.AddPresentations)
+
+                    {
+                        <tr class="align-middle">
+                            <td class="p-4 bg-transparent" scope="row">@presentation.OrganizerOne</td>
+                            <td class="p-4 bg-transparent">@presentation.DateofPresentation?.ToString("d")</td>
+                            <td class="p-4 bg-transparent">@presentation.Venue</td>
+                            <td class="p-4 bg-transparent">
+                                @if (presentation.CertificateofParticipationFileData != null) // Check for file data
+                                {
+                                    <a role="button" class="btn btn-danger btn-sm me-2" asp-action="DownloadFilePresentation" asp-route-id="@presentation.ConferenceId" asp-route-fileType="CertificateofParticipationFileData">
+                                        Download Certificate of Participation
+                                    </a>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="align-middle">
+                        <td class="p-4 bg-transparent">No presentations available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Publications Table -->
+    <div class="cat display-6 mt-4 pb-1">Publication</div>
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent text-white" scope="col">Article Title</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">Date of Publication</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">Journal Title</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AddPublications != null && Model.AddPublications.Any())
+                {
+
+                    foreach (var publication in Model.AddPublications)
+
+                    {
+                        <tr class="align-middle">
+                            <td class="p-4 bg-transparent" scope="row">@publication.ArticleTitle</td>
+                            <td class="p-4 bg-transparent">@publication.PublicationDate?.ToString("d")</td>
+                            <td class="p-4 bg-transparent">@publication.JournalPubTitle</td>
+                            <td class="p-4 bg-transparent">
+                                @if (publication.ManuscriptJournalData != null) // Check for file data
+                                {
+                                    <a role="button" class="btn btn-danger btn-sm me-2" asp-action="DownloadFilePublication" asp-route-id="@publication.publicationId" asp-route-fileType="ManuscriptJournalFile">
+                                        Download Manuscript Journal
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="align-middle">
+                        <td class="p-4 bg-transparent">No publications available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Utilization Table -->
+    <div class="cat display-6 mt-4 pb-1">Utilization</div>
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent text-white" scope="col">File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AddUtilizations != null && Model.AddUtilizations.Any())
+                {
+
+                    foreach (var utilization in Model.AddUtilizations)
+
+                    {
+                        <tr class="align-middle">
+
+                            <td class="p-4 bg-transparent" scope="row">
+                                @if (utilization.CertificateofUtilizationData != null) // Check for file data
+                                {
+                                    <a role="button" class="btn btn-danger btn-sm me-2" asp-action="DownloadFileUtilization" asp-route-id="@utilization.UtilizationId" asp-route-fileType="CertificateofUtilizationFile">
+                                        Download Certificate of Utilization
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="align-middle">
+                        <td class="p-4 bg-transparent">No Utilization available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Patent Table -->
+    <div class="cat display-6 mt-4 pb-1">Patent</div>
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent text-white" scope="col">File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AddPatents != null && Model.AddPatents.Any())
+                {
+
+                    foreach (var patent in Model.AddPatents)
+
+                    {
+                        <tr class="align-middle">
+
+                            <td class="p-4 bg-transparent" scope="row">
+                                @if (patent.ApplicationFormData != null) // Check for file data
+                                {
+                                    <a role="button" class="btn btn-danger btn-sm me-2" asp-action="DownloadFilePatent" asp-route-id="@patent.patentId" asp-route-fileType="ApplicationFormFile">
+                                        Download Certificate of Utilization
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="align-middle">
+                        <td class="p-4 bg-transparent">No Patent available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!--citation-->
+    <div class="cat display-6 mt-4 pb-1">Citation</div>
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
+                <tr class="align-middle">
+
+                    <th class="p-4 bg-transparent text-white" scope="col">File</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.AddCitations != null && Model.AddCitations.Any())
+                {
+
+                    foreach (var citation in Model.AddCitations)  @* Changed 'patent' to 'citation' *@
+                    {
+                        <tr class="align-middle">
+                            <td class="p-4 bg-transparent" scope="row">
+                                @if (citation.CitationProofData != null)
+                                {
+                                    <a role="button" class="btn btn-danger btn-sm me-2" asp-action="DownloadFileCitation" asp-route-id="@citation.CitationId" asp-route-fileType="CitationProof">
+                                        Download Certificate of Citation
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="align-middle">
+                        <td class="p-4 bg-transparent">No Citations available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+

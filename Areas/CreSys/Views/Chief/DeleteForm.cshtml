@@ -1,0 +1,13 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.Models.EthicsForms
+@{
+    ViewData["Title"] = "Delete Form";
+}
+<h2>Delete Form</h2>
+
+<p>Are you sure you want to delete the form titled <strong>@Model.FormName</strong>?</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="EthicsFormId" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="@Url.Action("EthicsForms", "Chief")" class="btn btn-secondary">Cancel</a>
+</form>

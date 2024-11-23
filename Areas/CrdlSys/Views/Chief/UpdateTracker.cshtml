@@ -1,0 +1,260 @@
+﻿@model CrdlSys.Models.DocumentTrackingViewModel
+
+@{
+    //Layout = "_LayoutChiefLinkages";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/ChiefTracker.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Title -->
+    <div class="title-section">
+        <h1 class="title">Document Tracking History</h1>
+        <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ViewStakeholderUploads" class="btn-back">Back</a>
+    </div>
+    @if (Model.ActivityHistory != null && Model.ActivityHistory.Any())
+    {
+        @foreach (var activity in Model.ActivityHistory)
+        {
+            <div class="container1">
+                <div class="card-body">
+                    <form class="timeline-container" asp-action="UpdateTracker" method="post">
+                        <input type="hidden" name="TrackingId" value="@Model.TrackingId" />
+                        <div class="row text-center">
+                            <!-- Timeline item 1: Received by RMO -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsReceivedByRMOUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <p class="text-label">Received by <br>RMO</p>
+                                @if (activity.IsReceivedByRMOUpdatedAt == null || !activity.IsReceivedByRMO)
+                                {
+                                    <button type="submit" name="Status" value="Received by RMO" class="btn-status"><i class="fas fa-inbox"></i>Update</button>
+                                }
+                                else
+                                {
+                                    <p class="text-date">@activity.IsReceivedByRMOUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                }
+                            </div>
+
+                            <!-- Timeline item 2: Submitted to OVPRED -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsSubmittedToOVPREDUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="text-label">Submitted to OVPRED</p>
+                                @if (activity.IsReceivedByRMOUpdatedAt.HasValue)
+                                {
+                                    if (activity.IsSubmittedToOVPREDUpdatedAt == null || !activity.IsSubmittedToOVPRED)
+                                    {
+                                        <button type="submit" name="Status" value="Submitted to OVPRED" class="btn-status"><i class="fas fa-paper-plane"></i> Update</button>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-date">@activity.IsSubmittedToOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                    }
+                                }
+                            </div>
+
+                            <!-- Timeline item 3: Submitted to Legal Office -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsSubmittedToLegalOfficeUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-gavel"></i>
+                                </div>
+                                <p class="text-label">Submitted to Legal Office</p>
+                                @if (activity.IsSubmittedToOVPREDUpdatedAt.HasValue)
+                                {
+                                    if (activity.IsSubmittedToLegalOfficeUpdatedAt == null || !activity.IsSubmittedToLegalOffice)
+                                    {
+                                        <button type="submit" name="Status" value="Submitted to Legal Office" class="btn-status"><i class="fas fa-balance-scale"></i> Update</button>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-date">@activity.IsSubmittedToLegalOfficeUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                    }
+                                }
+                            </div>
+
+                            <!-- Timeline item 4: Received by OVPRED -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsReceivedByOVPREDUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <p class="text-label">Received by OVPRED</p>
+                                @if (activity.IsSubmittedToLegalOfficeUpdatedAt.HasValue)
+                                {
+                                    if (activity.IsReceivedByOVPREDUpdatedAt == null || !activity.IsReceivedByOVPRED)
+                                    {
+                                        <button type="submit" name="Status" value="Received by OVPRED" class="btn-status"><i class="fas fa-check-circle"></i> Update</button>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-date">@activity.IsReceivedByOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                    }
+                                }
+                            </div>
+
+                            <!-- Timeline item 5:Received by RMO -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsReceivedByRMOAfterOVPREDUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <p class="text-label">Received by <br>RMO</p>
+                                @if (activity.IsReceivedByOVPREDUpdatedAt.HasValue)
+                                {
+                                    if (activity.IsReceivedByRMOAfterOVPREDUpdatedAt == null || !activity.IsReceivedByRMOAfterOVPRED)
+                                    {
+                                        <button type="submit" name="Status" value="Received by RMO (After OVPRED)" class="btn-status"><i class="fas fa-undo"></i> Update</button>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-date">@activity.IsReceivedByRMOAfterOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                    }
+                                }
+                            </div>
+
+                            <!-- Timeline item 6: Submitted to Office of the Pres. -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <p class="text-label">Submitted to President's Office</p>
+                                @if (activity.IsReceivedByRMOAfterOVPREDUpdatedAt.HasValue)
+                                {
+                                    if (activity.IsSubmittedToOfficeOfThePresidentUpdatedAt == null || !activity.IsSubmittedToOfficeOfThePresident)
+                                    {
+                                        <button type="submit" name="Status" value="Submitted to Office of the President" class="btn-status"><i class="fas fa-university"></i> Update</button>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-date">@activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                    }
+                                }
+                            </div>
+
+                            <!-- Timeline item 7: Received by RMO -->
+                            <div class="col timeline-item">
+                                <div class="timeline-icon mx-auto @(activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.HasValue ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-file-signature"></i>
+                                </div>
+                                <p class="text-label">Received by <br>RMO</p>
+                                @if (activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.HasValue)
+                                {
+                                    if (activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt == null || !activity.IsReceivedByRMOAfterOfficeOfThePresident)
+                                    {
+                                        <button type="submit" name="Status" value="Received by RMO (After Office of the President)" class="btn-status"><i class="fas fa-check-double"></i> Update</button>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-date">@activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd")</p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Activity Details -->
+            <div class="history-container">
+                <!-- ACTIVITY HISTORY -->
+                <div class="container">
+                    <!-- Activity Details -->
+                    <div class="container2">
+                        <!-- ACTIVITY HISTORY -->
+                        <h1 class="tracking-title">
+                            <i class="fas fa-file-alt"></i> Tracking ID:
+                            <small class="tracking-text"> @Model.TrackingId</small>
+                        </h1>
+                        <h1 class="lastupdate-title">
+                            <i class="fas fa-clock"></i> Last Updated:
+                            <small class="lastupdate-text">@Model.UpdatedAt</small>
+                        </h1>
+                        <h1 class="title-history">
+                            <i class="fas fa-history"></i>
+                            Activity History
+                        </h1>
+                    </div>
+                    <div class="row mt-3 ms-5">
+                        <!-- Left Timeline -->
+                        <div class="col-12 col-xl-6 left-timeline">
+                            @if (activity.IsReceivedByRMOUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsReceivedByRMOUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    <p class="ms-2 timeline-content">Received by RMO</p>
+                                </div>
+                            }
+                            @if (activity.IsSubmittedToOVPREDUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsSubmittedToOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    <p class="ms-2 timeline-content">Submitted to OVPRED</p>
+                                </div>
+                            }
+                            @if (activity.IsSubmittedToLegalOfficeUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsSubmittedToLegalOfficeUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    <p class="ms-2 timeline-content"> Submitted to Legal Office</p>
+                                </div>
+                            }
+                            @if (activity.IsReceivedByOVPREDUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsReceivedByOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    <p class="ms-2 timeline-content">Received by OVPRED</p>
+                                </div>
+                            }
+                        </div>
+                        <!-- Right Timeline -->
+                        <div class="col-12 col-xl-6 right-timeline">
+                            @if (activity.IsReceivedByRMOAfterOVPREDUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsReceivedByRMOAfterOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    <p class="ms-2 timeline-content">Received by RMO</p>
+                                </div>
+                            }
+                            @if (activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    <p class="ms-2 timeline-content">Submitted to President</p>
+                                </div>
+                            }
+                            @if (activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.HasValue)
+                            {
+                                <div class="timeline-item2 d-inline-flex">
+                                    <i class="bi bi-check-circle-fill custom-icon"></i>
+                                    <span class="timeline-title">@activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss") </span>
+                                    <p class="ms-2 timeline-content">Received by RMO</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/5hb7gZ5w7qfuYjZlL5bZ5nP1I1E5z9l5e4mjlT" crossorigin="anonymous"></script>
+
+</body>
+</html>

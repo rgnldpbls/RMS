@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ResearchManagementSystem.Areas.CreSys.Models.EthicsForms>
+
+@{
+    ViewData["Title"] = "Ethics Forms";
+}
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+
+</head>
+<p>
+    <h2>Ethics Forms</h2>
+    <a asp-controller="Chief" asp-action="UploadForm" class="btn btn-primary mb-3">
+        Upload New Form
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Form Id</th>
+            <th>Form Name</th>
+            <th>Description</th>
+            <th>Date Created</th>
+            <th>Required</th>
+            <th>File</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var form in Model)
+        {
+            <tr>
+                <td>@form.EthicsFormId</td>
+                <td>@form.FormName</td>
+                <td>@form.FormDescription</td>
+                <td>@form.DateCreated.ToShortDateString()</td>
+                <td>@form.IsRequired</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(form.FormName))
+                    {
+                        <!-- If the file is stored as byte array or path, you can display it accordingly -->
+                        @if (form.EthicsFormFile != null && form.EthicsFormFile.Length > 0)
+                        {
+                            <!-- Provide a download link for the file stored in the database with an icon -->
+                            <a href="@Url.Action("DownloadFile", "Chief", new { id = form.EthicsFormId })" class="btn btn-success btn-sm" title="Download">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <span>No file uploaded</span>
+                        }
+                    }
+                </td>
+
+                <td>
+                    <!-- Add Edit and Delete links with icons -->
+                    <a href="@Url.Action("EditForms", "Chief", new { id = form.EthicsFormId })" class="btn btn-primary btn-sm" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="@Url.Action("DeleteForm", "Chief", new { id = form.EthicsFormId })" class="btn btn-danger btn-sm" title="Delete">
+                        <i class="fas fa-trash-alt"></i> 
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

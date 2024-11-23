@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "RMCC_Layout";
+}
+
+<link href="~/css/ClusterCoordinator-ToReview-List.css" rel="stylesheet" />
+
+<div>
+    <div class="container display-6 mt-4 p-0">
+        <div id="task">To Review</div>
+    </div>
+
+    <!--search and filter-->
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <!--search-->
+            <div class="col-lg-3 col-sm-12 mb-2">
+                <form action="" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button type="submit" id="action"><i class="fa-solid fa-magnifying-glass fa-2xl" style="color: #850000;"></i></button>
+                </form>
+            </div>
+            <!--filter-->
+            <div class="col-lg-3 col-sm-12 mb-2">
+                <form action="" class="d-flex">
+                    <select id="filterSelect" class="form-select me-2">
+                        <option>Title (A-Z)</option>
+                        <option>Title (Z-A)</option>
+                        <option>Authors (A-Z)</option>
+                        <option>Authors (Z-A)</option>
+                        <option>College (A-Z)</option>
+                        <option>College (Z-A)</option>
+                        <option>Campus/Branch (A-Z)</option>
+                        <option>Campus/Branch (Z-A)</option>
+                        <option>Department (A-Z)</option>
+                        <option>Department (Z-A)</option>
+                        <option>Actual Date Started (Earliest to Latest)</option>
+                        <option>Actual Date Started (Latest to Earliest)</option>
+                        <option>Target Date of Completion (Earliest to Latest)</option>
+                        <option>Target Date of Completion (Latest to Earliest)</option>
+                    </select>
+                    <button type="submit" id="action"><i class="fa-solid fa-filter fa-2xl" style="color: #850000;"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--table-->
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table table-borderless w-100">
+            <thead class="shadow-sm">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent" scope="row">Research Title</th>
+                    <th class="p-4 bg-transparent" scope="col">Authors</th>
+                    <th class="p-4 bg-transparent" scope="col">College</th>
+                    <th class="p-4 bg-transparent" scope="col">Campus/Branch</th>
+                    <th class="p-4 bg-transparent" scope="col">Department</th>
+                    <th class="p-4 bg-transparent" scope="col">Actual Date Started</th>
+                    <th class="p-4 bg-transparent" scope="col">Target Date of Completion</th>
+                    <th class="p-4 bg-transparent" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="align-middle">
+                    <td class="p-4 bg-transparent" scope="row">Research Title</td>
+                    <td class="p-4 bg-transparent" scope="col">Author Name | User Type</td>
+                    <td class="p-4 bg-transparent" scope="col">College</td>
+                    <td class="p-4 bg-transparent" scope="col">Campus/Branch</td>
+                    <td class="p-4 bg-transparent" scope="col">Department</td>
+                    <td class="p-4 bg-transparent" scope="col">Actual Date Started</td>
+                    <td class="p-4 bg-transparent" scope="col">Target Date of Completion</td>
+                    <td class="p-4 bg-transparent" scope="col">
+                        <button id="action" class="me-2"><a asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorToReviewDetails"><i class="fa-solid fa-eye fa-2xl" style="color: #850000;"></i></a></button>
+                        <button id="action" class="me-2"><i class="fa-solid fa-check fa-2xl" style="color: #850000;"></i></button>
+                        <button id="action"><i class="fa-solid fa-xmark fa-2xl" style="color: #850000;"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

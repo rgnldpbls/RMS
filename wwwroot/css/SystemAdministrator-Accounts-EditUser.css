@@ -1,0 +1,69 @@
+#body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #E8E6E6;
+}
+
+#title{
+    background: white;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 20px 20px 0px 0px;
+}
+#content{
+    background: white;
+    font-family: "Inter";
+    border-radius: 20px;
+}
+nav{
+    border-bottom: 2px solid #850000;
+    font-size: 20px;
+    font-family: "Inter";
+}
+.nav-item:hover, #active{
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+#active .nav-link{
+    font-weight: bold;
+    color: #850000;
+}
+label, input{
+    font-family: "Inter";
+    color: black;
+}
+.form-control{
+    border: 1px solid #850000;
+}
+input[type="submit"], input[type="reset"], #modalbtn, input[type="button"]{
+    background: #850000;
+    border-radius: 15px;
+    height: 50px;
+    padding: 0px 30px;
+    color: white;
+    font-family: "Inter";
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+    transition: ease-in-out .1s
+}
+input[type="submit"]:hover, input[type="reset"]:hover, #modalbtn:hover, input[type="button"]:hover{
+    background: #560000;
+}
+#dropdownMenuButton{
+    border: 1px solid #850000;
+    height: 37px;
+}
+.modal-body{
+    border: 4px solid #850000;
+}
+#modaltitle{
+    color: #850000;
+    font-family: "Poppins";
+    font-weight: bold;
+}
+#formcont{
+    border-radius: 0px 0px 20px 20px;
+}

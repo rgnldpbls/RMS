@@ -1,0 +1,159 @@
+﻿/* Container Styles */
+.container {
+    padding: 2rem 3.5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+    .table thead th {
+        background-color: #850000;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        padding: 1rem;
+        text-align: left;
+        border: none;
+        white-space: nowrap;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    .table td {
+        padding: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.95rem;
+        vertical-align: middle;
+    }
+
+/* Status Text Styles */
+.text-warning {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.text-muted {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Button Styles */
+.btn-success {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+}
+
+/* Alert Styles */
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.alert-info {
+    background-color: #e3f2fd;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .table td, .table th {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-sm {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Optional: Add these utility classes */
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* Optional: Add smooth scrollbar for table horizontal scroll */
+.table-responsive {
+    scrollbar-width: thin;
+    scrollbar-color: #850000 #f0f0f0;
+}
+
+    .table-responsive::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 3px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background-color: #850000;
+        border-radius: 3px;
+    }

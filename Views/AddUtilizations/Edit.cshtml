@@ -1,0 +1,86 @@
+﻿@model ResearchManagementSystem.Models.AddUtilization
+
+@{
+    ViewData["Title"] = "Edit";
+
+    Layout = "RMCC_Layout";
+}
+
+
+<link href="~/css/ClusterCoordinator-Accomplishmentadd.css" rel="stylesheet" />
+<style>
+    #title {
+        background: #850000;
+        color: white;
+    }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <form asp-action="Edit">
+        <!--research utilization-->
+        <div class="container shadow mb-3" id="content">
+            <div class="row shadow-sm h3 p-4 mb-1" id="title">
+                Edit Utilization Details
+            </div>
+            <div class="row shadow p-4" id="formcont">
+                <!--utilization id-->
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="UtilizationId" />
+                <!--production id-->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="ProductionId" class="form-label">Production ID</label>
+                        <select asp-for="ProductionId" class="form-control mb-3" asp-items="ViewBag.ProductionId"></select>
+
+                    </div>
+                </div>
+                <!--cert-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="CertificateofUtilizationFileName" class="form-label"></label>
+                        <input asp-for="CertificateofUtilizationFileName" class="form-control mb-3" />
+                        <span asp-validation-for="CertificateofUtilizationFileName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--buttons-->
+        <div class="container mt-3 mb-3">
+            <div class="d-flex justify-content-end">
+                <a asp-action="Index" class="new me-2 text-decoration-none text-white d-flex justify-content-center align-items-center">Cancel</a>
+                <input type="button" value="Save Changes" class="ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+        </div>
+        <!--save changes modal-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4" id="bgmodal">
+                    <div class="modal-body rounded-4 p-4">
+                        <h2 class="text-center mb-4" id="modaltitle">Save Changes</h2>
+                        <p id="content">Do you want to save the changes you made to "[Research Title]"?</p>
+                        <div class="mt-4 d-flex justify-content-center align-items-center">
+                            <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                            <input type="submit" value="Save Changes" class="ms-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

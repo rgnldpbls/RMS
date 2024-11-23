@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Report";
+
+
+
+
+
+    Layout = "Director_Layout";
+}
+<link href="~/css/ClusterCoordinator-Report-GenerateReport.css" rel="stylesheet" />
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="Director" asp-action="DirectorReportGenerateReport" id="aactive">Generate Report</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="Director" asp-action="DirectorReportSubmitReport" id="inaactive">Submit Report</a>
+            </div>
+        </div>
+    </div>
+
+    <!--input fields-->
+    <form action="" class="container" method="post">
+        <!--scope dates-->
+        <div class="container mt-3">
+            <div class="row d-flex">
+                <div class="col-lg-3 col-sm-12">
+                    <label class="form-label" for="start_date">Start Date</label>
+                    <input class="form-control mb-3" type="date" id="start_date" name="startDate" required>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <label class="form-label" for="end_date">End Date</label>
+                    <input class="form-control mb-3" type="date" id="end_date" name="endDate" required>
+                </div>
+            </div>
+        </div>
+
+        <!--select report type-->
+        <div class="container shadow h4 p-4 mb-3 text-white" id="title" style="background: #850000;">
+            Select Report Type
+        </div>
+
+
+
+        <!--report types-->
+
+
+        <div class="container d-block">
+            <div class="my-2">
+                <a asp-controller="AddAccomplishments" asp-action="ExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Accomplishment Report</a>
+            </div>
+            <div class="my-2">
+                <a asp-controller="AddAccomplishments" asp-action="ProductionExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Production Report</a>
+            </div>
+            <div class="my-2">
+                <a asp-controller="AddAccomplishments" asp-action="PresentationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Presentation Report</a>
+            </div>
+            <div class="my-2">
+                <a asp-controller="AddAccomplishments" asp-action="PublicationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Publication Report</a>
+            </div>
+            <div class="my-2">
+                <a asp-controller="AddAccomplishments" asp-action="PatentExportToExcel" class="btn btn-outline-danger w-100 text-start">Download Patent Report</a>
+            </div>
+
+
+        </div>
+
+        @*  <div class="me-2">
+        <button type="submit" asp-controller="ClusterCoordinator" asp-action="GenerateConsolidatedReport" class="report mb-3">Generate Report</button>
+        <button type="submit" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReportPreview" class="report me-2 mb-3">Report Preview</button>
+        </div> *@
+
+    </form>
+    <script src="~/js/ClusterCoordinator-Report-GenerateReport.js"></script>
+</div>
+

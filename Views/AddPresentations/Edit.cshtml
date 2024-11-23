@@ -1,0 +1,214 @@
+﻿@model ResearchManagementSystem.Models.AddPresentation
+
+@{
+    ViewData["Title"] = "Edit";
+
+    Layout = "RMCC_Layout";
+}
+
+<link href="~/css/ClusterCoordinator-Accomplishmentadd.css" rel="stylesheet" />
+<style>
+    #title{
+        background:#850000;
+        color: white;
+    }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+
+    <!--research presentation-->
+    <form asp-action="Edit">
+        <div class="container shadow mb-3" id="content">
+            <div class="row shadow-sm h3 p-4 mb-1" id="title">
+                Edit Presentation Details
+            </div>
+            <div class="row shadow p-4" id="formcont">
+                <!--hidden id-->
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ConferenceId" />
+
+                <!--production id-->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="ProductionId" class="form-label">Production ID</label>
+                        <select asp-for="ProductionId" class="form-control mb-3" asp-items="ViewBag.ProductionId"></select>
+                        <span asp-validation-for="ProductionId" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <!--conference title-->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="conference_title">Conference Title</label>
+                        <input class="form-control mb-3" type="text" id="conference_title" placeholder="Conference Title">
+                    </div>
+                </div>
+
+                <!--organizers-->
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Organizers</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="OrganizerOne" class="form-label">Organizer 1</label>
+                        <input asp-for="OrganizerOne" class="form-control mb-3" />
+                        <span asp-validation-for="OrganizerOne" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="OrganizerTwo" class="form-label">Organizer 2</label>
+                        <input asp-for="OrganizerTwo" class="form-control mb-3" />
+                        <span asp-validation-for="OrganizerTwo" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <!--Presenters-->
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Presentors</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="PresenterOne" class="form-label">Presenter 1</label>
+                        <input asp-for="PresenterOne" class="form-control mb-3" />
+                        <span asp-validation-for="PresenterOne" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="PresenterTwo" class="form-label">Presenter 2</label>
+                        <input asp-for="PresenterTwo" class="form-control mb-3" />
+                        <span asp-validation-for="PresenterTwo" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="PresenterThree" class="form-label">Presenter 3</label>
+                        <input asp-for="PresenterThree" class="form-control mb-3" />
+                        <span asp-validation-for="PresenterThree" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="PresenterFour" class="form-label">Presenter 4</label>
+                        <input asp-for="PresenterFour" class="form-control mb-3" />
+                        <span asp-validation-for="PresenterFour" class="text-danger"></span>
+
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="PresenterFive" class="form-label">Presenter 5</label>
+                        <input asp-for="PresenterFive" class="form-control mb-3" />
+                        <span asp-validation-for="PresenterFive" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <!--venue-->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="Venue" class="form-label">Venue</label>
+                        <input asp-for="Venue" class="form-control mb-3" />
+                        <span asp-validation-for="Venue" class="text-danger"></span>
+
+                    </div>
+                    <!--level-->
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="Level" class="form-label">Level</label>
+                        <select asp-for="Level" class="form-select mb-3">
+                            <option value="">International</option>
+                            <option value="">National</option>
+                            <option value="">Regional</option>
+                        </select>
+                    </div>
+                </div>
+                <!--cert-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="CertificateofParticipationFileName" class="form-label"></label>
+                        <input asp-for="CertificateofParticipationFileName" class="form-control mb-3" />
+                        <span asp-validation-for="CertificateofParticipationFileName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Date of Presentation</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--start date-->
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="DateofPresentation" class="form-label">Start Date</label>
+                        <input asp-for="DateofPresentation" class="form-control mb-3" />
+                        <span asp-validation-for="DateofPresentation" class="text-danger"></span>
+                    </div>
+                    <!--end date-->
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="end_date">End Date</label>
+                        <input class="form-control mb-3" type="date" id="end_date" placeholder="End Date">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--buttons-->
+        <div class="container mt-3 mb-3">
+            <div class="d-flex justify-content-end">
+                <a asp-action="Index" class="new me-2 text-decoration-none text-white d-flex justify-content-center align-items-center">Cancel</a>
+                <input type="button" value="Save Changes" class="ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+        </div>
+        <!--save changes modal-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4" id="bgmodal">
+                    <div class="modal-body rounded-4 p-4">
+                        <h2 class="text-center mb-4" id="modaltitle">Save Changes</h2>
+                        <p id="content">Do you want to save the changes you made to "[Research Title]"?</p>
+                        <div class="mt-4 d-flex justify-content-center align-items-center">
+                            <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                            <input type="submit" value="Save Changes" class="ms-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

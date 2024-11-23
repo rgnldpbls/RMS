@@ -1,0 +1,93 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #fff;
+    background-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #800000; /* Maroon background */
+    padding: 10px 20px;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Logo Section */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo-text h1 {
+    font-size: 18px;
+    color: #fff;
+    margin: 0;
+}
+
+.logo-text p {
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+}
+
+/* Navigation */
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+    .nav-item:hover {
+        color: #FFD700; /* Gold color for hover */
+    }
+
+    .nav-item.active {
+        color: #FFD700;
+        border-bottom: 2px solid #FFD700; /* Gold underline for active */
+    }
+
+/* Main Content */
+.main-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    color: #000;
+    min-height: 400px; /* Example height */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+

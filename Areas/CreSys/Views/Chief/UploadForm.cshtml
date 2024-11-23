@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Upload Ethics Form";
+}
+<head>
+    <link rel="stylesheet" href="~/css/applyethics.css" asp-append-version="true" />
+    <style>
+       
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+     
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+
+<h2>Upload Ethics Form</h2>
+<form asp-action="UploadForm" method="post" enctype="multipart/form-data" id="uploadForm">
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+    <div>
+        <label for="ethicsFormId">Form ID:</label>
+        <input type="text" id="ethicsFormId" name="ethicsFormId" required />
+    </div>
+
+    <div>
+        <label for="formName">Form Name:</label>
+        <input type="text" id="formName" name="formName" required />
+    </div>
+
+    <div>
+        <label for="formDescription">Form Description:</label>
+        <textarea id="formDescription" name="formDescription" rows="3" required></textarea>
+    </div>
+
+    <div>
+        <label for="file">Choose .docx File:</label>
+        <input type="file" id="file" name="file" accept=".docx" required />
+        <span class="error-message" id="fileError" style="color: red; display: none;">File is required.</span>
+    </div>
+
+    <!-- Checkbox for determining if the file is required -->
+    <div>
+        <label>
+            <input type="checkbox" id="isFileRequired" name="isFileRequired" /> File is required
+        </label>
+    </div>
+
+    <button type="submit">Upload</button>
+</form>
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", function (event) {
+        const isFileRequired = document.getElementById("isFileRequired");
+
+        // Set the checkbox value to "true" or "false" explicitly before form submission
+        isFileRequired.value = isFileRequired.checked ? "true" : "false";
+
+        // Log the checkbox value for debugging
+        console.log("Checkbox value (true or false):", isFileRequired.value);
+    });
+</script>

@@ -1,0 +1,87 @@
+﻿@model List<ManageUserRolesViewModel>
+
+@{
+    ViewData["Title"] = "Manage";
+    Layout = "~/Views/Shared/SuperAdmin_Layout.cshtml";
+}
+<style>
+    .nnvb {
+        border-bottom: 2px solid #850000;
+    }
+
+    .itm:hover {
+        background: rgb(133, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+    .itm-active {
+        background: rgb(133, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+    #aactive {
+        color: #850000;
+        font-weight: bold;
+    }
+
+    #inaactive {
+        color: black;
+    }
+</style>
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-2">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="Index" id="aactive">User Roles</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="RoleManager" asp-action="Index" id="inaactive">Role Manager</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="FacultyList" id="inaactive">Faculty</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="StudentList" id="inaactive">Students</a>
+            </div>
+
+        </div>
+    </div>
+
+<form method="post" class="mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h2 style="color:#850000;">Manage User Roles</h2>
+            Add/Remove Roles for User / @ViewBag.UserName.
+        </div>
+        <div class="card-body">
+            <input type="hidden" name="Id" value="@ViewBag.UserId" />  <!-- Add this hidden field -->
+            @if (Model != null && Model.Count > 0)
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="form-check m-1">
+                        <input type="hidden" asp-for="@Model[i].RoleId" />
+                        <input type="hidden" asp-for="@Model[i].RoleName" />
+                        <input asp-for="@Model[i].Selected" class="form-check-input" />
+                        <label class="form-check-label" asp-for="@Model[i].Selected">
+                            @Model[i].RoleName
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No roles available to manage.</p>
+            }
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-danger" style="width:auto" />
+            <a asp-action="Index" class="canceloi btn btn-danger" style="width:auto">Cancel</a>
+        </div>
+    </div>
+</form>
+</div>

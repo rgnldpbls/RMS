@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "View Application";
+    var logs = ViewBag.Logs as List<ResearchManagementSystem.Areas.CreSys.Models.EthicsApplicationLogs>;
+    var nonFundedResearchInfo = ViewBag.NonFundedResearchInfo as ResearchManagementSystem.Areas.CreSys.Models.NonFundedResearchInfo;
+    var application = ViewBag.Application as ResearchManagementSystem.Areas.CreSys.Models.EthicsApplication;
+    var coProponents = ViewBag.CoProponents as List<ResearchManagementSystem.Areas.CreSys.Models.CoProponent>;
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/TrackApplication.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<h2>Track Application</h2>
+<div class="application-container">
+    <div class="header">
+        <div class="dts-number">
+            <strong>UREC No.: </strong>
+            <span id="urecNoValue">
+                @((string)ViewBag.Application?.UrecNo ?? "N/A")
+            </span>
+        </div>
+        <div class="back-button">
+            <button class="btn-back" onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline">
+            @* Application Submitted *@
+            <div class="timeline-item @(logs?.Any(log => log.Status == "Applied") == true ? "completed" : "")">
+                <div class="timeline-icon @(logs?.Any(log => log.Status == "Applied") == true ? "completed" : "")">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Application Submitted</div>
+                    <div class="timeline-date">
+                        @(logs?.FirstOrDefault(log => log.Status == "Applied")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* Requirements Under Review *@
+            <div class="timeline-item @(logs?.Any(log => log.Status == "Pending for Evaluation") == true ? "completed" : "")">
+                <div class="timeline-icon @(logs?.Any(log => log.Status == "Pending for Evaluation") == true ? "completed" : "")">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Requirements Under Review</div>
+                    <div class="timeline-date">
+                        @(logs?.FirstOrDefault(log => log.Status == "Pending for Evaluation")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* To Be Evaluated *@
+            <div class="timeline-item @(logs?.Any(log => log.Status == "Approved for Evaluation") == true ? "completed" : "")">
+                <div class="timeline-icon @(logs?.Any(log => log.Status == "Approved for Evaluation") == true ? "completed" : "")">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">To Be Evaluated</div>
+                    <div class="timeline-date">
+                        @(logs?.FirstOrDefault(log => log.Status == "Approved for Evaluation")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* Application Under Evaluation *@>
+            <div class="timeline-item @(logs?.Any(log => log.Status == "Review Type Assigned") == true ? "completed" : "")">
+                <div class="timeline-icon @(logs?.Any(log => log.Status == "Review Type Assigned") == true ? "completed" : "")">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Application Under Evaluation</div>
+                    <div class="timeline-date">
+                        @(logs?.FirstOrDefault(log => log.Status == "Evaluators Assigned")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+
+            @* Evaluation Complete *@>
+            <div class="timeline-item @(logs?.Any(log => log.Status == "Clearance Issued") == true ? "completed" : "")">
+                <div class="timeline-icon @(logs?.Any(log => log.Status == "Clearance Issued") == true ? "completed" : "")">
+                    <i class="fas fa-check-double"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Evaluation Complete</div>
+                    <div class="timeline-date">
+                        @(logs?.FirstOrDefault(log => log.Status == "Clearance Issued")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <div class="application-details">
+            <h3>Application Details</h3>
+            <div class="detail-item">
+                <label>Research Title:</label>
+                <span>@(nonFundedResearchInfo?.Title ?? "N/A")</span>
+            </div>
+            <div class="detail-item">
+                <label>Author:</label>
+                <span>@(application?.Name ?? "N/A")</span>
+            </div>
+            @if (coProponents != null && coProponents.Count > 0)
+            {
+                    <div class="detail-item">
+                    <label>Co-Proponents:</label>
+                    <ul>
+                        @foreach (var coProponent in coProponents)
+                        {
+                            <li>@coProponent.CoProponentName</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="detail-item">
+                <label>Field of Study:</label>
+                <span>@(application?.FieldOfStudy ?? "N/A")</span>
+            </div>
+        </div>
+
+
+        <div class="document-history">
+            <h3>Document History</h3>
+            <div class="history-list">
+                @foreach (var log in logs.OrderByDescending(x => x.ChangeDate))
+                {
+                    <div class="history-item">
+                        <div class="history-status">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="history-content">
+                            <div class="history-text">
+                                @if (!string.IsNullOrEmpty(log.Comments))
+                                {
+                                    <span>@log.Comments</span>
+                                    <span class="status-update">(@log.Status)</span>
+                                }
+                                else if (!string.IsNullOrEmpty(log.Status))
+                                {
+                                    <span class="status-update">@log.Status</span>
+                                }
+                            </div>
+                            <div class="history-date">
+                                @log.ChangeDate.ToString("MM/dd/yyyy h:mmtt")
+
+                                @if (log.Status == "Updated")
+                                {
+                                    <i class="fas fa-check" style="color: #008756; margin-left: 5px;"></i>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

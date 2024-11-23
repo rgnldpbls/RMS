@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ResearchManagementSystem.Areas.CreSys.Models.EthicsReport>
+
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+
+</head>
+<div class="container">
+    <h2>Reports</h2>
+    <a href="@Url.Action("ReportGeneration", "Chief")" class="btn btn-success mb-3">
+        <i class="fas fa-plus-circle"></i> Generate New Report
+    </a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Report Name</th>
+                <th>File Type</th>
+                <th>College</th>        
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Date Generated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var report in Model)
+            {
+                <tr>
+                    <td>@report.ReportName</td>
+                    <td>@report.ReportFileType</td>
+                    <td>@report.College</td>
+                    <td>@report.ReportStartDate.ToShortDateString()</td>
+                    <td>@report.ReportEndDate.ToShortDateString()</td>
+                    <td>@report.DateGenerated.ToShortDateString()</td>
+                    <td>
+                        <!-- Download Report Button -->
+                        <a href="@Url.Action("DownloadReport", "Chief", new { reportId = report.EthicsReportId })" class="btn btn-success btn-sm" title="Download Report">
+                            <i class="fas fa-download"></i>
+                        </a>
+
+                        <!-- Submit Report Button -->
+                        <a href="@Url.Action("SubmitReport", "Chief", new { reportId = report.EthicsReportId })" class="btn btn-info btn-sm" title="Submit Report">
+                            <i class="fas fa-share-square"></i>
+                        </a>
+
+                        <!-- Delete Report Button with Confirmation -->
+                        <button type="button" class="btn btn-danger btn-sm" title="Delete Report" onclick="confirmDelete('@report.EthicsReportId', '@report.ReportName')">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+
+                        <!-- Hidden Form for Delete Report -->
+                        <form id="deleteForm" method="post" action="@Url.Action("DeleteReport", "Chief")" style="display:none;">
+                            <input type="hidden" name="reportId" id="deleteReportId" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    function confirmDelete(reportId, reportName) {
+  
+        if (confirm('Are you sure you want to delete the report: ' + reportName + '?')) {
+         
+            document.getElementById('deleteReportId').value = reportId;
+            document.getElementById('deleteForm').submit();  // Submit the form to the DeleteReport action
+        }
+    }
+</script>

@@ -1,0 +1,145 @@
+﻿@model ResearchManagementSystem.Models.AddPresentation
+
+@{
+    ViewData["Title"] = "Delete";
+
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+<style>
+    #title {
+        background: #850000;
+        color: white;
+    }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="d-block">Delete</div>
+                    <div class="fs-6">Are you sure you want to delete this?</div>
+                </div>
+                <div>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="ConferenceId" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <dl class="row shadow p-4" id="formcont">
+            <dt class="col-sm-2">
+                Production ID
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AddAccomplishment.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Conference Title
+            </dt>
+            <dd class="col-sm-10">
+                Conference Title
+            </dd>
+            <dt class="col-sm-2">
+                Organizer 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OrganizerOne)
+            </dd>
+            <dt class="col-sm-2">
+                Organizer 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OrganizerTwo)
+            </dd>
+            <dt class="col-sm-2">
+                Presenter 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PresenterOne)
+            </dd>
+            <dt class="col-sm-2">
+                Presenter 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PresenterTwo)
+            </dd>
+            <dt class="col-sm-2">
+                Presenter 3
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PresenterThree)
+            </dd>
+            <dt class="col-sm-2">
+                Presenter 4
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PresenterFour)
+            </dd>
+            <dt class="col-sm-2">
+                Presenter 5
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PresenterFive)
+            </dd>
+            <dt class="col-sm-2">
+                Start Date
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateofPresentation)
+            </dd>
+            <dt class="col-sm-2">
+                End Date
+            </dt>
+            <dd class="col-sm-10">
+                End Date
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Level)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Level)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Venue)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Venue)
+            </dd>
+
+
+            <dt class="col-sm-2">
+                Certificate of Participation
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.CertificateofParticipationFileData != null)
+
+
+
+                {
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ConferenceId" asp-route-fileType="CertificateofParticipationFileData" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.CertificateofParticipationFileName)
+                    </a>
+                }
+
+            </dd>
+        </dl>
+    </div>
+</div>

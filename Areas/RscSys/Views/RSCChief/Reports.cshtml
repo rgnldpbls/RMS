@@ -1,0 +1,216 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.ReportFilterViewModel
+
+@{
+    ViewData["Title"] = "Generate Report";
+    Layout = "_LayoutCPages";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0"><strong>Generate Report</strong></h5>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Back</a>
+                </div>
+
+                <form asp-action="GenerateReport" method="post">
+                    <div class="mb-3">
+                        <select asp-for="ReportType" class="form-select mb-4" required>
+                            <option value="" selected>Select Report Type</option>
+                            <option value="Actual Number of Approved Thesis And Dissertation Grant">Actual Number of Approved Thesis And Dissertation Grant</option>
+                            <option value="Actual Number of Approved National Paper Presentation">Actual Number of Approved National Paper Presentation</option>
+                            <option value="Actual Number of Approved International Paper Presentation">Actual Number of Approved International Paper Presentation</option>
+                            <option value="Actual Number of Approved Publication and Citation Incentives">Actual Number of Approved Publication and Citation Incentives</option>
+                            <option value="Actual Number of Approved Industrial Design, Utility Model, and Patent Incentive">Actual Number of Approved Industrial Design, Utility Model, and Patent Incentive</option>
+                            <option value="Actual Number of Approved University Publication Assistance">Actual Number of Approved University Publication Assistance</option>
+                            <option value="Summary Report">Summary Report</option>
+                        </select>
+                    </div>
+
+                    <h5 class="text-center"><strong>Filter</strong></h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label">Start Date</label>
+                            <input asp-for="StartDate" type="date" class="form-control" />
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label">End Date</label>
+                            <input asp-for="EndDate" type="date" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Filter by College</label>
+                            <select asp-for="College" class="form-select">
+                                <option value="">Select College</option>
+                                <option value="College of Accountancy and Finance (CAF)">College of Accountancy and Finance (CAF)</option>
+                                <option value="College of Architecture, Design and the Built Environment (CADBE, formerly the College of Architecture and Fine Arts)">College of Architecture, Design and the Built Environment (CADBE, formerly the College of Architecture and Fine Arts)</option>
+                                <option value="College of Arts and Letters (CAL)">College of Arts and Letters (CAL)</option>
+                                <option value="College of Business Administration (CBA)">College of Business Administration (CBA)</option>
+                                <option value="College of Communication (COC)">College of Communication (COC)</option>
+                                <option value="College of Computer and Information Sciences (CCIS)">College of Computer and Information Sciences (CCIS)</option>
+                                <option value="College of Education (COED)">College of Education (COED)</option>
+                                <option value="College of Human Kinetics (CHK)">College of Human Kinetics (CHK)</option>
+                                <option value="College of Law (CL)">College of Law (CL)</option>
+                                <option value="College of Political Science and Public Administration (CPSPA)">College of Political Science and Public Administration (CPSPA)</option>
+                                <option value="College of Social Sciences and Development (CSSD)">College of Social Sciences and Development (CSSD)</option>
+                                <option value="College of Science (CS)">College of Science (CS)</option>
+                                <option value="College of Tourism, Hospitality and Transportation Management (CTHTM)">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
+                            </select>
+                        </div>
+                      <div class="col-md-6">
+                            <label class="form-label">Filter by Campuses</label>
+                            <select asp-for="Branch" class="form-select">
+                                <option value="">Select Campus</option>
+                                <option value="Sta. Mesa, Manila">Sta. Mesa, Manila</option>
+                                <option value="Taguig City">Taguig City</option>
+                                <option value="Quezon City">Quezon City</option>
+                                <option value="San Juan City">San Juan City</option>
+                                <option value="Parañaque City">Parañaque City</option>
+                                <option value="Bataan">Bataan</option>
+                                <option value="Sta. Maria, Bulacan">Sta. Maria, Bulacan</option>
+                                <option value="Pulilan, Bulacan">Pulilan, Bulacan</option>
+                                <option value="Cabiao, Nueva Ecija">Cabiao, Nueva Ecija</option>
+                                <option value="Lopez, Quezon">Lopez, Quezon</option>
+                                <option value="Mulanay, Quezon">Mulanay, Quezon</option>
+                                <option value="General Luna, Quezon">General Luna, Quezon</option>
+                                <option value="Unisan, Quezon">Unisan, Quezon</option>
+                                <option value="Ragay, Camarines Sur">Ragay, Camarines Sur</option>
+                                <option value="Sto. Tomas, Batangas">Sto. Tomas, Batangas</option>
+                                <option value="Maragondon, Cavite">Maragondon, Cavite</option>
+                                <option value="Alfonso, Cavite">Alfonso, Cavite</option>
+                                <option value="Bansud, Oriental Mindoro">Bansud, Oriental Mindoro</option>
+                                <option value="Sablayan, Occidental Mindoro">Sablayan, Occidental Mindoro</option>
+                                <option value="Biñan, Laguna">Biñan, Laguna</option>
+                                <option value="San Pedro, Laguna">San Pedro, Laguna</option>
+                                <option value="Sta. Rosa, Laguna">Sta. Rosa, Laguna</option>
+                                <option value="Calauan, Laguna">Calauan, Laguna</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" name="fileType" value="Excel" class="btn btn-success">Generate as Excel</button>
+                        <button type="submit" name="fileType" value="Pdf" class="btn btn-danger">Generate as Pdf</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generated Report Table Section -->
+<div class="row justify-content-center mt-3">
+    <div class="col-md">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="mb-4"><strong>Generated Reports</strong></h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Report Name</th>
+                                <th>Generated Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.GeneratedReports != null && Model.GeneratedReports.Any())
+                            {
+                                foreach (var report in Model.GeneratedReports)
+                                {
+                                    <tr>
+
+                                        <td>@report.ReportName</td>
+                                        <td>@report.GeneratedDate.ToShortDateString()</td>
+                                        <td>
+                                           <a href="#" class="btn btn-sm btn-primary report-file" data-requirement-id="@report.ReportId" data-bs-toggle="modal" data-bs-target="#fileModal">View</a>
+
+                                            <!-- Delete button -->
+                                            <form asp-action="DeleteReport" method="post" style="display:inline;" id="deleteForm">
+                                                <input type="hidden" name="id" value="@report.ReportId" />
+                                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete()">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3" class="text-center">No generated reports found.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger me-2"
+        },
+        buttonsStyling: false
+    });
+
+    function confirmDelete() {
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel it!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form programmatically if the user confirms
+                document.getElementById('deleteForm').submit();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "",
+                    icon: "error"
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileLinks = document.querySelectorAll('.report-file');
+        const fileViewer = document.getElementById('fileViewer');
+
+        fileLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const ReportId = link.getAttribute('data-requirement-id');
+                // Update the iframe src to display the memo in the modal
+                fileViewer.src = `@Url.Action("ViewReport", "RSCChief")?ReportId=${ReportId}`;
+            });
+        });
+    });
+</script>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ResearchManagementSystem.Areas.CreSys.Models.EthicsEvaluator>
+
+@{
+    ViewData["Title"] = "Ethics Evaluators";
+}
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+
+</head>
+<h2>@ViewData["Title"]</h2>
+<a href="@Url.Action("AddEvaluators", "Chief")" class="btn btn-primary mb-3">
+    <i class="fas fa-user-plus"></i> Add Evaluators
+</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Completed</th>
+            <th>Pending</th>
+            <th>Declined</th>
+            <th>Account Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evaluator in Model)
+        {
+            <tr>
+                <td>@evaluator.Name</td>
+                <td>@evaluator.Completed</td>
+                <td>@evaluator.Pending</td>
+                <td>@evaluator.Declined</td>
+                <td>@evaluator.AccountStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>

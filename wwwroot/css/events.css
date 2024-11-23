@@ -1,0 +1,411 @@
+body {
+    background-color: #F1F0F0;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.title-section {
+    margin: 2rem 0;
+    padding: 0 15px;
+}
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    margin-left: 2.5%;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+#buttons {
+    margin-left: 1.2%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adds space between buttons */
+}
+.btn-progress, .btn-near, .btn-pending, .btn-rejected, .btn-all{
+    margin-right: 10px;
+    font-weight: 600;
+    margin-bottom:-1vh;
+    border-radius: 15px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    min-width: 120px; /* Adjust as needed */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-all {
+    background-color: #6879D0; /* Lighter color when inactive */
+    color: #FFFF;
+}
+
+.btn-all:hover,
+.btn-all:focus,
+.btn-all:active {
+    background-color: #123499; /* Thicker/darker color when active */
+    color: #FFFF;
+}
+/* In Progress button */
+.btn-progress {
+    background-color: #0d6b4a65; /* Lighter color when inactive */
+    color: #FFFF;
+}
+    .btn-progress:hover,
+    .btn-progress:focus,
+    .btn-progress:active {
+        background-color: #0D6B4A; /* Thicker/darker color when active */
+        color: #FFFF;
+    }
+/* Nearly Expired button */
+.btn-near {
+    background-color: #ddbb3ea2; /* Lighter color when inactive */
+    color: #FFFF;
+}
+    .btn-near:hover,
+    .btn-near:focus,
+    .btn-near:active {
+    background-color: #E5B50C; /* Thicker/darker color when active */
+     color: #FFFF;
+    }
+/* Pending button */
+.btn-pending {
+    background-color: #52525298; /* Lighter color when inactive */
+    color: #FFFF;
+}
+    .btn-pending:hover,
+    .btn-pending:focus,
+    .btn-pending:active {
+        background-color: #525252; /* Thicker/darker color when active */
+        color: #FFFF;
+    }
+/* Rejected button */
+.btn-rejected {
+    background-color: #85000094; /* Lighter color when inactive */
+    color: #FFFF;
+}
+    .btn-rejected:hover,
+    .btn-rejected:focus,
+    .btn-rejected:active {
+        background-color: #850000; /* Thicker/darker color when active */
+        color: #FFFF;
+    }
+#openFormBtn {
+    margin-left: 91%;
+    font-weight: 800;
+    border-radius: 25px;
+    border: none;
+    padding: 20px 20px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    width: 20px;
+    height: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFF;
+    background-color: forestgreen;
+}
+#openArchived {
+    font-weight: 800;
+    border-radius: 25px;
+    border: none;
+    padding: 20px 20px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    width: 20px;
+    height: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFF;
+    background-color: #E5B50C;
+}
+#openFormBtn, #openArchived{
+    margin-top: 5vh;
+    margin-bottom:-4vh;
+    
+}
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    overflow: hidden;
+    max-width: 92%;
+    padding: 0;
+    margin-left: 2%;
+    margin-right: auto;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+}
+
+.table {
+    width: 100%; /* Make table full width */
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+    .table thead th {
+        background-color: #850000;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: center;
+        vertical-align: middle;
+        border: none;
+        padding: 20px 15px;
+    }
+        .table thead th:first-child {
+            border-top-left-radius: 12px;
+        }
+        .table thead th:last-child {
+            border-top-right-radius: 12px;
+        }
+    .table tbody td {
+        vertical-align: middle;
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        text-align: center;
+        word-wrap: break-word;
+    }
+    .table tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 12px;
+    }
+    .table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 12px;
+    }
+    .table tbody tr {
+        height: 100px;
+    }
+    .table tbody td.type-column{
+        width: 15%; /* Assign 40% width to the details column */
+        padding: 15px 10px;
+        word-wrap: break-word;
+        align-items: center;
+    }
+    .table tbody td.document-column, td.expiry-column{
+        width: 15%;
+        padding: 15px 10px;
+        word-wrap: break-word;
+        align-items: center;
+    }
+    #openArchived .table tbody td.status-column {
+    width: 18%;
+    padding: 15px 10px;
+    word-wrap: break-word;
+    align-items: center;
+}
+    .table tbody td.action-column {
+    width: 17%; /* Assign 40% width to the details column */
+    padding: 15px 10px;
+    word-wrap: break-word;
+    text-align: left;
+}
+    .table tbody td.details-column{
+        width: 30%; /* Assign 40% width to the details column */
+        padding: 15px 10px;
+        word-wrap: normal;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+.document-column {
+    font-size:16px;
+    font-weight:600;
+}
+.details-column .title-paragraph {
+    flex: 1;
+    font-weight: 600;
+    padding-right: 10px;
+    margin-left: 1%;
+    margin-top: 2%;
+    line-height: 10px;
+    font-size: 0.95rem;
+}
+
+.content-paragraph1, .content-paragraph2, .content-paragraph3, .content-paragraph4, .content-paragraph5 {
+    text-align: justify;
+    font-size: 0.85rem;
+    word-spacing: 0.5px;
+    margin-left: 28vh;
+    margin-bottom: 3%;
+}
+
+.content-paragraph1 {
+    margin-top: -5.4vh;
+}
+
+.content-paragraph2 {
+    margin-top: -5.4vh;
+}
+
+.content-paragraph3 {
+    margin-top: -5.3vh;
+}
+
+.content-paragraph4 {
+    margin-top: -5.5vh;
+}
+#eventType .content-container, #startDate .content-container {
+    text-align: right;
+}
+.bg-approved, .bg-expired, .bg-terminated {
+    font-size: 0.9rem;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    height: 30px;
+}
+.bg-terminated {
+    background-color: #850000;
+    color: #ffffff;
+}
+
+.bg-approved {
+    background-color: #0D6B4A;
+    color: #ffffff;
+}
+
+.bg-expired {
+    background-color: #E5B50C;
+    color: #ffffff;
+}
+
+#rejected {
+    background-color: #850000; /* Bootstrap's default danger red */
+    color: white; /* Ensure text is white */
+}
+/* Style the dropdown button */
+.form-select1{
+    background-color: #8F8F8F;
+    border: none;
+    color: white; /* White text */ /* Add some padding for better spacing */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: 400; /* Font size */
+    text-align: center; /* Center the text */
+    width: 150px;
+    height: 40px;
+}
+    /* Add hover effect */
+    .form-select1:hover {
+        background-color: #999999; /* Slightly darker gray when hovered */
+        color: white;
+    }
+.form-select2 {
+    background-color: #8F8F8F;
+    border: none;
+    color: white; /* White text */ /* Add some padding for better spacing */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: 400; /* Font size */
+    text-align: center; /* Center the text */
+    width: 150px;
+    height: 40px;
+}
+    /* Add hover effect */
+    .form-select2:hover {
+        background-color: #999999; /* Slightly darker gray when hovered */
+        color: white;
+    }
+.btn-details {
+    background-color: #850000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    display: block;
+    margin-top: 0.5rem;
+    width: 80%;
+    margin-left: 17px;
+    height: 40px;
+    transition: all 0.3s ease;
+}
+    .btn-details:hover {
+        background-color: #9f1c1c;
+    }
+td a {
+    display: block;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+}
+td.expiry-column {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 1000;
+    font-size:20px;
+}
+#expiry1 {
+    margin-top: 10px;
+    font-weight: 1000;
+    font-size: x-large;
+    color: #FF0000;
+}
+a.text {
+    text-align: justify;
+    margin: 0%;
+    margin-left: 1.5%;
+    margin-top: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+.archive-btn, .delete-btn, i.bi-trash, i.bi-archive{
+    color: #850000;
+    font-weight: 600;
+}
+    .archive-btn:hover {
+       color: #85000094;
+    }
+ 
+#view, i.bi-eye {
+    color: #0D6B4A;
+    font-weight: 600;
+}
+.update-btn, .unarchive-btn{
+    color: #008CFF;
+    font-weight: 600;
+}
+#notify, i.bi-bell {
+    color: #E29500;
+    font-weight: 600;
+}
+@media (min-width: 1350px) {
+    .container {
+        min-width: 64rem;
+        margin-left:3%;
+    }
+    .table{
+       min-width:64.5rem;
+    }
+    .table thead th {
+        font-size: 16px;
+    }
+    .details-column .content-container {
+        margin-left: 60%;
+        margin-top: -57%;
+        word-spacing:1px;
+    }
+    #buttons{
+        margin-bottom:-1vh;
+    }
+}

@@ -1,0 +1,206 @@
+﻿@model ResearchManagementSystem.Models.AddCitation
+
+@{
+    ViewData["Title"] = "Edit";
+
+    Layout = "RMCC_Layout";
+}
+
+<link href="~/css/ClusterCoordinator-Accomplishmentadd.css" rel="stylesheet" />
+<style>
+    #title {
+        background: #850000;
+        color: white;
+    }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <form asp-action="Edit">
+        <!--citation-->
+        <div class="container shadow mb-3" id="content">
+            <div class="row shadow-sm h3 p-4 mb-1" id="title">
+                Edit Citation Details
+            </div>
+            <div class="row shadow p-4" id="formcont">
+                <!--Citation ID-->
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CitationId" />
+
+                <!--Production ID-->
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="ProductionId" class="form-label">Production ID</label>
+                        <select asp-for="ProductionId" class="form-control mb-3" asp-items="ViewBag.ProductionId"></select>
+                    </div>
+                </div>
+                <!--Title of (Original) Research Article-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="ArticleTitle" class="form-label">Title of (Original) Research Article</label>
+                        <input asp-for="ArticleTitle" class="form-control mb-3" />
+                        <span asp-validation-for="ArticleTitle" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Authors-->
+                <div class="row mt-3 mb-3">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Author/s of (Original) Article</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--author1-->
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="LeadResearcherId" class="form-label">Author 1</label>
+                        <select asp-for="LeadResearcherId" class="form-control mb-3" asp-items="ViewBag.LeadResearcherId"></select>
+                    </div>
+                    <!--author2-->
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="CoLeadResearcherId" class="form-label">Author 2</label>
+                        <select asp-for="CoLeadResearcherId" class="form-control mb-3" asp-items="ViewBag.CoLeadResearcherId"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--author3-->
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="MemberoneId" class="form-label">Author 3</label>
+                        <select asp-for="MemberoneId" class="form-control mb-3" asp-items="ViewBag.MemberoneId"></select>
+                    </div>
+                    <!--author4-->
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="MembertwoId" class="form-label">Author 4</label>
+                        <select asp-for="MembertwoId" class="form-control mb-3" asp-items="ViewBag.MembertwoId"></select>
+                    </div>
+                    <!--author5-->
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="MemberthreeId" class="form-label">Author 5</label>
+                        <select asp-for="MemberthreeId" class="form-control mb-3" asp-items="ViewBag.MemberthreeId"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <!--Title of Refereed Journal Where the (Original) Research Article Was Published-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="OriginalArticlePublished" class="form-label">Title of Refereed Journal Where the (Original) Research Article Was Published</label>
+                        <input asp-for="OriginalArticlePublished" class="form-control mb-3" />
+                        <span asp-validation-for="OriginalArticlePublished" class="text-danger"></span>
+                    </div>
+                </div>
+                <!--Title of (New) Publication Where the (Original) Research Article Was Cited-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="NewPublicationTitle" class="form-label">Title of (New) Publication Where the (Original) Research Article Was Cited</label>
+                        <input asp-for="NewPublicationTitle" class="form-control mb-3" />
+                        <span asp-validation-for="NewPublicationTitle" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Author/s of the (New) Article Who Cited the (Original) Research Article-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="AuthorsofNewArticle" class="form-label">Author/s of the (New) Article Who Cited the (Original) Research Article</label>
+                        <input asp-for="AuthorsofNewArticle" class="form-control mb-3" />
+                        <span asp-validation-for="AuthorsofNewArticle" class="text-danger"></span>
+                    </div>
+                </div>
+                <!--Title of Refereed Journal Where the (New) Research Article Was Published-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="NewArticlePublished" class="form-label">Title of Refereed Journal Where the (New) Research Article Was Published</label>
+                        <input asp-for="NewArticlePublished" class="form-control mb-3" />
+                        <span asp-validation-for="NewArticlePublished" class="text-danger"></span>
+                    </div>
+                </div>
+                <!--vol no issue no-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="VolNoIssueNo" class="form-label">Volume No./Issue No.</label>
+                        <input asp-for="VolNoIssueNo" class="form-control mb-3" />
+                        <span asp-validation-for="VolNoIssueNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <!--No. of Pages-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="Pages" class="form-label">No. of Pages</label>
+                        <input asp-for="Pages" class="form-control mb-3" />
+                        <span asp-validation-for="Pages" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!--Year of Publication-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="YearofPublication" class="form-label">Year of Publication</label>
+                        <input asp-for="YearofPublication" class="form-control mb-3" />
+                        <span asp-validation-for="YearofPublication" class="text-danger"></span>
+                    </div>
+                </div>
+                <!--Indexing-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="Indexing" class="form-label"></label>
+                        <input asp-for="Indexing" class="form-control mb-3" />
+                        <span asp-validation-for="Indexing" class="text-danger"></span>
+                    </div>
+                </div>
+                <!--Upload File for Proof-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label asp-for="CitationProofFileName" class="form-label">Upload File for Proof</label>
+                        <input asp-for="CitationProofFileName" class="form-control mb-3" />
+                        <span asp-validation-for="CitationProofFileName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--buttons-->
+        <div class="container mt-3 mb-3">
+            <div class="d-flex justify-content-end">
+                <a asp-action="Index" class="new me-2 text-decoration-none text-white d-flex justify-content-center align-items-center">Cancel</a>
+                <input type="button" value="Save Changes" class="ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+        </div>
+        <!--save changes modal-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4" id="bgmodal">
+                    <div class="modal-body rounded-4 p-4">
+                        <h2 class="text-center mb-4" id="modaltitle">Save Changes</h2>
+                        <p id="content">Do you want to save the changes you made to "[Research Title]"?</p>
+                        <div class="mt-4 d-flex justify-content-center align-items-center">
+                            <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                            <input type="submit" value="Save Changes" class="ms-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

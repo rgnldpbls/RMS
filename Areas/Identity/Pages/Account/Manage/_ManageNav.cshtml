@@ -1,0 +1,40 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<style>
+    .amanav {
+        color: #850000;
+        font-family: "Poppins";
+    }
+
+        .amanav:hover {
+            color: #850000;
+            background: rgb(133, 0, 0, 0.2);
+        }
+</style>
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+        <a class="amanav nav-link @ManageNavPages.IndexNavClass(ViewContext) @(ManageNavPages.IndexNavClass(ViewContext) == "active" ? "bg-danger text-white" : "")" id="profile" asp-page="./Index">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="amanav nav-link @ManageNavPages.EmailNavClass(ViewContext) @(ManageNavPages.EmailNavClass(ViewContext) == "active" ? "bg-danger text-white" : "")" id="email" asp-page="./Email">Email</a>
+    </li>
+    <li class="nav-item">
+        <a class="amanav nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext) @(ManageNavPages.ChangePasswordNavClass(ViewContext) == "active" ? "bg-danger text-white" : "")" id="change-password" asp-page="./ChangePassword">Password</a>
+    </li>
+    @if (hasExternalLogins)
+
+    {
+        <li id="external-logins" class="nav-item">
+            <a id="amanav external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext) @(ManageNavPages.ExternalLoginsNavClass(ViewContext) == "active" ? "bg-danger text-white" : "")" asp-page="./ExternalLogins">External logins</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="amanav nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) @(ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) == "active" ? "bg-danger text-white" : "")" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+    </li>
+    <li class="nav-item">
+        <a class="amanav nav-link @ManageNavPages.PersonalDataNavClass(ViewContext) @(ManageNavPages.PersonalDataNavClass(ViewContext) == "active" ? "bg-danger text-white" : "")" id="personal-data" asp-page="./PersonalData">Personal data</a>
+    </li>
+</ul>

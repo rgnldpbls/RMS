@@ -1,0 +1,120 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.ResearcherMemoViewModel
+
+@{
+    ViewData["Title"] = "Memoranda & Executive Orders";
+    Layout = "_LayoutRPages";
+}
+
+<style>
+    .memo-file {
+        background-color: #8B0000;
+        color: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .document-link:hover {
+            background-color: #600000;
+            color: white;
+        }
+
+    .document-icon {
+        margin-right: 10px;
+    }
+
+    .section-title {
+        color: black;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .memo, .exec {
+        background-color: #d9d9d9;
+        height: 700px;
+        max-height: 700px;
+        overflow-y: auto;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Memoranda Column -->
+        <div class="col-md-6 mb-4">
+            <div class="p-4 rounded shadow-sm memo">
+                <h2 class="section-title"><strong>MEMORANDA</strong></h2>
+                @if (Model.Memoranda != null && Model.Memoranda.Any())
+                {
+                    @foreach (var memo in Model.Memoranda)
+                    {
+                        <a href="#" class="memo-file" data-requirement-id="@memo.memorandumId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                            <i class="fas fa-file-pdf ms-3 me-2"></i>
+                            @memo.memorandumName
+                        </a>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No memoranda available.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Executive Order Column -->
+        <div class="col-md-6 mb-4">
+            <div class="p-4 rounded shadow-sm exec">
+                <h2 class="section-title"><strong>EXECUTIVE ORDER</strong></h2>
+                @if (Model.ExecutiveOrders != null && Model.ExecutiveOrders.Any())
+                {
+                    @foreach (var execOrder in Model.ExecutiveOrders)
+                    {
+                        <a href="#" class="memo-file" data-requirement-id="@execOrder.memorandumId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                            <i class="fas fa-file-pdf ms-3 me-2"></i>
+                            @execOrder.memorandumName
+                        </a>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No executive orders available.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 700px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileLinks = document.querySelectorAll('.memo-file');
+        const fileViewer = document.getElementById('fileViewer');
+
+        fileLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const memorandumId = link.getAttribute('data-requirement-id');
+                // Update the iframe src to display the memo in the modal
+                fileViewer.src = `@Url.Action("ViewMemo", "RSCResearcher")?memorandumId=${memorandumId}`;
+            });
+        });
+    });
+</script>

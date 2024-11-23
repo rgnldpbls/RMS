@@ -1,0 +1,276 @@
+﻿@{
+    ViewData["Title"] = "Accomplishments";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorAccomplishments" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorProduction" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Production Details</div>
+                <div>
+                    <a class="btn btn-warning" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorProductionEdit" role="button">Edit</a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
+                </div>
+            </div>
+        </div>
+        <div class="row shadow p-4" id="formcont">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Year:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Year</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>College:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>College</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Department:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Department</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Branch/Campus:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Branch/Campus</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Research Title:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Research Title</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Lead Researcher:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Lead Researcher</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Co-Lead:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Co-Lead</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Member 1:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Member 1</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Member 2:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Member 2</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Member 3:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Member 3</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Type of Research:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Type of Research</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 1:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 1</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 2:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 2</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 3:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 3</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 4:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 4</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 5:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 5</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 6:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 6</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Keyword 7:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Keyword 7</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Type of Funding:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Type of Funding</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Started:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Started</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Completed:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Completed</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>SO/Abstract:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">SO/Abstract.pdf</button></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Manuscript:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">Manuscript.pdf</button></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Ethics Clearance:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">Ethics Clearance.pdf</button></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Certificate of Agreement:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">Certificate of Agreement.pdf</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--delete modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Delete Production Details</h2>
+                    <p id="content">Are you sure you want to delete the production details for research titled "[Research Title]"?</p>
+                    <strong id="content">This action cannot be undone.</strong>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

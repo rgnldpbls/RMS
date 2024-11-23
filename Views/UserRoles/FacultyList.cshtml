@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ApplicationUser>
+
+
+
+@{
+    ViewData["Title"] = "Faculty";
+    Layout = "SuperAdmin_Layout";
+}
+<link href="~/css/ClusterCoordinator-Faculty-FacultyList.css" rel="stylesheet" />
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-2">
+        <div class="row">
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="Index" id="inaactive">User Roles</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="RoleManager" asp-action="Index" id="inaactive">Role Manager</a>
+            </div>
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="FacultyList" id="aactive">Faculty</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="StudentList" id="inaactive">Students</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!--search and filter-->
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <!--search-->
+            <div class="col-lg-3 col-sm-12 mb-2">
+                <form action="" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button type="submit" id="action"><i class="fa-solid fa-magnifying-glass fa-2xl" style="color: #850000;"></i></button>
+                </form>
+            </div>
+            <!--filter-->
+            <div class="col-lg-3 col-sm-12 mb-2">
+                <form action="" class="d-flex">
+                    <select id="filterSelect" class="form-select me-2">
+                        <option>Name (A-Z)</option>
+                        <option>Name (Z-A)</option>
+                        <option>Current Rank (A-Z)</option>
+                        <option>Current Rank (Z-A)</option>
+                        <option>College (A-Z)</option>
+                        <option>College (Z-A)</option>
+                    </select>
+                    <button type="submit" id="action"><i class="fa-solid fa-filter fa-2xl" style="color: #850000;"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--table-->
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table table-borderless w-100">
+            <thead class="shadow-sm">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent" scope="row">First Name</th>
+                    <th class="p-4 bg-transparent" scope="row">Last Name</th>
+                    <th class="p-4 bg-transparent" scope="col">Current Rank</th>
+                    <th class="p-4 bg-transparent" scope="col">Campus</th>
+                    <th class="p-4 bg-transparent" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr class="align-middle">
+                        <td class="p-4 bg-transparent" scope="row">@user.FirstName</td>
+                        <td class="p-4 bg-transparent" scope="row">@user.LastName</td>
+                        <td class="p-4 bg-transparent" scope="col">Current Rank</td>
+                        <td class="p-4 bg-transparent" scope="col">@user.Campus</td>
+                        <td class="p-4 bg-transparent" scope="col">
+                            
+                            
+                            <button id="action" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!--delete modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Delete Faculty</h2>
+                    <p id="content">Are you sure you want to delete the faculty named "[Faculty Name]"?</p>
+                    <strong id="content">This action cannot be undone.</strong>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

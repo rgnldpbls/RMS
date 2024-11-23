@@ -1,0 +1,182 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = null;  // Since we are using a custom layout structure for the login, we set Layout to null.
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        html, body {
+            min-height: 90vh;
+
+            
+            background-image: url('/images/login-bg.jpg');
+            background-size: cover;
+        }
+
+        #main {
+            background: rgb(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px);
+            width: fit-content;
+        }
+
+        h4, h6 {
+            color: white;
+            text-align: center;
+        }
+
+        h4 {
+            font-family: "Poppins";
+            font-weight: bold;
+        }
+
+        h6 {
+            font-family: "Montserrat";
+        }
+
+        img {
+            height: 100px;
+        }
+
+        #title {
+            color: white;
+            font-family: "Inter";
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        #message {
+            color: rgb(255, 255, 255, 0.7);
+            font-family: "Inter";
+            font-size: 15px;
+        }
+
+        input {
+            font-family: "Inter";
+        }
+
+            input[type="submit"] {
+                background: #850000;
+                border-radius: 15px;
+                height: 50px;
+                padding: 0px 30px;
+                color: white;
+                font-family: "Inter";
+                font-size: 20px;
+                border: none;
+                outline: none;
+                box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+                transition: ease-in-out .1s;
+            }
+
+                input[type="submit"]:hover {
+                    background: #560000;
+                }
+
+        a {
+            font-size: 18px;
+            color: #FFDB89;
+            font-family: "Inter";
+            border-radius: 15px;
+            padding: 10px 25px;
+            background: none;
+            text-decoration: none;
+            transition: ease-in-out .1s;
+            text-align: center;
+        }
+
+            a:hover {
+                background: rgb(217, 217, 217, .2);
+            }
+
+        span {
+            color: #FFDB89;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center">
+    <div class="container border border-white border-5 rounded-5 p-5" id="main">
+        <!--Logo-rmo-pup-->
+        <div class="d-flex justify-content-center align-items-center">
+            
+            <img src="~/images/rmologo.png" alt="rmo-logo" class="rounded-circle" />
+            <div class="ms-3">
+                <h4>Research Management Office</h4>
+                <h6>Polytechnic University of the Philippines</h6>
+            </div>
+        </div>
+
+        <!--title-->
+        <div id="title" class="d-flex justify-content-center align-items-center">
+            Log In
+        </div>
+        <!--message-->
+        <div id="message" class="d-flex justify-content-center align-items-center">
+            Please log in to access your account.
+        </div>
+
+        <!-- Form Section -->
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mt-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email" class="form-label">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mt-3 mb-3">
+                <input asp-for="Input.Password" type="password" class="form-control" id="password" placeholder="Password" required>
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <input type="checkbox" class="bg-danger form-check-input" onclick="myFunctionthree()"> <span class="mt-2 text-white">Show Password</span>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label asp-for="Input.RememberMe">
+                    <input class="form-check-input" asp-for="Input.RememberMe" /> <span class="text-white">Remember me</span>
+                </label>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center mt-3">
+                <button type="submit" class="btn btn-danger">Log In</button>
+            </div>
+        </form>
+
+        <!-- Links Section -->
+        <div class="d-flex justify-content-center align-items-center mt-2">
+            <a href="Register">Create Account</a>
+            <span class="me-2 ms-2">|</span>
+            <a href="ForgotPassword">Forgot Password?</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    function myFunctionthree() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

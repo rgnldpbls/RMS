@@ -1,0 +1,40 @@
+﻿body {
+    background: #E8E6E6;
+}
+#content-rmcc-home {
+    font-family: "Inter";
+}
+
+#title-rmcc-home {
+    background: white;
+    font-family: "Poppins";
+}
+
+.total_num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter";
+    color: black;
+    background: #E8E6E6;
+}
+
+.laaabel {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter";
+    color: white;
+    background: #850000;
+}
+
+.rolelblb {
+    background: #850000;
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+.hoverfx:hover {
+    box-shadow: 0px 0px 5px 5px rgb(196, 196, 196);
+}

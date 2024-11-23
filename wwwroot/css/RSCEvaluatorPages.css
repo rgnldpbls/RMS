@@ -1,0 +1,47 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+
+}
+
+.modal-header {
+    background-color: #850000; /* Darker header */
+    border-bottom: 2px solid #fff; /* Custom border */
+    display: flex;
+    justify-content: center;
+}
+
+.modal-title {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-weight: bold;
+    color: white; /* Custom title color */
+}
+
+.modal-body {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-weight: 400;
+    background-color: #850000; /* Custom body background */
+    color: white; /* Custom body text color */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+
+

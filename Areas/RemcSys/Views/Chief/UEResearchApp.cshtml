@@ -1,0 +1,355 @@
+﻿@model Tuple<List<FundedResearchApplication>, List<Evaluation>, List<Evaluator>>
+@{
+    ViewData["Title"] = "University Funded Research Applications";
+
+    Layout = "_NavChief1";
+}
+<div class="funded-research-container">
+    <div class="research-categories">
+        <a href="UFResearchApp" class="UFR">
+            <div class="research-category inactive">
+                <h3>University Funded Research</h3>
+            </div>
+        </a>
+
+
+        <a href="EFResearchApp" class="EFR">
+            <div class="research-category inactive">
+                <h3>Externally Funded Research</h3>
+            </div>
+        </a>
+
+        <a href="UFRLApp" class="UFRL">
+            <div class="research-category inactive">
+                <h3>University Funded Research Load</h3>
+            </div>
+        </a>
+
+        <a href="UEResearchApp" class="UFR-E">
+            <div class="research-category active">
+                <h3>UFR - Evaluation</h3>
+            </div>
+        </a>
+
+        <a href="UploadNTP" class="NTP">
+            <div class="research-category inactive">
+                <h3>Funded Research - Upload NTP</h3>
+            </div>
+        </a>
+    </div>
+    <h2 class="title">UNIVERSITY FUNDED RESEARCH APPLICATIONS - EVALUATION</h2>
+    <hr />
+
+    @if(Model.Item1 != null && Model.Item1.Any())
+    {
+        <div class="search-section">
+            <!-- Search Form -->
+            <form asp-controller="Chief" asp-action="UEResearchApp" method="get" class="form-inline mb-3">
+                <input type="text" name="searchString" class="search-box" placeholder="Search by Research Title" value="@ViewData["currentFilter"]" />
+                <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
+        <table class="document-table">
+            <thead>
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Application Details</th>
+                    <th>
+                        Assign Evaluators
+                        <button class="status-button"><i class="bi bi-question-circle-fill"></i></button>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var app in Model.Item1)
+                {
+                    <tr>
+                        <td>
+                            @(app.dts_No != null ? app.dts_No : "-")
+                        </td>
+                        <td class="research-details">
+                            <b>Research Title:</b> @app.research_Title<br />
+                            <b>Field of Study:</b> @app.field_of_Study
+                        </td>
+                        <td>
+                            @{
+                                //Filter the evaluations list by the current application ID (fra_Id)
+
+                                var assignedEvaluators = Model.Item2.Where(e => e.fra_Id == app.fra_Id).ToList();
+                            }
+                            @if (assignedEvaluators.Count > 0)
+
+                            {
+                                foreach (var eval in assignedEvaluators)
+                                {
+
+                                    if (eval.evaluation_Status == "Pending" || eval.evaluation_Status == "Missed")
+
+                                    {
+                                        <button class="assign wevaluator"
+                                                data-evaluation-id="@eval.evaluation_Id">
+                                            @eval.evaluator_Name
+                                        </button>
+                                    }
+
+                                    else if (eval.evaluation_Status == "Approved")
+
+                                    {
+                                        <button class="approved">
+                                            @eval.evaluator_Name
+                                        </button>
+                                    }
+
+                                    else if (eval.evaluation_Status == "Rejected")
+
+                                    {
+                                        <button class="rejected">
+                                            @eval.evaluator_Name
+                                        </button>
+                                    }
+                                }
+
+                            }
+
+                            else
+
+                            {
+                                <span class="noevaluators">No Evaluator yet</span>
+                            }
+                        </td>
+                        <td>
+                            <button class="manageevaluator-btn"
+                                    data-fra-id="@app.fra_Id"
+                                    data-field-of-study="@app.field_of_Study">
+                                <i class="bi bi-people-fill" style="color:#000;"></i>
+                            </button>
+                            <a asp-action="DocuList" asp-route-id="@app.fra_Id" class="edit-btn">
+                                <i class="bi bi-file-pdf" style=" color:#000;"></i>
+                            </a>
+                            <a asp-action="ChiefResearchEvaluation" asp-controller="Chief" asp-route-id="@app.fra_Id" class="edit-btn">
+                                <i class="bi bi-pencil-square" style="color:#000;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No University Funded Research Application yet.</p>
+    }
+</div>
+
+
+<!--status-tag pop-up-->
+<div class="status_tag" id="statusTag">
+    <div class="card3">
+        <button type="button" class="sdismiss" id="xBtn">×</button>
+        <span class="title">Status Tags</span>
+        <div class="card4">
+            <ol>
+                <li>
+                    <span class="sstatus pending">Evaluator Name</span>
+                    <p>- Under Evaluation</p>
+                </li>
+                <li>
+                    <span class="sstatus approved">Evaluator Name</span>
+                    <p>- Approved by the Evaluator.</p>
+                </li>
+                <li>
+                    <span class="sstatus rejected">Evaluator Name</span>
+                    <p>- Rejected by the Evaluator.</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+
+
+<!--modal evaluator-->
+<div class="evaluators-modal" style="display:none;">
+    <div class="header">
+        <h1>LIST OF EVALUATORS</h1>
+        <button class="close-btn">&times;</button>
+    </div>
+
+    <div class="evaluator-list">
+    </div>
+</div>
+
+<script>
+    document.querySelector('.status-button').addEventListener('click', function () {
+        document.querySelector('.status_tag').style.display = 'block';
+    });
+
+    document.querySelector('.sdismiss').addEventListener('click', function () {
+        document.querySelector('.status_tag').style.display = 'none';
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle the click event for 'Manage Evaluator' buttons
+        $('.manageevaluator-btn').click(function () {
+            var fraId = $(this).data('fra-id');
+            var fieldOfStudy = $(this).data('field-of-study');
+
+            $.ajax({
+                url: '@Url.Action("GetEvaluatorsForResearch", "Chief")',
+                type: 'GET',
+                data: { fraId: fraId, fieldOfStudy: fieldOfStudy },
+                success: function (data) {
+                    $('.evaluator-list').empty(); // Clear the current list
+
+                    $.each(data, function (i, evaluator) {
+                        // Create a new evaluator item
+                        var evaluatorItem = $('<div>').addClass('evaluator-item')
+                            .css({
+                                'display': 'flex',
+                                'align-items': 'center',
+                                'justify-content': 'space-between',
+                                'background-color': 'white',
+                                'border-radius': '5px',
+                                'padding': '1px',
+                                'margin': '10px 0',
+                                'border': '1px solid #7C0000'
+                            });
+
+                        var icon = $('<i>').addClass('bi bi-person-circle')
+                            .css({
+                                'color': '#000',
+                                'font-size': '50px',
+                                'margin-left': '10px'
+                            });
+
+                        var details = $('<div>').addClass('evaluator-details')
+                            .css({
+                                'flex-grow': '1',
+                                'padding-left': '20px',
+                                'color': 'black',
+                                'line-height': '0.25',
+                                'font-size': '12px'
+                            });
+
+                        var name = $('<h5>').addClass('evaluator-name')
+                            .html('<b>' + evaluator.evaluator_Name + '</b>');
+
+                        var fieldsOfInterest = $('<p>').text('Fields of Interest: ' + evaluator.field_of_Interest.join(', ')); // Assuming it's an array
+
+                        var pendingCount = $('<p>').text('Pending: ' + evaluator.pendingCount);
+
+                        details.append(name, fieldsOfInterest, pendingCount);
+
+                        var button = $('<button>')
+                            .addClass('assign-btn')
+                            .css({
+                                'background-color': '#FFDB89',
+                                'border': 'none',
+                                'padding': '10px',
+                                'font-weight': 'bold',
+                                'cursor': 'pointer',
+                                'border-radius': '5px',
+                                'color': '#850000',
+                                'margin-right': '20px'
+                            })
+                            .text('ASSIGN')
+                            .data('evaluator-id', evaluator.evaluator_Id)
+                            .data('fra-id', fraId);
+
+                        var button2 = $('<p>')
+                            .text('CANNOT BE ASSIGNED');
+
+                        // Append icon, details, and button to the evaluator item
+                        if (evaluator.isDisabled) {
+                            evaluatorItem.append(icon, details, button2);
+                        } else {
+                            evaluatorItem.append(icon, details, button);
+                        }
+
+
+                        // Add the evaluator item to the list
+                        $('.evaluator-list').append(evaluatorItem);
+                    });
+
+                    $('.evaluators-modal').show(); // Show the modal with updated content
+                }
+
+            });
+        });
+
+        // Close the modal when the close button is clicked
+        $('.close-btn').click(function () {
+            $('.evaluators-modal').hide();
+        });
+
+        // Handle the assignment of evaluators
+        $(document).on('click', '.assign-btn', function () {
+            var evaluatorId = $(this).data('evaluator-id');
+            var fraId = $(this).data('fra-id');
+
+            // Show confirmation dialog
+            var confirmAssign = confirm("Are you sure you want to assign this evaluator?");
+
+            if (confirmAssign) {
+                // Proceed with assignment
+                $.ajax({
+                    url: '@Url.Action("AssignEvaluator", "Chief")',
+                    type: 'POST',
+                    data: {
+                        evaluatorId: evaluatorId,
+                        fraId: fraId
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Evaluator assigned successfully!');
+                            location.reload(); // Reload to update the list and counts
+                        } else {
+                            alert('Failed to assign evaluator. ' + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert('An error occurred.');
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $(document).on('click', '.assign', function () {
+            var evaluationId = $(this).data('evaluation-id');
+
+            var confirmAssign = confirm("Are you sure you want to remove this evaluator?");
+            if (confirmAssign) {
+                $.ajax({
+                    url: '@Url.Action("DeclineEvaluator", "Chief")', // Update with your actual controller name
+                    type: 'POST',
+                    data: {
+                        evaluationId: evaluationId
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Evaluator removed successfully!');
+                            location.reload(); // Reload to update the list and counts
+                        } else {
+                            alert('Failed to remove evaluator. ' + response.message);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        alert('An error occurred.');
+                    }
+                });
+            } else {
+                alert('Removed canceled');
+            }
+        });
+    });
+</script>

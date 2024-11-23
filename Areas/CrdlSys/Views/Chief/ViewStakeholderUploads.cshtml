@@ -1,0 +1,306 @@
+﻿@model IEnumerable<CrdlSys.ViewModels.StakeholderUploadViewModel>
+@{
+    ViewData["Title"] = "Stakeholder Uploads";
+    Layout = "_LayoutChiefLinkages";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/ChiefViewStake.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<!-- Display Success/Error Messages -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+else if (TempData["ModelStateErrors"] != null)
+{
+    <div class="alert alert-danger">@TempData["ModelStateErrors"]</div>
+}
+
+<div class="title-section">
+    <h1 class="title">RCBA Event Documents</h1>
+</div>
+
+<!-- Filter Buttons -->
+<div class="d-flex" id="buttons">
+    <div class="d-flex" id="buttons">
+        <button class="btn btn-all filter-btn" data-filter="All">Show All</button>
+        <button class="btn-progress filter-btn" data-filter="Active" data-type="ContractStatus">On Going</button>
+        <button class="btn-pending filter-btn" data-filter="Pending" data-type="Status">Pending</button>
+        <button class="btn-near filter-btn" data-filter="Expired" data-type="ContractStatus">Expired</button>
+        <button class="btn-rejected filter-btn" data-filter="Terminated" data-type="ContractStatus">Terminated</button>
+    </div>
+</div>
+
+
+<button class="btn filter-btn mt-2 me-lg-1 mb-2" id="openArchived" data-filter="Archived" data-type="IsArchived">
+    <i class="bi bi-archive-fill"></i>
+</button>
+
+
+<!-- Table -->
+<table class="table-responsive-xl table-bordered ms-lg-4 custom-table" style="width: 95%;">
+    <thead>
+        <tr>
+            <th scope="col">Document ID</th>
+            <th scope="col">Details</th>
+            <th scope="col">Document Status</th>
+            <th scope="col">Contract Status</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Remarks</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var upload in Model)
+        {
+            <tr class="document-row"
+                data-is-archived="@upload.IsArchived.ToString().ToLower()"
+                data-contractstatus="@upload.ContractStatus"
+                data-status="@upload.Status">
+                <form asp-action="UpdateStakeholderUpload" method="post">
+                    <input type="hidden" name="DocumentId" value="@upload.DocumentId" />
+
+                    <!-- Document ID Column -->
+                <th scope="row" class="document-column">@upload.DocumentId</th>
+
+                <td class="details-column ms-3">
+                    <div class="title-paragraph">Stakeholder's Name:<p class="content-paragraph"> @upload.StakeholderName</p></div>
+                    <div class="title-paragraph">Document Type:<p class="content-paragraph"> @upload.TypeOfDocument</p></div>
+                    <div class="title-paragraph">Document's Name:<p class="content-paragraph"> @upload.NameOfDocument</p></div>
+                        @if (upload.TypeOfDocument == "MOA")
+                        {
+                        <div class="title-paragraph">Type of MOA:<p class="content-paragraph"> @upload.TypeOfMOA</p></div>
+                        }
+                </td>
+
+                <td class="status-column">
+
+                        @{
+                            var statusOptions = new[] { "Pending", "Approved", "For Revision" };
+                        }
+                    <select name="Status" class="form-select">
+                            @foreach (var option in statusOptions)
+                            {
+                                if (option == upload.Status)
+                                {
+                                <option value="@option" selected>@option</option>
+                                }
+                                else
+                                {
+                                <option value="@option">@option</option>
+                                }
+                            }
+                    </select>
+                </td>
+
+                <td class="contract-column">
+                        @if (upload.ContractStatus == "Active")
+                        {
+                        <span class="bg-approved">@upload.ContractStatus</span>
+
+                        }
+                        else if (upload.ContractStatus == "Expired")
+                        {
+                        <span class="bg-expired">@upload.ContractStatus</span>
+                        }
+                        else if (upload.ContractStatus == "Terminated")
+                        {
+                        <span class="bg-terminated">@upload.ContractStatus</span>
+                        }
+                        else
+                        {
+                        <span class="bg-pending">Pending</span>
+                        }
+                </td>
+
+                <td class="start-date">
+                    <input type="date" name="ContractStartDate" value="@upload.ContractStartDate?.ToString("yyyy-MM-dd")" class="form-control" />
+                </td>
+
+                <td class="end-date">
+                    <input type="date" name="ContractEndDate" value="@upload.ContractEndDate?.ToString("yyyy-MM-dd")" class="form-control" />
+                </td>
+
+                <td>
+                    <textarea name="comment" class="form-control">@upload.Comment</textarea>
+                </td>
+
+                <td class="action-column">
+                    <div class="action-container ms-lg-2">
+                        <button type="submit" class="btn update-btn"><i class="bi bi-vector-pen"></i> Update</button>
+                            @if (upload.TypeOfDocument != "MOA" || upload.TypeOfMOA == "Others")
+                            {
+
+                            <a href="@Url.Action("UpdateTracker", "Chief", new { trackingId = upload.TrackingId })" class="btn track-btn"><i class="bi bi-geo-alt-fill"></i> Track </a>
+                            }
+                            @if (upload.IsArchived)
+                            {
+                            <a class="btn unarchive-btn" id="unarchive" data-id="@upload.DocumentId"><i class="bi bi-archive"></i> Unarchive</a>
+                            <a class="btn" id="view" href="@Url.Action("ViewStakeholderDocument", "Chief", new { id = upload.DocumentId })" target="_blank"><i class="bi bi-eye"></i> View</a>
+                            <a class="btn delete-btn" id="delete" data-id="@upload.DocumentId"><i class="bi bi-trash"></i> Delete</a>
+                            }
+                            else
+                            {
+                            <a class="btn archive-btn" id="archive" data-id="@upload.DocumentId"><i class="bi bi-archive"></i> Archive</a>
+                            <a class="btn" id="view" href="@Url.Action("ViewStakeholderDocument", "Chief", new { id = upload.DocumentId })" target="_blank"><i class="bi bi-eye"></i> View</a>
+                            <a class="btn terminate-btn" data-id="@upload.DocumentId"><i class="bi bi-trash"></i> Terminate</a>
+                            }
+                    </div>
+                </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var currentFilter = 'all';
+
+            function applyFilter(row) {
+                var isArchived = row.attr('data-is-archived') === 'true';
+                var contractStatus = row.attr('data-contractstatus').toLowerCase();
+                var status = row.attr('data-status').toLowerCase();
+
+                var showRow = true;
+
+                if (currentFilter === 'all') {
+                    showRow = !isArchived;
+                } else if (currentFilter === 'archived') {
+                    showRow = isArchived;
+                } else if (currentFilter === 'active' || currentFilter === 'expired' || currentFilter === 'terminated') {
+                    showRow = !isArchived && (contractStatus === currentFilter);
+                } else if (currentFilter === 'pending') {
+                    showRow = !isArchived && (status === currentFilter);
+                }
+
+                row.toggle(showRow);
+            }
+
+            $('.filter-btn').click(function () {
+                currentFilter = $(this).data('filter').toLowerCase();
+                $('tbody tr').each(function () {
+                    applyFilter($(this));
+                });
+            });
+
+
+
+            // Archive Button Logic
+            $(document).on('click', '.archive-btn', function () {
+                var btn = $(this);
+                var documentId = btn.data('id');
+                if (confirm("Are you sure you want to archive this document?")) {
+                    $.ajax({
+                        url: '@Url.Action("StakeholderArchiveDocument", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                var row = btn.closest('tr');
+                                row.find('.archive-btn, .btn-secondary').remove();
+                                row.find('td:last').prepend('<button type="button" class="btn btn-info unarchive-btn" data-id="' + documentId + '">Unarchive</button> ');
+                                row.find('td:last').prepend('<button type="button" class="btn btn-danger delete-btn" data-id="' + documentId + '">Delete</button> ');
+                                row.attr('data-is-archived', 'true');
+                                location.reload()
+                            } else {
+                                alert("Failed to archive document.");
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while archiving the document.");
+                        }
+                    });
+                }
+            });
+
+            // Unarchive Button Logic
+            $(document).on('click', '.unarchive-btn', function () {
+                var btn = $(this);
+                var documentId = btn.data('id');
+                if (confirm("Are you sure you want to unarchive this document?")) {
+                    $.ajax({
+                        url: '@Url.Action("StakeholderUnarchiveDocument", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                var row = btn.closest('tr');
+                                row.find('.unarchive-btn, .delete-btn').remove();
+                                row.find('td:last').prepend('<button type="button" class="btn btn-warning archive-btn" data-id="' + documentId + '">Archive</button> ');
+                                row.find('td:last').prepend('<a href="@Url.Action("Download", "Chief")?id=' + documentId + '" class="btn btn-secondary">Download</a> ');
+                                row.attr('data-is-archived', 'false');
+                                location.reload()
+                            } else {
+                                alert("Failed to unarchive document.");
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while unarchiving the document.");
+                        }
+                    });
+                }
+            });
+
+            // Delete Button Logic
+            $(document).on('click', '.delete-btn', function () {
+                var btn = $(this);
+                var documentId = btn.data('id');
+                if (confirm("Are you sure you want to delete this document?")) {
+                    $.ajax({
+                        url: '@Url.Action("StakeholderDeleteDocument", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                btn.closest('tr').remove();
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while deleting the document.");
+                        }
+                    });
+                }
+            });
+
+            $('.filter-btn[data-filter="All"]').click();
+        });
+
+        // Terminate Button
+        $(document).ready(function () {
+            $('.terminate-btn').click(function () {
+                var documentId = $(this).data('id');
+                if (confirm("Are you sure you want to terminate this contract? This action cannot be undone.")) {
+                    $.ajax({
+                        url: '@Url.Action("TerminateStakeholderContract", "Chief")',
+                        type: 'POST',
+                        data: { documentId: documentId },
+                        success: function (result) {
+                            if (result.success) {
+                                location.reload();
+                            } else {
+                                alert(result.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error details:", error);
+                            alert("An error occurred while terminating the contract.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

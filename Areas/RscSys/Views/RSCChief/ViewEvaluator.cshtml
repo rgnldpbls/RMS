@@ -1,0 +1,130 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Evaluator Profile";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+    .evaluator-card {
+        background-color: #d3d3d3;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .evaluator-icon {
+        font-size: 100px;
+    }
+
+    .pendingR {
+        background-color: #FFDB89;
+        font-weight: 700;
+        color: #850000;
+    }
+
+    .text {
+        color: #850000;
+        font-weight: 700;
+    }
+
+    .evaluatedR {
+        background-color: #198754;
+        font-weight: 700;
+        color: white;
+    }
+
+    .missedR {
+        background-color: #850000;
+        font-weight: 700;
+        color: white;
+    }
+
+    .listeval {
+        background-color: #d3d3d3;
+    }
+
+    .table-header th {
+        background-color: #d3d3d3;
+        border-bottom: solid gray 2px;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Evaluators</h1>
+        <button class="btn btn-danger">Back</button>
+    </div>
+
+    <div class="evaluator-card">
+        <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-circle me-3 mb-2 evaluator-icon"></i>
+                <div>
+                    <h4>Evaluator's Name</h4>
+                    <p class="mb-0">Specialization</p>
+                    <small class="text-muted">Evaluator ID</small>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-2">
+                            <div class="card-body text-center">
+                                <h2 class="text">50</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer justify-content-center text-center pendingR">
+                                Pending Application Requests
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-2">
+                            <div class="card-body text-center">
+                                <h2 class="text">50</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer justify-content-center text-center evaluatedR">
+                                Evaluated Application Requests
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-2">
+                            <div class="card-body text-center">
+                                <h2 class="text">50</h2>
+                                <p class="mb-0 text"><strong>TOTAL</strong></p>
+                            </div>
+                            <div class="card-footer justify-content-center text-center missedR">
+                                Missed Application Requests
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive listeval">
+        <table class="table">
+            <thead class="table-header">
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Document Title</th>
+                    <th>Application Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows would go here -->
+            </tbody>
+        </table>
+    </div>
+</div>

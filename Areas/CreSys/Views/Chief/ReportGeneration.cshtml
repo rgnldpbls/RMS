@@ -1,0 +1,151 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.ReportGenerationViewModel
+
+@{
+    ViewData["Title"] = "Report Generation";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="container">
+    <h2>Generate Report</h2>
+    <form id="reportForm" method="post" asp-controller="Chief" asp-action="ReportGeneration">
+
+        <!-- External Applications Question -->
+        <div class="form-group">
+            <label for="ExternalApplications">Is this report for external researcher applications?</label>
+            <div>
+                <label>
+                    <input type="radio" name="ExternalApplications" value="true" @if (Model.ExternalApplications)
+                    {
+                        <text>checked</text>
+                    } />
+                    Yes
+                </label>
+                <label>
+                    <input type="radio" name="ExternalApplications" value="false" @if (!Model.ExternalApplications)
+                    {
+                        <text>checked</text>
+                    } />
+                    No
+                </label>
+            </div>
+        </div>
+
+        <!-- Campus Dropdown -->
+        <div class="form-group" id="CampusDropdownContainer">
+            <label for="SelectedCampus">Campus</label>
+            @Html.DropDownListFor(model => model.SelectedCampus,
+                     new SelectList(Model.Campuses, "Select Campus"),
+                     "Select Campus",
+                     new { @class = "form-control", id = "CampusDropdown", @required = "required", placeholder = "Select Campus" })
+            @Html.ValidationMessageFor(model => model.SelectedCampus, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- College Filter Dropdown -->
+        <div class="form-group" id="CollegeDropdownContainer">
+            <label for="SelectedCollege">College</label>
+            @Html.DropDownListFor(model => model.SelectedCollege,
+                     new SelectList(Model.Colleges, "Select College"),
+                     "Select College",
+                     new { @class = "form-control", id = "CollegeDropdown", @required = "required", placeholder = "Select College" })
+            @Html.ValidationMessageFor(model => model.SelectedCollege, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Field of Study Dropdown -->
+        <div class="form-group">
+            <label for="SelectedFieldOfStudy">Field of Study</label>
+            @Html.DropDownListFor(model => model.SelectedFieldOfStudy,
+                     new SelectList(Model.FieldsOfStudy, "Select Field of Study"),
+                     "Select Field of Study",
+                     new { @class = "form-control", @required = "required", placeholder = "Select Field of Study" })
+            @Html.ValidationMessageFor(model => model.SelectedFieldOfStudy, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Date Range -->
+        <div class="form-group">
+            <label for="StartDate">Start Date</label>
+            <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model.StartDate?.ToString("yyyy-MM-dd")" required />
+        </div>
+        <div class="form-group">
+            <label for="EndDate">End Date</label>
+            <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Model.EndDate?.ToString("yyyy-MM-dd")" required />
+        </div>
+
+        <!-- Validation Message -->
+        <div id="dateValidationMessage" class="text-danger" style="display: none;">
+            Start date cannot be later than the end date.
+        </div>
+
+        <button type="submit" class="btn btn-primary">Generate Report</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const campusDropdown = document.getElementById("CampusDropdown");
+        const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
+        const campusDropdownContainer = document.getElementById("CampusDropdownContainer");
+        const externalApplicationRadios = document.getElementsByName("ExternalApplications");
+
+        function toggleFieldsBasedOnExternalApplications() {
+            const isExternalApplicationSelected = document.querySelector('input[name="ExternalApplications"]:checked').value === "true";
+
+            if (isExternalApplicationSelected) {
+                campusDropdownContainer.style.display = "none";
+                collegeDropdownContainer.style.display = "none";
+                campusDropdown.value = "";
+                collegeDropdownContainer.value = "";
+            } else {
+                campusDropdownContainer.style.display = "block";
+
+                // If the selected campus is not "Sta. Mesa", hide college dropdown
+                if (campusDropdown.value && campusDropdown.value !== "Sta. Mesa (MAIN CAMPUS)") {
+                    collegeDropdownContainer.style.display = "none";
+                } else {
+                    collegeDropdownContainer.style.display = "block";
+                }
+            }
+        }
+
+        function toggleCollegeVisibilityBasedOnCampus() {
+            // If a campus is selected that isn't "Sta. Mesa", hide the college dropdown
+            if (campusDropdown.value !== "Sta. Mesa (MAIN CAMPUS)") {
+                collegeDropdownContainer.style.display = "none";
+            } else {
+                collegeDropdownContainer.style.display = "block";
+            }
+        }
+
+        // Apply initial visibility logic
+        toggleFieldsBasedOnExternalApplications();
+        toggleCollegeVisibilityBasedOnCampus();
+
+        // Toggle fields on radio button change
+        externalApplicationRadios.forEach(radio => {
+            radio.addEventListener("change", toggleFieldsBasedOnExternalApplications);
+        });
+
+        // Toggle college dropdown visibility based on campus selection
+        campusDropdown.addEventListener("change", toggleCollegeVisibilityBasedOnCampus);
+
+        // Date validation on form submission
+        document.getElementById("reportForm").addEventListener("submit", function (event) {
+            const startDateInput = document.getElementById("StartDate");
+            const endDateInput = document.getElementById("EndDate");
+            const validationMessage = document.getElementById("dateValidationMessage");
+
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+
+            if (startDate > endDate) {
+                event.preventDefault();
+                validationMessage.style.display = "block";
+            } else {
+                validationMessage.style.display = "none";
+            }
+        });
+    });
+</script>

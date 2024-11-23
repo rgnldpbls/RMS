@@ -1,0 +1,229 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.TechEvalViewModel
+
+@{
+    ViewData["Title"] = "Technical Evaluation";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+    .uploaded-document {
+        background-color: #dc3545;
+        color: white;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .checklist {
+        background-color: #850000;
+        color: white;
+        max-height: 390px;
+        overflow-y: auto;
+    }
+
+    .eval-title h1 {
+        font-weight: 800;
+    }
+
+    .uploaded-docu {
+        height: auto;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+
+    .previous-decision {
+        height: 233px;
+        max-height: 233px;
+        overflow-y: auto;
+    }
+
+    .requirement {
+        list-style: none;
+    }
+
+    .open-file {
+        text-decoration: none;
+        color: white;
+    }
+
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3 eval-title">
+    <h1>Technical Evaluation</h1>
+    <div>
+        <button class="btn btn-outline-danger" onclick="window.history.back();">Back</button>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="mb-1"><strong>DTS Number:</strong> @Model.Request.DtsNo</p>
+                    <p class="mb-1"><strong>APPLICATION TYPE:</strong> @Model.Request.ApplicationType</p>
+                    <p class="mb-1"><strong>FIELD OF STUDY:</strong> @Model.Request.FieldOfStudy</p>
+                    <p class="mb-1"><strong>APPLICANT NAME:</strong> @ViewData["ApplicantName"]</p>
+                </div>
+            </div>
+            <div class="uploaded-docu">
+                <h5>UPLOADED DOCUMENTS</h5>
+                @if (Model.Requirements != null && Model.Requirements.Any())
+                {
+                    foreach (var document in Model.Requirements)
+                    {
+                        <div class="uploaded-document @(document.IsResubmitted ? "bg-warning" : "") position-relative">
+                            <a href="#" class="open-file" data-requirement-id="@document.RequirementId" data-bs-toggle="modal" data-bs-target="#fileModal">
+                            <i class="fas fa-file-pdf ms-3 me-2"></i>
+                            
+                            <span>@document.FileName</span>
+                            @if (document.IsResubmitted)
+                            {
+                                <div class="position-flex text-end">
+                                    <span class="badge rounded-pill bg-danger">Resubmitted</span>
+                                </div>
+                            }
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No documents uploaded for this request.</p>
+                }
+            </div>
+
+            <div class="card mb-4 previous-decision">
+                <div class="card-header">
+                    <h5 class="mb-0">PREVIOUS DECISIONS</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.DocumentHistories != null && Model.DocumentHistories.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var history in Model.DocumentHistories)
+                            {
+                                <li class="list-group-item list-group-item-secondary">
+                                    <strong>@history.CreateDate.ToString("yyyy-MM-dd"):</strong> @history.Comments
+                                    <br/>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No previous decisions found for this request.</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card mb-4 checklist">
+                <div class="card-header">
+                    <h5 class="mb-0">CHECKLIST</h5>
+                </div>
+                <div class="card-body">
+                    <ol class="requirement">
+                        @if (Model.Checklists != null && Model.Checklists.Any())
+                        {
+                            foreach (var checklist in Model.Checklists)
+                            {
+                                <li>
+                                    <input type="checkbox" class="checklist-item"
+                                           data-checklist-name="@checklist.ChecklistName"
+                                           onchange="updateFeedback()" />
+                                    @checklist.ChecklistName
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>No checklists available for this application type.</li>
+                        }
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">DECISION:</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="SubmitDecision" method="post">
+                        <input type="hidden" name="requestId" value="@Model.Request.RequestId" />
+                        <select class="form-select mb-3" name="decision" required @(Model.IsDecisionDisabled ? "disabled" : "")>
+                            <option value="" disabled selected>Result</option>
+                            <option value="Notice to Proceed">Notice to Proceed</option>
+                            <option value="Approved">Approve</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="For Compliance">For Compliance</option>
+                        </select>
+                        @if (Model.IsDecisionDisabled)
+                        {
+                            <textarea class="form-control mb-3" name="comments" rows="3" placeholder="Type your feedback here." required @(Model.IsDecisionDisabled ? "disabled" : "")>The decision form is disabled because there is already a decision of "Notice to Proceed", "For Compliance", "Approved," or "Rejected" in this application.</textarea>
+                        }
+                        else
+                        {
+                            <textarea id="feedback" class="form-control mb-3" rows="4" placeholder="Type your feedback here."
+                                      name="comments"></textarea>
+                        }
+                        <button type="submit" class="btn btn-danger" @(Model.IsDecisionDisabled ? "disabled" : "")>Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Document Viewing -->
+<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fileModalLabel">Document Viewer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="fileViewer" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function updateFeedback() {
+        const checkboxes = document.querySelectorAll('.checklist-item');
+        const feedbackTextarea = document.getElementById('feedback');
+        let checkedItems = [];
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                checkedItems.push(`${checkedItems.length + 1}. ${checkbox.getAttribute('data-checklist-name')}`);
+            }
+        });
+
+        if (checkedItems.length > 0) {
+            feedbackTextarea.value = "Resubmit the following documents:\n" + checkedItems.join('\n');
+            document.querySelector('select[name="decision"]').value = "For Compliance";
+        } else {
+            feedbackTextarea.value = "";
+            document.querySelector('select[name="decision"]').value = "";
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileLinks = document.querySelectorAll('.open-file');
+        const fileViewer = document.getElementById('fileViewer');
+
+        fileLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                const requirementId = link.getAttribute('data-requirement-id');
+                fileViewer.src = '@Url.Action("ViewFile", "RSCChief", new { requirementId = "__REQUIREMENT_ID__" })'.replace('__REQUIREMENT_ID__', requirementId);
+            });
+        });
+    });
+</script>

@@ -1,0 +1,248 @@
+﻿@{
+    ViewData["Title"] = "Accomplishments";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentadd.css" rel="stylesheet" />
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorAccomplishments" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorProduction" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <!--research presentation-->
+    <form action="">
+        <div class="container shadow mb-3" id="content">
+            <div class="row shadow-sm h3 p-4 mb-1" id="title">
+                Research Presentation
+            </div>
+            <div class="row shadow p-4" id="formcont">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="conference_title">Conference Title</label>
+                        <input class="form-control mb-3" type="text" id="conference_title" placeholder="Conference Title">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Organizers</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="organizer_1">Organizer 1</label>
+                        <input class="form-control mb-3" type="text" id="organizer_1" placeholder="Organizer 1">
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="organizer_2">Organizer 2</label>
+                        <input class="form-control mb-3" type="text" id="organizer_2" placeholder="Organizer 2">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Presentors</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="presentor_1">Presentor 1</label>
+                        <input class="form-control mb-3" type="text" id="presentor_1" placeholder="Presentor 1">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="presentor_2">Presentor 2</label>
+                        <input class="form-control mb-3" type="text" id="presentor_2" placeholder="Presentor 2">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="presentor_3">Presentor 3</label>
+                        <input class="form-control mb-3" type="text" id="presentor_3" placeholder="Presentor 3">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="presentor_4">Presentor 4</label>
+                        <input class="form-control mb-3" type="text" id="presentor_4" placeholder="Presentor 4">
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="presentor_5">Presentor 5</label>
+                        <input class="form-control mb-3" type="text" id="presentor_5" placeholder="Presentor 5">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="venue">Venue</label>
+                        <input class="form-control mb-3" type="text" id="venue" placeholder="Venue">
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="level">Level</label>
+                        <select name="level" id="level" class="form-select mb-3">
+                            <option value="">International</option>
+                            <option value="">National</option>
+                            <option value="">Regional</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Certificate_of_Participation_Presentation">Certificate of Participation/Presentation</label>
+                        <input class="form-control mb-3" type="file" id="Certificate_of_Participation_Presentation" placeholder="Certificate of Participation/Presentation" accept=".pdf" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Date of Presentation</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="start_date">Start Date</label>
+                        <input class="form-control mb-3" type="date" id="start_date" placeholder="Start Date">
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="end_date">End Date</label>
+                        <input class="form-control mb-3" type="date" id="end_date" placeholder="End Date">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-3 mb-3">
+            <div class="d-flex justify-content-end">
+                <input type="reset" value="Clear" class="ms-2" id="reset">
+                <input type="button" value="Add Details" class="ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+        </div>
+    </form>
+
+
+    <!--research added modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Presentation Details Added</h2>
+                    <p id="content">The presentation details for research titled "[Research Title]" has been successfully added.</p>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Organizer section
+        let organizerCount = 1;
+
+        document.getElementById('add-organizer').addEventListener('click', function () {
+
+            const newOrganizerRow = document.createElement('div');
+            newOrganizerRow.classList.add('row', 'organizer-fields');
+
+            newOrganizerRow.innerHTML = `
+                        <div class="col-lg-4 col-sm-12">
+                            <label class="form-label" for="organizer_${organizerCount}">Organizer</label>
+                            <input class="form-control mb-3" type="text" id="organizer_${organizerCount}" placeholder="Organizer">
+                        </div>
+                        <div class="col-lg-4 col-sm-12 d-flex align-items-center mt-3">
+                            <span class="action remove-button"><i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i></span>
+                        </div>
+                    `;
+
+            document.getElementById('organizer-container').appendChild(newOrganizerRow);
+
+            // Add functionality to remove this row
+            newOrganizerRow.querySelector('.remove-button').addEventListener('click', function () {
+                newOrganizerRow.remove();
+            });
+
+            organizerCount++;
+        });
+
+        document.getElementById('clear-organizer').addEventListener('click', function () {
+
+            const organizerFields = document.querySelectorAll('.organizer-fields');
+            organizerFields.forEach((field, index) => {
+                if (index > 0) {
+                    field.remove();
+                }
+            });
+            document.getElementById('organizer_0').value = '';
+        });
+
+        // Presentor section
+        let presentorCount = 1;
+
+        document.getElementById('add-presentor').addEventListener('click', function () {
+
+            const newPresentorRow = document.createElement('div');
+            newPresentorRow.classList.add('row', 'presentor-fields');
+
+            newPresentorRow.innerHTML = `
+                        <div class="col-lg-4 col-sm-12">
+                            <label class="form-label" for="presentor_${presentorCount}">Presentor</label>
+                            <input class="form-control mb-3" type="text" id="presentor_${presentorCount}" placeholder="Presentor">
+                        </div>
+                        <div class="col-lg-4 col-sm-12 d-flex align-items-center mt-3">
+                            <span class="action remove-button"><i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i></span>
+                        </div>
+                    `;
+
+            document.getElementById('presentor-container').appendChild(newPresentorRow);
+
+            // Add functionality to remove this row
+            newPresentorRow.querySelector('.remove-button').addEventListener('click', function () {
+                newPresentorRow.remove();
+            });
+
+            presentorCount++;
+        });
+
+        document.getElementById('clear-presentor').addEventListener('click', function () {
+
+            const presentorFields = document.querySelectorAll('.presentor-fields');
+            presentorFields.forEach((field, index) => {
+                if (index > 0) {
+                    field.remove();
+                }
+            });
+            document.getElementById('presentor_0').value = '';
+        });
+    </script>
+
+
+</div>
+
+

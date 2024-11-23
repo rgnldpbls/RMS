@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Get Started";
+}
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <h2>Select a Field of Study</h2>
+
+        <form method="post" asp-action="SelectFieldOfStudy" id="fieldForm" class="p-4 border rounded">
+            <div class="form-group">
+                <!-- Loop through the available fields of study and display them as radio buttons -->
+                @foreach (var field in Model)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="selectedField" value="@field" id="@field" required />
+                        <label class="form-check-label" for="@field">
+                            @field
+                        </label>
+                    </div>
+                }
+            </div>
+
+            <!-- Submit button -->
+            <button type="button" class="btn btn-maroon mt-3" id="submitBtn">Select</button>
+        </form>
+
+        <!-- Link to go back or cancel -->
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-3">Cancel</a>
+    </div>
+</div>
+
+<script>
+    // Add confirmation dialog before submitting the form
+    document.getElementById('submitBtn').addEventListener('click', function (event) {
+        // Check if a field is selected
+        const selectedField = document.querySelector('input[name="selectedField"]:checked');
+
+        if (!selectedField) {
+            alert("Please select a field of study.");
+            return;
+        }
+
+        // Show confirmation dialog
+        const confirmation = confirm("Are you sure you want to select this field of study?");
+        if (confirmation) {
+            // If user confirms, submit the form
+            document.getElementById('fieldForm').submit();
+        } else {
+            // If user cancels, do nothing
+            return;
+        }
+    });
+</script>
+
+<style>
+    .btn-maroon {
+        background-color: #800000; /* Maroon background */
+        color: white; /* White text */
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+        .btn-maroon:hover {
+            background-color: #660000; /* Darker maroon on hover */
+            color: white;
+        }
+
+    .p-4 {
+        padding: 2rem; /* Padding for the form */
+    }
+
+    .border {
+        border: 1px solid #ccc; /* Light gray border for the form */
+    }
+
+    .rounded {
+        border-radius: 0.5rem; /* Rounded corners for the form */
+    }
+</style>

@@ -1,0 +1,123 @@
+﻿@model ResearchManagementSystem.Models.AddPublication
+
+@{
+    ViewData["Title"] = "Details";
+
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+<style>
+    #title{
+        background:#850000;
+        color: white;
+    }
+</style>
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Publication Details</div>
+                <div>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.publicationId" role="button">Edit</a>
+
+                </div>
+            </div>
+        </div>
+
+        <dl class="row shadow p-4" id="formcont">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProductionId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AddAccomplishment.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Article/Title
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ArticleTitle)
+            </dd>
+            <dt class="col-sm-2">
+                Date of Publication
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PublicationDate)
+            </dd>
+
+            <dt class="col-sm-2">
+                Title of Journal Publication
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.JournalPubTitle)
+            </dd>
+
+            <dt class="col-sm-2">
+                Document Type
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DocumentType)
+            </dd>
+            <dt class="col-sm-2">
+                Vol. No. & Issue No.
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.VolnoIssueNo)
+            </dd>
+            <dt class="col-sm-2">
+                ISSN/ISBN/ESSN
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IssnIsbnEssn)
+            </dd>
+            <dt class="col-sm-2">
+                DOI
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DOI)
+            </dd>
+            <dt class="col-sm-2">
+                Indicate Where the Journal is Index
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IndexJournal)
+            </dd>
+            <dt class="col-sm-2">
+                Supporting Documents
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SuppDocs)
+            </dd>
+            <dt class="col-sm-2">
+                Link
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Link)
+            </dd>
+
+            <dt class="col-sm-2">
+                Manuscript in Journal Format
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.ManuscriptJournalData != null)
+                {
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.publicationId" asp-route-fileType="ManuscriptJournalData" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.ManuscriptJournalFileName)
+                    </a>
+                }
+            </dd>
+        </dl>
+
+    </div>
+</div>

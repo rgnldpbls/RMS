@@ -1,0 +1,467 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.ApplyEthicsViewModel
+@{
+    ViewBag.Title = "Submit Application";
+    var FieldOfStudies = new List<string>
+        {
+            "Education",
+            "Computer Science, Information Systems, and Technology",
+            "Engineering, Architecture, and Design",
+            "Humanities, Language, and Communication",
+            "Business",
+            "Social Sciences",
+            "Science, Mathematics, and Statistics"
+        };
+    var Colleges = new List<string>  // List of available colleges
+        {
+            "College of Accountancy and Finance (CAF)",
+            "College of Architecture, Design and the Built Environment (CADBE)",
+            "College of Arts and Letters (CAL)",
+            "College of Business Administration (CBA)",
+            "College of Communication (COC)",
+            "College of Computer and Information Sciences (CCIS)",
+            "College of Education (COED)",
+            "College of Engineering (CE)",
+            "College of Human Kinetics (CHK)",
+            "College of Law (CL)",
+            "College of Political Science and Public Administration (CPSPA)",
+            "College of Social Sciences and Development (CSSD)",
+            "College of Science (CS)",
+            "College of Tourism, Hospitality and Transportation Management (CTHTM)",
+            "Institute of Technology (ITECH)"
+        };
+    var Campuses = new List<string>
+        {
+           "Sta. Mesa (MAIN CAMPUS)",
+            "Taguig City (BRANCH)",
+            "Quezon City (BRANCH)",
+            "San Juan City (BRANCH)",
+            "Parañaque City (CAMPUS)",
+            "Bataan (BRANCH)",
+            "Sta. Maria, Bulacan (CAMPUS)",
+            "Pulilan, Bulacan (CAMPUS)",
+            "Cabiao, Nueva Ecija (CAMPUS)",
+            "Lopez, Quezon (BRANCH)",
+            "Malunay, Quezon (BRANCH)",
+            "Unisan, Quezon (BRANCH)",
+            "Ragay, Camarines Sur (BRANCH)",
+            "Sto. Tomas, Batangas (BRANCH)",
+            "Maragondon, Cavite (BRANCH)",
+            "Bansud, Oriental Mindoro (BRANCH)",
+            "Sablayan, Occidental Mindoro (BRANCH)",
+            "Biñan, Laguna (CAMPUS)",
+            "San Pedro, Laguna (CAMPUS)",
+            "Sta. Rosa, Laguna (CAMPUS)",
+            "Calauan, Laguna (CAMPUS)"
+        };
+    var Universities = new List<string>  // List of available universities
+        {
+            "Polytechnic University of the Philippines"
+        };
+}
+<head>
+    <link rel="stylesheet" href="~/css/applyethics.css" asp-append-version="true" />
+</head>
+<div class="container-fluid mt-3">
+    <div class="d-flex justify-content-center">
+        <form asp-action="ApplyEthics" method="post" enctype="multipart/form-data" style="width: 80%;">
+            <div class="card border-secondary mb-3">
+                <div class="card-header text-bg-danger text-white text-center">General Information</div>
+                <div class="card-body bg-white">
+                    <!-- DTS No -->
+                    <div class="row mb-3">
+                        <label asp-for="EthicsApplication.DtsNo" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">DTS No.:</label>
+                        <div class="col-sm-8">
+                            <!-- DTS Input with pattern attribute for validation -->
+                            @Html.TextBoxFor(model => model.EthicsApplication.DtsNo, new
+                                {
+                                    @class = "form-control",
+                                    id = "dtsNoInput",
+                                    placeholder = "DTS No. (Optional)",
+                                    pattern = "\\d{4}-\\d{4}-\\d{2}",
+                                    title = "DTS No. must be in the format xxxx-xxxx-xx"
+                                })
+                            <!-- Error message placeholder -->
+                            <span id="dtsNoError" class="text-danger"></span>
+                            @Html.ValidationMessageFor(model => model.EthicsApplication.DtsNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!-- Research Project Title -->
+                    <div class="row mb-3">
+                        @Html.LabelFor(model => model.NonFundedResearchInfo.Title,
+                                 new { @class = "text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end" })
+                        <div class="col-sm-8">
+                            @Html.TextBoxFor(model => model.NonFundedResearchInfo.Title,
+                                     new { @class = "form-control", required = "required", minlength = "5", maxlength = "100", placeholder = "Research Title" })
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Project Leader -->
+                    <div class="row mb-3">
+                        <label asp-for="User.Id" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Project Proponent: </label>
+                        <div class="col-sm-8">
+                            @if (!string.IsNullOrEmpty(Model.FullName))
+                            {
+                                @Html.TextBox("ProjectLeader", Model.FullName, new { @class = "form-control", @disabled = "disabled" })
+                                @Html.HiddenFor(model => model.FullName)
+                            }
+                            else
+                            {
+                                @Html.TextBox("NoUserId", "", new { @class = "form-control", placeholder = "No User Id Detected", @disabled = "disabled" })
+                            }
+                        </div>
+
+                    </div>
+
+                    <div id="coProponentsContainer">
+                        @for (int i = 0; i < Model.CoProponent.Count; i++)
+                        {
+                            <div class="coProponentRow row mb-3">
+                                <!-- Co-Proponent Name -->
+                                <div class="row mb-3">
+                                    <label asp-for="CoProponent[i].CoProponentName" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Project Co-Proponent:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.CoProponent[i].CoProponentName, new { @class = "form-control", placeholder = "Name" })
+                                        @Html.ValidationMessageFor(model => model.CoProponent[i].CoProponentName, "", new { @class = "text-danger coProponentError", style = "display:none;" })
+                                        <!-- Custom error message -->
+                                        <span class="text-danger coProponentError" style="display:none;">This field is required.</span>
+                                    </div>
+                                </div>
+                                <!-- Remove Button -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-8 offset-sm-3">
+                                        <button type="button" class="btn btn-danger removeCoProponentBtn">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Add Co-Proponent Button -->
+                    <div class="row mb-3">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-8 d-flex align-items-start">
+                            <button type="button" class="btn btn-secondary" id="addCoProponentBtn">Add Co-Proponent</button>
+                        </div>
+                    </div>
+
+                    <!-- Field of Study Dropdown -->
+                    <div class="row mb-3">
+                        <label asp-for="EthicsApplication.FieldOfStudy" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Field of Study: </label>
+                        <div class="col-sm-8">
+                            @Html.DropDownListFor(model => model.EthicsApplication.FieldOfStudy, new SelectList(FieldOfStudies), "Select Field of Study", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EthicsApplication.FieldOfStudy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Campus Dropdown/Input -->
+                    <div class="row mb-3">
+                        <label asp-for="NonFundedResearchInfo.Campus" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Campus: </label>
+                        <div class="col-sm-8">
+                            @if (Model.IsExternalResearcher)
+                            {
+                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.Campus, new { @class = "form-control", placeholder = "Enter Campus" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.NonFundedResearchInfo.Campus, new SelectList(Campuses), "Select Campus", new { @class = "form-control", id = "CampusDropdown" })
+                            }
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.Campus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- College Dropdown -->
+                    <div class="row mb-3" id="CollegeDropdownContainer" style="@(Model.IsExternalResearcher ? "display:none;" : "")">
+                        <label asp-for="NonFundedResearchInfo.College" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">College: </label>
+                        <div class="col-sm-8">
+                            @if (Model.IsExternalResearcher)
+                            {
+                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.College, new { @class = "form-control", placeholder = "Enter College" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.NonFundedResearchInfo.College, new SelectList(Colleges), "Select College", new { @class = "form-control", id = "CollegeDropdown" })
+                            }
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.College, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <!-- University Dropdown/Input -->
+                    <div class="row mb-3">
+                        <label asp-for="NonFundedResearchInfo.University" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">University: </label>
+                        <div class="col-sm-8">
+                            @if (Model.IsExternalResearcher)
+                            {
+                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.University, new { @class = "form-control", placeholder = "Enter University" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.NonFundedResearchInfo.University, new SelectList(Universities), "Select Univeristy", new { @class = "form-control" })
+                            }
+                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.University, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- Receipt Information Section -->
+            @if (Model.IsExternalResearcher)
+            {
+                <div class="card border-secondary mb-3">
+                    <div class="card-header text-bg-danger text-white text-center">Payment Receipt Details</div>
+                    <div class="card-body bg-white">
+                        <div class="row mb-3">
+                            <label asp-for="ReceiptInfo.ReceiptNo" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Receipt Number: </label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.ReceiptInfo.ReceiptNo, new { @class = "form-control", placeholder = "Receipt Number", required = "required" })
+                                @Html.ValidationMessageFor(model => model.ReceiptInfo.ReceiptNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label asp-for="ReceiptInfo.AmountPaid" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Amount Paid: </label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.ReceiptInfo.AmountPaid, new
+                                    {
+                                        @class = "form-control",
+                                        placeholder = "Amount Paid",
+                                        required = "required",
+                                        type = "text",
+                                        pattern = @"^\d+(\.\d{1,2})?$", // This pattern allows numbers and up to 2 decimal places
+                                        title = "Please enter a valid amount (e.g., 123.45)" // Tooltip for guidance
+                                    })
+                                @Html.ValidationMessageFor(model => model.ReceiptInfo.AmountPaid, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label asp-for="ReceiptInfo.DatePaid" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Date Paid: </label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.ReceiptInfo.DatePaid, new
+                                    {
+                                        @class = "form-control",
+                                        type = "date",
+                                        required = "required",
+                                        max = DateTime.Now.ToString("yyyy-MM-dd") // Set max to today's date
+                                    })
+                                @Html.ValidationMessageFor(model => model.ReceiptInfo.DatePaid, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Upload Receipt:</label>
+                            <div class="col-sm-8">
+                                <input type="file" name="receiptFile" class="form-control" accept=".pdf" required />
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.receiptFile, "", new { @class = "text-danger" })</span>
+                                <small class="form-text text-muted">Please upload the scanned PDF copy of the payment receipt.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="card-footer">
+                <div class="button-group">
+                    <a asp-area="CreSys" asp-controller="Researcher" asp-action="Applications" class="btn btn-cancel">Cancel</a>
+                    <!-- Add id="submitBtn" to ensure it's selected correctly -->
+                    <button type="submit" class="btn btn-danger" id="submitBtn">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const maxCoProponents = 4;
+            let coProponentIndex = @Model.CoProponent.Count; // Start at the current count of co-proponents
+            const coProponentsContainer = document.getElementById('coProponentsContainer');
+            const addCoProponentBtn = document.getElementById('addCoProponentBtn');
+            const submitBtn = document.querySelector('button[type="submit"]'); // Submit button
+            const form = document.querySelector('form'); // The form element
+
+            if (!submitBtn) {
+                console.error('Submit button not found!');
+                return;
+            }
+
+            // Function to add a new co-proponent row
+            function addCoProponent() {
+                if (coProponentIndex >= maxCoProponents) {
+                    alert('You can add a maximum of 4 co-proponents.');
+                    return;
+                }
+
+                const newCoProponentHtml = `
+                            <div class="coProponentRow row mb-3">
+                                <div class="row mb-3">
+                                    <label class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Co-Proponent Name:</label>
+                                    <div class="col-sm-8">
+                                        <input name="CoProponent[${coProponentIndex}].CoProponentName" class="form-control" placeholder="Name" required />
+                                        <span class="text-danger coProponentError" style="display:none;">This field is required.</span> <!-- Error message span -->
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-8 offset-sm-3">
+                                        <button type="button" class="btn btn-danger removeCoProponentBtn">Remove</button>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                coProponentsContainer.insertAdjacentHTML('beforeend', newCoProponentHtml);
+                coProponentIndex++; // Increment the index
+                bindRemoveButtons();
+            }
+
+            // Function to remove a co-proponent row
+            function removeCoProponent(event) {
+                const coProponentRow = event.target.closest('.coProponentRow');
+                if (coProponentRow) {
+                    coProponentRow.remove();
+                    coProponentIndex--; // Decrement the index
+                }
+            }
+
+            // Bind the remove button functionality
+            function bindRemoveButtons() {
+                const removeButtons = document.querySelectorAll('.removeCoProponentBtn');
+                removeButtons.forEach(button => {
+                    button.removeEventListener('click', removeCoProponent); // Remove any previously bound event
+                    button.addEventListener('click', removeCoProponent);   // Bind the remove function
+                });
+            }
+
+            // Function to check if all co-proponents have valid names
+            function checkCoProponentValidation() {
+                const coProponentInputs = document.querySelectorAll('[name*="CoProponent["]');
+                let allValid = true;
+
+                // Loop through each co-proponent input and check if it's empty
+                coProponentInputs.forEach(input => {
+                    const errorSpan = input.closest('.coProponentRow').querySelector('.coProponentError');
+                    if (input.value.trim() === "") {
+                        errorSpan.style.display = 'block';  // Show error message if the field is empty
+                        allValid = false; // Set validation to false if any input is empty
+                    } else {
+                        errorSpan.style.display = 'none';  // Hide error message when the input has a value
+                    }
+                });
+
+                // Enable/disable submit button based on validation
+                submitBtn.disabled = !allValid;
+            }
+
+            // Bind add button click event
+            addCoProponentBtn.addEventListener('click', addCoProponent);
+
+            // Initially bind remove buttons for existing co-proponents
+            bindRemoveButtons();
+
+            // Listen for form submission
+            form.addEventListener('submit', function (e) {
+                const coProponentInputs = document.querySelectorAll('[name*="CoProponent["]');
+                let valid = true;
+
+                // Check if any co-proponent name is empty and show the error if needed
+                coProponentInputs.forEach(input => {
+                    const errorSpan = input.closest('.coProponentRow').querySelector('.coProponentError');
+                    if (input.value.trim() === "") {
+                        errorSpan.style.display = 'block';  // Show error message on submit if field is empty
+                        valid = false; // If any input is empty, prevent form submission
+                    }
+                });
+
+                if (!valid) {
+                    e.preventDefault(); // Prevent form submission if validation fails
+                    alert('All co-proponent names must be filled out before submitting.');
+                }
+            });
+
+            // Ensure the validation is checked when the page loads
+            checkCoProponentValidation();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Check DTS Number on input change
+            $('#dtsNoInput').on('change', function () {
+                var dtsNo = $(this).val();
+                if (dtsNo) {
+                    $.ajax({
+                        url: '@Url.Action("CheckDtsNumber", "Researcher")', // Controller action
+                        type: 'GET',
+                        data: { dtsNo: dtsNo },
+                        success: function (response) {
+                            if (!response.isValid) {
+                                // Show error message if DTS No is invalid
+                                $('#dtsNoError').text(response.message);
+                                $('#submitButton').prop('disabled', true); // Disable submit button
+                            } else {
+                                // Clear error message and enable submit button if DTS No is valid
+                                $('#dtsNoError').text('');
+                                $('#submitButton').prop('disabled', false); // Enable submit button
+                            }
+                        },
+                        error: function () {
+                            // Handle any error during AJAX request
+                            $('#dtsNoError').text('Error checking DTS No.');
+                        }
+                    });
+                } else {
+                    $('#dtsNoError').text('');
+                }
+            });
+
+            // Prevent form submission if DTS No exists
+            $("form").on("submit", function (e) {
+                var dtsNo = $('#dtsNoInput').val();
+                if (dtsNo) {
+                    // Check if the DTS No is valid before submitting
+                    $.ajax({
+                        url: '@Url.Action("CheckDtsNumber", "Researcher")', // Controller action
+                        type: 'GET',
+                        data: { dtsNo: dtsNo },
+                        async: false, // Ensure the check is completed before submitting
+                        success: function (response) {
+                            if (!response.isValid) {
+                                // If invalid, prevent form submission and show error message
+                                $('#dtsNoError').text(response.message);
+                                e.preventDefault(); // Prevent form submission
+                            }
+                        },
+                        error: function () {
+                            // Handle any error during AJAX request
+                            $('#dtsNoError').text('Error checking DTS No.');
+                            e.preventDefault();
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const campusDropdown = document.getElementById("CampusDropdown");
+            const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
+
+            // Function to handle dynamic changes and realign
+            function toggleCollegeDropdown() {
+                const selectedCampus = campusDropdown.value;
+
+                if (selectedCampus === "Sta. Mesa (MAIN CAMPUS)" || campusDropdown.disabled || selectedCampus === "") {
+                    collegeDropdownContainer.style.display = "flex";
+                } else {
+                    collegeDropdownContainer.style.display = "none";
+                }
+
+                // Trigger layout recalculation after change
+                window.dispatchEvent(new Event('resize'));  // Forces the browser to recalculate the layout
+            }
+
+            // Apply logic when the page loads
+            toggleCollegeDropdown();
+
+            campusDropdown.addEventListener("change", toggleCollegeDropdown);
+        });
+    </script>
+
+}

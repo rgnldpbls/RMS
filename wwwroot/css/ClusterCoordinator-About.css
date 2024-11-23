@@ -1,0 +1,110 @@
+﻿body {
+    background-color: #E8E6E6;
+}
+
+.abt-nav {
+    display: flex;
+    border-bottom: solid 3px;
+    border-color: #850000;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+    .abt-nav a {
+        font-weight: 500;
+        font-style: normal;
+        color: black;
+        text-decoration: none;
+    }
+
+.abt-nav-pills .abt-nav-link.active {
+    font-weight: bold;
+    color: #850000;
+    background-color: rgba(133, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.abt-nav-pills .abt-nav-link:hover {
+    font-weight: bold;
+    color: #850000;
+    border-radius: 12px;
+}
+
+.abt-nav-link {
+    margin-bottom: 5px;
+    border-radius: 15px;
+    /* margin-right: 10px; */
+}
+
+h2 {
+    /* text-align: center; */
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 40px;
+    color: #850000;
+}
+
+.justp {
+    text-align: justify;
+}
+
+.justcontainer {
+    padding: 40px;
+    margin-top: 30px;
+    background-color: #FFF;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.container-ob {
+    /* padding: 10px; */
+    margin-top: 30px;
+    background-color: #FFF;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.header {
+    padding: 15px;
+    font-size: 22px;
+    padding-left: 25px;
+    background-color: #FFF;
+    border-radius: 15px 15px 0px 00px;
+    box-shadow: 0 4px 4px rgba(75, 75, 75, 0.3);
+    font-weight: bold;
+}
+
+.center {
+    color: #850000;
+    font-weight: 700;
+}
+
+h6 {
+    color: #850000;
+    font-weight: 600;
+}
+
+.file {
+    text-decoration: none;
+    color: #850000;
+    font-size: 20px;
+}
+
+    .file:hover {
+        color: #580101;
+        text-decoration: underline;
+    }
+
+ol .obj, ul .obj {
+    border-bottom: 1px solid #ddd;
+}
+
+    ol .obj:last-child, ul .obj:last-child {
+        border-bottom: none;
+    }
+
+.no-bullet {
+    list-style-type: none; /* Removes the bullets */
+    padding: 0; /* Removes default padding */
+    margin: 0;
+}

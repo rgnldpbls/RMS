@@ -1,0 +1,241 @@
+﻿
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css' rel='stylesheet' />
+    <link rel="stylesheet" href="~/css/secretariat_dashboard.css" asp-append-version="true" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <title> Dashboard </title>
+
+</head>
+<body>
+
+    <!-- Main Content Area -->
+    <div class="dashboard-container">
+        <div class="left-column">
+            <div class="welcome-section">
+                <h2>Welcome Back!</h2>
+                <h1>ELENA N. FA-ED</h1> <!--Fetch the secretariat name if can or leave it as "Secratariat" only-->
+                <p class="board-title">UNIVERSITY RESEARCH ETHICS CENTER (UREC)</p>
+            </div>
+
+            <div class="evaluation-overview">
+                <div class="overview-header">
+                    <h2>Ethics Clearance Application <br>OVERVIEW</h2> <!--Overview section for secretariat assignments-->
+                </div>
+
+                <div class="stat-boxes">
+                    <div class="stat-box evaluation-assignment">
+                        <div class="white">
+                            <span class="number ">3</span>  <!--This is where you fetch the total pending for review of secretariat-->
+                            <span class="total">TOTAL</span>
+                        </div>
+                        <span class="label">Pending for<br>Review</span>
+                    </div>
+                    <div class="stat-box to-be-evaluated">
+                        <div class="white">
+                            <span class="number ">70</span> <!--This is where you fetch the total Approved for evaluationo of secretariat-->
+                            <span class="total">TOTAL</span>
+                        </div>
+                        <span class="label">Approved for<br>Evaluation</span>
+                    </div>
+                    <div class="stat-box evaluated-applications">
+                        <div class="white">
+                            <span class="number ">73</span> <!--This is where you fetch the total ethics applications of secretariat-->
+                            <span class="total">TOTAL</span>
+                        </div>
+                        <span class="label">Ethics<br>Applications</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="calendar-section">
+                <h3>CALENDAR</h3>
+                <div class="divider"></div>
+                <div id="calendar"></div>
+            </div>
+            <div class="inbox-section">
+                <div class="inbox-header">
+                    <h3>
+                        Inbox
+                        <button class="clear-inbox">Clear Inbox</button>
+                    </h3>
+                </div>
+
+
+                <div class="divider"></div>
+
+                <div id="notificationList">
+                    <div class="notification">
+                        <!--Inbox logic for secretariat-->
+                        <div class="unread-text">
+                            Application Submission<br>
+                            Ethics clearance application with UREC Number: 2024-0101....
+                            <i class="bi bi-envelope-paper"></i>
+                        </div>
+                        <div class="notification-text">
+                            Application Submission<br>
+                            Ethics clearance application with UREC Number: 20xx-xxxx....
+                            <i class="bi bi-envelope-paper"></i>
+                        </div>
+                        <div class="notification-text">
+                            Application Submission<br>
+                            Ethics clearance application with UREC Number: 20xx-xxxx....
+                            <i class="bi bi-envelope-paper"></i>
+                        </div>
+                        <!--this is the end of sample datas-->
+                    </div>
+                </div>
+
+                <!-- Empty inbox section -->
+                <div id="inbox-empty" style="display: none; text-align: center; margin-top: 20px; opacity: 60%;">
+                    <i class="bi bi-inbox-fill" style="font-size: 100px; color: #909090;"></i>
+                    <p style="font-size: 20px; color: #909090;">Inbox Empty</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                    const calendarEl = document.getElementById('calendar');
+                    const calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        headerToolbar: {
+                            left: '',
+                            center: 'title',
+                            right: ''
+                        },
+                        height: 400,
+                        contentHeight: 400,
+                        aspectRatio: 1.5
+                    });
+                    calendar.render();
+
+                document.querySelector('.clear-inbox').addEventListener('click', function() {
+                            // Clear notification list
+                            document.getElementById('notificationList').innerHTML = '';
+
+                            // Show "Inbox Empty" message
+                            document.getElementById('inbox-empty').style.display = 'block';
+                        });
+                });</script>
+
+
+
+    <script>
+        // Get the header and navbar elements
+            const chiefnavbar = document.getElementById('chief-navbar');
+
+            // Get the position where the navbar should stick
+            const sticky = chiefnavbar.offsetTop;
+
+            // Add scroll event listener to the window
+            window.onscroll = function() {
+                handleStickyNavbar();
+            };
+
+
+
+                function handleStickyNavbar() {
+                    if (window.pageYOffset > sticky) {
+                        navbar.classList.add("sticky");
+                        topHeader.style.top = "-100px";  // Hide the top header
+                    } else {
+                        navbar.classList.remove("sticky");
+                        topHeader.style.top = "0";  // Show the top header
+                    }
+                }
+
+
+
+                function toggleSidebar() {
+                    const sidebar = document.getElementById('sidebar');
+                    const mainContent = document.getElementById('main');
+                    sidebar.classList.toggle('open');
+                    mainContent.classList.toggle('sidebar-open');
+                }
+
+
+
+                function updateDropdownText(element) {
+                    var dropdownButton = document.getElementById("dropdownMenuButton");
+                    dropdownButton.textContent = element.textContent; // Update the button text with the selected item
+                }
+
+                // Function to show the appropriate section and update the active tab
+                function showSection(sectionId, element) {
+                    // Remove active class from all links
+                    var navLinks = document.querySelectorAll('.navbar-links ul li a');
+                    navLinks.forEach(link => link.classList.remove('active'));
+
+                    // Add active class to the clicked link
+                    element.classList.add('active');
+
+                    // Hide all sections
+                    var sections = document.querySelectorAll('section');
+                    sections.forEach(section => section.classList.remove('visible-section'));
+                    sections.forEach(section => section.style.display = 'none');
+
+                    // Show the selected section
+                    document.getElementById(sectionId).style.display = 'block';
+                }
+
+                // Function to update the center container based on the selected role
+                function updateRole(role) {
+                    var dropdownButton = document.getElementById("dropdownMenuButton");
+                    dropdownButton.textContent = role;
+
+                    // Get the navigation list
+                    var navItems = document.getElementById("nav-items");
+                    navItems.innerHTML = ''; // Clear the current nav items
+
+                    if (role === 'Secretariat') {
+                        navItems.innerHTML += '<li><a href="#" id="home-link" class="active" onclick="showSection(\'home\', this)">Home</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="dashboard-link" onclick="showSection(\'dashboard\', this)">Dashboard</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="application-link" onclick="showSection(\'application\', this)">Application</a></li>';
+                    } else if (role === 'Evaluator') {
+                        navItems.innerHTML += '<li><a href="#" id="home-link" class="active" onclick="showSection(\'home\', this)">Home</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="dashboard-link" onclick="showSection(\'dashboard\', this)">Dashboard</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="evaluation-link" onclick="showSection(\'evaluation\', this)">Evaluation</a></li>';
+                    } else if (role === 'Chief') {
+                        navItems.innerHTML += '<li><a href="#" id="home-link" class="active" onclick="showSection(\'home\', this)">Home</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="dashboard-link" onclick="showSection(\'dashboard\', this)">Dashboard</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="application-link" onclick="showSection(\'application\', this)">Application</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="evaluators-link" onclick="showSection(\'evaluators\', this)">Evaluators</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="reports-link" onclick="showSection(\'reports\', this)">Reports</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="forms-link" onclick="showSection(\'forms\', this)">Forms</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="memorandums-link" onclick="showSection(\'memorandums\', this)">Memorandums</a></li>';
+                    } else if (role === 'Chairperson') {
+                        navItems.innerHTML += '<li><a href="#" id="home-link" class="active" onclick="showSection(\'home\', this)">Home</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="dashboard-link" onclick="showSection(\'dashboard\', this)">Dashboard</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="application-link" onclick="showSection(\'application\', this)">Application</a></li>';
+                    } else if (role === 'Project Leader') {
+                        navItems.innerHTML += '<li><a href="#" id="home-link" class="active" onclick="showSection(\'home\', this)">Home</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="application-link" onclick="showSection(\'application\', this)">Application</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="forms-link" onclick="showSection(\'forms\', this)">Form</a></li>';
+                        navItems.innerHTML += '<li><a href="#" id="memorandums-link" onclick="showSection(\'memorandums\', this)">Memorandums</a></li>';
+                    }
+
+                    // Reset the sections to the default view
+                    showSection('home', document.getElementById("home-link"));
+                }</script>
+
+</body>

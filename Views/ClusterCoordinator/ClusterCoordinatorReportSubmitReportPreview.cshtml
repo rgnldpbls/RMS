@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Report";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Report-SubmitReport-Preview.css" rel="stylesheet" />
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReport" id="inaactive">Generate Report</a>
+            </div>
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportSubmitReport" id="aactive">Submit Report</a>
+            </div>
+        </div>
+    </div>
+
+    <!--input fields-->
+    <div class="container shadow h4 p-4 mb-3" id="title">
+        Report Preview
+    </div>
+    <div class="container p-4 mb-3 text-center" id="title">
+        File Preview
+    </div>
+    <div class="container p-2 mb-3 text-center">
+        <strong>Report Content:</strong> This is a preview of the [selected report type] report from [start date] to [end date].
+    </div>
+    <div class="container d-flex flex-column">
+        <div class="row d-flex justify-content-end align-items-end">
+            <div class="col-lg-8 col-sm-12 d-flex justify-content-end align-items-end">
+                <div class="me-2">
+                    <button class="report me-2 mb-3">Export as PDF</button>
+                </div>
+                <div>
+                    <button class="report mb-3">Export as Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,202 @@
+﻿@using ResearchManagementSystem.Areas.CreSys.Models
+@{
+    ViewBag.Title = "Applications";
+    var alertMessage = TempData["AlertMessage"];
+    var alertType = TempData["AlertType"];
+}
+<head>
+    <link rel="stylesheet" href="~/css/application.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+@if (alertMessage != null)
+{
+    <div class="alert alert-@alertType">
+        @alertMessage
+    </div>
+}
+<div class="applications-container">
+    <div class="header-section">
+        <h2>ETHICS CLEARANCE APPLICATIONS</h2>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search by title, status, or UREC No..." onkeyup="filterApplications()" />
+            </div>
+            <div class="header-controls">
+                <div class="user-greeting">
+                    Hello, @ViewBag.FullName!
+                </div>
+                <div class="view-controls">
+                    <button id="gridViewBtn" onclick="setView('grid')" class="active">
+                        <i class="fas fa-th-large"></i>
+                        <span>Grid</span>
+                    </button>
+                    <button id="listViewBtn" onclick="setView('list')">
+                        <i class="fas fa-list"></i>
+                        <span>List</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.EthicsApplications != null && ((List<EthicsApplication>)ViewBag.EthicsApplications).Any())
+        {
+            var ethicsApplications = (List<EthicsApplication>)ViewBag.EthicsApplications;
+            var nonFundedResearchInfos = (List<NonFundedResearchInfo>)ViewBag.NonFundedResearchInfos;
+            var ethicsApplicationLogs = (List<EthicsApplicationLogs>)ViewBag.EthicsApplicationLogs;
+
+            <div id="applicationsView" class="grid-view">
+                @foreach (var application in ethicsApplications)
+                {
+                    var researchInfo = nonFundedResearchInfos
+                    .FirstOrDefault(nr => nr.UrecNo == application.UrecNo);
+                    var latestLog = ethicsApplicationLogs
+                    .FirstOrDefault(log => log.UrecNo == application.UrecNo);
+
+                    // Skip the application if there's no log for it
+                    if (latestLog == null)
+                    {
+                        continue;
+                    }
+
+                    // Define the function to determine the status class
+                    Func<string, string> GetStatusClass = (string status) =>
+                    {
+                        if (string.IsNullOrEmpty(status)) return "pending"; // default status
+
+                        // Check for combinations in the status string and return the appropriate class
+                        if (status.Contains("approved") && status.Contains("evaluation"))
+                        {
+                            return "approved"; // Green
+                        }
+                        else if (status.Contains("approved") && status.Contains("issuance"))
+                        {
+                            return "approved"; // Green
+                        }
+                        else if (status.Contains("pending"))
+                        {
+                            return "pending"; // Yellow
+                        }
+                        else if (status.Contains("evaluated"))
+                        {
+                            return "approved"; // Green
+                        }
+                        else if (status.Contains("issued"))
+                        {
+                            return "approved"; // Green
+                        }
+                        else if (status.Contains("returned"))
+                        {
+                            return "rejected"; // Red
+                        }
+                        else if (status.Contains("submitted"))
+                        {
+                            return "pending"; // Yellow
+                        }
+                        else
+                        {
+                            return "pending"; // Default if no match
+                        }
+                    };
+
+                    <div class="research-card"
+                         data-title="@researchInfo?.Title.ToLower()"
+                         data-status="@(latestLog?.Status?.ToLower() ?? "pending")"
+                         data-urecno="@application.UrecNo">
+
+                        <div class="research-preview">
+                            <img src="/images/BG-Header.png" alt="Document Preview" />
+                        </div>
+                        <div class="research-info">
+                            <h3 class="research-title">@researchInfo?.Title</h3>
+                            <div class="research-status">
+                                <strong>Status:</strong>
+                                <!-- Dynamically assign the class based on the status -->
+                                <span class="status-@GetStatusClass(latestLog?.Status?.ToLower() ?? "pending")">
+                                    @(latestLog?.Status ?? "Pending")
+                                </span>
+                            </div>
+                            <p><strong>Submission Date:</strong> @application.SubmissionDate.ToShortDateString()</p>
+                            <p><strong>UREC No:</strong> @application.UrecNo</p>
+                            <a href="@Url.Action("UploadForms", "Researcher", new { urecNo = application.UrecNo })"
+                               class="view-application-btn">
+                                View Application
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="inbox-container">
+                <div class="inbox-empty">
+                    <i class="fas fa-inbox"></i>
+                    <p>You have no applications submitted.</p>
+                </div>
+            </div>
+        }
+
+        <button class="floating-action-button" onclick="location.href='@Url.Action("ApplyEthics", "Researcher")'">
+            +
+        </button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var successMessage = "@TempData["SuccessMessage"]";
+            if (successMessage) {
+                $('#successModal').modal('show');
+            }
+        });
+
+        function filterApplications() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+            const cards = document.querySelectorAll(".research-card");
+
+            cards.forEach(card => {
+                const title = card.getAttribute("data-title") || "";
+                const status = card.getAttribute("data-status") || "";
+                const urecNo = card.getAttribute("data-urecno") || "";
+
+                // Check if title, status, or UREC No. includes the search term
+                if (
+                    title.includes(searchTerm) ||
+                    status.includes(searchTerm) ||
+                    normalizeUrecNo(urecNo).includes(normalizeUrecNo(searchTerm))
+                ) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Normalize UREC No. to remove spaces, hyphens, etc. for consistent search
+        function normalizeUrecNo(value) {
+            return value.replace(/[\s-]/g, "").toLowerCase();
+        }
+
+        function setView(view) {
+            const applicationsView = document.getElementById("applicationsView");
+            const gridBtn = document.getElementById("gridViewBtn");
+            const listBtn = document.getElementById("listViewBtn");
+
+            if (view === 'grid') {
+                applicationsView.classList.add("grid-view");
+                applicationsView.classList.remove("list-view");
+                gridBtn.classList.add("active");
+                listBtn.classList.remove("active");
+            } else {
+                applicationsView.classList.add("list-view");
+                applicationsView.classList.remove("grid-view");
+                listBtn.classList.add("active");
+                gridBtn.classList.remove("active");
+            }
+        }
+    </script>
+}

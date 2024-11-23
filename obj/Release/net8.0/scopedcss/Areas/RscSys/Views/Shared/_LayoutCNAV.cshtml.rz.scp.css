@@ -1,0 +1,236 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+*[b-6296w5mixs] {
+    font-family: 'Poppins', sans-serif;
+}
+
+body[b-6296w5mixs] {
+    background-color: #850000;
+}
+
+.navbar-custom[b-6296w5mixs] {
+    background-color: #850000;
+}
+
+a.navbar-brand[b-6296w5mixs] {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a[b-6296w5mixs] {
+    color: #0077cc;
+}
+
+.btn-primary[b-6296w5mixs] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-6296w5mixs], .nav-pills .show > .nav-link[b-6296w5mixs] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-6296w5mixs] {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom[b-6296w5mixs] {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-6296w5mixs] {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-6296w5mixs] {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.footer[b-6296w5mixs] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+.research-management-office[b-6296w5mixs] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.polytechnic-university[b-6296w5mixs] {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+    margin-top: -7px;
+}
+
+.navbar-nav .nav-item[b-6296w5mixs] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.section[b-6296w5mixs] {
+    background-color: white;
+    min-height: 100vh;
+    margin: -24px 0px;
+    padding: 20px;
+}
+
+.nav-link.active-link[b-6296w5mixs] {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
+}
+
+/* CHIEF HOME */
+
+.memorandum-list[b-6296w5mixs] {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    .memorandum-list li[b-6296w5mixs] {
+        margin-bottom: 10px;
+        font-weight: 300;
+        color: white;
+    }
+
+    .memorandum-list .memorandum-link[b-6296w5mixs] {
+        color: white;
+        text-decoration: none;
+    }
+
+.memotitle[b-6296w5mixs] {
+    margin: 20px 0px;
+}
+
+.memorandums-section[b-6296w5mixs] {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: relative;
+    height: 40vh;
+    display: flex;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.btn.btn-dl[b-6296w5mixs] {
+    font-family: 'Poppins', sans-serif; /* Custom font */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Make the text bold */
+    background-color: #FFDB89; /* Custom button background */
+    color: #850000; /* Button text color */
+    padding: 10px 30px; /* Custom padding */
+    border-radius: 43px; /* Rounded corners */
+    border: 2px solid transparent; /* Remove the default border */
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.memorandums-section h2[b-6296w5mixs], li[b-6296w5mixs] {
+    color: white;
+}
+
+.memo-file[b-6296w5mixs] {
+    color: white;
+    text-decoration: none;
+}
+
+.modal-header[b-6296w5mixs], .modal-body[b-6296w5mixs] {
+    background-color: #850000;
+}
+
+.modal-title[b-6296w5mixs] {
+    color: white;
+}
+
+/* Sidebar styles */
+.sidebar[b-6296w5mixs] {
+    background-color: #7c0e00;
+    width: 300px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    bottom: 0;
+}
+
+    .sidebar .profile-section[b-6296w5mixs] {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover[b-6296w5mixs] {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image[b-6296w5mixs] {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3[b-6296w5mixs] {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email[b-6296w5mixs], .sidebar .profile-info .user-id[b-6296w5mixs] {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul[b-6296w5mixs] {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li[b-6296w5mixs] {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a[b-6296w5mixs] {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img[b-6296w5mixs] {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+    .sidebar .logout-section[b-6296w5mixs] {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button[b-6296w5mixs] {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }

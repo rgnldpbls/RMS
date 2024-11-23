@@ -1,0 +1,67 @@
+﻿body {
+    background-color: #E8E6E6;
+}
+
+.card {
+    background-color: #E8E6E6;
+    border: none;
+    margin-bottom: 20px;
+}
+
+    .card h2 {
+        text-align: left;
+        font-weight: 700;
+        font-size: 30px;
+        color: #850000;
+    }
+
+.jusone {
+    padding: 15px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: black;
+}
+
+    .btn-link:hover {
+        color: #850000;
+        font-weight: 600;
+    }
+
+.bx {
+    color: #850000;
+}
+
+label {
+    font-weight: 600;
+    margin-left: 5px;
+    font-size: 20px;
+}
+
+
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-custom {
+    background-color: #850000;
+    color: #FFF;
+    border-radius: 8px;
+    padding: 8px 20px;
+    border: none;
+}
+
+    .btn-custom:hover {
+        background-color: #5e0202;
+        color: #FFF;
+    }

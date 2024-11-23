@@ -1,0 +1,96 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.BudgetForecastViewModel
+@using System.Text.Json;
+
+@{
+    ViewData["Title"] = "Budget Forecast";
+    Layout = "_LayoutCPages";
+    var yearsJson = JsonSerializer.Serialize(ViewBag.Years);  // Serialize the Years list
+    var spentJson = JsonSerializer.Serialize(ViewBag.Spent);  // Serialize the Spent list
+}
+
+<style>
+    .table-responsive {
+        overflow-x: auto;
+    }
+</style>
+
+<h2><strong>Forecasting</strong></h2>
+
+<canvas id="budgetChart" width="800" height="400"></canvas>
+
+<h3><strong>Data Table</strong></h3>
+<div class="table-responsive">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Budget (₱)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < ViewBag.Years.Count; i++)
+        {
+            <tr>
+                <td>@ViewBag.Years[i]</td>
+                <td>₱@string.Format("{0:N2}", ViewBag.Spent[i])</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+<p><strong>Predicted Budget:</strong> ₱@Model.ForecastedBudget.ToString("N2")</p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('budgetChart').getContext('2d');
+    var forecastIndex = @ViewBag.Years.Count - 1;  // Index of the forecasted data point
+
+    var budgetChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(yearsJson),  // Use the serialized JSON for Years
+            datasets: [{
+                label: 'Budget (₱)',
+                data: @Html.Raw(spentJson),  // Use the serialized JSON for Spent values
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.1,
+                pointBackgroundColor: function (context) {
+                    return context.dataIndex === forecastIndex ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)';
+                },
+                pointRadius: function (context) {
+                    return context.dataIndex === forecastIndex ? 6 : 3;  // Larger point for forecasted value
+                }
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return '₱' + value.toLocaleString();  // Format as PHP currency
+                        }
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Year'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return '₱' + tooltipItem.raw.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

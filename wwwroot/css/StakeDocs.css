@@ -1,0 +1,471 @@
+﻿﻿body {
+    background-color: #F1F0F0;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.title-section {
+    margin: 2rem 0;
+    padding: 0 15px;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    margin-left: 1.5%;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.custom-table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden auto;
+    box-sizing: border-box;
+    border: 1px solid #dee2e6;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #ffffff;
+
+}
+
+    .custom-table thead th {
+        background-color: #850000;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: middle;
+        border: none;
+        font-size: 20px;
+        height: 2.5rem;
+    }
+
+        .custom-table thead th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .custom-table thead th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+    .custom-table tbody th {
+        border-bottom: 1px solid #cccccc; /* Adjust color as needed */
+    }
+
+    .custom-table tbody td {
+        vertical-align: middle;
+        padding: 10px;
+        text-align: center;
+        word-wrap: break-word;
+        border-bottom: 1px solid #cccccc; /* Adjust color as needed */
+    }
+
+        .custom-table tbody td.expiry-column, .custom-table tbody td.status-column, td.contract-column {
+            width: 11%;
+            padding: 10px 5px;
+            word-wrap: break-word;
+            align-items: center;
+            text-align: center;
+        }
+
+        .custom-table tbody td.details-column {
+            width: 15%; /* Assign 40% width to the details column */
+            padding: 15px 10px;
+            word-break: break-word;
+            text-align: left;
+            white-space: normal;
+        }
+
+.action-column {
+    width: 10%;
+    word-break: break-word;
+    align-items: center;
+    margin: 0px;
+}
+
+.expiry-column {
+    padding: 15px 10px;
+    word-break: break-word;
+    align-items: center;
+    white-space: normal;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 1000;
+    font-size: 20px;
+}
+
+.document-column {
+    font-size: 16px;
+    font-weight: 600;
+    overflow-wrap: break-word;
+    width: 13%;
+    padding: 10px 5px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.title-paragraph {
+    flex: 1;
+    font-weight: 600;
+    padding-right: 10px;
+    margin-top: 2%;
+    line-height: 1;
+    font-size: 0.85rem;
+}
+
+.content-paragraph {
+    text-align: justify;
+    font-size: 0.80rem;
+    word-spacing: 0.5px;
+    margin-bottom: 5%;
+    margin-top: 0.5vh;
+    font-weight: 400;
+}
+
+#eventType .content-container, #startDate .content-container {
+    text-align: right;
+}
+
+.bg-approved, .bg-expired, .bg-terminated, .bg-pending {
+    font-size: 0.85rem;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    height: 30px;
+}
+
+.bg-terminated {
+    background-color: #850000;
+    color: #ffffff;
+}
+
+.bg-approved {
+    background-color: #0D6B4A;
+    color: #ffffff;
+}
+
+.bg-expired {
+    background-color: #E5B50C;
+    color: #ffffff;
+}
+
+.bg-pending {
+    background-color: #8F8F8F;
+    color: #ffffff;
+}
+
+.action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+    .action-container a:last-child {
+        margin-bottom: 0; /* Removes margin for the last link */
+    }
+
+    .action-container a:hover {
+        color: #0056b3; /* Change hover color */
+    }
+
+td a {
+    display: block;
+    text-decoration: none;
+}
+
+a.text, a.btn, .update-btn {
+    font-size: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: -0.75em;
+}
+
+.terminate-btn, .delete-btn, i.bi-trash, i.bi-archive {
+    color: #850000;
+    font-weight: 600;
+}
+
+#view, i.bi-eye {
+    color: #0D6B4A;
+    font-weight: 600;
+    margin-top: 1.5vh;
+}
+
+.update-btn, .unarchive-btn {
+    color: #008CFF;
+    font-weight: 600;
+}
+
+    .unarchive-btn i.bi-archive {
+        color: #008CFF;
+        font-weight: 600;
+    }
+
+.archive-btn, .archive-btn i.bi-archive {
+    color: #E5B50C;
+    font-weight: 600;
+}
+
+#notify, i.bi-bell {
+    color: #E29500;
+    font-weight: 600;
+}
+
+.btn-details {
+    background-color: #850000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    display: block;
+    margin-top: 0.5rem;
+    width: 80%;
+    margin-left: 17px;
+    height: 40px;
+    transition: all 0.3s ease;
+}
+
+    .btn-details:hover {
+        background-color: #9f1c1c;
+    }
+
+#detailsModal .modal-dialog-centered {
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal custom styles */
+#detailsModal .custom-modal {
+    background-color: #850000; /* Dark red background */
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 50rem;
+    height: 50%;
+}
+
+#detailsModal .modal-header {
+    border-bottom: none; /* Remove default border */
+}
+
+#detailsModal .modal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 100;
+    text-align: center;
+    margin-left: 4vh;
+    color: #ffffff;
+}
+
+#detailsModal .btn-close {
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    opacity: 1;
+}
+
+#detailsModal .modal-body {
+    background-color: #5B0404; /* Slightly darker red */
+    border-radius: 10px;
+    padding: 18px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#detailsModal .modal-container {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 120%;
+    word-wrap: break-word;
+    white-space: nowrap;
+}
+/* Style adjustments for the left and right columns */
+#detailsModal .title-left {
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Optional: Adjust the width for better alignment */
+#detailsModal .title-left {
+    padding-right: 10px;
+    font-weight: 700;
+}
+
+#detailsModal .answer-right {
+    margin: 0px;
+    margin-top: 1.5vh;
+}
+
+#detailsModal .modal-footer {
+    border-top: none; /* Remove default border */
+    justify-content: center;
+}
+
+#detailsModal .btn-secondary {
+    background-color: #d9534f;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+    #detailsModal .btn-secondary:hover {
+        background-color: #c9302c;
+    }
+
+.popup {
+    display: none; /* Initially hidden */
+    position: fixed; /* Stays in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dimmed background */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensures it appears above other elements */
+}
+
+.popup-content {
+    background-color: white;
+    padding: 30px; /* Add more padding for a cleaner layout */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px; /* Limits the form's width */
+    text-align: left;
+    position: relative; /* For better positioning of close button */
+}
+
+/* Sidebar styles */
+.sidebar {
+    background-color: #7c0e00;
+    width: 250px;
+    height: calc(100vh - 70px);
+    position: absolute;
+    left: -250px; /* Hide sidebar off-screen initially */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    color: #fff;
+    z-index: 1000; /* Ensure sidebar is above other content */
+    bottom: 0;
+}
+
+    .sidebar.open {
+        left: 0; /* Show sidebar when 'open' class is added */
+        position: fixed;
+        bottom: 0;
+    }
+
+    /*.sidebar .profile-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+    }
+
+        .sidebar .profile-section:hover {
+            background: rgb(255, 246, 195, 0.2);
+        }
+
+    .sidebar .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .sidebar .profile-info h3 {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+
+    .sidebar .profile-info .user-email, .sidebar .profile-info .user-id {
+        font-size: 12px;
+        color: #ccc;
+    }
+
+    .sidebar .menu-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .sidebar .menu-section ul li {
+            margin: 15px 0;
+        }
+
+            .sidebar .menu-section ul li a {
+                color: #fff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+                .sidebar .menu-section ul li a img {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }*/
+
+    .sidebar .logout-section {
+        margin-top: auto; /* Ensure the logout section stays at the bottom */
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
+        padding-bottom: 20px; /* Add padding for better visibility */
+    }
+
+    .sidebar .logout-button {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+
+.bbb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+    .nav-item:hover {
+        background: rgb(255, 246, 195, 0.2);
+        border-radius: 10px;
+    }
+
+.hoverfxright:hover {
+    background: rgb(255, 246, 195, 0.2);
+}
+
+.sideitemz:hover {
+    background: rgb(255, 246, 195, 0.2);
+}
+
+.pup {
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+
+.rmo {
+    font-family: "Poppins";
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}

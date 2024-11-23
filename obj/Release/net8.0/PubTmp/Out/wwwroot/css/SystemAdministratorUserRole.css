@@ -1,0 +1,123 @@
+﻿.user-roles-body {
+    font-family: 'Inter', sans-serif;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #E8E6E6;
+}
+
+.user-roles-header {
+    font-weight: 700;
+    font-size: 30px;
+    color: #850000;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.user-roles-table {
+    background-color: #FFF;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+    margin: 0 auto;
+    min-width: 800px;
+    justify-content: space-between;
+}
+
+    .user-roles-table tr:first-child th:first-child {
+        border-top-left-radius: 10px; /* Top left */
+    }
+
+    .user-roles-table tr:first-child th:last-child {
+        border-top-right-radius: 10px; /* Top right */
+    }
+
+    .user-roles-table tr:last-child td:first-child {
+        border-bottom-left-radius: 10px; /* Bottom left */
+    }
+
+    .user-roles-table tr:last-child td:last-child {
+        border-bottom-right-radius: 10px; /* Bottom right */
+    }
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-roles-table th, .user-roles-table td {
+    vertical-align: middle;
+}
+
+.manage-role-btn, .update-role-btn {
+    background-color: #850000;
+}
+
+.cancel-role-btn {
+    outline: none;
+    border: none;
+    color: antiquewhite;
+}
+
+    .cancel-role-btn:hover {
+        background-color: #b8b8b8;
+        color: black;
+    }
+
+.roles-desc {
+    font-size: 20px;
+}
+
+.roles-header {
+    border-bottom: #E8E6E6 1px solid;
+}
+
+.manage-roles-list {
+    background-color: #FFF;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.5);
+}
+
+.user-roles-labels {
+    display: block; /* Makes each label take up the full width */
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.back-btn {
+    background-color: #850000;
+}
+
+    .back-btn:hover {
+        background-color: #ca0000;
+    }
+.nnvb {
+    border-bottom: 2px solid #850000;
+}
+
+.itm:hover {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.itm-active {
+    background: rgb(133, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+#aactive {
+    color: #850000;
+    font-weight: bold;
+}
+
+#inaactive {
+    color: black;
+}

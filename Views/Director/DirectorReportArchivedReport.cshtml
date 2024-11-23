@@ -1,0 +1,241 @@
+﻿@{
+    ViewData["Title"] = "Report";
+    Layout = "Director";
+}
+<link href="~/css/ClusterCoordinator-Report-GenerateReport.css" rel="stylesheet" />
+<style>
+    /*tables*/
+    #tbl {
+        border-radius: 20px;
+    }
+
+    #action {
+        border: none;
+        background: none;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+        #action:hover {
+            background: rgb(133, 0, 0, 0.2);
+        }
+
+    #content {
+        font-family: "Inter";
+        color: black;
+    }
+
+    th {
+        font-family: "Montserrat";
+        color: black;
+    }
+
+    td {
+        color: black;
+        font-family: "Inter";
+    }
+
+    table th, table td {
+        white-space: nowrap;
+    }
+
+    table td {
+        min-width: 100px;
+    }
+
+    .modal-body {
+        border: 4px solid #850000;
+    }
+
+    #modaltitle {
+        color: #850000;
+        font-family: "Poppins";
+        font-weight: bold;
+    }
+
+    #modalbtn {
+        background: #850000;
+        border-radius: 15px;
+        height: 50px;
+        padding: 0px 30px;
+        color: white;
+        font-family: "Inter";
+        font-size: 20px;
+        border: none;
+        outline: none;
+        box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+        transition: ease-in-out .1s
+    }
+
+        #modalbtn:hover {
+            background: #560000;
+        }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="Director" asp-action="DirectorReportGenerateReport" id="inaactive">Generate Report</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="Director" asp-action="DirectorReportRecentReport" id="inaactive">Recent Report</a>
+            </div>
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="Director" asp-action="DirectorReportArchivedReport" id="aactive">Archived Report</a>
+            </div>
+        </div>
+    </div>
+    <!--search and filter-->
+    <div class="container mt-3">
+        <div class="row justify-content-between">
+            <!--search-->
+            <div class="col-lg-3 col-sm-12 mb-2">
+                <form action="" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button type="submit" id="action"><i class="fa-solid fa-magnifying-glass fa-2xl" style="color: #850000;"></i></button>
+                </form>
+            </div>
+            <!--filter-->
+            <div class="col-lg-3 col-sm-12 mb-2">
+                <form action="" class="d-flex">
+                    <div class="dropdown w-100">
+                        <button class="btn btn-danger dropdown-toggle w-100 d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter
+                        </button>
+                        <div class="dropdown-menu w-100">
+                            <div class="container">
+
+                                <div class="row mb-1">
+                                    <div class="col-lg-12">
+                                        <strong>Report Name</strong>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select id="filterSelect" class="form-select me-2">
+                                            <option>Report Name (A-Z)</option>
+                                            <option>Report Name (Z-A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-1">
+                                    <div class="col-lg-12">
+                                        <strong>Report Type</strong>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select id="filterSelect" class="form-select me-2">
+                                            <option>Production</option>
+                                            <option>Presentation</option>
+                                            <option>Publication</option>
+                                            <option>Utilization</option>
+                                            <option>Patent</option>
+                                            <option>Citation</option>
+                                            <option>Copyright</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <strong>Scope</strong>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6">
+                                        <label class="form-label" for="start_date">Start Date</label>
+                                        <input class="form-control form-control-sm me-2" type="date" id="start_date">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label" for="end_date">End Date</label>
+                                        <input class="form-control form-control-sm me-2" type="date" id="end_date">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <strong>Date Generated</strong>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <label class="form-label" for="date_generated">Date Generated</label>
+                                        <input class="form-control form-control-sm me-2" type="date" id="date_generated">
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-lg-12">
+                                        <button type="button" class="btn btn-danger w-100">Apply Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--table-->
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table table-borderless w-100">
+            <thead class="shadow-sm">
+                <tr class="align-middle">
+                    <th class="p-4 bg-transparent" scope="row">Report Name</th>
+                    <th class="p-4 bg-transparent" scope="row">Report Type</th>
+                    <th class="p-4 bg-transparent" scope="col">Scope</th>
+                    <th class="p-4 bg-transparent" scope="col">Date Generated</th>
+                    <th class="p-4 bg-transparent" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="align-middle">
+                    <td class="p-4 bg-transparent" scope="row">Report Name</td>
+                    <td class="p-4 bg-transparent" scope="row">Report Type</td>
+                    <td class="p-4 bg-transparent" scope="col">Scope</td>
+                    <td class="p-4 bg-transparent" scope="col">Date Generated</td>
+                    <td class="p-4 bg-transparent" scope="col">
+                        <button id="action" class="me-2"><a asp-controller="Director" asp-action="DirectorReportArchivedReportPreview"><i class="fa-solid fa-eye fa-2xl" style="color: #850000;"></i></a></button>
+                        <button id="action" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" class="me-2"><i class="fa-solid fa-download fa-2xl" style="color: #850000;"></i></button>
+                        <button id="action" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--delete modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Delete Report</h2>
+                    <p id="content">Are you sure you want to delete the report named "[Report Name]"?</p>
+                    <strong id="content">This action cannot be undone.</strong>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--downloaded modal-->
+    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Report Downloaded</h2>
+                    <p id="content">The report named "[Report Name]" has been successfully downloaded.</p>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

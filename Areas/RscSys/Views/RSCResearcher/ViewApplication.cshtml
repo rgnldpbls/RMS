@@ -1,0 +1,432 @@
+﻿@using System.Security.Claims
+@model ApplicationViewModel
+
+@{
+    ViewData["Title"] = "View Application";
+    Layout = "_LayoutRPages";
+}
+
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .main-content {
+        background-color: white;
+        padding: 20px;
+    }
+
+    .page-title {
+        color: #850000;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .requirements-box {
+        background-color: #d8d8d8;
+        border-radius: 5px;
+        padding: 20px;
+        height: 630px;
+        margin-bottom: 15px;
+    }
+
+    .files-box {
+        height: auto;
+        max-height: 630px; 
+        overflow-y: auto;
+    }
+
+    .requirements-box ol li {
+        color: black;
+     }
+
+     .requirement {
+         margin: 15px 0 0 0;
+         font-size: 17px;
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+
+     }
+
+    .modaltitle {
+        border-bottom: 2px solid black; 
+    }
+
+    .modaltitle h2{
+        font-weight: 800;
+        font-size: 30px;
+    }
+
+    .upload-btn {
+        border: 2px solid #850000;
+        color: #850000;
+    }
+
+    .submit-btn {
+        background-color: #850000;
+        border: none;
+    }
+
+    .uploaded-files span {
+        font-size: 12px;
+    }
+
+</style>
+
+<div class="container-fluid main-content">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+            <h1 class="page-title">@Model.Draft.ApplicationType</h1>
+            <a asp-area="RscSys" asp-controller="RSCResearcher" asp-action="Drafts" class="btn btn-outline-danger">
+                Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card requirements-box">
+                <div class="text-center modaltitle">
+                    <h2 class="h5 mb-3">Checklists</h2>
+                </div>
+                <ol class="requirement">
+                    @if (Model.Checklists != null && Model.Checklists.Any())
+                    {
+                        foreach (var checklist in Model.Checklists)
+                        {
+                            <li>@checklist.ChecklistName</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>No checklists available for this application type.</li>
+                    }
+                </ol>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-3 files-box">
+                <div class="card-body">
+                    <h3 class="h5 card-title">Your Attachments</h3>
+                    <p class="card-text"><small>NOTE: Complete your Documentary Requirements to process your application request</small></p>
+                    <form asp-controller="RSCResearcher" asp-action="SaveAsDraft" method="post" id="draftForm">
+                        <input type="hidden" name="draftId" value="@Model.Draft.DraftId" />
+                        <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+                        <div class="mb-3">
+                            <label class="form-label">DTS Number:</label>
+                            <input type="text" name="DtsNo" class="form-control" value="@Model.Draft.DtsNo" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Research Title:</label>
+                            <input type="text" name="ResearchTitle" class="form-control" value="@Model.Draft.ResearchTitle" required />
+                        </div>
+                        <input type="hidden" name="ApplicationType" value="@Model.Draft.ApplicationType" required />
+                        <input type="hidden" name="FieldOfStudy" value="@Model.Draft.FieldOfStudy" required />
+
+                        <button type="submit" class="btn btn-warning w-100">SAVE DRAFT</button>
+                    </form>
+                    <div class="text-center uploaded-files">
+                        <h3 class="h5 card-title mt-4"><strong>Upload Files per Checklist</strong></h3>
+                        @if (Model.Checklists != null && Model.Checklists.Any())
+                        {
+                            foreach (var checklist in Model.Checklists)
+                            {
+                                <div class="checklist-container mb-4 p-3 border rounded shadow-sm">
+                                    <label class="form-label fs-5">@checklist.ChecklistName</label>
+                                    <input type="hidden" name="draftId" value="@Model.Draft.DraftId" />
+                                    <input type="hidden" name="checklistId" value="@checklist.ChecklistId" />
+
+
+                                    @if (checklist.Requirements == null || !checklist.Requirements.Any())
+                                    {
+                                        if (checklist.ChecklistName.Contains("Other documents", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <input type="file" name="uploadedFile" class="form-control mb-2 optional-upload"
+                                                   onchange="uploadFile(this, @Model.Draft.DraftId, @checklist.ChecklistId)" />
+                                            <small class="text-muted">Optional: Upload only if you have additional documents</small>
+                                        }
+                                        else
+                                        {
+                                            <input type="file" name="uploadedFile" class="form-control mb-2 required-upload"
+                                                   onchange="uploadFile(this, @Model.Draft.DraftId, @checklist.ChecklistId)" required />
+                                        }
+                                    }
+
+                                    @if (checklist.ChecklistName.Contains("Ethics Clearance", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#retrieveEthics">
+                                            Retrieve Clearance
+                                        </button>
+                                    }
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="retrieveEthics" tabindex="-1" aria-labelledby="retrieveEthicsLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="retrieveEthicsLabel">Retrieve Ethics Clearance</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="urecNumber" class="form-label">UREC Number</label>
+                                                        <input type="text" class="form-control" id="urecNumber" name="urecNumber" placeholder="Enter UREC Number" required />
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-success">Retrieve</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        @if (checklist.Requirements != null && checklist.Requirements.Any())
+                                        {
+                                            foreach (var requirement in checklist.Requirements)
+                                            {
+                                                <div class="d-flex align-items-center bg-danger text-white p-2 mb-2 rounded">
+                                                    <i class="fas fa-file-pdf ms-3 me-2"></i>
+                                                    <span>@requirement.FileName</span>
+                                                    <form id="deleteFileForm-@requirement.RequirementId" method="post" class="ms-auto">
+                                                        <input type="hidden" name="requirementId" value="@requirement.RequirementId" />
+                                                        <button class="btn" type="button" onclick="deleteFile(@requirement.RequirementId)">
+                                                            <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No checklists available for file upload.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="h5 card-title">Options</h3>
+                    <form asp-controller="RSCResearcher" asp-action="SubmitAsRequest" method="post" id="applicationForm">
+                        <input type="hidden" name="draftId" value="@Model.Draft.DraftId" />
+                        <button type="submit" class="btn btn-danger submit-btn w-100 mb-2" id="submitButton">SUBMIT APPLICATION</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+        <script>
+            function uploadFile(input, draftId, checklistId) {
+                const file = input.files[0];
+                const formData = new FormData();
+                formData.append("uploadedFile", file);
+                formData.append("draftId", draftId);
+                formData.append("checklistId", checklistId);
+                formData.append("userId", '@User.FindFirstValue(ClaimTypes.NameIdentifier)');
+
+                $.ajax({
+                    url: '@Url.Action("UploadFiles", "RSCResearcher")',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            sessionStorage.setItem('showSuccessMessage', 'true');
+                            location.reload();
+                        } else {
+                            Swal.fire("Error!", "There was an error uploading the file.", "error");
+                        }
+                        validateChecklistCompletion(); // Re-validate on upload
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire("Error!", "An unexpected error occurred.", "error");
+                    }
+                });
+            }
+
+            window.onload = function () {
+                if (sessionStorage.getItem('showSuccessMessage')) {
+                    sessionStorage.removeItem('showSuccessMessage');
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "File uploaded successfully"
+                    });
+                }
+                validateChecklistCompletion(); // Check completion on load
+            };
+
+        // Function to check if all checklists are complete
+        function validateChecklistCompletion() {
+            let allRequired = true;
+            $('.checklist-container').each(function () {
+                const checklistName = $(this).find('label').text().trim();
+                const hasUploadedFiles = $(this).find('.bg-danger').length > 0;
+                const hasFileSelected = $(this).find('input[type="file"]').val() !== "";
+
+                // Skip validation for "Other documents" checklist
+                if (checklistName.toLowerCase().includes("other documents")) {
+                    return true; // Continue to next iteration
+                }
+
+                // For all other checklists, check if there are uploaded files or a file is selected
+                if (!hasUploadedFiles && !hasFileSelected) {
+                    allRequired = false;
+                    return false; // Break the loop
+                }
+            });
+
+            // Enable submit button only if all required checklists are complete
+            $('#submitButton').prop('disabled', !allRequired);
+        }
+
+        // Previous deleteFile function remains the same
+
+        $(document).ready(function () {
+            validateChecklistCompletion();
+
+            // Add event listeners for file inputs
+            $('input[type="file"]').on('change', function () {
+                validateChecklistCompletion();
+            });
+        });
+        </script>
+
+        <script>
+            function deleteFile(requirementId) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2"
+                    },
+                    buttonsStyling: false
+                });
+
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '@Url.Action("DeleteFile", "RSCResearcher")',
+                            type: 'POST',
+                            data: { requirementId: requirementId },
+                            success: function (result) {
+                                if (result.success) {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Deleted!",
+                                        text: "Your file has been deleted.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Error!",
+                                        text: "There was an issue deleting the file.",
+                                        icon: "error"
+                                    });
+                                }
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Cancelled",
+                            text: "Your file is safe :)",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        </script>
+
+<script>
+    function handleFormSubmit(formId, actionType, event) {
+        // Prevent default form submission
+        event.preventDefault();
+        
+        const form = document.getElementById(formId);
+        const formData = new FormData(form);
+        
+        // Determine the appropriate URL based on the action type
+        const url = actionType === "draft" ? '@Url.Action("SaveAsDraft", "RSCResearcher")' : '@Url.Action("SubmitAsRequest", "RSCResearcher")';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    // Show success message with timer
+                    let timerInterval;
+                    Swal.fire({
+                        title: actionType === "draft" ? "Draft Saved!" : "Application Submitted!",
+                        html: "This message will close in <b></b> milliseconds.",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            const timer = Swal.getHtmlContainer().querySelector("b");
+                            timerInterval = setInterval(() => {
+                                timer.textContent = Swal.getTimerLeft();
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        }
+                    }).then(() => {
+                        if (actionType === "submit") {
+                            window.location.href = "@Url.Action("Applications", "RSCResearcher", new {area = "RscSys"})"; // Adjust to your application page URL
+                        } else {
+                            location.reload(); // Reloads the page for draft
+                        }
+                    });
+                } else {
+                    Swal.fire("Error!", "There was an error processing your request.", "error");
+                }
+            },
+            error: function () {
+                Swal.fire("Error!", "An unexpected error occurred.", "error");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        // Attach event listeners to the forms and pass the event to handleFormSubmit
+        $('#draftForm').on('submit', function (event) {
+            handleFormSubmit('draftForm', 'draft', event);
+        });
+
+        $('#applicationForm').on('submit', function (event) {
+            handleFormSubmit('applicationForm', 'submit', event);
+        });
+    });
+</script>
+
+    }

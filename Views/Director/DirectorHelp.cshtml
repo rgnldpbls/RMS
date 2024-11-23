@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Help";
+    Layout = "Director";
+}
+<link href="~/css/ClusterCoordinator-Help.css" rel="stylesheet" />
+<div>
+    <div class="container mt-5">
+        <div class="card">
+            <h2 class="text-#850000 mb-3">Report a Problem</h2>
+        </div>
+        <form>
+            <div class="mb-3">
+                <label for="reportType" class="form-label">Type of Report</label>
+                <select class="form-select btn text-start mb-4" id="reportType" style="background-color: #FFF; color: #850000;">
+                    <option value="" selected>Select a report type</option>
+                    <option value="TI">Technical Issues</option>
+                    <option value="SE">Submission Errors</option>
+                    <option value="AD">Approval Delays</option>
+                    <option value="DUP">Document Upload Problems</option>
+                    <option value="FR">Funding Requests</option>
+                    <option value="RPR">Research Progress Reports</option>
+                    <option value="CI">Collaboration Issues</option>
+                    <option value="PU">Publication Updates</option>
+                    <option value="UAR">User Access Requests</option>
+                </select>
+            </div>
+
+            <label for="reportDetails" class="form-label">Report Details <h5 style="font-size: 14px;"> (Kindly provide the details of your report)</h5></label>
+            <div class="jusone mb-4">
+                <textarea class="form-control" id="reportDetails" rows="5"></textarea>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="d-flex btn-custom mt-3">Send</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+
+
+</div>

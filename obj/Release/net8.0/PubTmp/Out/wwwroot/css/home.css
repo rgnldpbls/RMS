@@ -1,0 +1,177 @@
+﻿/* Welcome Page */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+main {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Welcome Section Background */
+#welcome {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: calc(100vh - 76px); /* Subtract the height of the navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+    /* Dark Overlay */
+    #welcome::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8); /* Dark overlay */
+        z-index: 1; /* Behind text */
+    }
+
+/* Title Styling */
+#CRETITLE {
+    color: #FFDB89;
+    text-shadow: 0px 6px 12px rgba(0, 0, 0, 0.8);
+    font-family: 'Poppins', sans-serif;
+    font-size: 75px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -3px; /* Adjusted for tighter spacing */
+    white-space: nowrap; /* Prevents line breaks */
+    overflow: hidden; /* Hides overflow */
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Welcome Content Styling */
+#welcome-content {
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px; /* Slightly reduced size for better fit */
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1400px; /* Increase max-width to accommodate larger text */
+    text-align: center;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+/* Button Styling */
+#btn-apply {
+    background-color: #850000;
+    color: #FEFEFE;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    padding: 0.75rem 3rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    #btn-apply:hover {
+        background-color: #6A0000;
+    }
+/* Button Container Adjustment */
+.my-3 {
+    margin-top: 30px; /* Space between text and button */
+}
+
+
+
+
+/* Guidelines for Application */
+
+.ethics-clearance-requirements {
+    background-color: white;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 100%;
+    width: calc(100vw - 40px);
+    box-shadow: 0 4px 8px black;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+    .ethics-clearance-requirements h2 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        color: #850000;
+        margin-bottom: 1rem;
+    }
+
+    .ethics-clearance-requirements h3 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .ethics-clearance-requirements p, .ethics-clearance-requirements li {
+        font-family: 'Montserrat', sans-serif;
+        color: #333;
+    }
+
+    .ethics-clearance-requirements ol {
+        padding-left: 1.5rem;
+    }
+
+    .ethics-clearance-requirements li {
+        margin-bottom: 1rem;
+    }
+
+.download-btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    background-color: #850000;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+    display: inline-block;
+    width: auto;
+    text-align: center;
+}
+
+    .download-btn:hover {
+        background-color: #a00;
+        color: #fff; /* Keeps text white on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+    }

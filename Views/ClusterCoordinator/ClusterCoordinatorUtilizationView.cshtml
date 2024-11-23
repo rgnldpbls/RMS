@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Accomplishments";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorAccomplishments" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorProduction" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Utilization Details</div>
+                <div>
+                    <a class="btn btn-warning" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorUtilizationEdit" role="button">Edit</a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
+                </div>
+            </div>
+        </div>
+        <div class="row shadow p-4" id="formcont">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Certificate of Utilization:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">Certificate of Utilization.pdf</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--delete modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Delete Utilization Details</h2>
+                    <p id="content">Are you sure you want to delete the utilization details for research titled "[Research Title]"?</p>
+                    <strong id="content">This action cannot be undone.</strong>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

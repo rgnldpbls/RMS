@@ -1,0 +1,60 @@
+﻿@model List<ResearchManagementSystem.Areas.CreSys.ViewModels.NotificationViewModel>
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h2>Your Notifications</h2>
+
+@if (Model != null && Model.Any())
+{
+    <ul class="notification-list">
+        @foreach (var notification in Model)
+        {
+            <li class="notification-item @(notification.NotificationStatus ? "read" : "unread")">
+                <h4>@notification.NotificationTitle</h4>
+                <p>@notification.NotificationMessage</p>
+                <small>@notification.NotificationCreationDate.ToString("g")</small>
+                <span class="badge @(notification.NotificationStatus ? "badge-success" : "badge-warning")">
+                    @(notification.NotificationStatus ? "Read" : "Unread")
+                </span>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>You have no notifications.</p>
+}
+
+<style>
+    .notification-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .notification-item {
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .unread {
+        background-color: #f8f8f8;
+        font-weight: bold;
+    }
+
+    .read {
+        background-color: #e0e0e0;
+    }
+
+    .badge-success {
+        background-color: green;
+        color: white;
+    }
+
+    .badge-warning {
+        background-color: orange;
+        color: white;
+    }
+</style>

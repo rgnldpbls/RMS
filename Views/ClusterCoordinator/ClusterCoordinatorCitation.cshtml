@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Accomplishments";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentadd.css" rel="stylesheet" />
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorAccomplishments" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorProduction" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <form action="" class="container">
+        <!--citation-->
+        <div class="container shadow mb-3" id="content">
+            <div class="row shadow-sm h3 p-4 mb-1" id="title">
+                Citation
+            </div>
+            <div class="row shadow p-4" id="formcont">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Title_of_Original_Research_Article">Title of (Original) Research Article</label>
+                        <input class="form-control mb-3" type="text" id="Title_of_Original_Research_Article" placeholder="Title of (Original) Research Article">
+                    </div>
+                </div>
+                <!---->
+                <div class="row mt-3 mb-3">
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-4 col-sm-2 text-center">
+                        <h4>Author/s of (Original) Article</h4>
+                    </div>
+                    <div class="col-lg-4 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="author_orig_1">Author 1</label>
+                        <input class="form-control mb-3" type="text" id="author_orig_1" placeholder="Author 1">
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="author_orig_2">Author 2</label>
+                        <input class="form-control mb-3" type="text" id="author_orig_2" placeholder="Author 2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="author_orig_3">Author 3</label>
+                        <input class="form-control mb-3" type="text" id="author_orig_3" placeholder="Author 3">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="author_orig_4">Author 4</label>
+                        <input class="form-control mb-3" type="text" id="author_orig_4" placeholder="Author 4">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="author_orig_5">Author 5</label>
+                        <input class="form-control mb-3" type="text" id="author_orig_5" placeholder="Author 5">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <!---->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Title_of_Refereed_Journal">Title of Refereed Journal Where the (Original) Research Article Was Published</label>
+                        <input class="form-control mb-3" type="text" id="Title_of_Refereed_Journal" placeholder="Title of Refereed Journal Where the (New) Research Article Was Published">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Title_of_New_Publication_Where_the_Original_Research_Article_Was_Cited">Title of (New) Publication Where the (Original) Research Article Was Cited</label>
+                        <input class="form-control mb-3" type="text" id="Title_of_New_Publication_Where_the_Original_Research_Article_Was_Cited" placeholder="Title of (New) Publication Where the (Original) Research Article Was Cited">
+                    </div>
+                </div>
+                <!---->
+                <div class="row mt-3 mb-3">
+                    <div class="col-lg-2 col-sm-5">
+                        <hr>
+                    </div>
+                    <div class="col-lg-8 col-sm-2 text-center">
+                        <h4>Author/s of the (New) Article Who Cited the (Original) Research Article</h4>
+                    </div>
+                    <div class="col-lg-2 col-sm-5">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="author_new_1">Author 1</label>
+                        <input class="form-control mb-3" type="text" id="author_new_1" placeholder="Author 1">
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label class="form-label" for="author_new_2">Author 2</label>
+                        <input class="form-control mb-3" type="text" id="author_new_2" placeholder="Author 2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="author_new_3">Author 3</label>
+                        <input class="form-control mb-3" type="text" id="author_new_3" placeholder="Author 3">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="author_new_4">Author 4</label>
+                        <input class="form-control mb-3" type="text" id="author_new_4" placeholder="Author 4">
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label class="form-label" for="author_new_5">Author 5</label>
+                        <input class="form-control mb-3" type="text" id="author_new_5" placeholder="Author 5">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <!---->
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Title_of_Refereed_Journal">Title of Refereed Journal Where the (New) Research Article Was Published</label>
+                        <input class="form-control mb-3" type="text" id="Title_of_Refereed_Journal" placeholder="Title of Refereed Journal Where the (New) Research Article Was Published">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="volno_issueno">Volume No./Issue No.</label>
+                        <input class="form-control mb-3" type="text" id="volno_issueno" placeholder="Volume No./Issue No.">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="no_of_pages">No. of Pages</label>
+                        <input class="form-control mb-3" type="number" id="no_of_pages" placeholder="No. of Pages">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Year_of_Publication">Year of Publication</label>
+                        <input class="form-control mb-3" type="number" id="Year_of_Publication" placeholder="Year of Publication">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="Indexing">Indexing</label>
+                        <input class="form-control mb-3" type="text" id="Indexing" placeholder="Indexing">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label" for="proof">Upload File for Proof</label>
+                        <input class="form-control mb-3" type="file" id="proof" placeholder="Upload File for Proof" accept="image/*">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3 mb-3">
+            <div class="d-flex justify-content-end">
+                <input type="reset" value="Clear" class="ms-2" id="reset">
+                <input type="button" value="Add Details" class="ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+        </div>
+    </form>
+
+
+    <!--research added modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Publication Details Added</h2>
+                    <p id="content">The publication details for research titled "[Research Title]" has been successfully added.</p>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/ClusterCoordinator-Citation.js"></script>
+
+</div>

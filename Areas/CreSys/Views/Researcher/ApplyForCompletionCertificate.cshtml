@@ -1,0 +1,84 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.ApplyForCompletionCertificateViewModel
+
+@{
+    ViewData["Title"] = "Apply for Completion Certificate";
+}
+<head>
+    <link rel="stylesheet" href="~/css/applyforcompletion.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @* Display all relevant information in one card *@
+    <div class="card mt-3">
+        <div class="card-header">
+            <h5>Application Information</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>UREC Number:</strong> @Model.EthicsApplication.UrecNo</p>
+            <p><strong>Research Title:</strong> @Model.NonFundedResearchInfo.Title</p>
+
+            @* Display Ethics Clearance Details if available *@
+            @if (Model.EthicsClearance != null)
+            {
+                <p><strong>Issued Date:</strong> @Model.EthicsClearance.IssuedDate</p>
+                <p><strong>Expiration Date:</strong> @Model.EthicsClearance.ExpirationDate</p>
+
+                @* Optionally, show download button if a file exists *@
+                @if (Model.EthicsClearance.ClearanceFile != null)
+                {
+                    <a href="@Url.Action("DownloadClearanceFile", "EthicsApplicationForms", new { urecNo = Model.EthicsApplication.UrecNo })" class="btn btn-primary">
+                        Download Ethics Clearance Document
+                    </a>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning mt-3">
+                    <strong>Notice:</strong> Ethics Clearance has not been issued yet. You cannot apply for the completion certificate without it.
+                </div>
+            }
+
+            @* Completion Certificate Application Form *@
+            <form method="post" asp-action="ApplyForCompletionCertificate" enctype="multipart/form-data">
+                <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
+
+                <div class="form-group mt-3">
+                    <label for="urecNo">UREC Number</label>
+                    <input type="text" class="form-control" id="urecNo" name="urecNo" value="@Model.EthicsApplication.UrecNo" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="researchTitle">Research Title</label>
+                    <input type="text" class="form-control" id="researchTitle" name="researchTitle" value="@Model.NonFundedResearchInfo.Title" readonly />
+                </div>
+
+                @* Research Start Date *@
+                <div class="form-group">
+                    <label for="researchStartDate">Research Start Date</label>
+                    <input type="date" class="form-control" id="researchStartDate" name="researchStartDate"
+                           required="required" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span class="text-danger" id="researchStartDateError"></span>
+                </div>
+
+                @* Research End Date *@
+                <div class="form-group">
+                    <label for="researchEndDate">Research End Date</label>
+                    <input type="date" class="form-control" id="researchEndDate" name="researchEndDate"
+                           required="required" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span class="text-danger" id="researchEndDateError"></span>
+                </div>
+
+                @* Upload Form 18 - Terminal Report *@
+                <div class="form-group">
+                    <label for="form18">Upload Form 18 - Terminal Report</label>
+                    <input type="file" class="form-control" id="form18" name="form18" accept=".pdf, .doc, .docx, .jpg, .png" required />
+                    <span class="text-danger" id="form18Error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">Apply for Completion Certificate</button>
+            </form>
+        </div>
+    </div>
+</div>

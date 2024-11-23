@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Accomplishments";
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorAccomplishments" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorProduction" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Copyright Details</div>
+                <div>
+                    <a class="btn btn-warning" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorCopyrightEdit" role="button">Edit</a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
+                </div>
+            </div>
+        </div>
+        <div class="row shadow p-4" id="formcont">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Name of Output/Invention Creative Work:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Name of Output/Invention Creative Work</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Category:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Category</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Researcher/Inventors 1:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Researcher/Inventors 1</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Researcher/Inventors 2:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Researcher/Inventors 2</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Researcher/Inventors 3:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Researcher/Inventors 3</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Researcher/Inventors 4:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Researcher/Inventors 4</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Researcher/Inventors 5:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Researcher/Inventors 5</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Date Registered or Registration /Application Number:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Date Registered or Registration /Application Number</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>College:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>College</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Department:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Department</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Utility Model / Patent Number:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p>Utility Model / Patent Number</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <strong>Application for Copyright/Payment Receipt:</strong>
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <p><button type="button" class="btn btn-danger btn-sm me-2">Application for Copyright/Payment Receipt.pdf</button></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--delete modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4" id="bgmodal">
+                <div class="modal-body rounded-4 p-4">
+                    <h2 class="text-center mb-4" id="modaltitle">Delete Copyright Details</h2>
+                    <p id="content">Are you sure you want to delete the copyright details for research titled "[Research Title]"?</p>
+                    <strong id="content">This action cannot be undone.</strong>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Close</button>
+                        <button type="button" class="me-2" data-bs-dismiss="modal" id="modalbtn">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

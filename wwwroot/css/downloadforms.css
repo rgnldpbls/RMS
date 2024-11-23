@@ -1,0 +1,167 @@
+﻿/* Header */
+
+h1 {
+    font-size: 25px;
+    margin: 20px 0;
+    color: #850000;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* Whole Body */
+
+#container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.column {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1;
+    margin-right: 10px;
+    min-width: 320px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .column:last-child {
+        margin-right: 0;
+    }
+
+h2 {
+    color: #0C0C0C;
+    text-align: center;
+    font-family: 'Inter',sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+/* Form Link Button */
+
+.form-link {
+    display: block;
+    background-color: #8B0000;
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+    .form-link:hover {
+        background-color: #a00;
+        color: #fff; /* Keeps text white on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+    }
+
+    .form-link:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+    }
+
+    /* If you want to add a subtle shine effect on hover */
+    .form-link::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient( 45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100% );
+        transform: rotate(45deg);
+        transition: 0.5s;
+        opacity: 0;
+    }
+
+    .form-link:hover::after {
+        opacity: 1;
+    }
+
+    /* Optional: Style for the PDF icon if you're using one */
+    .form-link i {
+        margin-right: 10px;
+        font-size: 1.1em;
+        vertical-align: middle;
+    }
+
+    .form-link:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.3);
+    }
+
+/* Foot Note */
+
+.note {
+    color: var(--default2, #000);
+    text-align: justify;
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    line-height: normal;
+    padding-top: 10px;
+}
+
+/* Apply for Ethics Clearance Button */
+
+.apply-button {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: #8B0000;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+    .apply-button:hover {
+        background-color: #a00;
+        color: #fff; /* Keeps text white on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+    }
+
+    .apply-button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+    }
+
+    .apply-button:hover::after {
+        opacity: 1;
+    }
+
+    /* Optional: Style for the PDF icon if you're using one */
+    .apply-button i {
+        margin-right: 10px;
+        font-size: 1.1em;
+        vertical-align: middle;
+    }
+
+    .apply-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.3);
+    }
+ 

@@ -1,0 +1,59 @@
+﻿@using ResearchManagementSystem.Models
+@model List<ResearchManagementSystem.Models.UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/SuperAdmin_Layout.cshtml";
+}
+<link href="~/css/ClusterCoordinator-Faculty-FacultyList.css" rel="stylesheet" />
+
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-2">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="Index" id="aactive">User Roles</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="RoleManager" asp-action="Index" id="inaactive">Role Manager</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="FacultyList" id="inaactive">Faculty</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="UserRoles" asp-action="StudentList" id="inaactive">Students</a>
+            </div>
+            
+        </div>
+    </div>
+
+
+<div class="container bg-white shadow mt-3 table-responsive rounded-4 p-0">
+    <table class="table table-borderless w-100">
+        <thead class="shadow-sm">
+            <tr class="align-middle">
+
+                <th class="p-4 bg-transparent" scope="row">First Name</th>
+                <th class="p-4 bg-transparent" scope="row">Last Name</th>
+                <th class="p-4 bg-transparent" scope="row">Email</th>
+                <th class="p-4 bg-transparent" scope="row">Roles</th>
+                <th class="p-4 bg-transparent" scope="row">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+                <tr class="align-middle">
+                    <td class ="p-4 bg-transparent" scope="row">@user.FirstName</td>
+                    <td class="p-4 bg-transparent" scope="row">@user.LastName</td>
+                    <td class="p-4 bg-transparent" scope="row">@user.Email</td>
+                    <td class="p-4 bg-transparent" scope="row">@string.Join(" , ", user.Roles.ToList())</td>
+                    <td class="p-4 bg-transparent" scope="row">
+                    <a class="btn btn-danger" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.Id">Manage Roles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+</div>

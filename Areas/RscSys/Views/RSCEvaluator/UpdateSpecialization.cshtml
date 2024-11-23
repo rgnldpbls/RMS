@@ -1,0 +1,48 @@
+﻿@model rscSys_final.Models.UpdateSpecializationViewModel
+
+@{
+    ViewData["Title"] = "Update Specialization";
+    Layout = "_LayoutEPages";
+
+    // List of specializations to populate the dropdown
+    var specializations = new List<string>
+    {
+        "Education",
+        "Social Science",
+        "Business",
+        "Accountancy and Finance",
+        "Computer Science and Information System Technology",
+        "Engineering, Architecture, Design, and Built Environment",
+        "Humanities, Language, and Communication",
+        "Public Administration, Political Science, and Law"
+    };
+}
+
+<h2><strong>Update Specialization</strong></h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form asp-action="UpdateSpecialization" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="EvaluatorId" />
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Evaluator Name</label>
+        <input asp-for="Name" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Specialization" class="form-label">Specialization</label>
+        <select asp-for="Specialization" class="form-select">
+            <option value="">Select Specialization</option>
+            @foreach (var specialization in specializations)
+            {
+                <option value="@specialization" selected="@(Model.Specialization == specialization)">@specialization</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

@@ -1,0 +1,156 @@
+﻿@model ResearchManagementSystem.Models.AddCitation
+
+@{
+    ViewData["Title"] = "Details";
+
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-Accomplishmentdetails.css" rel="stylesheet" />
+<style>
+    #title{
+        background:#850000;
+        color: white;
+    }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container shadow mb-3" id="content">
+        <div class="row shadow-sm h3 p-4 mb-1" id="title">
+            <div class="d-flex justify-content-between">
+                <div>Citation Details</div>
+                <div>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.CitationId" role="button">Edit</a>
+
+                </div>
+            </div>
+        </div>
+
+        <dl class="row shadow p-4" id="formcont">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AddAccomplishment)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AddAccomplishment.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Title of (Original) Research Article
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ArticleTitle)
+            </dd>
+            <!--Authors-->
+            <dt class="col-sm-2">
+                Author/s of (Original) Article 1
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LeadResearcher.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Author/s of (Original) Article 2
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CoLeadResearcher.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Author/s of (Original) Article 3
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Memberone.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Author/s of (Original) Article 4
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Membertwo.ProductionId)
+            </dd>
+            <dt class="col-sm-2">
+                Author/s of (Original) Article 5
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Memberthree.ProductionId)
+            </dd>
+            <!---->
+
+
+            <dt class="col-sm-2">
+                Title of Refereed Journal Where the (Original) Research Article was Published
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.OriginalArticlePublished)
+            </dd>
+            <dt class="col-sm-2">
+                Title of (New) Publication Where the (Original) Research Article was Cited
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NewPublicationTitle)
+            </dd>
+
+            <!--Authors of the new article-->
+            <dt class="col-sm-2">
+                Author/s of the New Article Who Cited the (Original) Research Article
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AuthorsofNewArticle)
+            </dd>
+            <!---->
+
+            <dt class="col-sm-2">
+                Title of Refereed Journal Where the (New) Research Article was Published
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NewArticlePublished)
+            </dd>
+            <dt class="col-sm-2">
+                Volume No./Issue No.
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.VolNoIssueNo)
+            </dd>
+            <dt class="col-sm-2">
+                No. of Pages
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pages)
+            </dd>
+            <dt class="col-sm-2">
+                Year of Publication
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.YearofPublication)
+            </dd>
+            <dt class="col-sm-2">
+                Indexing
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Indexing)
+            </dd>
+
+            <dt class="col-sm-2">
+                Proof of Citation
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.CitationProofData != null)
+                {
+
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.CitationId" asp-route-fileType="CitationProofData" role="button" class="btn btn-danger btn-sm me-2">
+                        @Html.DisplayFor(model => model.CitationProofFileName)
+                    </a>
+
+                }
+
+            </dd>
+        </dl>
+
+    </div>
+</div>

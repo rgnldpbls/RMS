@@ -1,0 +1,108 @@
+﻿@model IEnumerable<ResearchManagementSystem.Models.AddPublication>
+
+@{
+    ViewData["Title"] = "Index";
+
+    Layout = "RMCC_Layout";
+}
+<link href="~/css/ClusterCoordinator-accomplishmentlist.css" rel="stylesheet" />
+<style>
+    td, th {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cat {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+        color: #850000;
+        font-weight: bolder;
+        font-family: "Poppins";
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+<div>
+    <!--navbar-->
+    <div class="nnvb container mt-3 mb-3">
+        <div class="row">
+            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="IndexRMCC" id="aactive">Accomplishment List</a>
+            </div>
+            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+                <a class="text-decoration-none" asp-controller="AddAccomplishments" asp-action="Create" id="inaactive">Add Accomplishment</a>
+            </div>
+        </div>
+    </div>
+    <!--create new-->
+    <div class="cat display-6 mb-3 pb-1">
+        Publication
+        <a role="button" class="btn btn-danger mb-3 shadow" asp-action="Create">Create New</a>
+    </div>
+    <!--table-->
+    <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
+                <tr class="align-middle">
+
+                    <th class="p-4 bg-transparent text-white" scope="col">
+                        @Html.DisplayNameFor(model => model.ArticleTitle)
+                    </th>
+                    <th class="p-4 bg-transparent text-white" scope="col">
+                        @Html.DisplayNameFor(model => model.PublicationDate)
+                    </th>
+                    <th class="p-4 bg-transparent text-white" scope="col">
+                        @Html.DisplayNameFor(model => model.JournalPubTitle)
+                    </th>
+                    <th class="p-4 bg-transparent text-white" scope="col">
+                        Document Type
+                    </th>
+
+                    <th class="p-4 bg-transparent text-white" scope="col">
+                        Indexed in
+                    </th>
+
+
+
+                    <th class="p-4 bg-transparent text-white" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="align-middle">
+
+
+                        <td class="p-4 bg-transparent" scope="col">
+                            @Html.DisplayFor(modelItem => item.ArticleTitle)
+                        </td>
+
+                        <td class="p-4 bg-transparent" scope="col">
+                            @Html.DisplayFor(modelItem => item.PublicationDate)
+                        </td>
+
+                        <td class="p-4 bg-transparent" scope="col">
+                            @Html.DisplayFor(modelItem => item.JournalPubTitle)
+                        </td>
+
+                        <td class="p-4 bg-transparent" scope="col">
+                            @Html.DisplayFor(modelItem => item.DocumentType)
+                        </td>
+
+                        <td class="p-4 bg-transparent" scope="col">
+                            @Html.DisplayFor(modelItem => item.IndexJournal)
+                        </td>
+                        <td class="p-4 bg-transparent" scope="col">
+                            <a id="action" class="me-2" asp-action="Details" asp-route-id="@item.publicationId"><i class="fa-solid fa-eye fa-2xl" style="color: #850000;"></i></a>
+                            <a id="action" class="me-2" asp-action="Edit" asp-route-id="@item.publicationId"><i class="fa-solid fa-pen-to-square fa-2xl" style="color: #850000;"></i></a>
+                            <a id="action" class="me-2" asp-action="Delete" asp-route-id="@item.publicationId"><i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

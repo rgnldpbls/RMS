@@ -1,0 +1,70 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.GetStartedViewModel
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <h2>Get Started - Select Your Expertise</h2>
+
+        <form method="post" id="expertise-form" onsubmit="return validateAndConfirm()" class="p-4 border rounded">
+            <div class="form-group">
+                <label class="mb-3">Select your areas of expertise:</label>
+                <br />
+                @foreach (var expertise in Model.ExpertiseList)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="SelectedExpertise" value="@expertise.ExpertiseId"
+                               id="expertise-@expertise.ExpertiseId"
+                        @(Model.SelectedExpertise.Contains(expertise.ExpertiseId) ? "checked" : "") />
+                        <label class="form-check-label" for="expertise-@expertise.ExpertiseId">@expertise.ExpertiseName</label>
+                    </div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-maroon mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function validateAndConfirm() {
+        // Check if at least one checkbox is selected
+        const checkboxes = document.querySelectorAll('input[name="SelectedExpertise"]:checked');
+        if (checkboxes.length === 0) {
+            alert("Please select at least one area of expertise.");
+            return false; // Prevent form submission
+        }
+
+        // Show confirmation dialog
+        const confirmation = confirm("Are you sure you want to submit your selected expertise?");
+        return confirmation; // Only submit if the user confirms
+    }
+</script>
+
+<style>
+    .btn-maroon {
+        background-color: #800000; /* Maroon background */
+        color: white; /* White text */
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .btn-maroon:hover {
+        background-color: #660000; /* Darker maroon on hover */
+        color: white;
+    }
+
+    .p-4 {
+        padding: 2rem; /* Padding for the form */
+    }
+
+    .border {
+        border: 1px solid #ccc; /* Light gray border for the form */
+    }
+
+    .rounded {
+        border-radius: 0.5rem; /* Rounded corners for the form */
+    }
+</style>

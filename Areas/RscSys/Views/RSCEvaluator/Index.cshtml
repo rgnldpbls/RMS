@@ -1,0 +1,282 @@
+﻿@using System.Security.Claims
+@model rscSys_final.Models.EvaluatorDashboardViewModel
+
+@{
+    ViewData["Title"] = "Evaluator Home";
+    Layout = "_LayoutENAV";
+
+}
+
+<style>
+
+    .deadlines {
+        background-color: #850000;
+        color: white;
+        height: 470px;
+        max-height: 470px;
+        overflow-y: auto;
+    }
+
+    .numbertask {
+        height: 230px;
+        background-color: #FFDB89;
+        border: 2px solid black;
+    }
+
+    .circle-number {
+        width: 100px;
+        height: 100px;
+        border: 8px solid #850000;
+        color: #850000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+        font-size: 50px;
+    }
+
+    .assign {
+        font-size: 25px;
+        font-weight: bold;
+        color: #850000;
+    }
+
+    .dash {
+        font-weight: 700;
+    }
+
+    .over {
+        font-size: 30px;
+        color: #850000;
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="mb-1 dash">Welcome, Evaluator!</h1>
+
+    <div class="row">
+
+        <div class="col-md-5">
+            <h1 class="over">Overview</h1>
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-around align-items-center numbertask">
+                    <div class="circle-number">@Model.PendingCount</div>
+                    <div class="assign">Assigned Tasks</div>
+                    <i class="fa-solid fa-angles-right fa-xl" style="color: #850000;"></i>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-body d-flex justify-content-around align-items-center numbertask">
+                    <div class="circle-number">@Model.CompletedCount</div>
+                    <div class="assign">Completed Tasks</div>
+                    <i class="fa-solid fa-angles-right fa-xl" style="color: #850000;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 assign-evaluator">
+            <h1 class="over">Deadlines</h1>
+            <div class="card mb-4 deadlines">
+                <div class="card-body">
+                    @if (Model.EvaluatorAssignments != null && Model.EvaluatorAssignments.Any())
+                    {
+                        @foreach (var assignment in Model.EvaluatorAssignments
+                       .Where(a => a.EvaluationStatus == "Pending" || a.EvaluationStatus == "Under Evaluation" || a.EvaluationStatus == "Accepted"))
+                        {
+                            // Calculate the remaining time inside the loop
+                            var remainingDays = (assignment.EvaluationDeadline - DateTime.Now).Days;
+                            var badgeClass = remainingDays == 1 || remainingDays == 0 ? "badge text-bg-danger" : "badge text-bg-warning";
+
+                            @if (assignment.EvaluationStatus == "Accepted") {
+                            <div class="notification-item">
+                                <div class="alert alert-success" role="alert">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-0">
+                                            <strong>DTS Number:</strong> @assignment.Request.DtsNo <br />
+                                            <strong>Application Type:</strong> @assignment.Request.ApplicationType <br />
+                                        </p>
+                                        <div class="position-absolute bottom-1 end-0 me-3" style="width: 6rem; height:2rem;">
+                                            <p class="@badgeClass text-wrap">
+                                                @remainingDays Day/s
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                                <div class="notification-item">
+                                    <div class="alert alert-dark" role="alert">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0">
+                                                <strong>DTS Number:</strong> @assignment.Request.DtsNo <br />
+                                                <strong>Application Type:</strong> @assignment.Request.ApplicationType <br />
+                                            </p>
+                                            <div class="position-absolute bottom-1 end-0 me-3" style="width: 6rem; height:2rem;">
+                                                <p class="@badgeClass text-wrap">
+                                                    @remainingDays Day/s
+                                                </p>
+                                            </div>
+                                            <!-- View icon to open modal -->
+                                            <i class="fa-solid fa-eye fa-xl view-notification ms-3"
+                                               style="cursor: pointer; color: #850000; z-index: 10;"
+                                               data-id="@assignment.AssignmentId"
+                                               data-dtsno="@assignment.Request.DtsNo"
+                                               data-applicationtype="@assignment.Request.ApplicationType"
+                                               data-applicantname="@assignment.Request.Name"
+                                               data-remainingdays="@remainingDays">
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No deadlines available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationModalLabel">Evaluation Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="notificationDetails"></p>
+                        <div class="text-center" id="evaluationButtons" style="display:none;">
+                            <button class="btn btn-success" id="acceptButton">Accept</button>
+                            <button class="btn btn-danger" id="rejectButton">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal for Rejecting with Reason -->
+<div class="modal fade" id="rejectReasonModal" tabindex="-1" role="dialog" aria-labelledby="rejectReasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectReasonModalLabel">Reject Evaluation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="rejectReason" class="form-label">Please provide the reason for rejection:</label>
+                <textarea class="form-control" id="rejectReason" rows="4" placeholder="Enter reason here..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmRejectButton">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let assignmentId; // Define assignmentId globally
+
+            $('.view-notification').click(function () {
+                assignmentId = $(this).data('id'); // Set assignmentId from clicked element
+                var dtsNo = $(this).data('dtsno');
+                var applicationType = $(this).data('applicationtype');
+                var applicationName = $(this).data('applicantname');
+                var remainingDays = $(this).data('remainingdays');
+
+                // Populate the modal with details
+                $('#notificationDetails').html(`
+                    <strong>DTS Number:</strong> ${dtsNo} <br />
+                    <strong>Application Type:</strong> ${applicationType} <br />
+                    <strong>Applicant Name:</strong> ${applicationName} <br />
+                    <strong>Remaining Days:</strong> ${remainingDays} Days
+                `);
+
+                // Show evaluation buttons based on some logic if needed
+                $('#evaluationButtons').show();
+
+                // Show the modal
+                var modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+                modal.show();
+            });
+
+            $('#acceptButton').click(function () {
+                if (!assignmentId) {
+                    alert('No assignment ID available. Please try again.');
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AcceptEvaluation", "RSCEvaluator")',
+                    data: { assignmentId: assignmentId },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Evaluation accepted successfully.');
+                            window.location.href = '@Url.Action("Applications", "RSCEvaluator")';
+                            $('#notificationModal').modal('hide'); // Hide modal
+                        } else {
+                            alert(response.message || 'Error accepting the evaluation.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error accepting the evaluation.');
+                    }
+                });
+            });
+
+            $('#rejectButton').click(function () {
+                // Show the reject reason modal when the reject button is clicked
+                var modal = new bootstrap.Modal(document.getElementById('rejectReasonModal'));
+                modal.show();
+            });
+
+            $('#confirmRejectButton').click(function () {
+                if (!assignmentId) {
+                    alert('No assignment ID available. Please try again.');
+                    return;
+                }
+
+                var reason = $('#rejectReason').val();
+                if (!reason) {
+                    alert('Please provide a reason for rejection.');
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RejectEvaluation", "RSCEvaluator")',
+                    data: {
+                        assignmentId: assignmentId,
+                        reason: reason
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Task successfully rejected with reason.');
+                            window.location.href = '@Url.Action("Notifications", "RSCEvaluator")';
+                            $('#rejectReasonModal').modal('hide'); // Hide modal
+                        } else {
+                            alert(response.message || 'Error rejecting the task.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error rejecting the task.');
+                    }
+                });
+            });
+        });
+    </script>
+}

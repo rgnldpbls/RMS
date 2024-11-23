@@ -1,0 +1,152 @@
+﻿@using System.Security.Claims
+@model IEnumerable<rscSys_final.Models.Draft>
+
+@{
+    ViewData["Title"] = "View Drafts";
+    Layout = "_LayoutRPages";
+}
+
+<style>
+    h1 {
+        font-family: 'Popppins', sans-serif;
+        font-weight: 800;
+    }
+
+    .table {
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 18px;
+        min-width: 400px;
+    }
+
+        .table th, .table td {
+            padding: 12px 15px;
+        }
+
+        .table thead th {
+            background-color: #850000;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #dddddd;
+            background-color: #850000;
+
+        }
+
+            .table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+
+            .table tbody tr:last-of-type {
+                border-bottom: 2px solid #850000;
+            }
+
+    .dts-column {
+        white-space: nowrap;
+    }
+
+    .details-column {
+        white-space: nowrap;
+    }
+</style>
+
+<h1 class="mb-4">Drafts</h1>
+
+<div class="table-responsive">
+<table class="table table-striped">
+                <thead>
+                    <tr>
+                         <th class="dts-column">DTS No.</th>
+                        <th>Details</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">No drafts available.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var draft in Model)
+            {
+                <tr>
+                        <td class="dts-column">@draft.DtsNo</td>
+                        <td class="details-column">
+                            Application: @draft.ApplicationType <br />
+                        Field of Study: @draft.FieldOfStudy <br />
+                        Date Created: @draft.CreatedDate.ToString("MM/dd/yyyy")
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column text-center">
+                        <a asp-action="ViewApplication" asp-route-draftId="@draft.DraftId" class="btn"><i class="fa-solid fa-file-circle-plus fa-2xl" style="color: #000000;"></i></a><br/>
+                            <button type="button" class="btn btn-danger delete-draft-btn" data-draft-id="@draft.DraftId">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+            </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".delete-draft-btn").on("click", function () {
+                var draftId = $(this).data("draft-id");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger me-2"
+                    },
+                    buttonsStyling: false
+                });
+
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Perform the deletion via AJAX
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("DeleteDraft")',
+                            data: { draftId: draftId },
+                            success: function (response) {
+                                swalWithBootstrapButtons.fire(
+                                    "Deleted!",
+                                    "Your draft has been deleted.",
+                                    "success"
+                                );
+                                // Optionally remove the deleted draft row from the table
+                                $("button[data-draft-id='" + draftId + "']").closest("tr").remove();
+                            },
+                            error: function () {
+                                swalWithBootstrapButtons.fire(
+                                    "Error!",
+                                    "An error occurred while trying to delete the draft.",
+                                    "error"
+                                );
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        
+                    }
+                });
+            });
+        });
+    </script>
+}

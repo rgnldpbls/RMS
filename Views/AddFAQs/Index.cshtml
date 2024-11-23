@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ResearchManagementSystem.Models.AddFAQs>
+
+@{
+    ViewData["Title"] = "Index";
+
+
+    Layout = ViewData["Layout"]?.ToString();  // Dynamically set the layout based on the controller
+}
+
+
+
+<link href="~/css/SystemAdministrator-FAQs.css" rel="stylesheet" />
+<style>
+    .action {
+        border: none;
+        background: none;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+        .action:hover {
+            background: rgba(133, 0, 0, 0.2);
+        }
+</style>
+
+<div>
+    <div class="container d-flex justify-content-between align-items-end">
+        <div class="display-6 mt-5 p-0">
+            <div id="task">Frequently Asked Questions</div>
+        </div>
+        <div>
+            <!-- Add FAQ button only for SuperAdmin -->
+            <a role="button" class="btn btn-lg btn-danger admin-only" asp-controller="AddFAQs" asp-action="Create">
+                Add FAQ
+            </a>
+        </div>
+    </div>
+
+    @{
+        var faqIndex = 0; // Initialize a counter for unique IDs
+    }
+    @foreach (var item in Model)
+    {
+        <div class="container mt-3">
+            <div class="container shadow p-3" id="content">
+                <div class="row align-items-center">
+                    <div class="lab col-10">
+                        @Html.DisplayFor(modelItem => item.question_id)
+                    </div>
+                    <div class="col-2 text-end">
+                        <button class="action" type="button" data-bs-toggle="collapse" data-bs-target="#faqcont-@faqIndex" aria-expanded="false" aria-controls="faqcont-@faqIndex">
+                            <i class="fa-solid fa-circle-chevron-down fa-2xl" style="color: #850000;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse mt-3 bg-transparent" id="faqcont-@faqIndex">
+                <div class="card card-body container p-3">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                @Html.DisplayNameFor(model => model.superadmin)
+                                @Html.DisplayFor(modelItem => item.superadmin.Id)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                @Html.DisplayNameFor(model => model.question_id)
+                                @Html.DisplayFor(modelItem => item.question_id)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                @Html.DisplayNameFor(model => model.answer_id)
+                                @Html.DisplayFor(modelItem => item.answer_id)
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-12 col-sm-12 d-flex justify-content-end">
+                                <!-- Edit and Delete buttons only for SuperAdmin -->
+                                <a role="button" class="action admin-only" asp-action="Edit" asp-route-id="@item.FAQ_id">
+                                    <i class="fa-solid fa-pen-to-square fa-2xl" style="color: #850000;"></i>
+                                </a>
+                                <a role="button" class="action admin-only" asp-action="Delete" asp-route-id="@item.FAQ_id">
+                                    <i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        faqIndex++; // Increment counter for unique IDs
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the user role from ViewData
+        const userRole = '@ViewData["UserRole"]';
+
+        // Toggle visibility of buttons based on the role
+        if (userRole !== 'SuperAdmin') {
+            // Hide Create, Edit, and Delete buttons for non-SuperAdmin users
+            document.querySelectorAll(".admin-only").forEach(function (button) {
+                button.style.display = "none";
+            });
+        }
+    });
+</script>

@@ -1,0 +1,248 @@
+﻿@using System.Security.Claims
+@model Tuple<IEnumerable<rscSys_final.Models.EvaluationForm>, IEnumerable<rscSys_final.Models.Template>>
+
+@{
+    ViewData["Title"] = "Evaluation Forms";
+    Layout = "_LayoutCPages";
+}
+
+<style>
+    .customhead th {
+        background-color: #850000;
+        color: white;
+    }
+
+    .custom-tabs .nav-link.active {
+        background-color: #850000; /* Set the active tab background color */
+        color: #ffffff; /* Set the active tab text color */
+        font-weight: 700;
+    }
+
+    .custom-tabs .nav-link {
+        background-color: #D9D9D9;
+        color: black; /* Set the default tab text color */
+    }
+
+    .title-app {
+        font-size: 50px;
+        font-weight: 800;
+    }
+
+    .btn-view {
+        font-weight: 700;
+        color: #850000;
+    }
+
+        .btn-view i {
+            margin: 0px 10px;
+        }
+
+    .btn-assign {
+        font-weight: 700;
+    }
+
+        .btn-assign i {
+            margin: 0px 10px;
+        }
+
+    .add-buttons {
+        margin-left: auto; /* Push the buttons to the right */
+    }
+</style>
+
+<h1 class="title-app">Evaluation Forms</h1>
+<ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+    <li class="nav-item me-1" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#EvaluationForms" type="button" role="tab">Evaluation Forms</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link me-1" id="profile-tab" data-bs-toggle="tab" data-bs-target="#Criteria" type="button" role="tab">Criteria</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="template-tab" data-bs-toggle="tab" data-bs-target="#Templates" type="button" role="tab">Templates</button>
+    </li>
+    <div class="add-buttons">
+        <a href="@Url.Action("CreateForms", "RSCChief")" class="btn btn-primary">Add Evaluation Form</a>
+        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadTemplateModal">Add Template</a>
+    </div>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="EvaluationForms" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <!-- Existing Evaluation Forms Table -->
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>Title</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var form in Model.Item1)
+                {
+                    <tr>
+                        <td>@form.Title</td>
+                        <td class="text-center">
+                            <button type="button" class="btn"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>     
+                            
+                            <form asp-action="DeleteForm" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this form?');">
+                                <input type="hidden" name="id" value="@form.FormId" />
+                                <button type="submit" class="btn"><i class="fa-solid fa-trash fa-xl" style="color: #850000"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="Criteria" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <!-- Existing Criteria Table -->
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>FormId</th>
+                    <th>Name</th>
+                    <th>Percentage</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var form in Model.Item1)
+                {
+                    foreach (var criteria in form.Criteria)
+                    {
+                        <tr>
+                            <td>@form.Title</td>
+                            <td>@criteria.Name</td>
+                            <td>@criteria.Percentage</td>
+                            <td>
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-@criteria.CriterionId"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+
+                                <!-- Edit Modal -->
+                                <div class="modal fade" id="editModal-@criteria.CriterionId" tabindex="-1" aria-labelledby="editModalLabel-@criteria.CriterionId" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel-@criteria.CriterionId">Edit Criteria</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form asp-action="EditForm" asp-controller="RSCChief" method="post" enctype="multipart/form-data">
+                                                    <input type="hidden" name="id" value="@criteria.CriterionId" />
+
+                                                    <div class="mb-3">
+                                                        <label for="criteriaName" class="form-label">Criteria Name</label>
+                                                        <input type="text" class="form-control" id="criteriaName" name="criteriaName" value="@criteria.Name" required>
+                                                    </div>
+        
+                                                        <div class="mb-3">
+                                                            <label for="criteriaPercentage" class="form-label">Percentage</label>
+                                                            <input type="number" step="0.01" class="form-control" id="criteriaPercentage" name="criteriaPercentage" value="@criteria.Percentage" required>
+                                                        </div>
+                                
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="Templates" role="tabpanel" aria-labelledby="template-tab" tabindex="0">
+        <!-- New Template Table -->
+        <table class="table table-striped">
+            <thead class="thead-dark customhead">
+                <tr>
+                    <th>Template Name</th>
+                    <th>Uploaded Date</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var template in Model.Item2)
+                {
+                    <tr>
+                        <td>@template.TemplateName</td>
+                        <td>@template.FileUploaded.ToShortDateString()</td>
+                        <td class="text-center">
+                            <!-- Edit Button -->
+                            <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#editModal-@template.TemplateId"> <i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+
+                            <form asp-action="DeleteTemplate" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this form?');">
+                                <input type="hidden" name="id" value="@template.TemplateId" />
+                                <button type="submit" class="btn"><i class="fa-solid fa-trash fa-xl" style="color: #850000"></i></button>
+                            </form>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editModal-@template.TemplateId" tabindex="-1" aria-labelledby="editModalLabel-@template.TemplateId" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel-@template.TemplateId">Edit Template</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form asp-action="EditTemplate" asp-controller="RSCChief" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="id" value="@template.TemplateId" />
+                                                <div class="mb-3">
+                                                    <label for="templateName" class="form-label">Template Name</label>
+                                                    <input type="text" class="form-control" id="templateName" name="templateName" value="@template.TemplateName" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="file" class="form-label">Replace File (Optional)</label>
+                                                    <input type="file" class="form-control" id="file" name="file">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div class="modal fade" id="uploadTemplateModal" tabindex="-1" aria-labelledby="uploadTemplateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadTemplateModalLabel">Upload Template</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="UploadTemplate" asp-controller="RSCChief" enctype="multipart/form-data" method="post">
+                    <div class="mb-3">
+                        <label for="TemplateName" class="form-label">Template Name</label>
+                        <input type="text" class="form-control" id="TemplateName" name="TemplateName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="FileUpload" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="FileUpload" name="FileUpload" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function confirmDelete(form) {
+        if (confirm("Are you sure you want to delete this form?")) {
+            form.submit();
+        }
+    }
+</script>

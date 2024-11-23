@@ -1,0 +1,40 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.Models.EthicsForms
+
+@{
+    ViewData["Title"] = "Edit Ethics Form";
+}
+<h2>Edit Ethics Form</h2>
+
+<head>
+    <link rel="stylesheet" href="~/css/DetailsInitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<form asp-action="EditForms" method="post" enctype="multipart/form-data">
+    <!-- Hidden field for form ID -->
+    <input type="hidden" asp-for="EthicsFormId" />
+
+    <div class="form-group">
+        <label for="formName">Form Name:</label>
+        <input type="text" id="formName" name="formName" class="form-control" asp-for="FormName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="formDescription">Form Description:</label>
+        <textarea id="formDescription" name="formDescription" rows="3" class="form-control" asp-for="FormDescription" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="newFile">Choose .docx File (Optional):</label>
+        <input type="file" id="newFile" name="newFile" accept=".docx" class="form-control" />
+    </div>
+
+    <!-- Checkbox to determine if the file is required -->
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input type="checkbox" id="isFileRequired" name="isFileRequired" class="form-check-input" asp-for="IsRequired" value="true" />
+            File is required
+        </label>
+        <input type="hidden" name="IsRequired" value="false" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

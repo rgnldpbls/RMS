@@ -1,0 +1,556 @@
+﻿﻿body {
+    background-color: #F1F0F0;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.title-section {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    padding: 0 15px;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-left: 1.6%;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 1.7rem;
+}
+
+.row1, .row2, .row3, .row4 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three cards per row */
+    gap: 20px; /* Spacing between cards */
+    margin-top: 5vh;
+    margin-left: auto; /* Center the grid */
+    margin-right: auto; /* Center the grid */
+    width: 90%; /* Make the grid responsive */
+}
+
+.event-card {
+    margin-top: 4%;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 20rem;
+    border-radius: 3px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    font-family: Montserrat;
+}
+
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+/* Image styling for cards */
+.card-img-top {
+    object-fit: cover;
+    height: 250px;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+}
+
+    /* Placeholder image styling */
+    .card-img-top.bg-light {
+        font-size: 16px;
+        color: #aaa;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+/* Card body styling */
+.card-body {
+    padding: 15px;
+    max-width: 20rem;
+    height: 250px;
+    background-color: #2B3030;
+}
+
+.card-title {
+    font-size: 0.90rem;
+    font-weight: bold;
+    word-break: break-word;
+    white-space: normal;
+    margin-bottom: 40px;
+    color: #FFDB89;
+    margin-left: 1vh;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #FFFF;
+    margin-bottom: 8px;
+    margin-left: 1vh;
+}
+
+/* Button styling */
+.btn-info {
+    background-color: transparent;
+    margin-top: 4vh;
+    margin-left: -1vh;
+    text-decoration: none !important;
+    border: none;
+    color: #FFDB89;
+    color: #FFDB89;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+    .btn-info:hover {
+        background-color: #0056b3;
+    }
+
+.alert-container {
+    background-color: transparent;
+    color: green;
+    margin-left: 15vh;
+}
+
+.custom-event-modal .modal-dialog {
+    display: block;
+    width: 80%;
+}
+
+.custom-event-modal .modal-header {
+    /* Example: Light gray background */
+}
+
+.custom-event-modal .modal-title {
+    color: #ffff; /* Example: Dark text color */
+}
+
+.custom-event-modal .modal-body {
+    text-align: left;
+}
+
+/* Additional styles */
+.custom-event-modal .custom-modal-content {
+    border-radius: 8px;
+    background-color: #850000;
+}
+
+.btn-close {
+    color: black;
+    background-color: transparent;
+}
+
+.form-label {
+    color: white;
+}
+
+.unique-participants-modal .modal-content {
+    background-color: #f9f9f9; /* Example styling */
+    border: 2px solid #ddd;
+}
+
+.unique-participants-modal .modal-header {
+    background-color: #e0e0e0;
+}
+
+.unique-participants-modal .modal-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.unique-participants-modal .table {
+    border-color: #ccc;
+}
+
+/* Modal Styles */
+#eventDetailsModal .modal-dialog {
+    max-width: 800px; /* Ensure proper size for large modals */
+    margin: 1.75rem auto;
+}
+
+#eventDetailsModal .modal-content {
+    background-color: #850000; /* Match with your branding */
+    color: white; /* Ensure text is visible */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden; /* Keep content tidy */
+}
+
+#eventDetailsModal .modal-header {
+    background-color: #6c0000; /* Slightly darker header */
+    border-bottom: 1px solid #FFDB89; /* Subtle divider */
+    padding: 20px;
+}
+
+    #eventDetailsModal .modal-header .modal-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+        color: #FFDB89; /* Golden accent for header text */
+    }
+
+    #eventDetailsModal .modal-header .btn-close {
+        color: white;
+        opacity: 1;
+    }
+
+#eventDetailsModal .modal-body {
+    padding: 20px;
+    background-color: #2b3030; /* Slightly darker gray */
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+    #eventDetailsModal .modal-body .form-label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #FFDB89; /* Accent color for labels */
+        margin-bottom: 10px;
+    }
+
+    #eventDetailsModal .modal-body .form-control {
+        background-color: #444;
+        color: white;
+        border: 1px solid #666;
+        border-radius: 5px;
+        padding: 8px 12px;
+    }
+
+        #eventDetailsModal .modal-body .form-control:focus {
+            border-color: #FFDB89;
+            box-shadow: 0 0 5px rgba(255, 219, 137, 0.5);
+        }
+
+    #eventDetailsModal .modal-body textarea {
+        min-height: 100px;
+        resize: none;
+    }
+
+#eventDetailsModal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+    background-color: #6c0000;
+}
+
+/* Button Styles */
+#eventDetailsModal .btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#eventDetailsModal .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+    #eventDetailsModal .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+#eventDetailsModal .btn-warning {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+    #eventDetailsModal .btn-warning:hover {
+        background-color: #e0b800;
+    }
+
+#eventDetailsModal .btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+    #eventDetailsModal .btn-info:hover {
+        background-color: #117a8b;
+    }
+
+#eventDetailsModal .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+    #eventDetailsModal .btn-danger:hover {
+        background-color: #b02a37;
+    }
+
+/* Researchers Container */
+#researchersContainer {
+    background-color: #2b3030;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+#researchersTable {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+    #researchersTable th,
+    #researchersTable td {
+        padding: 10px;
+        border: 1px solid #666;
+        text-align: center;
+    }
+
+    #researchersTable th {
+        background-color: #444;
+        color: #FFDB89; /* Golden accents for table headers */
+        font-weight: bold;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #eventDetailsModal .modal-dialog {
+        max-width: 100%;
+        margin: 20px;
+    }
+
+    #eventDetailsModal .modal-body {
+        padding: 15px;
+    }
+
+    #researchersTable {
+        font-size: 12px;
+    }
+}
+
+/* Ensure modal footer background is transparent */
+.modal-footer {
+    background-color: transparent !important; /* Force background to be transparent */
+    border-top: none !important; /* Remove any border on the footer */
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 10px; /* Add spacing between buttons */
+    padding: 15px; /* Ensure consistent padding */
+}
+
+    /* Ensure all buttons inside modal footer are aligned properly */
+    .modal-footer .btn {
+        margin: 0; /* Remove any margin */
+        padding: 10px 20px; /* Add consistent padding */
+        font-size: 16px; /* Keep font size consistent */
+        font-family: 'Montserrat', sans-serif; /* Use consistent font */
+    }
+
+/* Remove any inherited margin-top for buttons */
+.mt-3 {
+    margin-top: 0 !important;
+}
+
+/* General modal styles */
+#invitationListModal .modal-dialog {
+    max-width: 900px; /* Adjusts modal width for larger tables */
+    margin: 1.75rem auto;
+    border-radius: 10px; /* Rounded corners for modern look */
+}
+
+#invitationListModal .modal-content {
+    background-color: #2B3030; /* Matches your theme's dark gray */
+    color: white; /* Text color for contrast */
+    border-radius: 8px; /* Smooth edges for modal */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Slight shadow for depth */
+}
+
+/* Modal header styling */
+#invitationListModal .modal-header {
+    background-color: #850000; /* Dark red for header to stand out */
+    border-bottom: 1px solid #FFDB89; /* Golden accent line */
+    padding: 20px;
+}
+
+    #invitationListModal .modal-header .modal-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFDB89; /* Golden accent for title text */
+    }
+
+    #invitationListModal .modal-header .btn-close {
+        color: white; /* Ensures close button is visible */
+        opacity: 1;
+    }
+
+/* Modal body styling */
+#invitationListModal .modal-body {
+    padding: 20px;
+    background-color: #2B3030; /* Slightly darker gray */
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+/* Table styling */
+#invitationListModal .table {
+    background-color: #2B3030; /* Match modal background */
+    color: white; /* Text color */
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+    #invitationListModal .table th,
+    #invitationListModal .table td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #444; /* Subtle border for table cells */
+    }
+
+    #invitationListModal .table th {
+        background-color: #444; /* Darker gray for headers */
+        color: #FFDB89; /* Golden text for headers */
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    #invitationListModal .table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+        #invitationListModal .table tbody tr:hover {
+            background-color: #555; /* Highlight row on hover */
+        }
+
+    /* Actions button styling */
+    #invitationListModal .table .btn {
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #invitationListModal .table .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+        #invitationListModal .table .btn-danger:hover {
+            background-color: #b02a37;
+        }
+
+    #invitationListModal .table .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+
+        #invitationListModal .table .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #invitationListModal .modal-dialog {
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    #invitationListModal .table th,
+    #invitationListModal .table td {
+        font-size: 12px; /* Smaller font for small screens */
+        padding: 10px;
+    }
+}
+
+/* General modal styles */
+#registeredParticipantsModal .modal-dialog {
+    max-width: 900px; /* Adjust modal width for large tables */
+    margin: 1.75rem auto;
+    border-radius: 10px; /* Rounded corners for modern appearance */
+}
+
+#registeredParticipantsModal .modal-content {
+    background-color: #2B3030; /* Matches your dark theme */
+    color: white; /* Text color for contrast */
+    border-radius: 8px; /* Smooth edges for modal */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Slight shadow for depth */
+}
+
+/* Modal header styling */
+#registeredParticipantsModal .modal-header {
+    background-color: #850000; /* Dark red for the header */
+    border-bottom: 1px solid #FFDB89; /* Golden accent line */
+    padding: 20px;
+}
+
+    #registeredParticipantsModal .modal-header .modal-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFDB89; /* Golden accent for title text */
+    }
+
+    #registeredParticipantsModal .modal-header .btn-close {
+        color: white; /* Ensures close button is visible */
+        opacity: 1;
+    }
+
+/* Modal body styling */
+#registeredParticipantsModal .modal-body {
+    padding: 20px;
+    background-color: #2B3030; /* Slightly darker gray */
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+/* Table styling */
+#registeredParticipantsModal .table {
+    background-color: #2B3030; /* Matches modal background */
+    color: white; /* Text color for content */
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    #registeredParticipantsModal .table th,
+    #registeredParticipantsModal .table td {
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #444; /* Subtle border for table cells */
+    }
+
+    #registeredParticipantsModal .table th {
+        background-color: #444; /* Darker gray for headers */
+        color: #FFDB89; /* Golden text for headers */
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    #registeredParticipantsModal .table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+        #registeredParticipantsModal .table tbody tr:hover {
+            background-color: #555; /* Highlight row on hover */
+        }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #registeredParticipantsModal .modal-dialog {
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    #registeredParticipantsModal .table th,
+    #registeredParticipantsModal .table td {
+        font-size: 12px; /* Smaller font for small screens */
+        padding: 10px;
+    }
+}

@@ -1,0 +1,51 @@
+﻿@{
+    string activeRole = Context.Session.GetString("ActiveRole");
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (!string.IsNullOrEmpty(activeRole))
+        {
+            if (activeRole == "SuperAdmin")
+            {
+                Layout = "SuperAdmin_Layout";
+            }
+            else if (activeRole == "Faculty")
+            {
+                Layout = "Faculty_Layout";
+            }
+            else if (activeRole == "Student")
+            {
+                Layout = "Student_Layout";
+            }
+            else if (activeRole == "RMCC")
+            {
+                Layout = "RMCC_Layout";
+            }
+            else
+            {
+                // Default layout for any other roles or fallback
+                Layout = "_Layout";
+            }
+        }
+        else
+        {
+            // Set layout based on default roles if no active role is chosen
+            if (User.IsInRole("SuperAdmin"))
+            {
+                Layout = "SuperAdmin_Layout";
+            }
+            else if (User.IsInRole("Faculty"))
+            {
+                Layout = "Faculty_Layout";
+            }
+            else if (User.IsInRole("Student"))
+            {
+                Layout = "Student_Layout";
+            }
+            else
+            {
+                Layout = "_Layout";
+            }
+        }
+    }
+}

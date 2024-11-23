@@ -1,0 +1,73 @@
+.forecasting-container[b-054nxc6fqw] {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.forecasting-title[b-054nxc6fqw] {
+    margin: 20px 20px;
+    color: #850000;
+    text-align: left;
+}
+
+.forecasting-subtitle[b-054nxc6fqw] {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.chart-container[b-054nxc6fqw] {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.table-container[b-054nxc6fqw] {
+    display: flex;
+    justify-content: center;
+}
+
+.forecast-table[b-054nxc6fqw] {
+    margin-top: 50px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    .forecast-table th[b-054nxc6fqw], .forecast-table td[b-054nxc6fqw] {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .forecast-table th[b-054nxc6fqw] {
+        background-color: #850000;
+        color: white;
+    }
+
+    .forecast-table td:nth-child(2)[b-054nxc6fqw] {
+        color: #333;
+    }
+
+.export-button[b-054nxc6fqw] {
+    display: block;
+    width: 150px;
+    margin: 30px auto 0;
+    padding: 10px;
+    background-color: #fff;
+    color: #850000;
+    border: 2px solid #850000;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .export-button:hover[b-054nxc6fqw] {
+        background-color: #850000;
+        color: #fff;
+    }
