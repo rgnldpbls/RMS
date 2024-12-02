@@ -18,6 +18,23 @@
         <div class="card-body">
             <p><strong>UREC Number:</strong> @Model.EthicsApplication.UrecNo</p>
             <p><strong>Research Title:</strong> @Model.NonFundedResearchInfo.Title</p>
+            <div class="row">
+                <p><strong>Field of Study:</strong> @Model.EthicsApplication.FieldOfStudy</p>
+                @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.Campus))
+                {
+                    <p><strong>Campus:</strong> @Model.NonFundedResearchInfo.Campus</p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.College))
+                {
+                    <p><strong>College:</strong> @Model.NonFundedResearchInfo.College</p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.University))
+                {
+                    <p><strong>Institution:</strong> @Model.NonFundedResearchInfo.University</p>
+                }
+            </div>
 
             @* Display Ethics Clearance Details if available *@
             @if (Model.EthicsClearance != null)
@@ -52,6 +69,11 @@
                 <div class="form-group">
                     <label for="researchTitle">Research Title</label>
                     <input type="text" class="form-control" id="researchTitle" name="researchTitle" value="@Model.NonFundedResearchInfo.Title" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="college">College/Department</label>
+                    <input type="text" class="form-control" id="college" name="college" value="@Model.NonFundedResearchInfo.College" readonly />
                 </div>
 
                 @* Research Start Date *@

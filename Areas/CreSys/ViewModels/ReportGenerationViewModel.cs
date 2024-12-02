@@ -1,14 +1,18 @@
-﻿namespace ResearchManagementSystem.Areas.CreSys.ViewModels
+﻿using Microsoft.Identity.Client;
+
+namespace ResearchManagementSystem.Areas.CreSys.ViewModels
 {
     public class ReportGenerationViewModel
     {
         // User-selected parameters
         public string? SelectedCollege { get; set; }
         public string SelectedFieldOfStudy { get; set; }
-        public string? SelectedCampus { get; set; }
+        public string? SelectedCampus{ get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool ExternalApplications { get; set; } = false;
+        public string? ReaserchType { get; set; }
+        public string? InternalResearcherType { get; set; }
 
         // Dropdown data
         public List<string> Colleges { get; set; } = new List<string>
@@ -43,6 +47,7 @@
         "Science, Mathematics, and Statistics"
     }; public List<string> Campuses { get; set; } = new List<string>
         {
+            "Whole University",
            "Sta. Mesa (MAIN CAMPUS)",
             "Taguig City (BRANCH)",
             "Quezon City (BRANCH)",

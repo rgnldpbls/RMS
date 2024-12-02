@@ -15,10 +15,7 @@ namespace ResearchManagementSystem.Areas.CreSys.ViewModels
         public List<CoProponent>? CoProponent { get; set; } = new List<CoProponent>();//multiple researchers
 
         // New property for FieldOfStudies
-        public List<string> FieldOfStudies { get; set; } = new List<string>();
-
-        public List<string> Colleges { get; set; } = new List<string>();
-        public List<string> Universities { get; set; } = new List<string>();
+        
         public bool IsExternalResearcher { get; set; }
         //other properties needed
         [Required(ErrorMessage = "Payment Receipt is Required.")]

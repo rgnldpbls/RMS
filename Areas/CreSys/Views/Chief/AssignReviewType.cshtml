@@ -40,7 +40,23 @@
                         </div>
                     </div>
                 </p>
-                <p><strong>Field of Study:</strong> @Model.EthicsApplication?.FieldOfStudy</p>
+                <div class="row">
+                    <p><strong>Field of Study:</strong> @Model.EthicsApplication.FieldOfStudy</p>
+                    @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.Campus))
+                    {
+                        <p><strong>Campus:</strong> @Model.NonFundedResearchInfo.Campus</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.College))
+                    {
+                        <p><strong>College:</strong> @Model.NonFundedResearchInfo.College</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.University))
+                    {
+                        <p><strong>Institution:</strong> @Model.NonFundedResearchInfo.University</p>
+                    }
+                </div>
             </div>
 
             <!-- Display DTS No. or Edit Button -->

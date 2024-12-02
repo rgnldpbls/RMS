@@ -1,0 +1,73 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.Models.Chairperson
+
+@{
+    ViewData["Title"] = "Confirm Deletion";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <style>
+        /* Custom maroon theme */
+        .card {
+            background-color: #800000; /* Maroon background */
+            color: white; /* White text */
+            border: none;
+        }
+
+        .card-header {
+            background-color: #9b111e; /* Darker maroon for the header */
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-danger {
+            background-color: #9b111e; /* Maroon button */
+            border-color: #9b111e;
+        }
+
+        .btn-danger:hover {
+            background-color: #800000; /* Darken maroon on hover */
+            border-color: #800000;
+        }
+
+        .btn-secondary {
+            background-color: #f0ad4e; /* Yellow for Cancel button */
+            border-color: #f0ad4e;
+            color: black; /* Black text for better contrast */
+        }
+
+            .btn-secondary:hover {
+                background-color: #ec971f; /* Darker yellow on hover */
+                border-color: #ec971f;
+            }
+        .container {
+            padding-top: 30px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        h5 {
+            color: white;
+        }
+    </style>
+</head>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            Confirm Deletion
+        </div>
+        <div class="card-body">
+            <h5>Are you sure you want to delete the chairperson <strong>@Model.Name</strong>?</h5>
+
+            <form asp-action="DeleteChairperson" method="post">
+                <input type="hidden" name="ChairpersonId" value="@Model.ChairpersonId" />
+
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="@Url.Action("ViewChairperson", "Chief")" class="btn btn-secondary ml-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

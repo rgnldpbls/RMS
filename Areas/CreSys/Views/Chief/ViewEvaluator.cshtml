@@ -1,0 +1,53 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.ViewEvaluatorViewModel
+@{
+    ViewData["Title"] = "Ethics Evaluators";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<style>
+    .btn-secondary {
+        background-color: #f0ad4e; /* Yellow for Cancel button */
+        border-color: #f0ad4e;
+        color: black; /* Black text for better contrast */
+    }
+
+        .btn-secondary:hover {
+            background-color: #ec971f; /* Darker yellow on hover */
+            border-color: #ec971f;
+        }
+</style>
+<!-- Card Container -->
+<div class="card" style="border: 2px solid maroon; border-radius: 10px; max-width: 600px; margin: 0 auto;">
+    <div class="card-header" style="background-color: maroon; color: white; text-align: center;">
+        <h5 class="card-title">Evaluator Details</h5>
+    </div>
+    <div class="card-body">
+        <!-- Name Section -->
+        <div class="form-group">
+            <label><strong>Name</strong></label>
+            <p>@Model.Evaluator.Name</p>
+        </div>
+
+        <!-- Expertise Section -->
+        <div class="form-group">
+            <label><strong>Expertise</strong></label>
+            <ul>
+                @foreach (var expertiseId in Model.SelectedExpertise)
+                {
+                    // Find the expertise name based on the expertise ID
+                    var expertise = Model.ExpertiseList.FirstOrDefault(e => e.ExpertiseId == expertiseId);
+                    if (expertise != null)
+                    {
+                        <li>@expertise.ExpertiseName</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <a href="@Url.Action("ViewEthicsEvaluators", "Chief")" class="btn btn-secondary">Back</a>
+    </div>
+</div>

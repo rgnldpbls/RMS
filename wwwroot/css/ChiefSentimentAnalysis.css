@@ -39,7 +39,7 @@
     padding: 0 15px;
 }
 
-.title{
+.title {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     margin-left: 2%;
@@ -72,7 +72,7 @@
     margin-bottom: 1rem;
 }
 
-.form-label{
+.form-label {
     margin-top: 2.5vh;
     margin-left: 1vh;
     color: black;
@@ -111,6 +111,7 @@
     --secondary-color: #f8f9fa;
     --accent-color: #2c3e50;
 }
+
 .card {
     border: none;
     border-radius: 20px;
@@ -233,10 +234,30 @@
     /* Button close color */
     .custom-modal-bg .btn-close {
         color: #ffffff;
-        background-color:transparent;
+        background-color: transparent;
     }
 
     /* Remove underline from modal header title */
     .custom-modal-bg .modal-header {
         border-bottom: none;
     }
+
+.spinner-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none; /* Hidden by default */
+}
+
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    display: none; /* Hidden by default */
+}

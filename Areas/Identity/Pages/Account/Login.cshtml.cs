@@ -146,6 +146,10 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("HomeStake", "Stakeholder", new { area = "CrdlSys" });
                     }
+                    else if(roles.Contains("External Researcher"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "CreSys" });
+                    }
                     else
                     {
                         return RedirectToAction("Index", "Home");

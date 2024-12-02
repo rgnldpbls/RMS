@@ -1,0 +1,629 @@
+﻿@using ResearchManagementSystem.Areas.CreSys.ViewModels.FormClasses
+@model ResearchManagementSystem.Areas.CreSys.ViewModels.FormClasses.EvaluationSheetsViewModel
+@{
+    ViewData["Title"] = "Application Details";
+    var protocolCoProponents = Model.ProtocolReviewForm.NonFundedResearchInfo.CoProponents.ToList();
+    var informedConsentCoProponents = Model.InformedConsentForm.NonFundedResearchInfo.CoProponents.ToList();
+}
+<head>
+    <link rel="stylesheet" href="~/css/EvaluationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<h2>Application Evaluation</h2>
+
+
+<div class="main-card">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-6">
+            <!-- UREC Number -->
+            <div class="col d-flex align-items-center">
+                <span id="urecNoText" class="mb-0 appDetails">UREC No.:<span class="appContent"> @Model.ProtocolReviewForm.EthicsApplication.UrecNo</span></span>
+                <button class="btn-outline-secondary btn-sm ms-2" onclick="copyUrecNo()" title="Copy">
+                    <i class="fa-regular fa-copy copy-icon"></i>
+                </button>
+            </div>
+            <!-- Research Title -->
+            <div class="detail-section">
+                <div class="appDetails">RESEARCH TITLE:</div>
+                <div class="appContent"> @Model.ProtocolReviewForm.NonFundedResearchInfo?.Title</div>
+            </div>
+
+            <!-- Proponents -->
+            <div class="detail-section">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="appDetails">PROPONENT/S:</div>
+                        <div class="appContent indented">
+                            @Model.ProtocolReviewForm.NonFundedResearchInfo.Name
+                            @if (Model.ProtocolReviewForm.NonFundedResearchInfo.CoProponents != null && Model.ProtocolReviewForm.NonFundedResearchInfo.CoProponents.Any())
+                            {
+                                foreach (var proponent in Model.ProtocolReviewForm.NonFundedResearchInfo.CoProponents)
+                                {
+                                    @proponent.CoProponentName <br />
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Column -->
+        <div class="col-md-6">
+            <div class="col d-flex justify-content-end align-items-center">
+                <span class="mb-0 appDetails">
+                    DTS No.:
+                    <span class="appContent align-items-center">
+                        @if (!string.IsNullOrEmpty(Model.ProtocolReviewForm.EthicsApplication.DtsNo))
+                        {
+                            <button class="btn-outline-secondary btn-sm ms-2" onclick="copyDtsNo()" title="Copy">
+                                <i class="fa-regular fa-copy copy-icon"></i>
+                            </button>
+                        }
+                    </span>
+                </span>
+            </div>
+            <div class="detail-section">
+                <p><strong>Field of Study:</strong> @Model.InformedConsentForm.EthicsApplication.FieldOfStudy</p>
+                @if (!string.IsNullOrEmpty(Model.InformedConsentForm.NonFundedResearchInfo.Campus))
+                    {
+                    <p><strong>Campus:</strong> @Model.InformedConsentForm.NonFundedResearchInfo.Campus</p>
+                    }
+
+                @if (!string.IsNullOrEmpty(Model.InformedConsentForm.NonFundedResearchInfo.College))
+                    {
+                    <p><strong>College:</strong> @Model.InformedConsentForm.NonFundedResearchInfo.College</p>
+                    }
+
+                @if (!string.IsNullOrEmpty(Model.InformedConsentForm.NonFundedResearchInfo.University))
+                    {
+                    <p><strong>Institution:</strong> @Model.InformedConsentForm.NonFundedResearchInfo.University</p>
+                    }
+                <div class="appDetails">Review Type</div><div class="appContent">@Model.ProtocolReviewForm.InitialReview.ReviewType</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7 mb-4">
+        <div class="tab-list">
+            @if (Model.ProtocolReviewForm.EthicsApplicationForms != null && Model.ProtocolReviewForm.EthicsApplicationForms.Any())
+            {
+                <ul class="nav nav-tabs" id="pdfTabs" role="tablist">
+                    @if (Model.ProtocolReviewForm.ReceiptInfo != null && Model.ProtocolReviewForm.ReceiptInfo.ScanReceipt != null)
+                    {
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="receipt-tab" data-bs-toggle="tab" href="#receipt" role="tab" aria-controls="receipt" aria-selected="true">
+                                Receipt
+                            </a>
+                        </li>
+                    }
+
+                    @foreach (var form in Model.ProtocolReviewForm.EthicsApplicationForms)
+                    {
+                        <li class="tab-button" role="presentation">
+                            <a class="nav-link @((Model.ProtocolReviewForm.ReceiptInfo == null || Model.ProtocolReviewForm.ReceiptInfo.ScanReceipt == null) && form == Model.ProtocolReviewForm.EthicsApplicationForms.First() ? "active" : "")" id="form-@form.EthicsFormId-tab" data-bs-toggle="tab" href="#form-@form.EthicsFormId" role="tab" aria-controls="form-@form.EthicsFormId" aria-selected="false">
+                                @form.EthicsFormId
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+                <div id="pdfTabContent" class="tab-content">
+                    @if (Model.ProtocolReviewForm.ReceiptInfo != null && Model.ProtocolReviewForm.ReceiptInfo.ScanReceipt != null)
+                    {
+                        <div class="tab-pane fade show active" id="receipt" role="tabpanel" aria-labelledby="receipt-tab">
+                            <iframe class="resizable-iframe" src="@Url.Action("ViewReceipt", "Researcher", new { urecNo = Model.ProtocolReviewForm.EthicsApplication?.UrecNo })"></iframe>
+                        </div>
+                    }
+
+                    @foreach (var form in Model.ProtocolReviewForm.EthicsApplicationForms)
+                    {
+                        <div class="tab-pane fade @((Model.ProtocolReviewForm.ReceiptInfo == null || Model.ProtocolReviewForm.ReceiptInfo.ScanReceipt == null) && form == Model.ProtocolReviewForm.EthicsApplicationForms.First() ? "show active" : "")" id="form-@form.EthicsFormId" role="tabpanel" aria-labelledby="form-@form.EthicsFormId-tab">
+                            <iframe class="resizable-iframe" src="@Url.Action("ViewFile", "Researcher", new { formid = form.EthicsFormId, urecNo = Model.ProtocolReviewForm.EthicsApplication?.UrecNo })"></iframe>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No forms submitted.</p>
+            }
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="protocol-review">
+            <h4 class="text-center">Evaluation Inputs</h4>
+            <form asp-action="EvaluateApplicationPdfGen" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmission()">
+                <input type="hidden" asp-for="@Model.ProtocolReviewForm.NonFundedResearchInfo.Title" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.NonFundedResearchInfo.Title" />
+                <input type="hidden" asp-for="@Model.ProtocolReviewForm.NonFundedResearchInfo.Name" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.NonFundedResearchInfo.Name" />
+                <input type="hidden" asp-for="@Model.ProtocolReviewForm.NonFundedResearchInfo.University" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.NonFundedResearchInfo.University" />
+
+                <input type="hidden" asp-for="@Model.InformedConsentForm.EthicsApplication.UrecNo" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.NonFundedResearchInfo.UserId" />
+                @for (int i = 0; i < protocolCoProponents.Count; i++)
+                {
+                    <input type="hidden" name="ProtocolReviewForm.NonFundedResearchInfo.CoProponents[@i].CoProponentName"
+                           value="@protocolCoProponents[i].CoProponentName" />
+                }
+
+                @for (int i = 0; i < informedConsentCoProponents.Count; i++)
+                {
+                    <input type="hidden" name="InformedConsentForm.NonFundedResearchInfo.CoProponents[@i].CoProponentName"
+                           value="@informedConsentCoProponents[i].CoProponentName" />
+                }
+
+
+                <input type="hidden" asp-for="@Model.ProtocolReviewForm.EthicsApplication.FieldOfStudy" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.EthicsApplication.FieldOfStudy" />
+                <input type="hidden" asp-for="@Model.ProtocolReviewForm.InitialReview.ReviewType" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.InitialReview.ReviewType" />
+                <input type="hidden" asp-for="@Model.ProtocolReviewForm.EthicsEvaluation.Name" />
+                <input type="hidden" asp-for="@Model.InformedConsentForm.EthicsEvaluation.Name" />
+                <div id="informedConsentFormSection">
+                    <h2 class="text-center">Informed Consent Form</h2>
+
+                    <!-- Evaluator Type for Informed Consent Form -->
+                    <div class="mb-3">
+                        <label for="informed-consent-evaluator-type" class="form-label">Evaluator Type</label>
+                        <select asp-for="InformedConsentForm.EvaluatorType" class="form-select" required>
+                            <option value="" disabled selected>--Select--</option>
+                            <option value="NON-SCIENTIST">NON-SCIENTIST</option>
+                            <option value="NON-AFFILIATED">NON-AFFILIATED</option>
+                            <option value="ALTERNATE MEMBER">ALTERNATE MEMBER</option>
+                        </select>
+                    </div>
+                    @for (int i = 0; i < Model.InformedConsentForm.Questions.Count; i++)
+                    {
+                        <input type="hidden" name="InformedConsentForm.Questions[@i].QuestionText"
+                               value="@Model.InformedConsentForm.Questions[i].QuestionText" />
+                        <input type="hidden" name="InformedConsentForm.Questions[@i].FollowUpText"
+                               value="@Model.InformedConsentForm.Questions[i].FollowUpText" />
+
+                        <div class="mb-3 question-container" data-question-index="@i">
+                            <!-- Question Label -->
+                            <label for="informed-consent-question-@i" class="form-label">@Model.InformedConsentForm.Questions[i].QuestionText</label>
+
+                            @if (Model.InformedConsentForm.Questions[i].AnswerType == AnswerType.YesNoFollowUp)
+                            {
+                                <!-- Dropdown for Yes/No with default set to Yes and required attribute -->
+                                <select id="informed-consent-question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
+                                        class="form-select yesno-dropdown informed-consent-followup-trigger"
+                                        data-followup-index="@i" required>
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+
+                                <!-- Follow-up Text and Textarea (initially hidden) -->
+                                <div class="followup-container" id="informed-consent-followup-@i" style="display: none;">
+                                    <label for="informed-consent-followup-text-@i" class="form-label">
+                                        @Model.InformedConsentForm.Questions[i].FollowUpText
+                                    </label>
+                                    <textarea id="informed-consent-followup-text-@i" asp-for="InformedConsentForm.Questions[@i].FollowUpAnswer"
+                                              class="form-control" rows="5"></textarea>
+                                </div>
+                                <input type="hidden" name="InformedConsentForm.Questions[@i].FollowUpAnswer"
+                                       value="@Model.InformedConsentForm.Questions[i].FollowUpAnswer" />
+                                <!-- Script to Show/Hide Follow-up based on answer -->
+                                <script>
+                                    document.getElementById('informed-consent-question-@i').addEventListener('change', function () {
+                                        var followUpContainer = document.getElementById('informed-consent-followup-@i');
+                                        if (this.value === 'No') {
+                                            followUpContainer.style.display = 'block';
+                                        } else {
+                                            followUpContainer.style.display = 'none';
+                                        }
+                                    });
+                                </script>
+                            }
+                            else if (Model.InformedConsentForm.Questions[i].AnswerType == AnswerType.MultiDropDown)
+                            {
+                                <!-- Multi-Select Dropdown with required attribute -->
+                                <select id="question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
+                                        class="form-select" multiple required>
+                                    @foreach (var option in Model.InformedConsentForm.Questions[i].Options)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
+                                </select>
+                            }
+                            else if (Model.InformedConsentForm.Questions[i].AnswerType == AnswerType.Text)
+                            {
+                                <!-- Set default value if not already present -->
+                                <textarea asp-for="InformedConsentForm.Questions[@i].Answer"
+                                          class="form-control" rows="5" id="informed-consent-question-@i">
+                                    @(!string.IsNullOrEmpty(Model.InformedConsentForm.Questions[@i].Answer)
+                                                ? Model.InformedConsentForm.Questions[@i].Answer : "N/A")
+                                        </textarea>
+                            }
+                            else if (Model.InformedConsentForm.Questions[i].AnswerType == AnswerType.YesNo)
+                            {
+                                <!-- Default Dropdown for Yes/No with default set to Yes and required attribute -->
+                                <select id="question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
+                                        class="form-select" required>
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <!-- Default Dropdown (Fallback for any other types, if any) -->
+                                <select id="question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
+                                        class="form-select" required>
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <!-- Protocol Review Form Section (Second Page) -->
+                <div id="protocolReviewFormSection" style="display: none;">
+                    <h2 class="text-center">Protocol Review Form</h2>
+                    <!-- Evaluator Type for Protocol Review Form -->
+                    <div class="mb-3">
+                        <label for="protocol-review-evaluator-type" class="form-label">Evaluator Type</label>
+                        <select asp-for="ProtocolReviewForm.EvaluatorType" class="form-select" required>
+                            <option value="" disabled selected>--Select--</option>
+                            <option value="REGULAR MEMBER">REGULAR MEMBER</option>
+                            <option value="ALTERNATE MEMBER">ALTERNATE MEMBER</option>
+                        </select>
+                    </div>
+                    @for (int i = 0; i < Model.ProtocolReviewForm.Questions.Count; i++)
+                    {
+                        <input type="hidden" name="ProtocolReviewForm.Questions[@i].QuestionText"
+                               value="@Model.ProtocolReviewForm.Questions[i].QuestionText" />
+                        <input type="hidden" name="ProtocolReviewForm.Questions[@i].FollowUpText"
+                               value="@Model.ProtocolReviewForm.Questions[i].FollowUpText" />
+
+                        <div class="mb-3 question-container" data-question-index="@i">
+                            <!-- Question Label -->
+                            <label for="protocol-review-question-@i" class="form-label">@Model.ProtocolReviewForm.Questions[i].QuestionText</label>
+
+                            @if (Model.ProtocolReviewForm.Questions[i].AnswerType == AnswerType.MultipleChoiceWithText ||
+                           Model.ProtocolReviewForm.Questions[i].AnswerType == AnswerType.MultipleChoiceWithTextNo)
+                            {
+                                <!-- Dropdown -->
+                                <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
+                                        class="form-select followup-trigger protocol-review-followup-trigger" required
+                                        data-answer-type="@Model.ProtocolReviewForm.Questions[i].AnswerType"
+                                        data-index="@i" id="question-@i">
+                                    @foreach (var option in Model.ProtocolReviewForm.Questions[i].Options)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
+                                </select>
+
+                                <!-- Follow-up Textarea -->
+                                @if (!string.IsNullOrEmpty(Model.ProtocolReviewForm.Questions[i].FollowUpText))
+                                {
+                                    <div class="followup-container" id="protocol-review-followup-@i" style="display: none;">
+                                        <label asp-for="ProtocolReviewForm.Questions[@i].FollowUpAnswer" class="form-label">
+                                            @Model.ProtocolReviewForm.Questions[i].FollowUpText
+                                        </label>
+                                        <textarea asp-for="ProtocolReviewForm.Questions[@i].FollowUpAnswer"
+                                                  class="form-control" rows="5"></textarea>
+                                    </div>
+                                }
+                                <input type="hidden" name="ProtocolReviewForm.Questions[@i].FollowUpAnswer"
+                                       value="@Model.ProtocolReviewForm.Questions[i].FollowUpAnswer" />
+                            }
+                            else if (Model.ProtocolReviewForm.Questions[i].AnswerType == AnswerType.MultipleChoice)
+                            {
+                                <!-- Dropdown for Multiple Choice -->
+                                <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
+                                        class="form-select" required id="question-@i">
+                                    @foreach (var option in Model.ProtocolReviewForm.Questions[i].Options)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
+                                </select>
+                            }
+                            else if (Model.ProtocolReviewForm.Questions[i].AnswerType == AnswerType.MultiDropDown)
+                            {
+                                <!-- Multi-Select Dropdown -->
+                                <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
+                                        class="form-select" multiple required id="question-@i">
+                                    @foreach (var option in Model.ProtocolReviewForm.Questions[i].Options)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
+                                </select>
+                            }
+                            else if (Model.ProtocolReviewForm.Questions[i].AnswerType == AnswerType.YesNo)
+                            {
+                                <!-- Yes/No Dropdown -->
+                                <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
+                                        class="form-select" required id="question-@i">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            }
+                            else if (Model.ProtocolReviewForm.Questions[i].AnswerType == AnswerType.Text)
+                            {
+                                <!-- Set default value if not already present -->
+                                <textarea asp-for="ProtocolReviewForm.Questions[@i].Answer"
+                                          class="form-control" rows="5" id="protocol-review-question-@i">
+                                    @(!string.IsNullOrEmpty(Model.ProtocolReviewForm.Questions[@i].Answer)
+                                                ? Model.ProtocolReviewForm.Questions[@i].Answer : "N/A")
+                                        </textarea>
+                            }
+                        </div>
+                    }
+
+                    <!-- JavaScript -->
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            // Handle both forms separately by distinguishing them with a unique form identifier
+                            const informedConsentFollowUpTriggers = document.querySelectorAll(".informed-consent-followup-trigger");
+                            const protocolReviewFollowUpTriggers = document.querySelectorAll(".protocol-review-followup-trigger");
+
+                            // Function to toggle follow-up visibility based on selection
+                            const toggleFollowUp = (trigger, followUpContainer) => {
+                                const selectedValue = trigger.value.trim().toUpperCase();
+
+                                // If the value is 'No', show the follow-up, otherwise hide it
+                                if (selectedValue === "NO" || selectedValue === "UNABLE TO ASSESS") {
+                                    followUpContainer.style.display = "block";
+                                } else {
+                                    followUpContainer.style.display = "none";
+                                }
+                            };
+
+                            // Handle Informed Consent Form follow-up triggers
+                            informedConsentFollowUpTriggers.forEach(trigger => {
+                                const questionIndex = trigger.dataset.index;
+                                const followUpContainer = document.getElementById(`informed-consent-followup-${questionIndex}`);
+
+                                if (!followUpContainer) {
+                                    console.error(`Follow-up container not found for question index ${questionIndex}`);
+                                    return;
+                                }
+
+                                // Attach event listener for changes in the select box
+                                trigger.addEventListener("change", () => toggleFollowUp(trigger, followUpContainer));
+
+                                // Initialize visibility on page load based on the current value
+                                toggleFollowUp(trigger, followUpContainer);
+                            });
+
+                            // Handle Protocol Review Form follow-up triggers
+                            protocolReviewFollowUpTriggers.forEach(trigger => {
+                                const questionIndex = trigger.dataset.index;
+                                const followUpContainer = document.getElementById(`protocol-review-followup-${questionIndex}`);
+
+                                if (!followUpContainer) {
+                                    console.error(`Follow-up container not found for question index ${questionIndex}`);
+                                    return;
+                                }
+
+                                // Attach event listener for changes in the select box
+                                trigger.addEventListener("change", () => toggleFollowUp(trigger, followUpContainer));
+
+                                // Initialize visibility on page load based on the current value
+                                toggleFollowUp(trigger, followUpContainer);
+                            });
+                        });
+                    </script>
+
+                </div>
+
+
+                <!-- Navigation Buttons -->
+                <div class="text-center">
+                    <button type="button" id="backButton" class="btn btn-secondary" onclick="showPreviousSection()" style="display: none;">Back</button>
+                    <button type="button" id="nextButton" class="btn btn-primary" onclick="showNextSection()">Next</button>
+                    <button type="submit" id="submitButton" class="btn btn-success" style="display: none;">Submit Evaluation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function copyUrecNo() {
+            const urecNoText = document.getElementById("urecNoText").innerText;
+            navigator.clipboard.writeText(urecNoText.replace("UREC No.: ", "")).then(function () {
+                alert('UREC No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function copyDtsNo() {
+            const dtsNoText = document.getElementById("dtsNoText").innerText;
+            navigator.clipboard.writeText(dtsNoText.replace("DTS No.: ", "")).then(function () {
+                alert('DTS No. copied to clipboard!');
+            }, function (err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function openPdfInModal(pdfUrl) {
+            // Set the iframe source to the selected PDF
+            document.getElementById("pdfViewer").src = pdfUrl;
+
+            // Show the modal
+            $('#pdfModal').modal('show');
+        }
+        function confirmSubmission() {
+            return confirm("Are you sure you want to submit this evaluation?");
+        }
+    </script>
+
+
+    <script>
+        function adjustIframeHeight(iframe) {
+            const rightColumn = document.querySelector('.col-md-4');
+
+            if (iframe && rightColumn) {
+                // Get the height of the right column
+                const rightHeight = rightColumn.offsetHeight;
+
+                // Set the iframe height to match the right column
+                iframe.style.height = rightHeight + "px";
+            }
+        }
+
+        // Adjust height on page load and window resize
+        window.addEventListener('load', () => {
+            const activeIframe = document.querySelector('.tab-pane.active .resizable-iframe');
+            adjustIframeHeight(activeIframe);
+        });
+        window.addEventListener('resize', () => {
+            const activeIframe = document.querySelector('.tab-pane.active .resizable-iframe');
+            adjustIframeHeight(activeIframe);
+        });
+
+        // Adjust height when a new tab is shown
+        document.addEventListener('shown.bs.tab', (event) => {
+            const tabPaneId = event.target.getAttribute('href'); // Get the target tab pane ID
+            const iframe = document.querySelector(`${tabPaneId} .resizable-iframe`); // Find the iframe in the active tab
+            adjustIframeHeight(iframe);
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all 'Yes/No' dropdowns with the 'YesNoFollowUp' answer type
+            var yesNoDropdowns = document.querySelectorAll('.yesno-dropdown');
+
+            // Loop through each dropdown to set the initial state and add event listeners
+            yesNoDropdowns.forEach(function (dropdown) {
+                // Get the index of the current dropdown (which corresponds to the question)
+                var followupIndex = dropdown.getAttribute('data-followup-index');
+                var followupContainer = document.getElementById('followup-' + followupIndex);
+
+                // Ensure follow-up container visibility is set based on the initial dropdown value
+                // If the selected value is 'No', show the follow-up container
+                if (dropdown.value === 'No') {
+                    followupContainer.style.display = 'block';
+                } else {
+                    followupContainer.style.display = 'none';
+                }
+
+                // Add an event listener for changes to the dropdown selection
+                dropdown.addEventListener('change', function () {
+                    toggleFollowupVisibility(dropdown, followupContainer);
+                });
+            });
+
+            // Function to show or hide the follow-up based on the selected value
+            function toggleFollowupVisibility(dropdown, followupContainer) {
+                // If 'No' is selected, show the follow-up container
+                if (dropdown.value === 'No') {
+                    followupContainer.style.display = 'block'; // Show follow-up
+                } else {
+                    followupContainer.style.display = 'none'; // Hide follow-up
+                }
+            }
+        });
+    </script>
+
+
+    <script>
+        var currentPage = 1; // Track current page (1 for Informed Consent, 2 for Protocol Review)
+
+        function validateInformedConsentForm() {
+            // Select all the required fields in the informed consent form section
+            const requiredFields = document.querySelectorAll('#informedConsentFormSection [required]');
+            let isValid = true;
+
+            // Loop through the required fields and check if they are filled
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.classList.add('is-invalid');  // Highlight invalid fields
+                } else {
+                    field.classList.remove('is-invalid');  // Remove highlight for valid fields
+                }
+            });
+
+            return isValid;
+        }
+
+        function validateProtocolReviewForm() {
+            // Select all the required fields in the protocol review form section
+            const requiredFields = document.querySelectorAll('#protocolReviewFormSection [required]');
+            let isValid = true;
+
+            // Loop through the required fields and check if they are filled
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.classList.add('is-invalid');  // Highlight invalid fields
+                } else {
+                    field.classList.remove('is-invalid');  // Remove highlight for valid fields
+                }
+            });
+
+            return isValid;
+        }
+
+        function showNextSection() {
+            if (currentPage === 1) {
+                // Validate Informed Consent Form before switching to next section
+                if (!validateInformedConsentForm()) {
+                    alert('Please fill out all required fields before proceeding.');
+                    return;  // Prevent navigation if validation fails
+                }
+
+                // Hide Informed Consent and show Protocol Review
+                document.getElementById("informedConsentFormSection").style.display = "none";
+                document.getElementById("protocolReviewFormSection").style.display = "block";
+
+                // Change "Next" button to "Submit" on second page
+                document.getElementById("nextButton").style.display = "none";
+                document.getElementById("submitButton").style.display = "inline-block";
+                document.getElementById("backButton").style.display = "inline-block"; // Show Back button
+
+                currentPage = 2;
+            }
+        }
+
+        function showPreviousSection() {
+            if (currentPage === 2) {
+                // Hide Protocol Review and show Informed Consent
+                document.getElementById("protocolReviewFormSection").style.display = "none";
+                document.getElementById("informedConsentFormSection").style.display = "block";
+
+                // Change "Next" button back to "Submit"
+                document.getElementById("nextButton").style.display = "inline-block";
+                document.getElementById("submitButton").style.display = "none";
+                document.getElementById("backButton").style.display = "none"; // Hide Back button on the first page
+
+                currentPage = 1;
+            }
+        }
+
+        // Handle Submit button validation
+        document.getElementById("submitButton").addEventListener('click', function (event) {
+            // Validate both forms before submission
+            const isInformedConsentValid = validateInformedConsentForm();
+            const isProtocolReviewValid = validateProtocolReviewForm();
+
+            if (!isInformedConsentValid || !isProtocolReviewValid) {
+                // Prevent form submission if any validation fails
+                event.preventDefault();  // Prevent the default submit action
+                alert('Please fill out all required fields before submitting.');
+            }
+        });
+    </script>
+
+}
+<style>
+    .resizable-iframe {
+        width: 100%; /* Ensure it spans the container */
+        border: none; /* Optional: remove borders */
+    }
+
+</style>
+

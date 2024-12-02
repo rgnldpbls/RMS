@@ -118,7 +118,7 @@
                             <td class="date-column">@evaluation.EthicsEvaluation.StartDate?.ToString("MM/dd/yyyy")</td>
                             <td class="status-column">@evaluation.EthicsEvaluation.EvaluationStatus</td>
                             <td class="action-column">
-                                <a href="@Url.Action("EvaluationDetails", "Evaluator", new { id = evaluation.EthicsApplication.UrecNo })" class="action-button"><i class="fa-solid fa-pencil"></i></a>
+                                <a href="@Url.Action("EvaluateApplicationPdfGen", "Evaluator", new { UrecNo = evaluation.EthicsApplication.UrecNo })" class="action-button"><i class="fa-solid fa-pencil"></i></a>
                             </td>
                         </tr>
                     }

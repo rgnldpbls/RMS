@@ -8,7 +8,7 @@
         <h1>REMC CHIEF DASHBOARD</h1>
     </div>
     @{
-        var groupedColleges = @Model.Item1.GroupBy(f => f.college)
+        var groupedColleges = @Model.Item1.Where(f => f.college != null).GroupBy(f => f.college)
         .Select(group => new
         {
             College = group.Key,
@@ -87,13 +87,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                        <h5 class="modal-title" id="addEventModalLabel">Add New Announcement</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form asp-action="AddEvent" method="post">
                             <div class="mb-3">
-                                <label for="event-title" class="form-label">Event Title</label>
+                                <label for="event-title" class="form-label">Announcement Title</label>
                                 <input type="text" class="form-control" id="event-title" name="eventTitle" required>
                             </div>
                             <div class="mb-3">
@@ -105,7 +105,7 @@
                                 <input type="date" class="form-control" id="event-end" name="endDate" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Event Visibility</label>
+                                <label class="form-label">Announcement Visibility</label>
                                 <div>
                                     <input type="radio" id="broadcasted" name="eventVisibility" value="Broadcasted" />
                                     <label for="broadcasted">Everyone</label>
@@ -115,7 +115,7 @@
                                     <label for="justYou">Just You</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Event</button>
+                            <button type="submit" class="btn btn-primary">Add Announcement</button>
                         </form>
                     </div>
                 </div>
@@ -268,8 +268,14 @@
         const addEventModal = new bootstrap.Modal(document.getElementById('addEventModal'));
         const eventForm = document.getElementById('eventForm');
 
-        async function fetchEvents() {
+        async function fetchAnnouncements() {
             const response = await fetch('/RemcSys/Chief/GetUserEvents');
+            const events = await response.json();
+            return events;
+        }
+
+        async function fetchEvents() {
+            const response = await fetch('/CrdlSys/Chief/GetCalendarEvents');
             const events = await response.json();
             return events;
         }
@@ -309,7 +315,7 @@
             nextDayThreshold: '00:00:00',
             customButtons: {
                 addEventButton: {
-                    text: 'Add Event',
+                    text: 'Add Announcement',
                     click: function () {
                         // Show modal to add event
                         addEventModal.show();
@@ -321,7 +327,35 @@
                 center: 'title',
                 right: 'addEventButton dayGridMonth,timeGridWeek,timeGridDay'
             },
-            events: fetchEvents,
+            events: async function (fetchInfo, successCallback, failureCallback) {
+                try {
+                    // Fetch two datasets
+                    const [data1, data2] = await Promise.all([
+                        fetch('/RemcSys/Chief/GetUserEvents').then(res => res.json()),
+                        fetch('/CrdlSys/Chief/GetCalendarEvents').then(res => res.json()),
+                    ]);
+
+                    // Combine data
+                    const events = [
+                        ...data1.map(item => ({
+                            title: item.title, // Adjust based on your API response
+                            start: item.start,
+                            end: item.end,
+                        })),
+                        ...data2.map(item => ({
+                            title: item.title,
+                            start: item.start,
+                            end: item.end,
+                        })),
+                    ];
+
+                    // Pass events to FullCalendar
+                    successCallback(events);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    failureCallback(error);
+                }
+            },
             editable: true,
             droppable: true,
             datesSet: removeUnderlines, // Remove underlines after rendering

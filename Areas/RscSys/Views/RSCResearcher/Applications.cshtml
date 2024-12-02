@@ -7,74 +7,63 @@
 }
 
 <style>
-    .applications-container .page-header h1 
-    {
+    .applications-container .page-header h1 {
         font-weight: 700;
     }
 
-    .nav-tabs .nav-item 
-    {
+    .nav-tabs .nav-item {
         background-color: #D9D9D9;
         border-radius: 5px;
         margin-right: 5px;
     }
 
-    .nav-tabs .nav-link 
-    {
+    .nav-tabs .nav-link {
         color: black;
         padding: 10px 20px;
     }
 
-/*         .nav-tabs .nav-link:hover 
-        {
-            background-color: #C00;
-            color: #fff;
-            transition: background-color 0.3s ease;
-        } */
+        /*         .nav-tabs .nav-link:hover
+            {
+                background-color: #C00;
+                color: #fff;
+                transition: background-color 0.3s ease;
+            } */
 
-        .nav-tabs .nav-link.active 
-        {
+        .nav-tabs .nav-link.active {
             background-color: #850000;
             color: #fff;
             font-weight: bold;
         }
 
-        .table {
-            border-collapse: collapse;
+    .table {
+        border-collapse: collapse;
+        font-size: 18px;
+        min-width: 400px;
+    }
 
-            font-size: 18px;
-            min-width: 400px;
-        }
-
-        .table th, .table td 
-        {
+        .table th, .table td {
             padding: 12px 15px;
         }
 
-        .table thead th 
-        {
+        .table thead th {
             background-color: #850000;
             color: #ffffff;
             text-align: center;
         }
 
-        .table tbody tr 
-        {
+        .table tbody tr {
             border-bottom: 1px solid #dddddd;
         }
 
-            .table tbody tr:nth-of-type(even) 
-            {
+            .table tbody tr:nth-of-type(even) {
                 background-color: #f3f3f3;
             }
 
-            .table tbody tr:last-of-type 
-            {
+            .table tbody tr:last-of-type {
                 border-bottom: 2px solid #850000;
             }
 
-    .badge 
-    {
+    .badge {
         font-size: 14px;
         border-radius: 20px;
         padding: 5px 10px;
@@ -82,23 +71,20 @@
         text-transform: uppercase;
     }
 
-    .btn-primary 
-    {
+    .btn-primary {
         background-color: #850000;
         border: none;
         font-weight: bold;
         padding: 10px 15px;
     }
 
-        .btn-primary:hover 
-        {
+        .btn-primary:hover {
             background-color: #C00;
             transition: background-color 0.3s ease;
         }
 
 
-    .btn-cancel 
-    {
+    .btn-cancel {
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
         color: #850000;
@@ -110,33 +96,28 @@
         color: black;
     }
 
-    .btn-resubmit 
-    {
+    .btn-resubmit {
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
         color: #008CFF;
     }
 
-    .btn-cancel i 
-    {
+    .btn-cancel i {
         margin: 10px;
     }
 
-    .btn-resubmit i 
-    {
+    .btn-resubmit i {
         margin: 10px;
     }
 
-    .status-list .list-group-item 
-    {
+    .status-list .list-group-item {
         display: flex;
         justify-content: space-between;
         padding: 5px 0;
         border: none;
     }
 
-    .status-list .list-group-item 
-    {
+    .status-list .list-group-item {
         display: flex;
         justify-content: space-between;
         padding: 10px 0;
@@ -145,26 +126,22 @@
         color: white;
     }
 
-    .modal-lg 
-    {
+    .modal-lg {
         max-width: 750px;
     }
 
-    .status-list .number-column 
-    {
+    .status-list .number-column {
         flex: 0 0 8%;
         text-align: center;
         font-weight: bold;
     }
 
-    .status-list .badge-column 
-    {
+    .status-list .badge-column {
         flex: 0 0 30%;
         text-align: left;
     }
 
-    .status-list .meaning-column 
-    {
+    .status-list .meaning-column {
         flex: 0 0 62%;
         text-align: left;
         padding-left: 10px;
@@ -173,31 +150,26 @@
         text-overflow: ellipsis;
     }
 
-    .modal-header 
-    {
+    .modal-header {
         border-bottom: none;
         margin-bottom: -20px;
     }
 
-    .modal-title 
-    {
+    .modal-title {
         font-weight: 700;
     }
 
-    .custom-modal-bg 
-    {
+    .custom-modal-bg {
         background-color: #850000;
         color: #ffffff;
         border: none;
     }
 
-    .modal-body 
-    {
+    .modal-body {
         background-color: #850000;
     }
 
-    .title-app 
-    {
+    .title-app {
         font-size: 50px;
         font-weight: 700;
     }
@@ -241,524 +213,320 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="activeApplications" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <div class="table-responsive">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="dts-column">DTS No.</th>
-                    <th>Details</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any(app => app.Status == "For Compliance" || app.Status == "For Evaluation"))
-                {
-                    foreach (var app in Model.Where(app => app.Status == "For Compliance" || app.Status == "For Evaluation"))
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="dts-column">DTS No.</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any(app => app.Status == "For Compliance" || app.Status == "For Evaluation"))
                     {
-                        <tr>
-                            <td class="dts-column">@app.DtsNo</td>
-                            <td class="details-column">
+                        foreach (var app in Model.Where(app => app.Status == "For Compliance" || app.Status == "For Evaluation"))
+                        {
+                            <tr>
+                                <td class="dts-column">@app.DtsNo</td>
+                                <td class="details-column">
                                     <strong>Application Type:</strong> @app.ApplicationType <br />
                                     <strong>Reasearch Title:</strong> @app.ResearchTitle <br />
                                     <strong>Field of Study:</strong> @app.FieldOfStudy <br />
                                     <strong>Filed Date:</strong> @app.CreatedDate.ToString("g")
-                            </td>
-                            <td class="text-center">
-                                <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <div class="d-flex align-items-center">
-                                        @if (@app.Status == "For Compliance")
-                                        {
-                                            <span class="badge rounded-pill text-bg-warning">@app.Status</span>
-                                        }
-                                        else if (@app.Status == "For Evaluation")
-                                        {
-                                            <span class="badge rounded-pill text-bg-secondary">@app.Status</span>
-                                        }
-                                        <button type="button" class="btn btn-link p-0 ms-2" data-bs-toggle="modal" data-bs-target="#statusTagsModal">
-                                            <i class="fa-solid fa-circle-question fa-xl" style="color: #000000;"></i>
-                                        </button>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            @if (@app.Status == "For Compliance")
+                                            {
+                                                <span class="badge rounded-pill text-bg-warning">@app.Status</span>
+                                            }
+                                            else if (@app.Status == "For Evaluation")
+                                            {
+                                                <span class="badge rounded-pill text-bg-secondary">@app.Status</span>
+                                            }
+                                            <button type="button" class="btn btn-link p-0 ms-2" data-bs-toggle="modal" data-bs-target="#statusTagsModal">
+                                                <i class="fa-solid fa-circle-question fa-xl" style="color: #000000;"></i>
+                                            </button>
+                                        </div>
+                                        <a class="btn btn-primary mt-2" href="@Url.Action("ViewDetails", "RSCResearcher", new { id = app.RequestId })">Details</a>
                                     </div>
-                                    <a class="btn btn-primary mt-2" href="@Url.Action("ViewDetails", "RSCResearcher", new { id = app.RequestId })">Details</a>
-                                </div>
-                            </td>
-                            <td>
-                                <form id="cancelApplicationForm" asp-action="CancelApplication" method="post">
-                                    <input type="hidden" name="requestId" value="@app.RequestId" />
-                                    <button type="button" class="btn btn-cancel" onclick="confirmCancelApplication()">
-                                        <i class="fa-solid fa-ban" style="color: #850000;"></i> Cancel Application
-                                    </button>
-                                </form>
-                                @if (app.Status == "For Compliance")
-                                {
-                                    <a class="btn btn-resubmit" href="@Url.Action("ResubmitDocu", "RSCResearcher", new { id = app.RequestId })">
-                                        <i class="fa-solid fa-file-circle-plus" style="color: #008cff;"></i> Re-submit Documents
-                                    </a>
-                                }
-                            </td>
+                                </td>
+                                <td>
+                                    <form id="cancelApplicationForm" asp-action="CancelApplication" method="post">
+                                        <input type="hidden" name="requestId" value="@app.RequestId" />
+                                        <button type="button" class="btn btn-cancel" onclick="confirmCancelApplication()">
+                                            <i class="fa-solid fa-ban" style="color: #850000;"></i> Cancel Application
+                                        </button>
+                                    </form>
+                                    @if (app.Status == "For Compliance")
+                                    {
+                                        <a class="btn btn-resubmit" href="@Url.Action("ResubmitDocu", "RSCResearcher", new { id = app.RequestId })">
+                                            <i class="fa-solid fa-file-circle-plus" style="color: #008cff;"></i> Re-submit Documents
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">No active applications found.</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="4">No active applications found.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <!-- Approved Applications Tab -->
     <div class="tab-pane fade" id="approvedApplication" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
         <div class="table-responsive">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="dts-column">DTS No.</th>
-                    <th>Details</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any(app => app.Status == "Approved" || app.Status == "Rejected" || app.Status == "Endorsed by RMO"))
-                {
-                    foreach (var app in Model.Where(app => app.Status == "Approved" || app.Status == "Rejected" || app.Status == "Endorsed by RMO"))
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="dts-column">DTS No.</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any(app => app.Status == "Approved" || app.Status == "Rejected" || app.Status == "Endorsed by RMO"))
                     {
-                        <tr>
-                            <td class="dts-column">@app.DtsNo</td>
-                            <td class="details-column">
-                                Application Type: @app.ApplicationType <br />
-                                Reasearch Title: @app.ResearchTitle <br />
-                                Field of Study: @app.FieldOfStudy <br />
-                                Filed Date: @app.CreatedDate.ToString("g")
-                            </td>
-                            <td class="text-center">
-                                @if (@app.Status == "Approved")
-                                {
-                                    <span class="badge rounded-pill text-bg-success">@app.Status</span>
-                                }
-                                else if (@app.Status == "Rejected")
-                                {
-                                    <span class="badge rounded-pill text-bg-danger">@app.Status</span>
-                                }
-                                else if (@app.Status == "Endorsed by RMO")
-                                {
-                                    <span class="badge rounded-pill text-bg-primary">@app.Status</span>
-                                }
-                               <br/> <a class="btn btn-primary mt-2" href="@Url.Action("ViewDetails", "RSCResearcher", new { id = app.RequestId })">Details</a>
-                            </td>
-                            <td class="text-center">
-                                @if (@app.Status == "Approved")
-                                {
-                                    <i>Wait for your application to be endorse.</i>
-                                }
-                                @if (@app.Status == "Endorsed by RMO")
-                                {
-                                    <a class="btn btn-view"
-                                       href="@Url.Action("DownloadEndorsementLetter", "RSCResearcher", new { requestId = app.RequestId })">
-                                        <i class="fa-solid fa-file-arrow-down fa-lg mx-2" style="color: #000000"></i>Download Endorsement Letter
-                                    </a>
+                        foreach (var app in Model.Where(app => app.Status == "Approved" || app.Status == "Rejected" || app.Status == "Endorsed by RMO"))
+                        {
+                            <tr>
+                                <td class="dts-column">@app.DtsNo</td>
+                                <td class="details-column">
+                                    Application Type: @app.ApplicationType <br />
+                                    Reasearch Title: @app.ResearchTitle <br />
+                                    Field of Study: @app.FieldOfStudy <br />
+                                    Filed Date: @app.CreatedDate.ToString("g")
+                                </td>
+                                <td class="text-center">
+                                    @if (@app.Status == "Approved")
+                                    {
+                                        <span class="badge rounded-pill text-bg-success">@app.Status</span>
+                                    }
+                                    else if (@app.Status == "Rejected")
+                                    {
+                                        <span class="badge rounded-pill text-bg-danger">@app.Status</span>
+                                    }
+                                    else if (@app.Status == "Endorsed by RMO")
+                                    {
+                                        <span class="badge rounded-pill text-bg-primary">@app.Status</span>
+                                    }
+                                    <br /> <a class="btn btn-primary mt-2" href="@Url.Action("ViewDetails", "RSCResearcher", new { id = app.RequestId })">Details</a>
+                                </td>
+                                <td class="text-center">
+                                    @if (@app.Status == "Approved")
+                                    {
+                                        <i>Wait for your application to be endorse.</i>
+                                    }
+                                    @if (@app.Status == "Endorsed by RMO")
+                                    {
+                                        <a class="btn btn-view"
+                                           href="@Url.Action("DownloadEndorsementLetter", "RSCResearcher", new { requestId = app.RequestId })">
+                                            <i class="fa-solid fa-file-arrow-down fa-lg mx-2" style="color: #000000"></i>Download Endorsement Letter
+                                        </a>
 
                                         <!-- Modal Trigger Button -->
-                                   <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#applyModal-@app.RequestId" data-request-id="@app.RequestId">
-                                      Apply For
-                                   </button>
-                                   
-                                        <!-- Modal Structure -->
-                                        <div class="modal fade" id="applyModal-@app.RequestId" tabindex="-1" aria-labelledby="applyModalLabel-@app.RequestId" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="applyModalLabel-@app.RequestId">Application Options</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <!-- Modal Body -->
-                                                    <div class="modal-body">
-                                                        @if (@app.ApplicationType.Contains("Master's Thesis") || @app.ApplicationType == "Dissertation") { 
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                Publication and Citation Incentives
-                                                            </button>
-                                                            <ul class="dropdown-menu text-center custom-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Student">Publication and Citation Incentives for Student</a>
-                                                                    <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Faculty">Publication and Citation Incentives for Faculty</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                        <!-- Modal Trigger Button -->
+                                        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#applyModal-@app.RequestId" data-request-id="@app.RequestId">
+                                            Apply For
+                                        </button>
 
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    International Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Student">International Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Faculty">International Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                                    }
+                                </td>
+                            </tr>
 
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    National Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Student">National Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Faculty">National Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                
-                                                            <button class="btn btn-success btn-app" data-application-type="University Publication Assistance (UPA)">
-                                                                University Publication Assistance (UPA)
-                                                            </button>
-                                                        }
-                                                        else if (@app.ApplicationType == "National Paper Presentation for Student" || @app.ApplicationType == "National Paper Presentation for Faculty")
-                                                        {
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    Publication and Citation Incentives
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Student">Publication and Citation Incentives for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Faculty">Publication and Citation Incentives for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    International Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Student">International Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Faculty">International Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <button class="btn btn-success btn-app" data-application-type="University Publication Assistance (UPA)">
-                                                                University Publication Assistance (UPA)
-                                                            </button>
-                                                        }
-                                                        else if (@app.ApplicationType == "International Paper Presentation for Student" || @app.ApplicationType == "International Paper Presentation for Faculty")
-                                                        {
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    Publication and Citation Incentives
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Student">Publication and Citation Incentives for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Faculty">Publication and Citation Incentives for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <button class="btn btn-success btn-app" data-application-type="University Publication Assistance (UPA)">
-                                                                University Publication Assistance (UPA)
-                                                            </button>
-                                                        }
-                                                        else if (@app.ApplicationType == "Publication and Citation Incentives for Student" || @app.ApplicationType == "Publication and Citation Incentives for Faculty")
-                                                        {
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    International Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Student">International Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Faculty">International Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    National Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Student">National Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Faculty">National Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <button class="btn btn-success btn-app" data-application-type="University Publication Assistance (UPA)">
-                                                                University Publication Assistance (UPA)
-                                                            </button>                                                        
-                                                        }
-                                                        else if (@app.ApplicationType == "Industrial Design, Utility Model, and Patent Incentive")
-                                                        {
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    International Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Student">International Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Faculty">International Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    National Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Student">National Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Faculty">National Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        }
-                                                        else if (@app.ApplicationType == "University Publication Assistance (UPA)")
-                                                        {
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    International Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Student">International Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Faculty">International Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    National Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Student">National Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="National Paper Presentation for Faculty">National Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    Publication and Citation Incentives
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Student">Publication and Citation Incentives for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Faculty">Publication and Citation Incentives for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        }
-                                                        else if (@app.ApplicationType == "Literary Arts Publication")
-                                                        {
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    Thesis and Dissertation Grant
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Master's Thesis">Master's Thesis</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Dissertation">Dissertation</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    International Paper Presentation
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Student">International Paper Presentation for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="International Paper Presentation for Faculty">International Paper Presentation for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-success dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    Publication and Citation Incentives
-                                                                </button>
-                                                                <ul class="dropdown-menu text-center custom-menu">
-                                                                    <li>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Student">Publication and Citation Incentives for Student</a>
-                                                                        <a class="dropdown-item btn-custom-d" href="#" data-application-type="Publication and Citation Incentives for Faculty">Publication and Citation Incentives for Faculty</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <button class="btn btn-success btn-app" data-application-type="University Publication Assistance (UPA)">
-                                                                University Publication Assistance (UPA)
-                                                            </button>
-                                                        }
-
-
-                                                    </div>
-                                                    <!-- Modal Footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    </div>
+                            <!-- Modal for Apply For -->
+                            @foreach (var application in Model.Where(app => app.Status == "Approved" || app.Status == "Endorsed by RMO"))
+                            {
+                                <div class="modal fade" id="applyModal-@application.RequestId" tabindex="-1" aria-labelledby="applyModalLabel-@application.RequestId" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content custom-modal">
+                                            <div class="modal-header justify-content-center">
+                                                <h1 class="modal-title fs-5" id="applyModalLabel-@application.RequestId">RSC Services</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="d-grid gap-2 mx-auto text-center">
+                                                    @if (application.ApplicationType == "Thesis and Dissertation Grant" ||
+                                                   application.ApplicationType == "Master's Thesis" ||
+                                                   application.ApplicationType == "Dissertation")
+                                                    {
+                                                        <!-- Specific Buttons for Eligible Services -->
+                                                        <button class="btn btn-custom" onclick="window.location.href='@Url.Action("PublicationAndCitation", "RSCResearcher")'">
+                                                            Publication and Citation Incentives
+                                                        </button>
+                                                        <button class="btn btn-custom" onclick="window.location.href='@Url.Action("InternationalPaper", "RSCResearcher")'">
+                                                            International Paper Presentation
+                                                        </button>
+                                                        <button class="btn btn-custom" onclick="window.location.href='@Url.Action("NationalPaper", "RSCResearcher")'">
+                                                            National Paper Presentation
+                                                        </button>
+                                                        <button class="btn btn-custom" onclick="window.location.href='@Url.Action("UPAAssistance", "RSCResearcher")'">
+                                                            University Publication Assistance (UPA)
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="text-muted">No additional services available for this application type.</p>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
-                                }
-                            </td>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">No approved applications found.</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="3">No approved applications found.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <!-- Cancelled Applications Tab -->
     <div class="tab-pane fade" id="cancelledApplication" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
         <div class="table-responsive">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="dts-column">DTS No.</th>
-                    <th>Details</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any(app => app.Status == "Cancelled"))
-                {
-                    foreach (var app in Model.Where(app => app.Status == "Cancelled"))
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="dts-column">DTS No.</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any(app => app.Status == "Cancelled"))
+                    {
+                        foreach (var app in Model.Where(app => app.Status == "Cancelled"))
+                        {
+                            <tr>
+                                <td class="dts-column">@app.DtsNo</td>
+                                <td class="details-column">
+                                    Application Type: @app.ApplicationType <br />
+                                    Reasearch Title: @app.ResearchTitle <br />
+                                    Field of Study: @app.FieldOfStudy <br />
+                                    Filed Date: @app.CreatedDate.ToString("g")
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill text-bg-danger">@app.Status</span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td class="dts-column">@app.DtsNo</td>
-                            <td class="details-column">
-                                Application Type: @app.ApplicationType <br />
-                                Reasearch Title: @app.ResearchTitle <br />
-                                Field of Study: @app.FieldOfStudy <br />
-                                Filed Date: @app.CreatedDate.ToString("g")
-                            </td>
-                            <td>
-                                <span class="badge rounded-pill text-bg-danger">@app.Status</span>
+                            <td colspan="3">
+                                No cancelled applications found.
                             </td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="3">
-                                No cancelled applications found.
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-<!-- Status Tags Modal -->
-<div class="modal fade" id="statusTagsModal" tabindex="-1" role="dialog" aria-labelledby="statusTagsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content custom-modal-bg">
-            <!-- Add class for custom background color -->
-            <div class="modal-header justify-content-center">
-                <!-- Center the header -->
-                <h5 class="modal-title text-center w-100" id="statusTagsModalLabel">Status Tags</h5>
-                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="fa-solid fa-xmark fa-xl" style="color: #ffffff;"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <ul class="list-group status-list">
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <div class="number-column">1</div>
-                        <div class="badge-column"><span class="badge rounded-pill text-bg-secondary">Under Evaluation</span></div>
-                        <div class="meaning-column text-nowrap">- For Evaluation for the application</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <div class="number-column">2</div>
-                        <div class="badge-column"><span class="badge rounded-pill text-bg-warning">For Compliance</span></div>
-                        <div class="meaning-column text-nowrap">- Return for resubmission of requirements</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <div class="number-column">3</div>
-                        <div class="badge-column"><span class="badge rounded-pill text-bg-success">Approve</span></div>
-                        <div class="meaning-column text-nowrap">- Approve application</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <div class="number-column">4</div>
-                        <div class="badge-column"><span class="badge rounded-pill text-bg-info">Endorsed by RMO</span></div>
-                        <div class="meaning-column text-nowrap">- Endorsed by RMO for budgeting</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <div class="number-column">5</div>
-                        <div class="badge-column"><span class="badge rounded-pill text-bg-danger">Disapproved</span></div>
-                        <div class="meaning-column text-nowrap">- The application has been disapproved</div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <div class="number-column">6</div>
-                        <div class="badge-column"><span class="badge rounded-pill text-bg-danger">Cancelled</span></div>
-                        <div class="meaning-column text-nowrap">- The application is cancelled by the applicant</div>
-                    </li>
-                </ul>
+    <!-- Status Tags Modal -->
+    <div class="modal fade" id="statusTagsModal" tabindex="-1" role="dialog" aria-labelledby="statusTagsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content custom-modal-bg">
+                <!-- Add class for custom background color -->
+                <div class="modal-header justify-content-center">
+                    <!-- Center the header -->
+                    <h5 class="modal-title text-center w-100" id="statusTagsModalLabel">Status Tags</h5>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark fa-xl" style="color: #ffffff;"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group status-list">
+                        <li class="list-group-item d-flex justify-content-center align-items-center">
+                            <div class="number-column">1</div>
+                            <div class="badge-column"><span class="badge rounded-pill text-bg-secondary">Under Evaluation</span></div>
+                            <div class="meaning-column text-nowrap">- For Evaluation for the application</div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center align-items-center">
+                            <div class="number-column">2</div>
+                            <div class="badge-column"><span class="badge rounded-pill text-bg-warning">For Compliance</span></div>
+                            <div class="meaning-column text-nowrap">- Return for resubmission of requirements</div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center align-items-center">
+                            <div class="number-column">3</div>
+                            <div class="badge-column"><span class="badge rounded-pill text-bg-success">Approve</span></div>
+                            <div class="meaning-column text-nowrap">- Approve application</div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center align-items-center">
+                            <div class="number-column">4</div>
+                            <div class="badge-column"><span class="badge rounded-pill text-bg-info">Endorsed by RMO</span></div>
+                            <div class="meaning-column text-nowrap">- Endorsed by RMO for budgeting</div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center align-items-center">
+                            <div class="number-column">5</div>
+                            <div class="badge-column"><span class="badge rounded-pill text-bg-danger">Disapproved</span></div>
+                            <div class="meaning-column text-nowrap">- The application has been disapproved</div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center align-items-center">
+                            <div class="number-column">6</div>
+                            <div class="badge-column"><span class="badge rounded-pill text-bg-danger">Cancelled</span></div>
+                            <div class="meaning-column text-nowrap">- The application is cancelled by the applicant</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@section Scripts {
+    @section Scripts {
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger me-2"
-            },
-            buttonsStyling: false
-        });
-
-        function confirmCancelApplication() {
-            swalWithBootstrapButtons.fire({
-                title: "Are you sure?",
-                text: "You won't be able to recover this application!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, cancel it!",
-                cancelButtonText: "No, keep it!",
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit the form programmatically if the user confirms
-                    document.getElementById('cancelApplicationForm').submit();
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire({
-                        title: "Cancelled",
-                        text: "Your application is still safe :)",
-                        icon: "error"
-                    });
-                }
+        <script>
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger me-2"
+                },
+                buttonsStyling: false
             });
-        }
-</script>
 
-<script>
+            function confirmCancelApplication() {
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to recover this application!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, cancel it!",
+                    cancelButtonText: "No, keep it!",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form programmatically if the user confirms
+                        document.getElementById('cancelApplicationForm').submit();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Cancelled",
+                            text: "Your application is still safe :)",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        </script>
+
+        <script>
             document.querySelectorAll('.dropdown-item.btn-custom-d').forEach(item => {
                 item.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -780,9 +548,9 @@
                     });
                 });
             });
-</script>
+        </script>
 
-<script>
+        <script>
             // Handle .btn-app button clicks
             document.querySelectorAll('.btn-app').forEach(button => {
                 button.addEventListener('click', function (e) {
@@ -805,5 +573,5 @@
                     });
                 });
             });
-</script>
-}
+        </script>
+    }

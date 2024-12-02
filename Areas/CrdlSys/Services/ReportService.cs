@@ -1,6 +1,6 @@
 ﻿using CrdlSys.Data;
 using CrdlSys.Models;
-using OfficeOpenXml; 
+using OfficeOpenXml;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml.Style;
@@ -47,28 +47,9 @@ namespace CrdlSys.Services
         {
             var currentYear = DateTime.UtcNow.Year;
 
-            /*var newPartners = await _context.UserRoles
-                .Where(ur => ur.RoleId == 2
-                             && ur.User.AccountCreationDate.Year == year
-                             && _context.StakeholderUpload.Any(su => su.StakeholderId == ur.UserId)
-                             && _context.StakeholderUpload.Any(c => c.StakeholderId == ur.UserId && c.ContractStatus == "Active")) 
-                .Select(ur => new
-                {
-                    ur.User.UserId,
-                    UserName = $"{ur.User.FirstName} {ur.User.LastName}",
-                    ur.User.Birthday,
-                    ur.User.College,
-                    ur.User.Branch,
-                    ur.User.Email,
-                    ur.User.Webmail
-                })
-                .ToListAsync();*/
-
             var newPartners = await _context.StakeholderUpload
                 .Where(su => su.CreatedAt.Year == year && su.ContractStatus == "Active")
                 .ToListAsync();
-
-            
 
             if (!newPartners.Any())
             {
@@ -80,29 +61,32 @@ namespace CrdlSys.Services
             var worksheet = package.Workbook.Worksheets.Add("New Partners");
 
             worksheet.InsertRow(1, 1);
-            var titleCell = worksheet.Cells[1, 1, 1, 7];
+            var titleCell = worksheet.Cells[1, 1, 1, 3];
             titleCell.Merge = true;
             titleCell.Value = $"New Partners Report for the Year {year}";
-            titleCell.Style.Font.Size = 14;
+            titleCell.Style.Font.Size = 16;
             titleCell.Style.Font.Bold = true;
             titleCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
             titleCell.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(48, 84, 150));
             titleCell.Style.Font.Color.SetColor(Color.White);
             titleCell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            titleCell.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            titleCell.Style.WrapText = true;
 
             var headerRow = 2;
-            string[] headers = { "UserId", "Stakeholder Name", "Birthday", "College", "Branch", "Email", "Webmail" };
+            string[] headers = { "UserId", "Stakeholder Name", "Email" };
             for (int i = 0; i < headers.Length; i++)
             {
-                worksheet.Cells[headerRow, i + 1].Value = headers[i];
+                var headerCell = worksheet.Cells[headerRow, i + 1];
+                headerCell.Value = headers[i];
+                headerCell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                headerCell.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(48, 84, 150));
+                headerCell.Style.Font.Color.SetColor(Color.White);
+                headerCell.Style.Font.Bold = true;
+                headerCell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                headerCell.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                headerCell.Style.WrapText = true;
             }
-
-            var headerRange = worksheet.Cells[headerRow, 1, headerRow, 7];
-            headerRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
-            headerRange.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(48, 84, 150));
-            headerRange.Style.Font.Color.SetColor(Color.White);
-            headerRange.Style.Font.Bold = true;
-            headerRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
             if (newPartners.Count > 0)
             {
@@ -115,27 +99,30 @@ namespace CrdlSys.Services
 
                     worksheet.Cells[row, 1].Value = partnerInfo.Id;
                     worksheet.Cells[row, 2].Value = partner.StakeholderName;
-                    worksheet.Cells[row, 3].Value = partnerInfo.Birthday;
-                    worksheet.Cells[row, 4].Value = partnerInfo.College;
-                    worksheet.Cells[row, 5].Value = partnerInfo.Campus;
-                    worksheet.Cells[row, 6].Value = partner.StakeholdeEmail;
-                    worksheet.Cells[row, 7].Value = partnerInfo.Webmail;
-
-                    worksheet.Cells[row, 3].Style.Numberformat.Format = "yyyy-MM-dd";
+                    worksheet.Cells[row, 3].Value = partner.StakeholdeEmail;
 
                     if (i % 2 == 0)
                     {
-                        worksheet.Cells[row, 1, row, 7].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        worksheet.Cells[row, 1, row, 7].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(242, 242, 242));
+                        worksheet.Cells[row, 1, row, 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        worksheet.Cells[row, 1, row, 3].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(242, 242, 242));
                     }
+
+                    var rowDataRange = worksheet.Cells[row, 1, row, 3];
+                    var rowBorder = rowDataRange.Style.Border;
+                    rowBorder.Top.Style = rowBorder.Bottom.Style = rowBorder.Left.Style = rowBorder.Right.Style = ExcelBorderStyle.Thin;
                 }
 
-                var dataRange = worksheet.Cells[headerRow, 1, newPartners.Count + headerRow, 7];
-                var border = dataRange.Style.Border;
-                border.Top.Style = border.Bottom.Style = border.Left.Style = border.Right.Style = ExcelBorderStyle.Thin;
+                var fullDataRange = worksheet.Cells[headerRow, 1, newPartners.Count + headerRow, 3];
+                var fullBorder = fullDataRange.Style.Border;
+                fullBorder.Top.Style = fullBorder.Bottom.Style = fullBorder.Left.Style = fullBorder.Right.Style = ExcelBorderStyle.Thin;
             }
 
             worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+            worksheet.Column(1).Width = Math.Max(worksheet.Column(1).Width, 12);
+            worksheet.Column(2).Width = Math.Max(worksheet.Column(2).Width, 25);
+            worksheet.Column(3).Width = Math.Max(worksheet.Column(3).Width, 30);
+
             worksheet.View.FreezePanes(headerRow + 1, 1);
 
             return package.GetAsByteArray();
@@ -597,7 +584,7 @@ namespace CrdlSys.Services
             for (int i = 0; i < filteredData.Count; i++)
             {
                 var stakeholder = filteredData[i];
-                var row = i + 3; 
+                var row = i + 3;
 
                 worksheet.Cells[row, 1].Value = stakeholder.StakeholderId;
                 worksheet.Cells[row, 2].Value = stakeholder.StakeholderName;

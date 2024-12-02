@@ -5,12 +5,10 @@
     Layout = "_LayoutChiefDashboard";
 }
 <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="~/css/ChiefSentimentAnalysis.css" rel="stylesheet" asp-append-version="true">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-kit-code.js"></script>
 </head>
 <body>
     <div class="spinner-backdrop"></div>
@@ -130,9 +128,6 @@
 </body>
 
 @section Scripts {
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your-kit-code.js"></script>
-
     <script>
         $(document).ready(function () {
             $('#analyzeSentimentForm').on('submit', function (e) {
@@ -140,11 +135,12 @@
 
                 var formData = new FormData(this);
                 var submitButton = $(this).find('button[type="submit"]');
-                var spinner = $('#loading-spinner');
+                var spinner = $('.loading-spinner');
+                var spinnerBackdrop = $('.spinner-backdrop');
 
                 submitButton.prop('disabled', true);
-                submitButton.hide();
                 spinner.show();
+                spinnerBackdrop.show();
 
                 $.ajax({
                     url: '/CrdlSys/Chief/AnalyzeSentiment',
@@ -190,6 +186,7 @@
                     complete: function () {
                         submitButton.prop('disabled', false);
                         spinner.hide();
+                        spinnerBackdrop.hide();
                         submitButton.show();
                     }
                 });

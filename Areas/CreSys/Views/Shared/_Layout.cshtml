@@ -58,8 +58,8 @@
                                             Ethics
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" asp-area="CreSys" asp-controller="Chief" asp-action="FilteredApplications">Applications</a></li>
-                                            <li><a class="dropdown-item" asp-area="CreSys" asp-controller="Chief" asp-action="Evaluations">Evaluations</a></li>
+                                            <li><a class="dropdown-item" asp-area="CreSys" asp-controller="Chief" asp-action="ApplicationsApprovedForEvaluation">Applications</a></li>
+                                            <li><a class="dropdown-item" asp-area="CreSys" asp-controller="Chief" asp-action="PendingExemptEvaluations">Evaluations</a></li>
                                             <li><a class="dropdown-item" asp-area="CreSys" asp-controller="Chief" asp-action="CompletionReports">Completion</a></li>
                                         </ul>
                                     </li>
@@ -67,12 +67,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="EthicsForms">Forms</a>
                                     </li>
-
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="Reports">Reports</a>
+                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="ViewEthicsEvaluators">Manage</a>
                                     </li>
-                                    break;
-                                case "Director":                                
                                     <li class="nav-item">
                                         <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="Reports">Reports</a>
                                     </li>

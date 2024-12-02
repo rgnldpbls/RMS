@@ -815,7 +815,6 @@ C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\o
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\FormFill.cshtml.rz.scp.css
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\GeneratedDocuments.cshtml.rz.scp.css
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\GenerateInfo.cshtml.rz.scp.css
-C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\SelectFREthics.cshtml.rz.scp.css
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\TeamLeaderDashboard.cshtml.rz.scp.css
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\UploadEthicsClearance.cshtml.rz.scp.css
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\UploadFile.cshtml.rz.scp.css
@@ -860,3 +859,5 @@ C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\o
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\ResearchManagementSystem.genruntimeconfig.cache
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\ref\ResearchManagementSystem.dll
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\bin\Release\net8.0\libman.json
+C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\ResearchManagementSystem.sourcelink.json
+C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\ViewEthicsStatus.cshtml.rz.scp.css

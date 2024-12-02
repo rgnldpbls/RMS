@@ -32,29 +32,28 @@
 
     .files-box {
         height: auto;
-        max-height: 630px; 
+        max-height: 630px;
         overflow-y: auto;
     }
 
     .requirements-box ol li {
         color: black;
-     }
+    }
 
-     .requirement {
-         margin: 15px 0 0 0;
-         font-size: 17px;
+    .requirement {
+        margin: 15px 0 0 0;
+        font-size: 17px;
         overflow-x: auto; /* Allow horizontal scrolling if needed */
-
-     }
+    }
 
     .modaltitle {
-        border-bottom: 2px solid black; 
+        border-bottom: 2px solid black;
     }
 
-    .modaltitle h2{
-        font-weight: 800;
-        font-size: 30px;
-    }
+        .modaltitle h2 {
+            font-weight: 800;
+            font-size: 30px;
+        }
 
     .upload-btn {
         border: 2px solid #850000;
@@ -109,7 +108,10 @@
                     <h3 class="h5 card-title">Your Attachments</h3>
                     <p class="card-text"><small>NOTE: Complete your Documentary Requirements to process your application request</small></p>
                     <form asp-controller="RSCResearcher" asp-action="SaveAsDraft" method="post" id="draftForm">
-                        <input type="hidden" name="draftId" value="@Model.Draft.DraftId" />
+                        <input type="hidden" name="Name" value="@Model.Draft.Name" />
+                        <input type="hidden" name="Email" value="@Model.Draft.Email" />
+                        <input type="hidden" name="Branch" value="@Model.Draft.Branch" />
+                        <input type="hidden" name="DraftId" value="@Model.Draft.DraftId" />
                         <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
                         <div class="mb-3">
                             <label class="form-label">DTS Number:</label>
@@ -117,7 +119,9 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Research Title:</label>
-                            <input type="text" name="ResearchTitle" class="form-control" value="@Model.Draft.ResearchTitle" required />
+                            <textarea name="ResearchTitle" class="form-control"
+                                      style="resize: none; overflow: hidden; height: auto;"
+                                      oninput="resizeHeight(this)" required>@Model.Draft.ResearchTitle</textarea>
                         </div>
                         <input type="hidden" name="ApplicationType" value="@Model.Draft.ApplicationType" required />
                         <input type="hidden" name="FieldOfStudy" value="@Model.Draft.FieldOfStudy" required />
@@ -151,13 +155,13 @@
                                         }
                                     }
 
-                                    @if (checklist.ChecklistName.Contains("Ethics Clearance", StringComparison.OrdinalIgnoreCase))
+                                    @if (checklist.ChecklistName.Contains("Ethics Clearance", StringComparison.OrdinalIgnoreCase) &&
+                                   (checklist.Requirements == null || !checklist.Requirements.Any()))
                                     {
                                         <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#retrieveEthics">
                                             Retrieve Clearance
                                         </button>
                                     }
-
                                     <!-- Modal -->
                                     <div class="modal fade" id="retrieveEthics" tabindex="-1" aria-labelledby="retrieveEthicsLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -169,11 +173,11 @@
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <label for="urecNumber" class="form-label">UREC Number</label>
-                                                        <input type="text" class="form-control" id="urecNumber" name="urecNumber" placeholder="Enter UREC Number" required />
+                                                        <input type="text" class="form-control" id="urecNumber" placeholder="Enter UREC Number" required />
                                                     </div>
                                                     <div class="text-center">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-success">Retrieve</button>
+                                                        <button type="button" class="btn btn-success" onclick="retrieveEthics()">Retrieve</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,13 +191,34 @@
                                             {
                                                 <div class="d-flex align-items-center bg-danger text-white p-2 mb-2 rounded">
                                                     <i class="fas fa-file-pdf ms-3 me-2"></i>
-                                                    <span>@requirement.FileName</span>
+                                                    <span class="me-auto">
+                                                        <a href="#"
+                                                           class="text-decoration-none text-white view-file"
+                                                           data-requirement-id="@requirement.RequirementId">
+                                                            @requirement.FileName
+                                                        </a>
+                                                    </span>
                                                     <form id="deleteFileForm-@requirement.RequirementId" method="post" class="ms-auto">
                                                         <input type="hidden" name="requirementId" value="@requirement.RequirementId" />
                                                         <button class="btn" type="button" onclick="deleteFile(@requirement.RequirementId)">
                                                             <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
                                                         </button>
                                                     </form>
+                                                </div>
+
+                                                <!-- Modal for Viewing Files -->
+                                                <div class="modal fade" id="fileViewerModal" tabindex="-1" aria-labelledby="fileViewerLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="fileViewerLabel">File Viewer</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <iframe id="fileViewer" style="width: 100%; height: 800px;" frameborder="0"></iframe>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             }
                                         }
@@ -221,59 +246,59 @@
     </div>
 </div>
 
-    @section Scripts {
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function uploadFile(input, draftId, checklistId) {
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append("uploadedFile", file);
+            formData.append("draftId", draftId);
+            formData.append("checklistId", checklistId);
+            formData.append("userId", '@User.FindFirstValue(ClaimTypes.NameIdentifier)');
+
+            $.ajax({
+                url: '@Url.Action("UploadFiles", "RSCResearcher")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        sessionStorage.setItem('showSuccessMessage', 'true');
+                        location.reload();
+                    } else {
+                        Swal.fire("Error!", "There was an error uploading the file.", "error");
+                    }
+                    validateChecklistCompletion(); // Re-validate on upload
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire("Error!", "An unexpected error occurred.", "error");
+                }
+            });
         }
 
-        <script>
-            function uploadFile(input, draftId, checklistId) {
-                const file = input.files[0];
-                const formData = new FormData();
-                formData.append("uploadedFile", file);
-                formData.append("draftId", draftId);
-                formData.append("checklistId", checklistId);
-                formData.append("userId", '@User.FindFirstValue(ClaimTypes.NameIdentifier)');
-
-                $.ajax({
-                    url: '@Url.Action("UploadFiles", "RSCResearcher")',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response.success) {
-                            sessionStorage.setItem('showSuccessMessage', 'true');
-                            location.reload();
-                        } else {
-                            Swal.fire("Error!", "There was an error uploading the file.", "error");
-                        }
-                        validateChecklistCompletion(); // Re-validate on upload
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire("Error!", "An unexpected error occurred.", "error");
-                    }
+        window.onload = function () {
+            if (sessionStorage.getItem('showSuccessMessage')) {
+                sessionStorage.removeItem('showSuccessMessage');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "File uploaded successfully"
                 });
             }
-
-            window.onload = function () {
-                if (sessionStorage.getItem('showSuccessMessage')) {
-                    sessionStorage.removeItem('showSuccessMessage');
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                    });
-                    Toast.fire({
-                        icon: "success",
-                        title: "File uploaded successfully"
-                    });
-                }
-                validateChecklistCompletion(); // Check completion on load
-            };
+            validateChecklistCompletion(); // Check completion on load
+        };
 
         // Function to check if all checklists are complete
         function validateChecklistCompletion() {
@@ -309,124 +334,262 @@
                 validateChecklistCompletion();
             });
         });
-        </script>
+    </script>
 
-        <script>
-            function deleteFile(requirementId) {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: "btn btn-success",
-                        cancelButton: "btn btn-danger me-2"
-                    },
-                    buttonsStyling: false
-                });
+    <script>
+        function deleteFile(requirementId) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger me-2"
+                },
+                buttonsStyling: false
+            });
 
-                swalWithBootstrapButtons.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "No, cancel!",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '@Url.Action("DeleteFile", "RSCResearcher")',
-                            type: 'POST',
-                            data: { requirementId: requirementId },
-                            success: function (result) {
-                                if (result.success) {
-                                    swalWithBootstrapButtons.fire({
-                                        title: "Deleted!",
-                                        text: "Your file has been deleted.",
-                                        icon: "success"
-                                    }).then(() => {
-                                        location.reload();
-                                    });
-                                } else {
-                                    swalWithBootstrapButtons.fire({
-                                        title: "Error!",
-                                        text: "There was an issue deleting the file.",
-                                        icon: "error"
-                                    });
-                                }
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteFile", "RSCResearcher")',
+                        type: 'POST',
+                        data: { requirementId: requirementId },
+                        success: function (result) {
+                            if (result.success) {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Error!",
+                                    text: "There was an issue deleting the file.",
+                                    icon: "error"
+                                });
                             }
-                        });
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Cancelled",
-                            text: "Your file is safe :)",
-                            icon: "error"
-                        });
-                    }
-                });
-            }
-        </script>
-
-<script>
-    function handleFormSubmit(formId, actionType, event) {
-        // Prevent default form submission
-        event.preventDefault();
-        
-        const form = document.getElementById(formId);
-        const formData = new FormData(form);
-        
-        // Determine the appropriate URL based on the action type
-        const url = actionType === "draft" ? '@Url.Action("SaveAsDraft", "RSCResearcher")' : '@Url.Action("SubmitAsRequest", "RSCResearcher")';
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                if (response.success) {
-                    // Show success message with timer
-                    let timerInterval;
-                    Swal.fire({
-                        title: actionType === "draft" ? "Draft Saved!" : "Application Submitted!",
-                        html: "This message will close in <b></b> milliseconds.",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading();
-                            const timer = Swal.getHtmlContainer().querySelector("b");
-                            timerInterval = setInterval(() => {
-                                timer.textContent = Swal.getTimerLeft();
-                            }, 100);
-                        },
-                        willClose: () => {
-                            clearInterval(timerInterval);
-                        }
-                    }).then(() => {
-                        if (actionType === "submit") {
-                            window.location.href = "@Url.Action("Applications", "RSCResearcher", new {area = "RscSys"})"; // Adjust to your application page URL
-                        } else {
-                            location.reload(); // Reloads the page for draft
                         }
                     });
-                } else {
-                    Swal.fire("Error!", "There was an error processing your request.", "error");
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your file is safe :)",
+                        icon: "error"
+                    });
                 }
-            },
-            error: function () {
-                Swal.fire("Error!", "An unexpected error occurred.", "error");
+            });
+        }
+    </script>
+
+    <script>
+        function handleDraftFormSubmit(event) {
+            event.preventDefault();
+
+            const form = $('#draftForm');
+            const formData = form.serialize(); // Serialize form data for AJAX request
+            const url = form.attr('action'); // Use form's action attribute
+
+            Swal.fire({
+                title: "Saving Draft...",
+                text: "Please wait while we save your draft.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: url,
+                type: form.attr('method'), // Use form's method attribute
+                data: formData,
+                success: function (response) {
+                    Swal.close(); // Close the loading Swal
+                    if (response.success) {
+                        Swal.fire("Draft Saved!", "Your draft has been saved successfully.", "success");
+                    } else {
+                        // Show detailed error message
+                        let errorMessage = response.error || "An error occurred while saving the draft.";
+                        Swal.fire("Error", errorMessage, "error");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.close(); // Close the loading Swal
+                    Swal.fire("Error", `An unexpected error occurred: ${xhr.responseText || error}`, "error");
+                }
+            });
+        }
+
+        function handleApplicationFormSubmit(event) {
+            event.preventDefault();
+
+            const form = $('#applicationForm');
+            const formData = new FormData(form[0]);
+            const url = form.attr('action'); // Use form's action attribute
+
+            Swal.fire({
+                title: "Submitting Application...",
+                text: "Please wait while we process your application.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    Swal.close(); // Close the loading Swal
+                    if (response.success) {
+                        Swal.fire("Application Submitted!", "Your application has been submitted successfully.", "success").then(() => {
+                            window.location.href = "@Url.Action("Applications", "RSCResearcher", new { area = "RscSys" })"; // Redirect to applications page
+                        });
+                    } else {
+                        let errorMessage = response.error || "An error occurred while submitting the application.";
+                        Swal.fire("Error", errorMessage, "error");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.close(); // Close the loading Swal
+                    Swal.fire("Error", `An unexpected error occurred: ${xhr.responseText || error}`, "error");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            // Attach event listeners to respective forms
+            $('#draftForm').on('submit', handleDraftFormSubmit);
+            $('#applicationForm').on('submit', handleApplicationFormSubmit);
+        });
+    </script>
+
+
+    <script>
+        function resizeHeight(element) {
+            // Reset height to auto to recalculate based on content
+            element.style.height = 'auto';
+
+            // Adjust height to fit the content
+            element.style.height = `${element.scrollHeight}px`;
+        }
+    </script>
+
+    <script>
+        function retrieveEthics() {
+            const urecNumber = document.getElementById("urecNumber").value;
+            const draftId = '@Model.Draft.DraftId'; // Use Razor to get the draft ID dynamically
+
+            if (!urecNumber) {
+                Swal.fire("Error", "Please enter a UREC number.", "error");
+                return;
             }
-        });
-    }
 
-    $(document).ready(function () {
-        // Attach event listeners to the forms and pass the event to handleFormSubmit
-        $('#draftForm').on('submit', function (event) {
-            handleFormSubmit('draftForm', 'draft', event);
-        });
+            $.ajax({
+                url: '/RscSys/RSCResearcher/RetrieveEthicsClearance',
+                type: 'POST',
+                data: { urecNumber, draftId },
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Ethics Clearance Found",
+                            text: response.message,
+                            icon: "success",
+                            showCancelButton: true,
+                            confirmButtonText: "Automatically Upload File",
+                            cancelButtonText: "Close"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                autoUploadFile(response.clearanceFile, response.checklistId, response.draftId);
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "No Ethics Clearance Found",
+                            text: response.message,
+                            icon: "info",
+                            showCancelButton: true,
+                            confirmButtonText: "Go to Ethics Page",
+                            cancelButtonText: "Close"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/CreSys/Researcher/Applications';
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    let errorMessage = "An unexpected error occurred.";
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    } else if (xhr.responseText) {
+                        errorMessage = xhr.responseText;
+                    }
+                    Swal.fire("Error", errorMessage, "error");
+                    console.error("AJAX Error:", { status, error, response: xhr.responseText });
+                }
+            });
+        }
 
-        $('#applicationForm').on('submit', function (event) {
-            handleFormSubmit('applicationForm', 'submit', event);
-        });
-    });
-</script>
+        function autoUploadFile(base64File, checklistId, draftId) {
+            const byteCharacters = atob(base64File);
+            const byteNumbers = Array.from(byteCharacters).map((char) => char.charCodeAt(0));
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray]);
 
-    }
+            const formData = new FormData();
+            formData.append("uploadedFile", blob, "ethics_clearance.pdf");
+            formData.append("checklistId", checklistId);
+            formData.append("draftId", draftId);
+
+            $.ajax({
+                url: '/RscSys/RSCResearcher/UploadFiles',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire("Success", "Ethics clearance uploaded successfully.", "success").then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire("Error", response.message || "Failed to upload ethics clearance.", "error");
+                    }
+                },
+                error: function () {
+                    Swal.fire("Error", "An unexpected error occurred during file upload.", "error");
+                }
+            });
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileLinks = document.querySelectorAll('.view-file');
+            const fileViewer = document.getElementById('fileViewer');
+            const fileViewerModal = new bootstrap.Modal(document.getElementById('fileViewerModal'));
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    const requirementId = link.getAttribute('data-requirement-id');
+                    const fileUrl = '@Url.Action("ViewFile", "RSCResearcher", new { requirementId = "__REQUIREMENT_ID__" })'
+                        .replace('__REQUIREMENT_ID__', requirementId);
+                    fileViewer.src = fileUrl;
+                    fileViewerModal.show(); // Show the modal
+                });
+            });
+        });
+    </script>
+}

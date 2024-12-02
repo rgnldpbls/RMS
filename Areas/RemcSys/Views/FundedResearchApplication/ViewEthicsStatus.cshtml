@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Ethics Clearance";
+    Layout = "_NavFaculty";
+}
+
+@if (!ViewBag.hasEthics)
+{
+    <div class="type-section">
+        <div class="card">
+            <span class="title">Click the button below to apply Ethics Clearance.</span>
+            <div class="d-grid gap-3 col-14 mx-auto">
+                <a href="@Url.Action("GenerateEthics", "FundedResearchApplication", new {id = @ViewBag.Id, area = "RemcSys"})" class="btn btn-primary btn-lg">Apply Ethics Clearance</a>
+            </div>
+        </div>
+    </div>
+}
+else if (ViewBag.hasEthics)
+{
+    <div class="type-section">
+        <div class="card">
+            <span class="title">Click the button below to check the status of your Ethics Clearance.</span>
+            <div class="d-grid gap-3 col-14 mx-auto">
+                <a href="@Url.Action("Applications", "Researcher", new {area = "CreSys"})" class="btn btn-primary btn-lg">Check Status</a>
+            </div>
+        </div>
+    </div>
+}

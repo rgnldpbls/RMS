@@ -3,23 +3,49 @@
 @{
     ViewData["Title"] = "Ethics Evaluators";
 }
+
 <head>
     <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
-
 </head>
-<h2>@ViewData["Title"]</h2>
-<a href="@Url.Action("AddEvaluators", "Chief")" class="btn btn-primary mb-3">
-    <i class="fas fa-user-plus"></i> Add Evaluators
-</a>
+
+<div class="title-section">
+    <h2>Manage Evaluators</h2>
+
+    <ul class="nav nav-tabs d-flex m-2" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewEthicsEvaluators" ? "active" : "")"
+               asp-action="ViewEthicsEvaluators">
+                Ethics Evaluators
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewChairperson" ? "active" : "")"
+               asp-action="ViewChairperson">
+                Chairperson
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="divider"></div>
+<!-- Search Bar with Icon -->
+<div class="search-filter-container">
+    <div class="search-container">
+        <input type="text" id="searchBar" onkeyup="searchEvaluators()" placeholder="Search by Name">
+        <i class="fas fa-search"></i>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>Name</th>
-            <th>Completed</th>
-            <th>Pending</th>
-            <th>Declined</th>
-            <th>Account Status</th>
+            <th onclick="sortTable('Completed')">Completed <i class="fa fa-sort"></i></th>
+            <th onclick="sortTable('Pending')">Pending <i class="fa fa-sort"></i></th>
+            <th onclick="sortTable('Declined')">Declined <i class="fa fa-sort"></i></th>
+            <th>Manage Account</th>
         </tr>
     </thead>
     <tbody>
@@ -30,8 +56,53 @@
                 <td>@evaluator.Completed</td>
                 <td>@evaluator.Pending</td>
                 <td>@evaluator.Declined</td>
-                <td>@evaluator.AccountStatus</td>
+                <td>
+                    <a href="@Url.Action("EditEvaluator", "Chief", new { id = evaluator.EthicsEvaluatorId })" class="btn btn-primary">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                    <a href="@Url.Action("ViewEvaluator", "Chief", new { id = evaluator.EthicsEvaluatorId })" class="btn btn-info">
+                        <i class="fa fa-eye"></i> View
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    function searchEvaluators() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchBar");
+        filter = input.value.toUpperCase();  // Convert search input to uppercase for case-insensitive comparison
+        table = document.querySelector("table");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows (excluding the header)
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0]; // Get the first column (Name column)
+            if (td) {
+                txtValue = td.textContent || td.innerText;  // Get the text of the name column
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {  // Check if the name matches the search
+                    tr[i].style.display = "";  // Show the row if the name matches
+                } else {
+                    tr[i].style.display = "none";  // Hide the row if the name doesn't match
+                }
+            }
+        }
+    }
+    let currentSortColumn = 'Completed';
+    let currentSortDirection = 'asc';
+
+    function sortTable(column) {
+        // Toggle the sorting direction when clicking the same column
+        if (currentSortColumn === column) {
+            currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSortColumn = column;
+            currentSortDirection = 'asc';
+        }
+
+        // Pass the sorting parameters to the controller
+        window.location.href = `@Url.Action("ViewEthicsEvaluators", "Chief")?sortColumn=${column}&sortDirection=${currentSortDirection}`;
+    }
+</script>

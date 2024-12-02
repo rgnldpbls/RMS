@@ -359,8 +359,8 @@ namespace rscSys_final.Controllers
             var chiefNotification = new Notifications
             {
                 Role = "Chief", // Assuming this is how you identify the Chief's role
-                NotificationTitle = "Evaluation Rejected",
-                NotificationMessage = $"The evaluation for DTS Number: {assignment.Request.DtsNo} was rejected by {evaluatorName}. Reason: {reason}",
+                NotificationTitle = "Declined Evaluation",
+                NotificationMessage = $"The evaluation for DTS Number: {assignment.Request.DtsNo} was declined by {evaluatorName}. Reason: {reason}",
                 NotificationCreationDate = DateTime.Now,
                 NotificationStatus = false // Unread status
             };

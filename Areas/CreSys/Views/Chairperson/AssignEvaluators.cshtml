@@ -12,6 +12,11 @@
 <head>
     <link rel="stylesheet" href="~/css/AssignEval.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+
+    <!-- FOR BOOTSTRAP ICON & FONT STYLES -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <div class="header-container">
@@ -66,6 +71,8 @@
                 </div>
             </p>
             <p><strong>Field of Study:</strong> @Model.EthicsApplication.FieldOfStudy</p>
+            <p><strong>College: </strong> @Model.NonFundedResearchInfo.College</p>
+            <p><strong>University: </strong>@Model.NonFundedResearchInfo.University</p>
         </div>
 
     </div>
@@ -137,6 +144,9 @@
                     </button>
                 }
             </div>
+
+
+            <!-- EVALUATOR LIST MODAL -->
             <form id="evaluatorForm" asp-action="AssignEvaluators" method="post" class="mt-4">
                 <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
                 <input type="hidden" id="reviewType" value="@Model.EthicsApplication.InitialReview.ReviewType" />
@@ -145,79 +155,108 @@
                     <div class="modal-dialog modal-lg" style=" max-width: 80%; width: 80%; height: 80vh;">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="assignEvaluatorsModalLabel">Assign Evaluators</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <!-- PINALITAN KO YUNG MODAL TITLE NA INSTEAD OF "Assign Evaluators" GINAWA KONG "LIST OF EVALUATORS"-->
+                                <h5 class="modal-title" id="assignEvaluatorsModalLabel">LIST OF EVALUATORS</h5>
+                                <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">×</button>
                             </div>
                             <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                                 <div class="container">
                                     <div id="warningMessage" class="alert alert-warning d-none" role="alert"></div>
 
-                                    <!-- Already Assigned Evaluators Section (Pending + Accepted) -->
-                                    <h6>Assigned Evaluators:</h6>
+                                    <!-- COMMENT KO MUNA TO HEHE
+
+                                    <!-- Already Assigned Evaluators Section (Pending + Accepted)
+                                    <h6 id="evaluators-title">Assigned Evaluators:</h6>
                                     <div id="assignedEvaluators" class="mt-4">
                                         <ul id="assignedEvaluatorsList">
                                             @foreach (var evaluator in Model.PendingEvaluators)
                                             {
-                                                <li>@($"{evaluator.Name} - Pending")</li>
+                                                    <li>@($"{evaluator.Name} - Pending")</li>
                                             }
                                             @foreach (var evaluator in Model.AcceptedEvaluators)
                                             {
-                                                <li>@($"{evaluator.Name} - Accepted")</li>
+                                                    <li>@($"{evaluator.Name} - Accepted")</li>
                                             }
                                         </ul>
                                     </div>
 
-                                    <!-- Evaluated Evaluators Section -->
-                                    <h6>Evaluated Evaluators:</h6>
+                                    <!-- Evaluated Evaluators Section
+                                    <h6 id="evaluators-title">Evaluated Evaluators:</h6>
                                     <div id="evaluatedEvaluators" class="mt-4">
                                         <ul id="evaluatedEvaluatorsList">
-                                            @foreach (var evaluator in Model.EvaluatedEvaluators)
-                                            {
-                                                <li>@($"{evaluator.Name} - Evaluated")</li>
-                                            }
+                                    @foreach (var evaluator in Model.EvaluatedEvaluators)
+                                    {
+                                                    <li>@($"{evaluator.Name} - Evaluated")</li>
+                                    }
                                         </ul>
                                     </div>
-                                    <h6>Recommended Evaluators (Least Pending and Aligned Expertise)</h6>
-                                    <div class="row g-3 mb-2">
+                                    -->
+                                    <!-- Recommended Evaluators Section -->
+                                    <h6 id="evaluators-title">Recommended Evaluators</h6>
+                                    <div class="recommended-card row row-cols-1 row-cols-md-2 row-cols-lg-3 g-0 mb-2">
                                         @foreach (var evaluator in Model.RecommendedEvaluators)
                                         {
-                                            <div class="col-md-4 mb-3 d-flex justify-content-center">
-                                                <!-- Center the column -->
-                                                <div class="bg-success p-2 rounded w-100">
-                                                    <!-- Added padding and width control -->
-                                                    <div class="form-check d-flex align-items-center justify-content-start">
-                                                        <!-- Flexbox for form-check -->
-                                                        <input class="form-check-input evaluator-checkbox" type="checkbox"
-                                                               name="selectedEvaluatorIds"
-                                                               value="@evaluator.EthicsEvaluatorId"
-                                                               data-name="@evaluator.Name" />
-                                                        <label class="form-check-label ms-2">
-                                                            <!-- Added margin to label -->
-                                                            @evaluator.Name
-                                                        </label>
-                                                        <div class="ms-2">
-                                                            <!-- Added margin to the right for the pending text -->
-                                                            <p class="mb-0"><strong>Pending:</strong> @evaluator.Pending</p>
+                                            <div class="eval-col">
+                                                <div class="evaluator-card h-100">
+                                                    <div class="recommended-evaluator-card p-2 rounded w-100 h-100 d-flex flex-column">
+                                                        <!-- EVALUATOR ICON -->
+                                                        <div class="avatar-placeholder align-self-center mb-2">
+                                                            <i class="bi bi-person-circle" style="color: #262626;"></i>
                                                         </div>
+                                                        <!-- Evaluator Name and Checkbox -->
+                                                        <div class="form-check d-flex align-items-center justify-content-start mb-2">
+                                                            <input class="form-check-input evaluator-checkbox" type="checkbox"
+                                                                   name="selectedEvaluatorIds"
+                                                                   value="@evaluator.EthicsEvaluatorId"
+                                                                   data-name="@evaluator.Name" />
+                                                            <label class="form-check-label ms-2 fw-bold" style="color: #850000 !important;">
+                                                                @evaluator.Name
+                                                            </label>
+                                                        </div>
+
+                                                        <!-- SPECIALIZATION -->
+                                                        <div class="specialization text-center">
+                                                            @foreach (var expertise in evaluator.EthicsEvaluatorExpertises)
+                                                            {
+                                                                <small>@expertise.Expertise?.ExpertiseName</small>
+                                                            }
+                                                        </div>
+                                                        <!-- STATS -->
+                                                        <div class="stat-card">
+                                                            <div class="stats-line">
+                                                                <span class="stat-label">Pending: </span>
+                                                                <span>@evaluator.Pending</span>
+                                                            </div>
+                                                            <div class="stats-line">
+                                                                <span class="stat-label">Completed: </span>
+                                                                <span>@evaluator.Completed</span>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         }
                                     </div>
 
+                                    <div class="divider"></div>
 
                                     <!-- All Available Evaluators Section -->
-                                    <h6>All Available Evaluators</h6>
-                                    <div class="row g-3 mb-2">
+                                    <h6 id="evaluators-title">All Available Evaluators</h6>
+                                    <div class="row evaluators-grid">
                                         @foreach (var evaluator in Model.AllAvailableEvaluators
                                         .Where(e => !Model.RecommendedEvaluators.Any(re => re.EthicsEvaluatorId == e.EthicsEvaluatorId) &&
                                         !Model.EvaluatedEvaluators.Any(ee => ee.EthicsEvaluatorId == e.EthicsEvaluatorId) &&
                                         !Model.PendingEvaluators.Any(pe => pe.EthicsEvaluatorId == e.EthicsEvaluatorId) &&
                                         !Model.AcceptedEvaluators.Any(ace => ace.EthicsEvaluatorId == e.EthicsEvaluatorId)))
                                         {
-                                            <div class="col-md-4 mb-3 d-flex justify-content-center">
+                                            <div class="evaluator-item">
                                                 <!-- Center the column -->
-                                                <div class="bg-warning p-2 rounded w-100">
+                                                <div class="all-evaluator-card p-2 rounded w-100">
+                                                    <!-- EVALUATOR ICON -->
+                                                    <div class="avatar-placeholder align-self-center mb-2">
+                                                        <i class="bi bi-person-circle" style="color: #262626;"></i>
+                                                    </div>
                                                     <!-- Added yellow background (bg-warning) and padding -->
                                                     <div class="form-check d-flex align-items-center justify-content-start">
                                                         <!-- Flexbox for form-check -->
@@ -225,15 +264,29 @@
                                                                name="selectedEvaluatorIds"
                                                                value="@evaluator.EthicsEvaluatorId"
                                                                data-name="@evaluator.Name" />
-                                                        <label class="form-check-label ms-2">
-                                                            <!-- Added margin to label -->
+                                                        <label class="form-check-label ms-2 fw-bold" style="color: #850000 !important;">
                                                             @evaluator.Name
                                                         </label>
-                                                        <div class="ms-2">
-                                                            <!-- Added margin to the right for the pending text -->
-                                                            <p class="mb-0"><strong>Pending:</strong> @evaluator.Pending</p>
+                                                    </div>
+                                                    <!-- SPECIALIZATION -->
+                                                    <div class="specialization text-dark">
+                                                        @foreach (var expertise in evaluator.EthicsEvaluatorExpertises)
+                                                        {
+                                                            <small>@expertise.Expertise?.ExpertiseName</small>
+                                                        }
+                                                    </div>
+                                                    <!-- STATS -->
+                                                    <div class="stat-card">
+                                                        <div class="stats-line">
+                                                            <span class="stat-label">Pending: </span>
+                                                            <span>@evaluator.Pending</span>
+                                                        </div>
+                                                        <div class="stats-line">
+                                                            <span class="stat-label">Completed: </span>
+                                                            <span>@evaluator.Completed</span>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         }
@@ -321,7 +374,7 @@
                         checkbox.disabled = true; // Disable unchecked checkboxes
                     }
                 });
-                showWarning(You have reached the maximum of 3 evaluator assignments.);
+                showWarning(`You have reached the maximum of 3 evaluator assignments.`);
                 assignButton.disabled = true; // Disable the submit button if limit is reached
             } else {
                 assignButton.disabled = false; // Enable the submit button if under the limit

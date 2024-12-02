@@ -1,4 +1,4 @@
-﻿using CrdlSys.Data; 
+﻿using CrdlSys.Data;
 using CrdlSys.Models;
 using CrdlSys.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 using OfficeOpenXml;
 
 namespace CrdlSys.Controllers
-{ 
+{
     [Area("CrdlSys")]
     public class ChiefController : Controller
     {
@@ -29,7 +29,7 @@ namespace CrdlSys.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly NotificationService _notificationService;
 
-        public ChiefController(CrdlDbContext context, IWebHostEnvironment webHostEnvironment, ILogger<ChiefController> logger, CrdlDbContext dbContext, ReportService reportService, 
+        public ChiefController(CrdlDbContext context, IWebHostEnvironment webHostEnvironment, ILogger<ChiefController> logger, CrdlDbContext dbContext, ReportService reportService,
             UserManager<ApplicationUser> userManager, NotificationService notificationService)
         {
             _context = context;
@@ -64,7 +64,7 @@ namespace CrdlSys.Controllers
         {
             var events = await _context.ResearchEvent
                 .Where(e => !e.IsArchived)
-                .ToListAsync(); 
+                .ToListAsync();
 
             System.Diagnostics.Debug.WriteLine($"Found {events.Count} events");
 
@@ -537,7 +537,7 @@ namespace CrdlSys.Controllers
             ViewBag.UpcomingEventsCount = upcomingEventsCount;
 
             var finishedEventsCount = _context.ResearchEvent
-                .Count(e => e.EndTime <= DateTime.Now && !e.IsArchived); 
+                .Count(e => e.EndTime <= DateTime.Now && !e.IsArchived);
             ViewBag.FinishedEventsCount = finishedEventsCount;
 
             var ongoingEventsCount = _context.ResearchEvent
@@ -566,7 +566,7 @@ namespace CrdlSys.Controllers
             return View();
         }
 
-        [Authorize(Roles ="CRDL Chief")]
+        [Authorize(Roles = "CRDL Chief")]
         public async Task<IActionResult> HomeChief()
         {
             var stakeholderUploads = _context.StakeholderUpload.ToList();
@@ -699,7 +699,7 @@ namespace CrdlSys.Controllers
 
             var viewModel = new ViewChiefUploadsViewModel
             {
-                UploadedDocuments = uploadedDocuments 
+                UploadedDocuments = uploadedDocuments
             };
 
             return View(viewModel);
@@ -712,7 +712,7 @@ namespace CrdlSys.Controllers
             if (User.Identity != null && !User.Identity.IsAuthenticated)
             {
                 TempData["Error"] = "You need to be logged in to upload documents.";
-                return RedirectToAction("Login", "Account"); 
+                return RedirectToAction("Login", "Account");
             }
 
             if (ModelState.IsValid)
@@ -763,7 +763,7 @@ namespace CrdlSys.Controllers
                     using var memoryStream = new MemoryStream();
                     {
                         await model.DocumentFile.CopyToAsync(memoryStream);
-                        chiefUpload.DocumentFile = memoryStream.ToArray(); 
+                        chiefUpload.DocumentFile = memoryStream.ToArray();
                     }
                 }
 
@@ -788,10 +788,10 @@ namespace CrdlSys.Controllers
                 }
 
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("RMO CRDL", "rmocrdl@gmail.com")); 
-                string recipientName = model.EmailOfStakeholder.Split('@')[0]; 
-                message.To.Add(new MailboxAddress(recipientName, model.EmailOfStakeholder)); 
-                message.Subject = model.Subject; 
+                message.From.Add(new MailboxAddress("RMO CRDL", "rmocrdl@gmail.com"));
+                string recipientName = model.EmailOfStakeholder.Split('@')[0];
+                message.To.Add(new MailboxAddress(recipientName, model.EmailOfStakeholder));
+                message.Subject = model.Subject;
 
                 var bodyBuilder = new BodyBuilder();
 
@@ -814,18 +814,18 @@ namespace CrdlSys.Controllers
                     </html>";
 
                     bodyBuilder.HtmlBody = htmlBody;
-                    bodyBuilder.TextBody = Regex.Replace(model.Body, "<.*?>", string.Empty); 
+                    bodyBuilder.TextBody = Regex.Replace(model.Body, "<.*?>", string.Empty);
                 }
                 else
                 {
-                    bodyBuilder.HtmlBody = model.Body; 
+                    bodyBuilder.HtmlBody = model.Body;
                 }
 
                 if (model.DocumentFile != null && model.DocumentFile.Length > 0)
                 {
                     using var memoryStream = new MemoryStream();
                     {
-                        await model.DocumentFile.CopyToAsync(memoryStream); 
+                        await model.DocumentFile.CopyToAsync(memoryStream);
                         bodyBuilder.Attachments.Add(model.DocumentFile.FileName, memoryStream.ToArray(), ContentType.Parse(model.DocumentFile.ContentType));
                     }
                 }
@@ -835,7 +835,7 @@ namespace CrdlSys.Controllers
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("rmocrdl@gmail.com", "gkmu momq yxkr dzsq"); 
+                    client.Authenticate("rmocrdl@gmail.com", "gkmu momq yxkr dzsq");
                     client.Send(message);
                     client.Disconnect(true);
                 }
@@ -1468,8 +1468,8 @@ namespace CrdlSys.Controllers
                 return Json(new { success = false, message = "Document not found." });
             }
 
-            _context.ChiefUpload.Remove(document); 
-            _context.SaveChanges(); 
+            _context.ChiefUpload.Remove(document);
+            _context.SaveChanges();
 
             return Json(new { success = true });
         }
@@ -1512,8 +1512,8 @@ namespace CrdlSys.Controllers
                 return Json(new { success = false, message = "Document not found." });
             }
 
-            _context.StakeholderUpload.Remove(document); 
-            _context.SaveChanges(); 
+            _context.StakeholderUpload.Remove(document);
+            _context.SaveChanges();
 
             return Json(new { success = true });
         }
@@ -1535,7 +1535,7 @@ namespace CrdlSys.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRCBAEvent(CreateRCBAEventViewModel model)
         {
-           
+
             if (ModelState.IsValid)
             {
                 if (model.RegistrationOpen >= model.EventDate)
@@ -1819,7 +1819,7 @@ namespace CrdlSys.Controllers
                 }
                 else
                 {
-                    ModelState.Remove("EventThumbnail"); 
+                    ModelState.Remove("EventThumbnail");
                 }
 
                 if (ModelState.IsValid)
@@ -1862,7 +1862,7 @@ namespace CrdlSys.Controllers
 
                     if (model.RegistrationType == "Invitational" && userIdsToInviteList.Count > 0)
                     {
-                        foreach (var userId in userIdsToInviteList) 
+                        foreach (var userId in userIdsToInviteList)
                         {
                             var user = await _userManager.Users.Where(e => e.Id == userId).FirstAsync();
                             var invitation = new ResearchEventInvitation
@@ -1879,10 +1879,10 @@ namespace CrdlSys.Controllers
                             Console.WriteLine($"Added invitation for User ID: {userId}");
 
                             SendEmailInvitation(user.Email, $"{user.FirstName} {user.LastName}", existingEvent.EventName);
-                            
-                        }
 
-                        _context.SaveChanges(); 
+                        }
+                        
+                        _context.SaveChanges();
                     }
 
                     if (isStatusUpdated)
@@ -1894,7 +1894,7 @@ namespace CrdlSys.Controllers
                         foreach (var user in registeredUsers)
                         {
                             var curUser = await _userManager.GetUserAsync(User);
-                            if(user.UserId == curUser.Id)
+                            if (user.UserId == curUser.Id)
                             {
                                 SendEmailStatusUpdate(curUser.Email, $"{curUser.FirstName} {curUser.LastName}", existingEvent.EventName, model.EventStatus);
                             }
@@ -2038,7 +2038,7 @@ namespace CrdlSys.Controllers
                 .ToList();
 
             var researchers = await _userManager.Users
-                .Where(ur => !invitedResearchers.Contains(ur.Id)) 
+                .Where(ur => !invitedResearchers.Contains(ur.Id))
                 .Select(ur => new
                 {
                     ur.FirstName,
@@ -2111,7 +2111,7 @@ namespace CrdlSys.Controllers
         [HttpPost]
         public IActionResult DeleteInvitation(string invitationId)
         {
-            Console.WriteLine("Received invitation ID for deletion: " + invitationId); 
+            Console.WriteLine("Received invitation ID for deletion: " + invitationId);
 
             if (string.IsNullOrEmpty(invitationId))
             {
@@ -2128,6 +2128,85 @@ namespace CrdlSys.Controllers
             _context.SaveChanges();
 
             return Ok("Invitation deleted successfully.");
+        }
+
+        [Authorize(Roles = "CRDL Chief, Director")]
+        [HttpGet]
+        public async Task<IActionResult> GenerateReportDirector()
+        {
+            var events = await _context.ResearchEvent
+                .Where(e => !e.IsArchived)
+                .ToListAsync();
+
+            var generatedReports = await _context.GeneratedReport.ToListAsync();
+
+            var viewModel = new ReportViewModel
+            {
+                ResearchEvents = events,
+                GeneratedReports = generatedReports
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GenerateReportDirector(string fileName, string reportType, int year, string? researchEventId = null)
+        {
+            try
+            {
+                byte[] excelData;
+
+                if (reportType == "List of Contracts")
+                {
+                    excelData = await _reportService.GenerateStakeholderReportAsync();
+                }
+                else if (reportType == "List of New Partners")
+                {
+                    excelData = await _reportService.GenerateNewPartnersExcelAsync(year);
+                }
+                else if (reportType == "List of Events")
+                {
+                    excelData = await _reportService.GenerateEventReportExcelAsync(year);
+                }
+                else if (reportType == "List of Attendees")
+                {
+                    if (string.IsNullOrEmpty(researchEventId))
+                    {
+                        return BadRequest("ResearchEventId is required for attendees report.");
+                    }
+                    excelData = await _reportService.GenerateAttendeesListExcelAsync(researchEventId);
+                }
+                else if (reportType == "List of Renewal Contracts")
+                {
+                    excelData = await _reportService.GenerateRenewalHistoryExcelAsync(year);
+                }
+                else
+                {
+                    return BadRequest("Invalid report type selected.");
+                }
+
+                await _reportService.SaveGeneratedReportAsync(
+                    fileName,
+                    excelData,
+                    (reportType == "List of Events" || reportType == "List of New Partners" || reportType == "Renewal History Report") ? (int?)year : null,
+                    reportType,
+                    researchEventId
+                );
+
+                var filePath = Path.Combine(Path.GetTempPath(), $"{fileName}.xlsx");
+                await System.IO.File.WriteAllBytesAsync(filePath, excelData);
+
+                return File(System.IO.File.OpenRead(filePath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{fileName}.xlsx");
+            }
+            catch (InvalidOperationException ex) when (ex.Message.StartsWith("No events found"))
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error generating report for reportType: {ReportType}", reportType);
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

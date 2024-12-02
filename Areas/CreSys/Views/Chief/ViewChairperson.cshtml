@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ResearchManagementSystem.Areas.CreSys.Models.Chairperson>
+
+@{
+    ViewData["Title"] = "Ethics Evaluators";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="title-section">
+    <h2>Manage Evaluators</h2>
+
+    <ul class="nav nav-tabs d-flex m-2" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewEthicsEvaluators" ? "active" : "")"
+               asp-action="ViewEthicsEvaluators">
+                Ethics Evaluators
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewChairperson" ? "active" : "")"
+               asp-action="ViewChairperson">
+                Chairperson
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="divider"></div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Field of Study</th>
+            <th>Manage Account</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var chairperson in Model)
+        {
+            <tr>
+                <td>@chairperson.Name</td>
+                <td>@chairperson.FieldOfStudy</td>
+                <td>
+                    <a href="@Url.Action("EditChairperson", "Chief", new { id = chairperson.ChairpersonId })" class="btn btn-primary">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                    <a href="@Url.Action("ConfirmDelete", "Chief", new { id = chairperson.ChairpersonId })" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

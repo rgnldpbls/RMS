@@ -6,9 +6,13 @@ using RemcSys.Models;
 using ResearchManagementSystem.Areas.CreSys.Data;
 using ResearchManagementSystem.Areas.CreSys.Interfaces;
 using ResearchManagementSystem.Areas.CreSys.Models;
+using ResearchManagementSystem.Areas.CreSys.Services;
 using ResearchManagementSystem.Areas.CreSys.ViewModels;
+using ResearchManagementSystem.Areas.CreSys.ViewModels.FormClasses;
+using ResearchManagementSystem.Areas.CreSys.ViewModels.ListViewModels;
 using ResearchManagementSystem.Models;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.Security.Claims;
 
 namespace ResearchManagementSystem.Areas.CreSys.Controllers
@@ -21,18 +25,21 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEthicsEmailService _emailService;
         private readonly IAllServices _allServices;
-        public EvaluatorController(CreDbContext context, UserManager<ApplicationUser> userManager, IEthicsEmailService emailService, IAllServices allServices)
+        private readonly IPdfGenerationService _pdfGenerationService;
+        public EvaluatorController(CreDbContext context, UserManager<ApplicationUser> userManager, IEthicsEmailService emailService, IAllServices allServices,
+            IPdfGenerationService pdfGenerationService)
         {
             _context = context;
             _userManager = userManager;
             _emailService = emailService;
             _allServices = allServices;
+            _pdfGenerationService = pdfGenerationService;
         }
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "CRE Evaluator")]
         [HttpGet]
         public async Task<IActionResult> GetStarted()
         {
@@ -74,6 +81,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return View(viewModelNew);
         }
 
+        [Authorize(Roles = "CRE Evaluator")]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> GetStarted(GetStartedViewModel model)
         {
@@ -160,6 +169,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             TempData["Message"] = "Your expertise has been updated!";
             return RedirectToAction("Index", "Home", new { area = "CreSys" });
         }
+        [Authorize(Roles = "CRE Evaluator")]
         [HttpGet]
         public async Task<IActionResult> EvaluatorView()
         {
@@ -199,6 +209,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             return View(viewModel);
         }
+        [Authorize(Roles = "CRE Evaluator")]
         [HttpGet]
         public async Task<IActionResult> RespondToAssignment(string id, int evaluationId)
         {
@@ -215,6 +226,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "CRE Evaluator")]
+         
         [HttpPost]
         public async Task<IActionResult> RespondToAssignment(string acceptanceStatus, string urecNo, int evalId, string? reasonForDecline)
         {
@@ -355,7 +368,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return RedirectToAction("EvaluatorView");
         }
 
-
+        [Authorize(Roles = "CRE Evaluator")]
         public async Task<IActionResult> EvaluationDetails(string id)
         {
 
@@ -411,6 +424,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         }
 
 
+        [Authorize(Roles = "CRE Evaluator")]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> EvaluationDetails(EvaluationDetailsViewModel model)
         {
@@ -547,6 +562,62 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         }
 
 
+        [Authorize(Roles = "CRE Evaluator")]
+        public async Task<IActionResult> EvaluateApplication(string id)
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                return Unauthorized("User ID not found.");
+            }
+
+            // Check if the current user is assigned as an EthicsEvaluator
+            var evaluator = await _context.CRE_EthicsEvaluator
+                .FirstOrDefaultAsync(e => e.UserID == currentUserId);
+
+            if (evaluator == null)
+            {
+                return NotFound("Evaluator not found for the current user.");
+            }
+
+            // Extract the evaluator ID from the first evaluator in the collection
+            var ethicsEvaluatorId = evaluator.EthicsEvaluatorId;
+
+            // Retrieve application details for the given application ID
+            var applicationDetails = await _allServices.GetApplicationDetailsAsync(id);
+
+            // Check if application details were found
+            if (applicationDetails == null)
+            {
+                return NotFound(); // Return a 404 if not found
+            }
+
+            // Retrieve the specific EthicsEvaluation for the current evaluator and application
+            var currentEvaluation = applicationDetails.EthicsEvaluation?
+                .FirstOrDefault(e => e.EthicsEvaluatorId == ethicsEvaluatorId);
+
+            // Create the view model with the details
+            var viewModel = new EvaluationDetailsViewModel
+            {
+                NonFundedResearchInfo = applicationDetails.NonFundedResearchInfo,
+                CoProponent = applicationDetails.CoProponent,
+                ReceiptInfo = applicationDetails.ReceiptInfo,
+                EthicsEvaluator = applicationDetails.EthicsEvaluator,
+                EthicsApplication = applicationDetails.EthicsApplication,
+                InitialReview = applicationDetails.InitialReview,
+                EthicsApplicationForms = applicationDetails.EthicsApplicationForms,
+                EthicsApplicationLog = applicationDetails.EthicsApplicationLog,
+                EthicsEvaluation = applicationDetails.EthicsEvaluation,
+                CurrentEvaluation = currentEvaluation, // Assign the specific evaluation for this evaluator
+            };
+
+            // Pass the details to the view
+            return View(viewModel);
+        }
+
+
+
         private async Task<byte[]> GetFileContentAsync(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())
@@ -555,6 +626,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 return memoryStream.ToArray();
             }
         }
+        [Authorize(Roles = "CRE Evaluator")]
         public async Task<IActionResult> Evaluated(string urecNo, int evaluationId)
         {
             var evaluatedApplication = await _allServices.GetEvaluationAndEvaluatorDetailsAsync(urecNo, evaluationId);
@@ -575,6 +647,243 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             };
 
             return View(evaluationDetailsViewModel);
+        }
+
+
+        public async Task<IActionResult> EvaluateApplicationPdfGen(string UrecNo)
+        {
+            var baseModel = _context.CRE_EthicsApplication
+                      .Include(e => e.NonFundedResearchInfo)
+                         .ThenInclude(nf => nf.CoProponents)
+                      .Include(e => e.InitialReview)
+                      .Include(e => e.EthicsEvaluation)
+                         .ThenInclude(e => e.EthicsEvaluator)
+                      .Include(e => e.EthicsApplicationForms)
+                      .Include(e => e.EthicsApplicationLogs)
+                      .Where(e => e.UrecNo == UrecNo)
+                      .FirstOrDefault();
+
+            if (baseModel == null)
+            {
+                return NotFound();
+            }
+
+            // Get the current user's ID (logged-in user)
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Assuming you're using Claims-based authentication
+
+            // Fetch the current user's record
+            var currentUser = await _userManager.FindByIdAsync(currentUserId);
+
+            // Concatenate the full name (FirstName, MiddleName, LastName)
+            var fullName = $"{currentUser.FirstName} {currentUser.MiddleName} {currentUser.LastName}".Trim();
+            var ethicsEvaluation = baseModel.EthicsEvaluation.FirstOrDefault();
+            // Check if EthicsEvaluation already exists
+            if (ethicsEvaluation == null)
+            {
+                // Create new EthicsEvaluation if it doesn't exist
+                ethicsEvaluation = new EthicsEvaluation
+                {
+                    Name = fullName, // Set the concatenated full name
+                    UrecNo = UrecNo,
+                    EvaluationStatus = "Pending",
+
+                };
+
+                // Save the new evaluation to the database
+                _context.CRE_EthicsApplication.Update(baseModel);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                // If EthicsEvaluation exists, just set the name
+                ethicsEvaluation.Name = fullName;
+            }
+
+            var evaluatorUserIds = baseModel.EthicsEvaluation
+                .Select(e => e.UserId) // Assuming 'UserId' is what links to the 'EthicsEvaluator'
+                .Distinct()
+                .ToList();
+
+            // Fetch evaluators based on the user IDs retrieved
+            var ethicsEvaluators = await _context.CRE_EthicsEvaluator
+                .Where(e => evaluatorUserIds.Contains(e.UserID)) // Match user IDs
+                .ToListAsync();
+
+            var evalSheets = new EvaluationSheetsViewModel
+            {
+                InformedConsentForm = new InformedConsentFormViewModel
+                {
+                    EthicsApplication = baseModel,
+                    NonFundedResearchInfo = baseModel.NonFundedResearchInfo,
+                    CoProponents = baseModel.NonFundedResearchInfo.CoProponents.ToList(),
+                    InitialReview = baseModel.InitialReview,
+                    EthicsEvaluation = ethicsEvaluation,  // Only one evaluation
+                    EthicsApplicationForms = baseModel.EthicsApplicationForms.ToList(),
+                    EthicsApplicationLog = baseModel.EthicsApplicationLogs.ToList(),
+                    ReceiptInfo = baseModel.ReceiptInfo
+                },
+                ProtocolReviewForm = new ProtocolReviewFormViewModel
+                {
+                    EthicsApplication = baseModel,
+                    NonFundedResearchInfo = baseModel.NonFundedResearchInfo,
+                    CoProponents = baseModel.NonFundedResearchInfo.CoProponents.ToList(),
+                    InitialReview = baseModel.InitialReview,
+                    EthicsEvaluation = ethicsEvaluation,  // Only one evaluation
+                    EthicsApplicationForms = baseModel.EthicsApplicationForms.ToList(),
+                    EthicsApplicationLog = baseModel.EthicsApplicationLogs.ToList(),
+                    ReceiptInfo = baseModel.ReceiptInfo
+                }
+            };
+
+            return View(evalSheets);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EvaluateApplicationPdfGen(EvaluationSheetsViewModel model)
+        {
+
+            var coProponents = _context.CRE_NonFundedResearchInfo
+                  .Include(nf => nf.CoProponents)
+                  .Where(e => e.UrecNo == model.InformedConsentForm.EthicsApplication.UrecNo)
+                  .FirstOrDefault();
+
+            model.InformedConsentForm.CoProponents = coProponents?.CoProponents.ToList(); // Populate for InformedConsentForm
+            model.ProtocolReviewForm.CoProponents = coProponents?.CoProponents.ToList(); // Populate for ProtocolReviewForm
+
+            var informedConsentPdf = await _pdfGenerationService.GenerateInformedConsentPdf(model.InformedConsentForm);
+            var protocolReviewPdf = await _pdfGenerationService.GenerateProtocolReviewPdf(model.ProtocolReviewForm);
+            // For Protocol Review Form
+            var protocolRecommendationQuestion = GetQuestionByKeyword(model.ProtocolReviewForm.Questions, "Recommendation");
+            var protocolRemarksQuestion = GetQuestionByKeyword(model.ProtocolReviewForm.Questions, "Remarks");
+
+            // Get the answer for Protocol Recommendation (which is MultiDropDown)
+            var protocolRecommendation = protocolRecommendationQuestion?.Answer != null
+                ? string.Join(", ", protocolRecommendationQuestion.Answer)  // Join the selected values for MultiDropDown
+                : "No Recommendation";
+
+            // Get the FollowUpAnswer for Protocol Remarks
+            var protocolRemarks = protocolRemarksQuestion?.Answer ?? "No Remarks";
+
+            // For Informed Consent Form
+            var consentRecommendationQuestion = GetQuestionByKeyword(model.InformedConsentForm.Questions, "Recommendation");
+            var consentRemarksQuestion = GetQuestionByKeyword(model.InformedConsentForm.Questions, "Remarks");
+
+            // Get the answer for Consent Recommendation (which is MultiDropDown)
+            var consentRecommendation = consentRecommendationQuestion?.Answer != null
+                ? string.Join(", ", consentRecommendationQuestion.Answer)  // Join the selected values for MultiDropDown
+                : "No Recommendation";
+
+            // Get the FollowUpAnswer for Consent Remarks
+            var consentRemarks = consentRemarksQuestion?.Answer ?? "No Remarks";
+
+            // Fetch the application based on the UrecNo from the model
+            var application = await _context.CRE_EthicsApplication
+                .Include(a => a.EthicsEvaluation)
+                .FirstOrDefaultAsync(a => a.UrecNo == model.InformedConsentForm.EthicsApplication.UrecNo);
+
+            if (application == null)
+            {
+                return NotFound();
+            }
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Fetch the current user details using UserManager
+            var currentUser = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            if (currentUser == null)
+            {
+                return NotFound("User not found.");
+            }
+            var evaluator = await _context.CRE_EthicsEvaluator
+              .FirstOrDefaultAsync(e => e.UserID == currentUserId);
+            var applicationDetails = await _allServices.GetApplicationDetailsAsync(model.InformedConsentForm.EthicsApplication.UrecNo);
+            var ethicsEvaluatorId = evaluator.EthicsEvaluatorId;
+            var currentEvaluation = applicationDetails.EthicsEvaluation?
+               .FirstOrDefault(e => e.EthicsEvaluatorId == ethicsEvaluatorId);
+
+            var selectedEvaluation = currentEvaluation;
+
+            var fullName = currentUser.FirstName;
+
+            if (!string.IsNullOrEmpty(currentUser.MiddleName))
+            {
+                fullName += " " + currentUser.MiddleName[0] + ".";
+            }
+
+            fullName += " " + currentUser.LastName;
+
+            // Assign other values to the selected evaluation
+            selectedEvaluation.EthicsEvaluatorId = ethicsEvaluatorId;
+            selectedEvaluation.ProtocolRecommendation = protocolRecommendation;
+            selectedEvaluation.ProtocolRemarks = protocolRemarks;
+            selectedEvaluation.ConsentRecommendation = consentRecommendation;
+            selectedEvaluation.ConsentRemarks = consentRemarks;
+            selectedEvaluation.ProtocolReviewSheet = protocolReviewPdf;
+            selectedEvaluation.InformedConsentForm = informedConsentPdf;
+            selectedEvaluation.EndDate = DateTime.Now;
+
+            if (selectedEvaluation == null)
+            {
+                _context.CRE_EthicsEvaluation.Add(selectedEvaluation);
+            }
+            else
+            {
+                selectedEvaluation.EvaluationStatus = "Evaluated";
+                _context.CRE_EthicsEvaluation.Update(selectedEvaluation);
+
+                evaluator.Pending -= 1;
+                evaluator.Completed += 1;
+            }
+
+            var evaluatorUser = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.Id == evaluator.UserID);
+            // Send email to evaluator for completing the evaluation
+            if (evaluatorUser != null && !string.IsNullOrEmpty(evaluatorUser.Email))
+            {
+                string subject = "Ethics Evaluation Completed";
+                string body = $@"
+                    <p>Thank you for completing the evaluation for the Ethics Application with UREC No: <strong>{selectedEvaluation.UrecNo}</strong>.</p>
+                    <p>The evaluation status has been successfully marked as <strong>Evaluated</strong>.</p>";
+
+                await _emailService.SendEmailAsync(evaluatorUser.Email, evaluator.Name, subject, body);
+            }
+            var notification = new EthicsNotifications
+            {
+                UrecNo = selectedEvaluation.UrecNo, // Ensure this is the correct UREC No
+                UserId = evaluator.UserID, // Use the evaluator's UserId
+                NotificationTitle = "Evaluation Completed",
+                NotificationMessage = $"You have successfully completed the evaluation for the Ethics Application with UREC No: {selectedEvaluation.UrecNo}. The evaluation status is now marked as 'Evaluated'.",
+                NotificationCreationDate = DateTime.Now,
+                NotificationStatus = false, // Unread
+                Role = "Evaluator", // Ensure this is the correct role for the evaluator
+                PerformedBy = "System" // Can be updated to the actual logged-in user if needed
+            };
+
+            _context.CRE_EthicsNotifications.Add(notification);
+
+            if (await _allServices.AreAllEvaluationsEvaluatedAsync(model.InformedConsentForm.EthicsApplication.UrecNo))
+            {
+                var applicationLog = new EthicsApplicationLogs
+                {
+                    UrecNo = model.InformedConsentForm.EthicsApplication.UrecNo,
+                    UserId = currentUserId,
+                    Status = "Application Evaluated",
+                    ChangeDate = DateTime.Now,
+                    Comments = "The application has been evaluated and marked as submitted."
+                };
+                _context.CRE_EthicsApplicationLogs.Add(applicationLog);
+            }
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Evaluation successful.";
+
+            return RedirectToAction("EvaluatorView", new { success = true });
+        }
+
+
+        private Question GetQuestionByKeyword(List<Question> questions, string keyword)
+        {
+            return questions.FirstOrDefault(q => q.QuestionText.Contains(keyword));
         }
     }
 }

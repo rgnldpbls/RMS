@@ -1,0 +1,67 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.EthicsClearanceViewModel
+@{
+    ViewData["Title"] = "Clearance Generation";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/DetailsInitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<div class="container">
+
+    <div class="card border-light mb-3" style="width: contain">
+        <div class="card-header">
+            <div class="row">
+            <h2>Ethics Clearance Content</h2>
+                <p><strong>Date:</strong> @DateTime.Now.ToShortDateString()</p>
+                <strong>To/For:</strong>
+                <ul>
+
+                <ol> @Model.NonFundedResearchInfo.Name</ol>
+                @if (Model.NonFundedResearchInfo.CoProponents != null && Model.NonFundedResearchInfo.CoProponents.Any())
+                {
+                    foreach (var proponent in Model.NonFundedResearchInfo.CoProponents)
+                    {
+                    <ol>@proponent.CoProponentName</ol>
+                    }
+                }  
+                </ul>
+                <p><strong>Subject:</strong> Ethics Clearance</p>
+                <p><strong>From:</strong> @Model.ChiefName</p>
+
+
+                <h5>@Model.NonFundedResearchInfo.Title.ToUpper()</h5>
+
+
+
+                <p><strong>UREC Code:</strong> @Model.EthicsApplication.UrecNo</p>
+                <p><strong>Type of Review:</strong> @Model.InitialReview.ReviewType</p>
+                <p><strong>Approval Date:</strong> @DateTime.Now.ToShortDateString()</p>
+                <p><strong>Expiry Date:</strong> @DateTime.Now.AddYears(1).ToShortDateString()</p>
+                <p><strong>PUP-UREC Decision:</strong> Approve</p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<form asp-action="GenerateClearancePDF" method="post">
+    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
+    <input type="hidden" asp-for="@Model.InitialReview" />
+    <input type="hidden" asp-for="@Model.EthicsApplication" />
+    <input type="hidden" asp-for="@Model.CoProponents" />
+    <input type="hidden" asp-for="@Model.ChiefName" />
+
+    <button type="submit" class="btn btn-outline-success mb-2">Generate PDF</button>
+</form>
+
+<form asp-action="SendClearanceToResearcher" method="post" onsubmit="return confirmSendToResearcher()">
+    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
+    <button type="submit" class="btn btn-success">Issue Generated Clearance</button>
+</form>
+
+<script>
+    function confirmSendToResearcher() {
+        return confirm("Are you sure you want to send the Ethics Clearance to the researcher?");
+    }
+</script>

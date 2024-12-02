@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CrdlSys.Models.DocumentTrackingViewModel>
 @{
     ViewData["Title"] = "View Documents";
-    //Layout = "_LayoutStakeLinkages";
+    Layout = "_LayoutStakeLinkages";
 }
 
 <!DOCTYPE html>
@@ -10,11 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/StakeTracker.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" asp-append-version="true" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Title -->
@@ -121,6 +116,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Activity Details -->
             <div class="history-container">
                 <!-- ACTIVITY HISTORY -->
@@ -128,88 +124,91 @@
                     <!-- Activity Details -->
                     <div class="container2">
                         <!-- ACTIVITY HISTORY -->
-                        <h1 class="tracking-title">
-                            <i class="fas fa-file-alt"></i> Tracking ID:
-                            <small class="tracking-text"> @record.TrackingId</small>
-                        </h1>
-                        <h1 class="lastupdate-title">
-                            <i class="fas fa-clock"></i> Last Updated:
-                            <small class="lastupdate-text">@record.UpdatedAt</small>
-                        </h1>
+                        <div class="titles-container">
+                            <h1 class="tracking-title">
+                                <i class="fas fa-file-alt"></i> Tracking ID:
+                                <small class="tracking-text">@record.TrackingId</small>
+                            </h1>
+                            <h1 class="lastupdate-title">
+                                <i class="fas fa-clock"></i> Last Updated:
+                                <small class="lastupdate-text">@record.UpdatedAt</small>
+                            </h1>
+                        </div>
                         <h1 class="title-history">
                             <i class="fas fa-history"></i>
                             Activity History
                         </h1>
                     </div>
-                    <div class="row mt-3 ms-5">
-                        <!-- Left Timeline -->
-                        <div class="col-12 col-xl-6 left-timeline">
-                            @if (activity.IsReceivedByRMOUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsReceivedByRMOUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                    <p class="ms-2 timeline-content">Received by RMO</p>
-                                </div>
-                            }
-                            @if (activity.IsSubmittedToOVPREDUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsSubmittedToOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                    <p class="ms-2 timeline-content">Submitted to OVPRED</p>
-                                </div>
-                            }
-                            @if (activity.IsSubmittedToLegalOfficeUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsSubmittedToLegalOfficeUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                    <p class="ms-2 timeline-content"> Submitted to Legal Office</p>
-                                </div>
-                            }
-                            @if (activity.IsReceivedByOVPREDUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsReceivedByOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                    <p class="ms-2 timeline-content">Received by OVPRED</p>
-                                </div>
-                            }
-                        </div>
-                        <!-- Right Timeline -->
-                        <div class="col-12 col-xl-6 right-timeline">
-                            @if (activity.IsReceivedByRMOAfterOVPREDUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsReceivedByRMOAfterOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                    <p class="ms-2 timeline-content">Received by RMO</p>
-                                </div>
-                            }
-                            @if (activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                    <p class="ms-2 timeline-content">Submitted to President</p>
-                                </div>
-                            }
-                            @if (activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.HasValue)
-                            {
-                                <div class="timeline-item2 d-inline-flex">
-                                    <i class="bi bi-check-circle-fill custom-icon"></i>
-                                    <span class="timeline-title">@activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss") </span>
-                                    <p class="ms-2 timeline-content">Received by RMO</p>
-                                </div>
-                            }
+                    <div>
+                        <div class="row mt-3 ms-5">
+                            <!-- Left side activities -->
+                            <div class="left-activities">
+                                @if (activity.IsReceivedByRMOUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsReceivedByRMOUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content">Received by RMO</p>
+                                    </div>
+                                }
+                                @if (activity.IsSubmittedToOVPREDUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsSubmittedToOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content">Submitted to OVPRED</p>
+                                    </div>
+                                }
+                                @if (activity.IsSubmittedToLegalOfficeUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsSubmittedToLegalOfficeUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content"> Submitted to Legal Office</p>
+                                    </div>
+                                }
+                                @if (activity.IsReceivedByOVPREDUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsReceivedByOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content">Received by OVPRED</p>
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Right side activities -->
+                            <div class="right-activities">
+                                @if (activity.IsReceivedByRMOAfterOVPREDUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsReceivedByRMOAfterOVPREDUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content">Received by RMO</p>
+                                    </div>
+                                }
+                                @if (activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsSubmittedToOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content">Submitted to President</p>
+                                    </div>
+                                }
+                                @if (activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.HasValue)
+                                {
+                                    <div class="timeline-item2 d-inline-flex">
+                                        <i class="bi bi-check-circle-fill custom-icon"></i>
+                                        <span class="timeline-title">@activity.IsReceivedByRMOAfterOfficeOfThePresidentUpdatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                        <p class="timeline-content">Received by RMO</p>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         }
     }
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/5hb7gZ5w7qfuYjZlL5bZ5nP1I1E5z9l5e4mjlT" crossorigin="anonymous"></script>
 </body>
 </html>

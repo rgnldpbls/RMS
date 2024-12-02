@@ -32,12 +32,12 @@
     border-radius: 0 0 10px 10px;
 }
 
-.Terminated,.Finished {
+.Terminated, .Finished {
     background-color: #850000;
     color: #FFDB89;
 }
 
-.Expired,.Upcoming {
+.Expired {
     background-color: #FFDB89;
     color: #850000;
 }
@@ -47,37 +47,39 @@
     color: #FFDB89;
 }
 
-.Pending {
+.Pending, .Upcoming {
     background-color: #525252;
     color: #FFDB89;
 }
 
-.bottom{
+.bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px; /* Controls spacing between top and bottom sections */
-    width: 60%;
-    height:22rem;
-    margin-left:5.5vh;
+    width: 1000px;
+    height: 620px;
+    margin-left: 3.5%;
     margin-top: 20px;
     background-color: #d3d3d3;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
+
 .right-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 32.5%;
-    height: 22rem;
+    height: 620px;
     margin-left: 5vh;
     margin-top: 20px;
     background-color: #d3d3d3;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
+
 .top-section,
 .bottom-section {
     display: flex;
@@ -89,14 +91,15 @@
     margin-top: 1.5vh;
     margin-left: 1vh;
 }
+
 .upper, .content-row {
     display: flex;
     flex-direction: row;
     justify-content: center; /* Distributes cards evenly */
     width: 95%;
-    gap:5px;
+    gap: 5px;
 }
-@media(max-width:1380px){
+/*@media(max-width:1380px){
     .upper {
         width: 98%;
         margin-bottom:3vh;
@@ -111,13 +114,11 @@
         width: 32%;
     }
 
-}
-
+}*/
 .card-footer {
     text-align: center;
     padding: 10px;
     font-weight: bold;
-    color: #4e73df;
     border-top: 1px solid #e3e6f0;
     margin-top: 10px;
 }
@@ -128,27 +129,24 @@
     margin-left: -100px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    word-break:break-word;
+    word-break: break-word;
 }
+
 .card {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    width: 180px; /* Set fixed width for each card */
+    width: 200px; /* Set fixed width for each card */
+    height: 250px;
+    font-weight: 600;
+    font-size: 30px;
 }
 
-.chart-section {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin: 20px 0;
-}
 
 .chart {
     position: relative;
-    height: 400px;
-    width: 100%;
+    height: 250px;
+    width: 90%;
     margin: 20px 0;
     background-color: #ffffff;
     border-radius: 8px;
@@ -156,10 +154,11 @@
     padding: 20px;
 }
 
-.chart .card-footer{
-    width:20rem;
-    margin-left:-3vh;
-}
+    .chart .card-footer {
+        width: 112%;
+        height: 40px;
+        margin-left: -5.8%;
+    }
 
 .card-body {
     padding: 20px;
@@ -173,7 +172,7 @@
     font-size: 14px;
     font-weight: bold;
     border-radius: 0 0 10px 10px;
-    position:relative;
+    position: relative;
 }
 
 .pie-chart {
@@ -181,19 +180,10 @@
     width: 100%;
 }
 
-#calendar {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin: 20px 0;
-}
-
-
 .quick-access {
     align-content: center;
     background-color: #e6d3c0;
-    margin-left:2%;
+    margin-left: 2%;
     border-radius: 10px;
     width: 450px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -201,10 +191,10 @@
 
     .quick-access h3 {
         font-size: 1.5rem;
-        font-weight:800;
+        font-weight: 800;
         color: #850000;
         margin-bottom: 15px;
-        margin-left:2vh;
+        margin-left: 2vh;
     }
 
     .quick-access ul {
@@ -279,191 +269,258 @@
             color: #850000;
             margin-left: auto;
         }
-
-.fc-toolbar-title {
-    font-size: 1.5em !important;
-    font-weight: bold !important;
-    color: #4e73df;
+/* Ensure the entire calendar area doesn't scroll */
+#calendar {
+    background-color: #ffffff;
+    max-width: 900px; /* Set fixed width */
+    height: 500px; /* Fixed height for the calendar */
+    margin: 0 auto; /* Center the calendar horizontally */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: auto; /* Prevent the calendar from overflowing */
+    position: relative;
 }
 
-.fc-event {
-    cursor: pointer;
-    padding: 2px 4px;
+    #calendar::-webkit-scrollbar {
+        width: 0px;
+    }
+
+/* Style for the events list that will be scrollable */
+.fc-daygrid-day-events {
+    max-height: 110px; /* Set a max height for the events list */
+    overflow-y: auto; /* Allow vertical scrolling */
+    padding-right: 15px; /* To avoid events being too close to the edge */
+}
+
+/* Remove any extra margins or padding around events */
+.fc-daygrid-event {
+    margin: 10px 0; /* Optional: margin between events */
+    padding: 5px;
+    /*    font-size: 0.9rem;*/
+    word-break: break-word;
+    white-space: normal;
+    text-align: center;
+}
+
+/* Ensuring the event block does not overflow */
+.fc-daygrid-day-number {
+    padding: 5px;
+}
+
+/* Adjust for individual events in the day */
+.fc-daygrid-event {
+    background-color: #fff; /* Lighter background for each event */
+    border-radius: 5px;
+    padding: 0px;
+    word-break: break-word;
+    white-space: normal;
+    display: block;
+}
+
+    .fc-daygrid-event .fc-event-time {
+        font-weight: bold;
+        margin-left: -25px;
+    }
+
+    .fc-daygrid-event .fc-event-title {
+        font-weight: 400;
+        text-align: left;
+        margin-right: 1.5px;
+    }
+/* Hide the dot in events, since we are listing them vertically */
+.fc-daygrid-event-dot {
+    display: none;
+}
+/* Optional: Style the scrollbar to make it look nicer */
+.fc-daygrid-day-events::-webkit-scrollbar {
+    width: 5px;
+}
+
+.fc-daygrid-day-events::-webkit-scrollbar-thumb {
+    background-color: #850000;
+    border-radius: 10px;
+}
+
+#calendar .fc-list-view .fc-listMonth-day {
+    max-width: 900px; /* Limit the height of each day's event list */
+    overflow-y: auto; /* Make the day’s events scrollable */
 }
 
 /* Style and align the header buttons */
-@media (max-width: 768px) {
-    .fc-header-toolbar {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .fc-toolbar-chunk {
-        display: flex;
-        justify-content: center;
-    }
+.modal .event-details {
+    padding: 15px;
 }
 
-    .modal .event-details {
-        padding: 15px;
+    .modal .event-details h3 {
+        color: #4e73df;
+        margin-bottom: 15px;
     }
 
-        .modal .event-details h3 {
-            color: #4e73df;
-            margin-bottom: 15px;
-        }
-
-        .modal .event-details p {
-            margin-bottom: 10px;
-        }
-
-
-    .fc-button {
-        background-color: #850000; /* Matches your chosen color */
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-        .fc-button:hover {
-            background-color: #a30000; /* Darken color on hover */
-        }
-
-    /* Style Add Event button differently if needed */
-    .fc-addEventButton-button {
-        background-color: #ff943d; /* Or any other color you prefer */
-        color: #fff;
-        border-radius: 5px;
-        width: 6.8rem;
-        margin-left: -10vh;
-    }
-
-    .fc-daygrid-event {
-        white-space: normal !important;
-        align-items: normal !important;
-    }
-
-    /* Adjust calendar title spacing and font style */
-    .fc-daygrid-day-number {
-        color: black; /* Day numbers color */
-    }
-    /* Add these styles in your CSS file */
-
-    /* Custom Dropdown Styling */
-    .dropdown-toggle {
-        background-color: transparent;
-        border: 1px solid white;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
-
-        .dropdown-toggle:hover, .dropdown-toggle:focus {
-            background-color: rgba(255, 255, 255, 0.2); /* Slight white on hover */
-        }
-
-    .dropdown-menu {
-        background-color: #850000;
-        border: 1px solid white;
-        border-radius: 0;
-    }
-
-    .dropdown-item {
-        color: white;
-    }
-
-        .dropdown-item:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* Slight white background on hover */
-        }
-
-
-
-
-    .modal-content {
-        background-color: #850000; /* Deep red background */
-        border-radius: 15px;
-        padding: 20px;
-        color: #fff; /* White text */
-    }
-
-    .modal-header {
-        border-bottom: none; /* Remove the border at the bottom of the header */
-    }
-
-    .modal-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 800;
-        text-align: center;
-        width: 250%;
-    }
-
-    .btn-close {
-        color: #fff;
-        background-color: transparent;
-        border: none;
-        font-size: 1rem;
-    }
-
-    .modal-body .btn-custom {
-        background-color: #FFDB89; /* Light yellow background */
-        color: #850000; /* Deep red text */
-        border: none;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.10rem;
-        border-radius: 30px;
-        padding: 10px;
+    .modal .event-details p {
         margin-bottom: 10px;
-        width: 100%;
     }
 
-        .modal-body .btn-custom:hover {
-            background-color: #fcd96d; /* Slightly darker yellow on hover */
-        }
 
-    .modal-body {
+.fc-button {
+    background-color: #850000; /* Matches your chosen color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .fc-button:hover {
+        background-color: #a30000; /* Darken color on hover */
+    }
+
+/* Custom Dropdown Styling */
+.dropdown-toggle {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+    .dropdown-toggle:hover, .dropdown-toggle:focus {
+        background-color: rgba(255, 255, 255, 0.2); /* Slight white on hover */
+    }
+
+.dropdown-menu {
+    background-color: #850000;
+    border: 1px solid white;
+    border-radius: 0;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+    .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Slight white background on hover */
+    }
+/* Basic Modal Styles */
+.modal.eventDetailsModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Allow scroll if necessary */
+    background-color: rgba(0, 0, 0, 0.2); /* Dark background */
+    padding-top: 60px; /* Space at the top */
+}
+
+.modal-content.eventDetailsModal {
+    background-color: #fff;
+    border-radius: 10px;
+    margin: auto;
+    padding: 20px;
+    width: 80%; /* Adjust based on your design */
+    max-width: 600px; /* Max width to make it responsive */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header.eventDetailsModal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+    .modal-header .eventDetailsModal btn-close {
+        background-color: transparent;
+        color: #FFFF;
+    }
+
+    .modal-header .eventDetailsModal h5 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #850000; /* Deep red color */
+    }
+
+
+/* Modal Body */
+.modal-body.eventDetailsModal {
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+.event-details {
+    padding: 10px 0;
+}
+
+    .event-details .content {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 12px;
+        word-break: break-word;
+        white-space: normal;
+        text-align: justify-all;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+        flex-direction: row;
+        gap: 35px
     }
 
-    .modal-footer {
-        border-top: none; /* Remove border at the top of the footer */
-    }
-    /* Remove bottom border from the modal header */
-    #analyzeSentimentModal .custom-modal-header {
-        border-bottom: none;
-    }
-
-    #analyzeSentimentModal .form-label {
-        font-weight: 500;
-        font-family: Montserrat;
-    }
-    /* Set background color for the modal */
-    .custom-modal-content {
-        background-color: #850000;
-        color: #fff; /* Optional: Set text color to white for contrast */
+    .event-details h3 {
+        font-size: 1.36rem;
+        margin-top: -20px;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        font-weight: 600;
     }
 
-    /* Custom button style */
-    .custom-btn {
-        background-color: #FFDB89;
+    .event-details p {
+        line-height: 1.5;
+        color: #FFFFFF;
+        text-align: justify;
+    }
+
+    .event-details strong {
+        color: #FFFFFF;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        margin-right: 40px;
+        font-weight: 400;
+    }
+
+/* Modal Footer (Optional) */
+.modal-footer.eventDetailsModal {
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+/* Button styles */
+.modal-footer .btn {
+    background-color: #FFDB89;
+    color: #850000;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+    .modal-footer .btn:hover {
+        background-color: #fcd96d;
         color: #850000;
-        border: none;
-        font-family: 'Poppins';
-        font-weight: 800;
     }
 
-        /* Button hover effect */
-        .custom-btn:hover {
-            background-color: #FFD76A;
-            color: #850000;
-        }
+/* Modal Backdrop */
+.modal-backdrop {
+    display: none;
+}
 
-    #analyzeSentimentModal .btn-close {
-        color: white;
-        font-weight: 900;
-    }
-
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.1); /* Adjust the opacity here */
+}

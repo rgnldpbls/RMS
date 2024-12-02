@@ -1,9 +1,62 @@
-﻿@{
+﻿@using RemcSys.Models
+@using rscSys_final.Models
+@using ResearchManagementSystem.Areas.CreSys.ViewModels
+@model Tuple<IEnumerable<FundedResearch>, IEnumerable<dynamic>>
+@{
     ViewData["Title"] = "Home";
     Layout = "Director";
 }
+<!--funded researches-->
+@{
+    var groupedColleges = @Model.Item1.GroupBy(f => f.college)
+    .Select(group => new
+    {
+        College = group.Key,
+        Count = group.Count()
+    }).ToList();
+    var LabelsCollege = groupedColleges.Select(g => g.College).ToList();
+    var DataCollege = groupedColleges.Select(g => g.Count).ToList();
+
+    var groupedBranch = @Model.Item1.GroupBy(f => f.branch)
+    .Select(group => new
+    {
+        Branch = group.Key,
+        Count = group.Count()
+    }).ToList();
+    var LabelsBranch = groupedBranch.Select(g => g.Branch).ToList();
+    var DataBranch = groupedBranch.Select(g => g.Count).ToList();
+
+    var totalOngoing = Model.Item1.Where(f => f.status != "Completed").GroupBy(f => f.fr_Type)
+    .Select(group => new
+    {
+        Type = group.Key,
+        Count = group.Count()
+    }).ToList();
+    var LabelOngoing = totalOngoing.Select(g => g.Type).ToList();
+    var DataOngoing = totalOngoing.Select(g => g.Count).ToList();
+
+
+
+    var UFR = Model.Item1.Where(f => f.fr_Type == "University Funded Research").Count();
+    var EFR = Model.Item1.Where(f => f.fr_Type == "Externally Funded Research").Count();
+    var UFRL = Model.Item1.Where(f => f.fr_Type == "University Funded Research Load").Count();
+    var FundedResearchesTotal = UFR + EFR + UFRL;
+}
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+
 <style>
+    body {
+        background: #E8E6E6;
+    }
+
     .info-desk-icon {
         position: absolute;
         bottom: 10%;
@@ -55,557 +108,737 @@
             background: #dd7f7f;
         }
 
-
-    .time-filter {
-        display: flex;
-        border-radius: 20px;
-        overflow: hidden;
-        background-color: #FFEBAD;
-        border: 2px solid #6A0E0F;
-        width: auto;
+    .welcomez {
+        background: #850000;
+        font-family: "Poppins";
+        color: #FFDB89;
     }
-
-    .jesbtn {
-        font-size: 1rem;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        color: #6A0E0F;
-    }
-
-    .month-btn {
-        background-color: #6A0E0F;
-        color: #FFEBAD;
-    }
-
-    .week-btn {
-        background-color: #FFEBAD;
-        color: #6A0E0F;
-    }
-
-
-    .calendar-container {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        text-align: center;
-        max-width: 100%; /* Ensure it doesn't overflow the screen width */
-    }
-
-    .calendar-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: #a94542;
-        font-size: 1.2rem; /* Responsive font size */
-        margin-bottom: 10px;
-    }
-
-        .calendar-header button {
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            color: #a94542;
-        }
-
-    .calendar-days,
-    .calendar-dates {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 5px;
-    }
-
-        .calendar-days div,
-        .calendar-date {
-            aspect-ratio: 1; /* Makes each cell a square */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f5dede;
-            color: #a94542;
-            border-radius: 50%;
-            font-weight: bold;
-        }
-
-    .calendar-date {
-        background-color: transparent; /* Override background for dates */
-        color: #333;
-        cursor: pointer;
-    }
-
-        .calendar-date:hover {
-            background-color: #faeceb;
-        }
-
-        .calendar-date.selected {
-            border: 2px solid #a94542;
-        }
-
-    .info-card {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        width: 120px;
-        margin: 5px;
-    }
-
-        .info-card h2 {
-            color: #901716;
-            font-size: 2rem;
-            margin-bottom: 0;
-            padding-top: 1rem;
-            font-weight: bolder;
-        }
-
-        .info-card p.total {
-            color: #901716;
-            font-weight: bold;
-            font-size: 1rem;
-            margin: 5px 0;
-        }
-
-        .info-card .footer {
-            color: #fff;
-            font-weight: bold;
-            border-radius: 0 0 10px 10px;
-            padding: 5px;
-            margin-top: 10px;
-        }
-
-    .funding {
-        background-color: #b0b0b0;
-    }
-
-    .ethics {
-        background-color: #800000;
-    }
-
-    .assistance {
-        background-color: #4caf50;
-    }
-
-    .event {
-        background-color: #3f51b5;
-    }
-
-    .pie-chart-container {
-        max-width: 500px;
-        width: 100%;
-    }
-
-    canvas {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .progress-circle {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-        .progress-circle .inner-content {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: #F1F1F1;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .progress-circle .percentage {
-            font-size: 1.5em;
-            color: black;
-        }
-
-        .progress-circle .label {
-            font-size: 1em;
-            color: #666;
-        }
 </style>
 
-<div class="container my-4" style="background-color: #F1F1F1;">
-    <h1 class="fw-bold" style="color: #901716;">Dashboard</h1>
-    <div class="row d-flex align-items-stretch">
-        <div class="col-8 d-flex flex-column">
-            <div class="container pe-4 flex-grow-1">
-                <!-- Welcome Section -->
-                <div class="row rounded-3 p-4 mb-3" style="background-color: #901716; color: #FFDB89;">
-                    <h2 class="fw-bold mb-0">Welcome, Director!</h2>
-                    <p class="mb-0">Check the research activity reports and summaries</p>
-                </div>
+<!--welcome-->
+<div class="welcomez container p-4 rounded-4 shadow">
+    <div class="fw-bold display-6">Welcome Director!</div>
+    <div class="fs-6">Check the research activity reports and summaries</div>
+</div>
 
-                <!-- RMO Activities Section -->
-                <div class="row rounded-3 p-4 mb-3 flex-grow-1" style="background-color: #FFECC1; color: #901716;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="fw-bold mb-0">RMO Activities</h4>
-                        <div class="time-filter">
-                            <button class="btn btn-outline-secondary month-btn">This month</button>
-                            <button class="btn btn-outline-secondary week-btn">This week</button>
-                        </div>
-                    </div>
-                    <canvas id="activityChart" height="540"></canvas>
-                </div>
+<!-- RMO Activities Section -->
+<div class="container p-3 my-3">
+    <div class="row rounded-4 p-4 flex-grow-1 shadow" style="background-color: #FFECC1; color: #901716;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold mb-0">RMO Activities</h4>
+            <form action="/" method="post">
+                <label class="form-label">Campus</label>
+                <select class="form-control mb-3" id="CampusDropdown">
+                    <option value="">-- Select Campus --</option>
+                    <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
+                    <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
+                    <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
+                    <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
+                    <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
+                    <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
+                    <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
+                    <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
+                    <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
+                    <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
+                    <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
+                    <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
+                    <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
+                    <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
+                    <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                    <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
+                    <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
+                    <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
+                    <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
+                    <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
+                    <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                </select>
 
-                <div class="d-flex align-items-center flex-wrap align-items-start">
-                    <!-- Research Center Title -->
-                    <div class="col-3 me-5 mb-3">
-                        <h5>Research</h5>
-                        <h1 class="fw-bold" style="color: #901716">Center</h1>
-                    </div>
 
-                    <!-- Info Cards -->
-                    <div class="col-2 mb-3">
-                        <div class="info-card text-center">
-                            <h2>30</h2>
-                            <p class="total">TOTAL</p>
-                            <div class="footer funding">Funding Application</div>
-                        </div>
-                    </div>
-                    <div class="col-2 mb-3">
-                        <div class="info-card text-center">
-                            <h2>30</h2>
-                            <p class="total">TOTAL</p>
-                            <div class="footer ethics">Ethics Clearance</div>
-                        </div>
-                    </div>
-                    <div class="col-2 mb-3">
-                        <div class="info-card text-center">
-                            <h2>30</h2>
-                            <p class="total">TOTAL</p>
-                            <div class="footer assistance">Research Assistance</div>
-                        </div>
-                    </div>
-                    <div class="col-2 mb-3">
-                        <div class="info-card text-center">
-                            <h2>30</h2>
-                            <p class="total">TOTAL</p>
-                            <div class="footer event">Event and Linkages</div>
-                        </div>
-                    </div>
-                </div>
+            </form>
 
-                <div class="row rounded-3 p-4 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                    <div class="row">
-                        <div class="col-2 text-center">
-                            <h3 class="mb-0">TOP</h3>
-                            <h1 class="fw-bolder">3</h1>
-                        </div>
-                        <div class="col-10 d-flex align-items-center">
-                            <div>
-                                <h3 class="mb-0 fw-bolder">Most Funded Research</h3>
-                                <h6>University and Externally-Funded Research</h6>
+        </div>
+        <canvas id="activityChart" height="540"></canvas>
+    </div>
+</div>
+
+<!--calendar title-->
+<div class="welcomez container p-2 rounded-2 shadow my-3">
+    <div class="fs-6 text-center">RMO Calendar</div>
+</div>
+
+<!--calendar-->
+<div class="container bg-white p-3 shadow rounded-4">
+    <div class="upper">
+        <!-- Calendar -->
+        <div id="calendar"></div>
+        <div class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="eventForm">
+                            <div class="mb-3">
+                                <label for="event-title" class="form-label">Event Title</label>
+                                <input type="text" class="form-control" id="event-title" required>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row rounded-4 mb-2 p-2" style="background-color: #FEDA87; color: #901716">
-                        <h5 class="fw-bold mb-0">
-                            1.&nbsp;<img src="images/ccis.png" class="align-middle" style="height: 2em; width: auto;">&nbsp;&nbsp;College of Computer of Information and Sciences
-                        </h5>
-                    </div>
-
-
-                    <div class="row justify-content-end">
-                        <div class="col-11 rounded-4 mb-2 p-2" style="background-color: #FFECC1; color: black">
-                            <h5 class="fw-bold mb-0 ps-2">
-                                2.&nbsp;<img src="images/ccis.png" class="align-middle" style="height: 2em; width: auto;">&nbsp;&nbsp;College of Law
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-end">
-                        <div class="col-11 rounded-4 mb-2 p-2" style="background-color: #FFECC1; color: black">
-                            <h5 class="fw-bold mb-0 ps-2">
-                                3.&nbsp;<img src="images/ccis.png" class="align-middle" style="height: 2em; width: auto;">&nbsp;&nbsp;College of Science
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="col-4 d-flex flex-column">
-            <div class="container flex-grow-1">
-                <div class="row rounded-3 flex-grow-1">
-                    <div class="calendar-container">
-                        <div class="calendar-header">
-                            <button onclick="prevMonth()">&lt;</button>
-                            <h5 id="monthYear">August 2024</h5>
-                            <button onclick="nextMonth()">&gt;</button>
-                        </div>
-                        <div class="calendar-days">
-                            <div>S</div>
-                            <div>M</div>
-                            <div>T</div>
-                            <div>W</div>
-                            <div>T</div>
-                            <div>F</div>
-                            <div>S</div>
-                        </div>
-                        <div class="calendar-dates" id="calendarDates">
-                            <!-- Dates will be generated here by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                    <div class="col-10">
-                        <h5 class="fw-bold mb-0">Research Production</h5>
-                        <p class="mb-0 fs-6">See details</p>
-                    </div>
-                    <div class="col-2"><a href="~/RemcSys/Chief/GenerateReports?reportType=ResearchProduction&startDate=null&endDate=null"><i class="bi bi-chevron-right fs-1"></i></a></div>
-                </div>
-
-                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                    <div class="col-10">
-                        <h5 class="fw-bold mb-0">Research Publication</h5>
-                        <p class="mb-0 fs-6">See details</p>
-                    </div>
-                    <div class="col-2"><i class="bi bi-chevron-right fs-1"></i></div>
-                </div>
-
-                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                    <div class="col-10">
-                        <h5 class="fw-bold mb-0">Research Presentation</h5>
-                        <p class="mb-0 fs-6">See details</p>
-                    </div>
-                    <div class="col-2"><i class="bi bi-chevron-right fs-1"></i></div>
-                </div>
-
-                <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                    <div class="col-10">
-                        <h5 class="fw-bold mb-0">Research Citation</h5>
-                        <p class="mb-0 fs-6">See details</p>
-                    </div>
-                    <div class="col-2"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
-                </div>
-
-                <div class="mt-5">
-                    <div class="container w-75 justify-content-end mt-5">
-                        <div class="row rounded-3 p-2" style="background-color: #901716; color: #F1F1F1;">
-                            <div class="col-12 d-flex justify-content-center">
-                                <h5 class="fw-bold mb-0 text-center">Progress Report per<br>TRACK</h5>
+                            <div class="mb-3">
+                                <label for="event-start" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="event-start" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="event-end" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="event-end">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--research centers and pie chart-->
+<div class="container">
+    <!--research centers-->
+    <div class="row d-flex justify-content-between">
+        <div class="col-lg-7">
+            <div class="row welcomez p-2 rounded-2 shadow my-3">
+                <div class="fs-6 text-center">Research Centers</div>
+            </div>
+
+            <div class="row justify-content-evenly">
+                <!--Funded Researches-->
+                <div class="col-lg-3 col-sm-12 text-center mb-4">
+                    <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#FundingApplicationsModal">
+
+                        <div class="p-4 pb-2 bg-white rounded-top-4">
+                            <span class="d-block fs-1 fw-bold">@FundedResearchesTotal</span>
+                            <span class="fs-5 fw-bold">TOTAL</span>
                         </div>
-                    </div>
-
-                    <div class="row pie-chart-container d-flex justify-content-center">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row my-3">
-        <div class="col-3 d-flex justify-content-center align-items-center">
-            <div class="progress-circle" style="background: conic-gradient(#FED81D 0% 30%, #FF8887 30% 40%, #850001 40% 65%, #FF8887 65% 80%, #9D7B78 80% 90%, #FED81D 90% 100%);">
-                <div class="inner-content text-center">
-                    <div class="percentage">Faculty<br>Rank</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-9">
-            <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                <div class="col-1 text-center fs-1">
-                    <i class="bi bi-circle-fill" style="color:gray;"></i>
-                </div>
-                <div class="col-9 text-start">
-                    <p class="mb-0 fs-6">See details</p>
-                    <h5 class="fw-bold mb-0">
-                        Research Faculties | RMCC's | Chief's | Evaluators
-                    </h5>
-                </div>
-                <div class="col-2 text-end"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
-            </div>
-
-            <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                <div class="col-1 text-center fs-1">
-                    <i class="bi bi-circle-fill" style="color:gray;"></i>
-                </div>
-                <div class="col-9 text-start">
-                    <p class="mb-0 fs-6">See details</p>
-                    <h5 class="fw-bold mb-0">
-                        Research Faculties | RMCC's | Chief's | Evaluators
-                    </h5>
-                </div>
-                <div class="col-2 text-end"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
-            </div>
-
-            <div class="row rounded-3 my-3 p-2 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-                <div class="col-1 text-center fs-1">
-                    <i class="bi bi-circle-fill" style="color:gray;"></i>
-                </div>
-                <div class="col-9 text-start">
-                    <p class="mb-0 fs-6">See details</p>
-                    <h5 class="fw-bold mb-0">
-                        Research Faculties | RMCC's | Chief's | Evaluators
-                    </h5>
-                </div>
-                <div class="col-2 text-end"><a><i class="bi bi-chevron-right fs-1"></i></a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row rounded-3 my-3 p-3 d-flex justify-content-center align-items-center" style="background-color: #901716; color: #FFDB89;">
-        <div class="col-10 ms-auto">
-            <h5 class="fw-bold mb-0">Generate Report</h5>
-            <p class="mb-0 fs-6">See details</p>
-        </div>
-
-        <div class="col-2 text-end"><i class="bi bi-chevron-right fs-1"></i></div>
-    </div>
-
-    <!--info desk btn-->
-    <button type="button" class="info-desk-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        <i class="fa-solid fa-message fa-2xl" style="color: #ffffff;"></i>
-    </button>
-
-    <!-- info desk Modal -->
-    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="info-desk-icon modal-dialog w-75">
-            <div class="modal-content">
-                <div class="info-head modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Information Desk</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container mb-2">
-                        <button id="interactionBtn" class="interaction-btn p-2 rounded-3 w-100 border border-none text-start">Interaction 1</button>
-                    </div>
-                    <div class="container d-flex flex-column">
-                        <div id="selectedInteraction" class="sel-int p-2 mb-1">
-                            Selected Interaction
+                        <div class="p-3 rounded-bottom-4 bg-primary h-25">
+                            <span class="d-block fw-bold fs-6 text-white">Funded</span>
+                            <span class="fw-bold fs-6 text-white">Researches</span>
                         </div>
-                        <div id="reply" class="int-reply p-2 mb-1">
-                            Reply
+
+                    </button>
+                </div>
+                <!--Ethics Clearance-->
+                <div class="col-lg-3 col-sm-12 text-center mb-4">
+                    <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#EthicsClearanceModal">
+
+                        <div class="p-4 pb-2 bg-white rounded-top-4">
+                            <span class="d-block fs-1 fw-bold">@ViewBag.TotalClearancesIssued</span>
+                            <span class="fs-5 fw-bold">TOTAL</span>
                         </div>
-                    </div>
+                        <div class="p-3 rounded-bottom-4 bg-success h-25">
+                            <span class="d-block fw-bold fs-6 text-white">Ethics</span>
+                            <span class="fw-bold fs-6 text-white">Clearance</span>
+                        </div>
+
+                    </button>
+                </div>
+                <!--Endorsed Researches-->
+                <div class="col-lg-3 col-sm-12 text-center mb-4">
+                    <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#EndorsedResearchesModal">
+
+                        <div class="p-4 pb-2 bg-white rounded-top-4">
+                            <span class="d-block fs-1 fw-bold">@ViewBag.TotalEndorsed</span>
+                            <span class="fs-5 fw-bold">TOTAL</span>
+                        </div>
+                        <div class="p-3 rounded-bottom-4 bg-danger h-25">
+                            <span class="d-block fw-bold fs-6 text-white">Endorsed</span>
+                            <span class="fw-bold fs-6 text-white">Researches</span>
+                        </div>
+
+                    </button>
+                </div>
+                <!--Events and Linkages-->
+                <div class="col-lg-3 col-sm-12 text-center mb-4">
+                    <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#EventsAndLinkagesModal">
+
+                        <div class="p-4 pb-2 bg-white rounded-top-4">
+                            <span class="d-block fs-1 fw-bold">@ViewBag.EventsAndLinkagesTotal</span>
+                            <span class="fs-5 fw-bold">TOTAL</span>
+                        </div>
+                        <div class="p-3 rounded-bottom-4 bg-secondary h-25">
+                            <span class="d-block fw-bold fs-6 text-white">Events and</span>
+                            <span class="fw-bold fs-6 text-white">Linkages</span>
+                        </div>
+
+                    </button>
+                </div>
+
+            </div>
+            <div class="row">
+                <!--top 3 performing-->
+                <div class="container p-4 rounded-4 shadow mb-3" style="background: #FFECC1;">
+                    <div class="top-research-section">
+                        <div class="container bg-warning rounded-4 shadow p-4 mb-3" style="font-family: Poppins">
+                            <span class="fw-bold p-2 rounded-4 fs-4 shadow-sm text-white" style="background: #850000">TOP 3</span>
+                            <span class="fw-bold fs-4 p-2">PERFORMING BRANCHES</span>
+                        </div>
+                        <ol class="top-research-list">
+                            @{
+                                var groupedBranches = Model.Item2
+                                .GroupBy(b => b.TotalResearch)
+                                .OrderByDescending(g => g.Key);
+                                var curRank = 1;
+                            }
+                            @if (groupedBranches != null && groupedBranches.Any())
+                            {
+                                @foreach (var group in groupedBranches)
+                                {
+                                    <div class="bg-warning-subtle p-4 rounded-4 shadow-sm rank-group rank-@curRank">
+                                        @foreach (var branch in group)
+                                        {
+                                        <li class="rank-item">
+                                            <div class="rank">@curRank.</div>
+                                            <div class="branch-info">
+                                                <span class="branch-name"> @branch.BranchName</span>
+                                                <span class="research-count">Total Research: @branch.TotalResearch</span>
+                                            </div>
+                                        </li>
+                                        }
+
+                            </div>
+                                    curRank++;
+                                }
+                            }
+                            else
+                            {
+                        <div class="bg-warning-subtle p-4 rounded-4 shadow-sm">
+                            <li>
+
+                                No top performing branches yet.
+
+                            </li>
+                        </div>
+                            }
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
 
 
+    <!--pie chart-->
+    <div class="col-lg-4">
+        <div class="row welcomez p-2 rounded-2 shadow my-3">
+            <div class="fs-6 text-center">Progress Report Per Track</div>
+        </div>
+        <div class="row pie-chart-container d-flex justify-content-center">
+            <canvas id="myPieChart"></canvas>
+        </div>
+    </div>
 
 </div>
+
+</div>
+
+
+<!--Generate Report Button-->
+<a role="button" class="welcomez container p-4 rounded-4 shadow d-flex justify-content-between align-items-center text-decoration-none" asp-controller="Director" asp-action="DirectorReportGenerateReport">
+    <div>
+        <div class="fw-bold fs-5">Generate Report</div>
+        <div class="fs-6">See details</div>
+    </div>
+    <div><i class="fa-solid fa-circle-chevron-right fa-2xl" style="color: #ffdb89;"></i></div>
+</a>
+
+
+<!--MODALS-->
+<!--FUNDED RESEARCHES-->
+<div class="modal fade" id="FundingApplicationsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Funded Researches</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--University Funded Research-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@UFR</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-primary">
+                                    <span class="d-block fw-bold fs-6 text-white">University</span>
+                                    <span class="fw-bold fs-6 text-white">Funded Research</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Externally Funded Research-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@EFR</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-primary">
+                                    <span class="d-block fw-bold fs-6 text-white">Externally</span>
+                                    <span class="fw-bold fs-6 text-white">Funded Research</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--University Funded Research-Load-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@UFRL</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-primary">
+                                    <span class="d-block fw-bold fs-6 text-white">University Funded</span>
+                                    <span class="fw-bold fs-6 text-white">Research-Load</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ENDORSED RESEARCHES MODAL-->
+<div class="modal fade" id="EndorsedResearchesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Endorsed Researches</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Grants Endorsed-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalGrants</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">Grants</span>
+                                    <span class="fw-bold fs-6 text-white">Endorsed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Incentives Endorsed-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalIncentives</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">Incentives</span>
+                                    <span class="fw-bold fs-6 text-white">Endorsed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Assistance Endorsed-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalAssistance</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">Assistance</span>
+                                    <span class="fw-bold fs-6 text-white">Endorsed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ETHICS CLEARANCE MODAL-->
+<div class="modal fade" id="EthicsClearanceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Ethics Clearance</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Ethics Clearance Applications-->
+                        <div class="col-lg-3 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalEthicsApplication</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-success">
+                                    <span class="d-block fw-bold fs-6 text-white">Ethics Clearance</span>
+                                    <span class="fw-bold fs-6 text-white">Applications</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Ethics Clearance Issued-->
+                        <div class="col-lg-3 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalClearancesIssued</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-success">
+                                    <span class="d-block fw-bold fs-6 text-white">Ethics Clearance</span>
+                                    <span class="fw-bold fs-6 text-white">Issued</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Terminal Reports-->
+                        <div class="col-lg-3 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalTerminalReports</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-success">
+                                    <span class="d-block fw-bold fs-6 text-white">Terminal</span>
+                                    <span class="fw-bold fs-6 text-white">Reports</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Certificate of Completion-->
+                        <div class="col-lg-3 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TotalCertificatesIssued</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-success">
+                                    <span class="d-block fw-bold fs-6 text-white">Certificate of</span>
+                                    <span class="fw-bold fs-6 text-white">Completion</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--EVENTS AND LINKAGES MODAL-->
+<div class="modal fade" id="EventsAndLinkagesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Events and Linkages</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row welcomez p-2 rounded-2 shadow my-3">
+                        <div class="fs-6 text-center">Events</div>
+                    </div>
+                    <div class="row">
+                        <!--Total Events-->
+                        <div class="col-lg-12 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.EventsTotal</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+
+                                    <span class="fw-bold fs-6 text-white">Events</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Upcoming Events-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.UpcomingEventsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Upcoming</span>
+                                    <span class="fw-bold fs-6 text-white">Events</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Ongoing Events-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.OngoingEventsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Ongoing</span>
+                                    <span class="fw-bold fs-6 text-white">Events</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Finished Events-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.FinishedEventsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Finished</span>
+                                    <span class="fw-bold fs-6 text-white">Events</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row welcomez p-2 rounded-2 shadow my-3">
+                        <div class="fs-6 text-center">Linkages</div>
+                    </div>
+                    <div class="row">
+                        <!--Total Linkages-->
+                        <div class="col-lg-12 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.LinkagesTotal</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+
+                                    <span class="fw-bold fs-6 text-white">Linkages</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Pending Contracts-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.PendingContractsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Pending</span>
+                                    <span class="fw-bold fs-6 text-white">Contracts</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Ongoing Partners-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.OngoingPartnersCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Ongoing</span>
+                                    <span class="fw-bold fs-6 text-white">Partners</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Expired Contracts-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.ExpiredContractsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Expired</span>
+                                    <span class="fw-bold fs-6 text-white">Contracts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Terminated Contracts-->
+                        <div class="col-lg-6 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.TerminatedContractsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Terminated</span>
+                                    <span class="fw-bold fs-6 text-white">Contracts</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Stakeholder Renewal-->
+                        <div class="col-lg-6 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">@ViewBag.ExtendedContractsCount</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Stakeholder</span>
+                                    <span class="fw-bold fs-6 text-white">Renewal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<!-- FullCalendar and Moment.js JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 
+<!--script ni cedie for calendar-->
 <script>
-        // Initialize Chart.js
-    const ctx = document.getElementById('activityChart').getContext('2d');
-    const activityChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [
-          {
-            label: 'Research Production',
-            data: [20, 40, 50, 30, 60, 70, 40],
-            backgroundColor: '#800000',
-          },
-          {
-            label: 'Research Publication',
-            data: [30, 20, 40, 50, 30, 60, 120],
-            backgroundColor: '#d19a7d',
-          },
-          {
-            label: 'Research Presentation',
-            data: [40, 30, 20, 60, 50, 30, 70],
-            backgroundColor: '#b0b0ff',
-          },
-          {
-            label: 'Research Citation',
-            data: [40, 30, 20, 60, 50, 30, 70],
-            backgroundColor: '#5cbfec',
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-          },
-        },
-      },
-    });
-</script>
-<script>
-    const monthYear = document.getElementById("monthYear");
-    const calendarDates = document.getElementById("calendarDates");
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var modal = new bootstrap.Modal(document.querySelector('.modal'));
 
-    let currentYear = 2024;
-    let currentMonth = 7; // August (0-based index for JavaScript Date)
-
-    function generateCalendar(year, month) {
-        calendarDates.innerHTML = "";
-        monthYear.textContent = new Date(year, month).toLocaleString("default", {
-            month: "long",
-            year: "numeric",
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+            },
+            events: '/CrdlSys/Chief/GetCalendarEvents',
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: true
+            },
+            eventClick: function (info) {
+                showEventDetails(info.event);
+            },
+            eventDidMount: function (info) {
+                // Add tooltip with event details
+                $(info.el).tooltip({
+                    title: `
+                                            ${info.event.title}
+                                            Time: ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}
+                                            Location: ${info.event.extendedProps.location}
+                                            Type: ${info.event.extendedProps.eventType}
+                                        `,
+                    html: true,
+                    placement: 'top',
+                    trigger: 'hover',
+                    container: 'body'
+                });
+            },
+            dayMaxEvents: true, // allow "more" link when too many events
+            themeSystem: 'bootstrap5',
+            height: 'auto',
+            contentHeight: 'auto'
         });
 
-        const firstDay = new Date(year, month, 1).getDay();
-        const lastDate = new Date(year, month + 1, 0).getDate();
+        calendar.render();
 
-        // Blank spaces for days before first day of the month
-        for (let i = 0; i < firstDay; i++) {
-            calendarDates.insertAdjacentHTML("beforeend", `<div></div>`);
+        function showEventDetails(event) {
+            const modal = document.querySelector('.modal');
+            const modalBody = modal.querySelector('.modal-body');
+
+            // Clear previous form
+            modalBody.innerHTML = `
+                                    <div class="event-details">
+                                        <h3 class="mb-3">${event.title}</h3>
+                                        <p><strong>Date:</strong> ${moment(event.start).format('MMMM D, YYYY')}</p>
+                                        <p><strong>Time:</strong> ${moment(event.start).format('hh:mm A')} - ${moment(event.end).format('hh:mm A')}</p>
+                                        <p><strong>Location:</strong> ${event.extendedProps.location}</p>
+                                        <p><strong>Type:</strong> ${event.extendedProps.eventType}</p>
+                                        <p><strong>Description:</strong></p>
+                                        <p>${event.extendedProps.description}</p>
+                                    </div>
+                                `;
+
+            // Show the modal
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
         }
 
-        // Dates
-        for (let i = 1; i <= lastDate; i++) {
-            const dateElement = document.createElement("div");
-            dateElement.textContent = i;
-            dateElement.classList.add("calendar-date");
-
-            dateElement.onclick = () => {
-                document.querySelectorAll(".calendar-date").forEach((el) => {
-                    el.classList.remove("selected");
-                });
-                dateElement.classList.add("selected");
-            };
-
-            calendarDates.appendChild(dateElement);
-        }
-    }
-
-    function prevMonth() {
-        currentMonth--;
-        if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
-        }
-        generateCalendar(currentYear, currentMonth);
-    }
-
-    function nextMonth() {
-        currentMonth++;
-        if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
-        }
-        generateCalendar(currentYear, currentMonth);
-    }
-
-    // Initialize calendar
-    generateCalendar(currentYear, currentMonth);
+        // Refresh calendar events every 5 minutes
+        setInterval(function () {
+            calendar.refetchEvents();
+        }, 300000);
+    });
 </script>
+
+<!--bar-->
+<script>
+    // Initialize Chart.js
+    const ctx = document.getElementById('activityChart').getContext('2d');
+    const activityChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+                {
+                    label: 'Research Production',
+                    data: [20, 40, 50, 30, 60, 70, 40],
+                    backgroundColor: '#800000',
+                },
+                {
+                    label: 'Research Publication',
+                    data: [30, 20, 40, 50, 30, 60, 120],
+                    backgroundColor: '#d19a7d',
+                },
+                {
+                    label: 'Research Presentation',
+                    data: [40, 30, 20, 60, 50, 30, 70],
+                    backgroundColor: '#b0b0ff',
+                },
+                {
+                    label: 'Research Citation',
+                    data: [40, 30, 20, 60, 50, 30, 70],
+                    backgroundColor: '#5cbfec',
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                },
+            },
+        },
+    });
+</script>
+
+<!--pie chart-->
 <script>
     // JavaScript for rendering the pie chart
     const ctx1 = document.getElementById('myPieChart').getContext('2d');
@@ -638,16 +871,20 @@
                 }
             },
             layout: {
-                padding: 80
+                padding: 50
             }
         },
         plugins: [ChartDataLabels]
     });
 </script>
 
+<!--info desk-->
 <script>
     document.getElementById("interactionBtn").addEventListener("click", function () {
         document.getElementById("selectedInteraction").style.display = "block";
         document.getElementById("reply").style.display = "block";
     });
 </script>
+
+
+

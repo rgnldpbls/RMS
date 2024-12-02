@@ -31,6 +31,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Chairperson")]
         [HttpGet]
         public async Task<IActionResult> SelectApplication()
         {
@@ -56,6 +57,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         }
 
 
+        [Authorize(Roles = "Chairperson")]
         [HttpGet]
         public async Task<IActionResult> GetStarted()
         {
@@ -98,6 +100,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         }
 
 
+        [Authorize(Roles = "Chairperson")]
+         
         [HttpPost]
         public async Task<IActionResult> SelectFieldOfStudy(string selectedField)
         {
@@ -142,6 +146,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        [Authorize(Roles = "Chairperson")]
         [HttpGet]
         public async Task<IActionResult> AssignEvaluators(string urecNo)
         {
@@ -180,9 +185,9 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Chairperson")]
+         
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignEvaluators(string urecNo, List<int> selectedEvaluatorIds)
         {
             // Validate input parameters

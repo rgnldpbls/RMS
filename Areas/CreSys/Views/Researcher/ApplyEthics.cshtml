@@ -29,7 +29,7 @@
             "College of Tourism, Hospitality and Transportation Management (CTHTM)",
             "Institute of Technology (ITECH)"
         };
-    var Campuses = new List<string>
+        var Campuses = new List<string>
         {
            "Sta. Mesa (MAIN CAMPUS)",
             "Taguig City (BRANCH)",
@@ -155,20 +155,17 @@
                     </div>
 
                     <!-- Campus Dropdown/Input -->
-                    <div class="row mb-3">
-                        <label asp-for="NonFundedResearchInfo.Campus" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Campus: </label>
-                        <div class="col-sm-8">
-                            @if (Model.IsExternalResearcher)
-                            {
-                                @Html.TextBoxFor(model => model.NonFundedResearchInfo.Campus, new { @class = "form-control", placeholder = "Enter Campus" })
-                            }
-                            else
-                            {
+                    @if (!Model.IsExternalResearcher)
+                    {
+                        <div class="row mb-3">
+                            <label asp-for="NonFundedResearchInfo.Campus" class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Campus: </label>
+                            <div class="col-sm-8">
                                 @Html.DropDownListFor(model => model.NonFundedResearchInfo.Campus, new SelectList(Campuses), "Select Campus", new { @class = "form-control", id = "CampusDropdown" })
-                            }
-                            @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.Campus, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.NonFundedResearchInfo.Campus, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
+                    }
+
 
                     <!-- College Dropdown -->
                     <div class="row mb-3" id="CollegeDropdownContainer" style="@(Model.IsExternalResearcher ? "display:none;" : "")">
@@ -260,7 +257,7 @@
             }
             <div class="card-footer">
                 <div class="button-group">
-                    <a asp-area="CreSys" asp-controller="Researcher" asp-action="Applications" class="btn btn-cancel">Cancel</a>
+                    <a asp-area="" asp-controller="Researcher" asp-action="Applications" class="btn btn-cancel">Cancel</a>
                     <!-- Add id="submitBtn" to ensure it's selected correctly -->
                     <button type="submit" class="btn btn-danger" id="submitBtn">Submit</button>
                 </div>
@@ -291,20 +288,20 @@
                 }
 
                 const newCoProponentHtml = `
-                            <div class="coProponentRow row mb-3">
-                                <div class="row mb-3">
-                                    <label class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Co-Proponent Name:</label>
-                                    <div class="col-sm-8">
-                                        <input name="CoProponent[${coProponentIndex}].CoProponentName" class="form-control" placeholder="Name" required />
-                                        <span class="text-danger coProponentError" style="display:none;">This field is required.</span> <!-- Error message span -->
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-8 offset-sm-3">
-                                        <button type="button" class="btn btn-danger removeCoProponentBtn">Remove</button>
-                                    </div>
-                                </div>
-                            </div>`;
+                    <div class="coProponentRow row mb-3">
+                        <div class="row mb-3">
+                            <label class="text-danger fw-bold text-nowrap col-form-label col-sm-3 text-end">Co-Proponent Name:</label>
+                            <div class="col-sm-8">
+                                <input name="CoProponent[${coProponentIndex}].CoProponentName" class="form-control" placeholder="Name" required />
+                                <span class="text-danger coProponentError" style="display:none;">This field is required.</span> <!-- Error message span -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-8 offset-sm-3">
+                                <button type="button" class="btn btn-danger removeCoProponentBtn">Remove</button>
+                            </div>
+                        </div>
+                    </div>`;
 
                 coProponentsContainer.insertAdjacentHTML('beforeend', newCoProponentHtml);
                 coProponentIndex++; // Increment the index
@@ -436,7 +433,7 @@
                 }
             });
         });
-
+       
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

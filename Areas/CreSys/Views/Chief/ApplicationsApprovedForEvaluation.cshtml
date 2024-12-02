@@ -1,0 +1,145 @@
+﻿@model List<ResearchManagementSystem.Areas.CreSys.ViewModels.ApplicationViewModel>
+
+@{
+    ViewData["Title"] = "All Applications";
+}
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="title-section">
+    <h2>Ethics Applications</h2>
+
+    <!-- Navigation Buttons -->
+    <ul class="nav nav-tabs d-flex" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ApplicationsApprovedForEvaluation" ? "active" : "")"
+               asp-action="ApplicationsApprovedForEvaluation">
+                Pending Review Type
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ExemptApplications" ? "active" : "")"
+               asp-action="ExemptApplications">
+                Exempt Applications
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "ExpeditedApplications" ? "active" : "")"
+               asp-action="ExpeditedApplications">
+                Expedited Applications
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "FullReviewApplications" ? "active" : "")"
+               asp-action="FullReviewApplications">
+                Full Review Applications
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="btn-nav @(ViewContext.RouteData.Values["action"]?.ToString() == "AllApplications" ? "active" : "")"
+               asp-action="AllApplications">
+                All Applications
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="divider m-10"></div>
+
+<div class="search-filter-container">
+    <!-- Search Bar with Icon -->
+    <div class="search-container">
+        <input type="text" id="searchBar" onkeyup="searchApplications()" placeholder="Search by Urec No or Title">
+        <i class="fas fa-search"></i>
+    </div>
+</div>
+
+<!-- All Applications Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>UREC No</th>
+            <th>Title of the Research</th>
+            <th>Proponents/ Authors</th>
+            <th>Status</th>
+            <th>Submission Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div style="text-align: center; padding: 20px; opacity: 50%;">
+                        <i class="fa-solid fa-file" style="font-size: 80px;"></i>
+                        <p style="font-size: 20px; font-family: 'Montserrat', sans-serif;">No applications found.</p>
+                    </div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var application in Model)
+            {
+                <tr>
+                    <td class="urec-column underline">
+                        <a asp-controller="Chief" asp-action="AssignReviewType" asp-route-urecNo="@application.EthicsApplication.UrecNo" class="">
+                            @application.EthicsApplication.UrecNo
+                        </a>
+                    </td>
+                    <td>@application.NonFundedResearchInfo.Title</td>
+                    <td>
+                        @application.NonFundedResearchInfo.Name
+                        <br />
+                        @if (application.NonFundedResearchInfo?.CoProponents != null)
+                        {
+                            foreach (var coproponent in application.NonFundedResearchInfo.CoProponents)
+                            {
+                                <span>@coproponent.CoProponentName</span>
+                                <br />
+                            }
+                        }
+                        else
+                        {
+                           
+                        }
+
+                    </td>
+                    <td>@(application.EthicsApplicationLogs?.OrderByDescending(log => log.ChangeDate).FirstOrDefault()?.Status ?? "No Logs")</td>
+                    <td>@application.EthicsApplication.SubmissionDate.ToShortDateString()</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        // Function to search through all application tables
+        function searchApplications() {
+            // Get the search query and convert to lowercase for case-insensitive search
+            const searchQuery = document.getElementById("searchBar").value.toLowerCase();
+
+            // Get all table rows in the All Applications table
+            const rows = document.querySelectorAll('.table tbody tr');
+
+            rows.forEach(row => {
+                // Get the urecNo and title cells
+                const urecNoCell = row.querySelector('td:nth-child(1)');
+                const titleCell = row.querySelector('td:nth-child(2)');
+
+                // Get the text content, handling null values
+                const urecNo = urecNoCell ? urecNoCell.textContent.trim().toLowerCase() : '';
+                const title = titleCell ? titleCell.textContent.trim().toLowerCase() : '';
+
+                // Show/hide row based on whether either field matches the search query
+                if (urecNo.includes(searchQuery) || title.includes(searchQuery)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+}

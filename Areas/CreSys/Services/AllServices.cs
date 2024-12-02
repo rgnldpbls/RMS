@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using iText.Kernel.Pdf;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -6,6 +7,7 @@ using ResearchManagementSystem.Areas.CreSys.Data;
 using ResearchManagementSystem.Areas.CreSys.Interfaces;
 using ResearchManagementSystem.Areas.CreSys.Models;
 using ResearchManagementSystem.Areas.CreSys.ViewModels;
+using ResearchManagementSystem.Data;
 using ResearchManagementSystem.Models;
 
 namespace ResearchManagementSystem.Areas.CreSys.Services
@@ -13,10 +15,12 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
     public class AllServices : IAllServices
     {
         private readonly CreDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AllServices(CreDbContext context)
+        public AllServices(CreDbContext context, ApplicationDbContext appdbcontext, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<bool> SubmitTerminalReportAsync(string urecNo, IFormFile terminalReportFile, DateTime researchStartDate, DateTime researchEndDate)
@@ -103,22 +107,29 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
             return await _context.CRE_EthicsClearance
             .FirstOrDefaultAsync(clearance => clearance.UrecNo == urecNo);
         }
-        public List<ResearchReportModel> GetFilteredResearchData(ReportGenerationViewModel model)
+        public async Task<List<ResearchReportModel>> GetFilteredResearchData(ReportGenerationViewModel model)
         {
             var query = _context.CRE_EthicsApplication
-                                 .Include(r => r.NonFundedResearchInfo)
-                                     .ThenInclude(nf => nf.CoProponents)
-                                 .Include(r => r.EthicsApplicationLogs)
-                                 .Include(r => r.EthicsClearance)
-                                 .Include(r => r.InitialReview)
-                                 .AsQueryable();
+                          .Include(r => r.NonFundedResearchInfo)
+                              .ThenInclude(nf => nf.CoProponents)
+                          .Include(r => r.EthicsApplicationLogs)
+                          .Include(r => r.EthicsClearance)
+                          .Include(r => r.InitialReview)
+                          .AsQueryable();
 
             // Filter by Campus (if applicable)
             if (!string.IsNullOrEmpty(model.SelectedCampus))
             {
-                query = query.Where(r => r.NonFundedResearchInfo.Campus == model.SelectedCampus);
+                if (model.SelectedCampus == "Whole University")
+                {
+                    query = query.Where(r => r.NonFundedResearchInfo.University.Contains("Polytechnic University of the Philippines"));
+                }
+                else
+                {
+                    query = query.Where(r => r.NonFundedResearchInfo.Campus == model.SelectedCampus);
+                }
             }
-            // If no campus selected, filter by College (if applicable)
+            // If no campus is selected, filter by College (if applicable)
             else if (!string.IsNullOrEmpty(model.SelectedCollege) && model.SelectedCollege != "All Colleges")
             {
                 query = query.Where(r => r.NonFundedResearchInfo.College == model.SelectedCollege);
@@ -140,11 +151,48 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
             {
                 query = query.Where(r => r.SubmissionDate <= model.EndDate.Value && r.EthicsClearance != null);
             }
-
             // Validate the date range: ensure StartDate is not after EndDate
             if (model.StartDate.HasValue && model.EndDate.HasValue && model.StartDate > model.EndDate)
             {
                 throw new ArgumentException("Start date cannot be after end date.");
+            }
+
+            if (!string.IsNullOrEmpty(model.ReaserchType) && model.ReaserchType != "All Researcher")
+            {
+                if (model.ReaserchType == "External Researcher")
+                {
+                    // Filter out research from Polytechnic University of the Philippines
+                    query = query.Where(r => r.NonFundedResearchInfo.University != "Polytechnic University of the Philippines");
+                }
+                else if (model.ReaserchType == "Internal Researcher")
+                {
+                 
+                    if (!string.IsNullOrEmpty(model.InternalResearcherType) && model.InternalResearcherType != "All Internal Researcher")
+                    {
+                        var userIds = new List<string>();
+
+                        if (model.InternalResearcherType == "Student")
+                        {
+                            var studentUsers = await _userManager.GetUsersInRoleAsync("Student");
+                            userIds = studentUsers.Select(u => u.Id).ToList();
+                        }
+                        else if (model.InternalResearcherType == "Faculty")
+                        {
+                            var facultyUsers = await _userManager.GetUsersInRoleAsync("Faculty");
+                            userIds = facultyUsers.Select(u => u.Id).ToList();
+                        }
+
+
+                        // Filter research applications by UserId
+                        query = query.Where(r => r.UserId != null && userIds.Contains(r.UserId));
+
+                    }
+                }
+            }
+            else
+            {
+                // If "All Researcher" is selected, no filtering by University or UserId
+                // No changes to the query for this case
             }
 
             // Map the filtered data to the report model
@@ -153,30 +201,32 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                 UrecNo = r.UrecNo,
                 TitleOfResearch = r.NonFundedResearchInfo.Title,
                 ProponentsAuthors = string.IsNullOrEmpty(r.NonFundedResearchInfo.Name)
-                    ? string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
-                    : r.NonFundedResearchInfo.Name + (r.NonFundedResearchInfo.CoProponents.Any()
-                        ? ", " + string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
-                        : ""),
+            ? string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
+            : r.NonFundedResearchInfo.Name + (r.NonFundedResearchInfo.CoProponents.Any()
+                ? ", " + string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
+                : ""),
                 DateReceived = r.EthicsApplicationLogs
-                            .Where(log => log.Status == "Pending for Evaluation")
-                            .OrderBy(log => log.ChangeDate)
-                            .Select(log => log.ChangeDate)
-                            .FirstOrDefault(),
+                    .Where(log => log.Status == "Pending for Evaluation")
+                    .OrderBy(log => log.ChangeDate)
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault(),
                 DateReviewedForCompleteness = r.InitialReview != null && r.InitialReview.Status == "Approved"
-                            ? r.InitialReview.DateReviewed
-                            : null,
+                    ? r.InitialReview.DateReviewed
+                    : null,
                 DateReceivedFromEvaluation = r.EthicsApplicationLogs
-                    .Where(log => log.Status == "Evaluated")
-                    .Select(log => log.ChangeDate).FirstOrDefault(),
-                DateNoticeToProponents = r.EthicsApplicationLogs
-                    .Where(log => log.Status == "Evaluated")
-                    .Select(log => log.ChangeDate).FirstOrDefault(),
+                .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
+                .Select(log => log.ChangeDate)
+                .FirstOrDefault(),
+                            DateNoticeToProponents = r.EthicsApplicationLogs
+                .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
+                .Select(log => log.ChangeDate)
+                .FirstOrDefault(),
                 DateApprovedByUREB = r.EthicsApplicationLogs
-                    .Where(log => log.Status == "Clearance Issued")
-                    .Select(log => log.ChangeDate).FirstOrDefault(),
+            .Where(log => log.Status == "Clearance Issued")
+            .Select(log => log.ChangeDate).FirstOrDefault(),
                 DateIssuedCertificate = r.EthicsApplicationLogs
-                    .Where(ec => ec.Status == "Clearance Issued")
-                    .Select(ec => ec.ChangeDate).FirstOrDefault()
+            .Where(ec => ec.Status == "Clearance Issued")
+            .Select(ec => ec.ChangeDate).FirstOrDefault()
             }).ToList();
 
             return researchData;
@@ -337,25 +387,32 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
             return ethicsApplications.Where(a =>
                 a.InitialReview != null &&
                 (
-                    // Expedited review type with at least one "Evaluated" status
+                    // Expedited review type with at least one "Evaluated" status but exclude if exactly 2 are "Evaluated"
                     (a.InitialReview.ReviewType == "Expedited" &&
-                     a.EthicsEvaluation.Any(e => e.EvaluationStatus == "Evaluated")) ||
+                     a.EthicsEvaluation.Count(e => e.EvaluationStatus == "Evaluated") < 2) ||
 
                     // Existing condition for Expedited review with specific counts and recommendations pending
                     (a.InitialReview.ReviewType == "Expedited" &&
                      (a.EthicsEvaluation.Count == 2 || a.EthicsEvaluation.Count == 3) &&
                      a.EthicsEvaluation.All(e => e.ProtocolRecommendation == "Pending" && e.ConsentRecommendation == "Pending")) ||
 
-                    // Existing condition for Full Review with pending recommendations
+                    // Full Review condition
                     (a.InitialReview.ReviewType == "Full Review" &&
-                     a.EthicsEvaluation.Count == 3 &&
-                     a.EthicsEvaluation.All(e => e.ProtocolRecommendation == "Pending" && e.ConsentRecommendation == "Pending")) ||
+                     (
+                         // Include if fewer than 3 evaluations exist
+                         a.EthicsEvaluation.Count < 3 ||
 
-                    // Condition to include evaluations with end date null or status "Assigned"
+                         // Include if not all 3 evaluations are "Evaluated"
+                         !a.EthicsEvaluation.All(e => e.EvaluationStatus == "Evaluated")
+                     )) ||
+
+                    // Condition to include evaluations with null EndDate or status "Assigned"
                     a.EthicsEvaluation.Any(e => e.EndDate == null || e.EvaluationStatus == "Assigned")
                 )
             );
         }
+
+
         public async Task<Dictionary<string, List<EthicsEvaluator>>> GetEvaluatorNamesAsync(IEnumerable<EthicsApplication> ethicsApplications)
         {
             var evaluatorNames = new Dictionary<string, List<EthicsEvaluator>>();
@@ -398,8 +455,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                     (a.InitialReview.ReviewType == "Expedited" && a.EthicsEvaluation.Count < 2) ||
                     (a.InitialReview.ReviewType == "Full Review" && a.EthicsEvaluation.Count < 3) ||
 
-                    // If only one evaluation exists and its status is "Evaluated," consider the application as unassigned
-                    (a.EthicsEvaluation.Count(e => e.EvaluationStatus == "Evaluated") != 1) ||
+                   // If only one evaluation exists and its status is "Evaluated," consider the application as unassigned
+                   (a.EthicsEvaluation.Count(e => e.EvaluationStatus == "Evaluated") < 1) ||
                     (
                         // If review type is "Expedited" or "Full Review" but no "Evaluated" entries, apply the other filters
                         (
@@ -1009,6 +1066,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                 return false;
             }
         }
+        
+
 
     }
 }

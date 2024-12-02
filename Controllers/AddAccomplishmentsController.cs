@@ -19,6 +19,8 @@ using DocumentFormat.OpenXml.Drawing.Diagrams;
 using static ResearchManagementSystem.Models.AddAccomplishment.RMCCAccomplishmentViewModel;
 using RemcSys.Data;
 using rscSys_final.Data;
+using DocumentFormat.OpenXml.Bibliography;
+using Microsoft.Data.SqlClient;
 
 namespace ResearchManagementSystem.Controllers
 {
@@ -41,117 +43,117 @@ namespace ResearchManagementSystem.Controllers
             _rscdbContext = rscdbContext;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> FetchAndAddAccomplishments()
-        {
-            var productionData = await _context.Production.Select(prod => prod.ResearchTitle).ToListAsync();
+        //[HttpGet]
+        //public async Task<IActionResult> FetchAndAddAccomplishments()
+        //{
+        //    var productionData = await _context.Production.Select(prod => prod.ResearchTitle).ToListAsync();
 
-            var remcData = await _remcdbContext.REMC_FundedResearches.Where(e => e.status == "Completed" && !productionData.Contains(e.research_Title)).ToListAsync();
+        //    var remcData = await _remcdbContext.REMC_FundedResearches.Where(e => e.status == "Completed" && !productionData.Contains(e.research_Title)).ToListAsync();
 
-            var rscData = await _rscdbContext.RSC_Requests.Where(e => e.Status == "Endorsed by RMO" && !productionData.Contains(e.ResearchTitle)).ToListAsync();
-
-
-            var viewModel = remcData.Select(r => new AccomplishmentViewModel
-            {
-                ResearchTitle = r.research_Title,
-                LeadResearcherName = r.team_Leader,
-                LeadResearcherEmail = r.teamLead_Email,
-                College = r.college,
-                BranchCampus = r.branch,
-                DateStarted = r.start_Date,
-                DateCompleted = r.end_Date
-            }).ToList();
-
-            var viewModel2 = rscData.Select(r => new AccomplishmentViewModel
-            {
-                ResearchTitle = r.ResearchTitle,
-                LeadResearcherName = r.Name,
-                LeadResearcherEmail = r.Email,
-                College = r.College,
-                BranchCampus = r.Branch,
-                DateStarted = r.CreatedDate,
-                DateCompleted = r.SubmittedDate
-            }).ToList();
-
-            var model = new Tuple<List<AccomplishmentViewModel>, List<AccomplishmentViewModel>>(viewModel, viewModel2);
-
-            return View(model);
+        //    var rscData = await _rscdbContext.RSC_Requests.Where(e => e.Status == "Endorsed by RMO" && !productionData.Contains(e.ResearchTitle)).ToListAsync();
 
 
-        }
+        //    var viewModel = remcData.Select(r => new AccomplishmentViewModel
+        //    {
+        //        ResearchTitle = r.research_Title,
+        //        LeadResearcherName = r.team_Leader,
+        //        LeadResearcherEmail = r.teamLead_Email,
+        //        College = r.college,
+        //        BranchCampus = r.branch,
+        //        DateStarted = r.start_Date,
+        //        DateCompleted = r.end_Date
+        //    }).ToList();
+
+        //    var viewModel2 = rscData.Select(r => new AccomplishmentViewModel
+        //    {
+        //        ResearchTitle = r.ResearchTitle,
+        //        LeadResearcherName = r.Name,
+        //        LeadResearcherEmail = r.Email,
+        //        College = r.College,
+        //        BranchCampus = r.Branch,
+        //        DateStarted = r.CreatedDate,
+        //        DateCompleted = r.SubmittedDate
+        //    }).ToList();
+
+        //    var model = new Tuple<List<AccomplishmentViewModel>, List<AccomplishmentViewModel>>(viewModel, viewModel2);
+
+        //    return View(model);
 
 
-        [HttpPost]
-        public async Task<IActionResult> Approve(string researchTitle)
-        {
-            var remcData = _remcdbContext.REMC_FundedResearches.Any(e => e.research_Title == researchTitle);
-            if(remcData == true)
-            {
-                var research = await _remcdbContext.REMC_FundedResearches
-                .FirstOrDefaultAsync(r => r.research_Title == researchTitle);
-
-                if (research == null)
-                {
-                    return NotFound("No record found");
-                }
-
-                var accomplishment = new AddAccomplishment
-                {
-                    ResearchTitle = research.research_Title,
-                    LeadResearcherId = research.UserId, // Map team_Leader
-                    College = research.college,
-                    BranchCampus = research.branch,
-                    DateStarted = research.start_Date,
-                    DateCompleted = research.end_Date,
-                    Status = "Approved",
-                    CreatedById = _userManager.GetUserId(User), // Get current user ID
-                    CreatedOn = DateTime.Now,
-                    Year = DateTime.Now.Year
-                };
-
-                _context.Add(accomplishment);
-                await _context.SaveChangesAsync();
-            }
-
-            var rscData = _rscdbContext.RSC_Requests.Any(e => e.ResearchTitle == researchTitle);
-            if(rscData == true)
-            {
-                var research2 = await _rscdbContext.RSC_Requests
-                    .FirstOrDefaultAsync(e => e.ResearchTitle == researchTitle);
-
-                if (research2 == null)
-                {
-                    return NotFound("No record found");
-                }
-
-                var accomplishment = new AddAccomplishment
-                {
-                    ResearchTitle = research2.ResearchTitle,
-                    LeadResearcherId = research2.UserId, // Map team_Leader
-                    College = research2.College,
-                    BranchCampus = research2.Branch,
-                    DateStarted = research2.CreatedDate,
-                    DateCompleted = research2.SubmittedDate,
-                    Status = "Approved",
-                    CreatedById = _userManager.GetUserId(User), // Get current user ID
-                    CreatedOn = DateTime.Now,
-                    Year = DateTime.Now.Year
-                };
-
-                _context.Add(accomplishment);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToAction("IndexRmcc");
-        }
+        //}
 
 
-        [HttpPost]
-        public async Task<IActionResult> Reject(string researchTitle)
-        {
-            // Log or handle rejection as needed
-            return RedirectToAction("FetchAndAddAccomplishments");
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Approve(string researchTitle)
+        //{
+        //    var remcData = _remcdbContext.REMC_FundedResearches.Any(e => e.research_Title == researchTitle);
+        //    if(remcData == true)
+        //    {
+        //        var research = await _remcdbContext.REMC_FundedResearches
+        //        .FirstOrDefaultAsync(r => r.research_Title == researchTitle);
+
+        //        if (research == null)
+        //        {
+        //            return NotFound("No record found");
+        //        }
+
+        //        var accomplishment = new AddAccomplishment
+        //        {
+        //            ResearchTitle = research.research_Title,
+        //            LeadResearcherId = research.UserId, // Map team_Leader
+        //            College = research.college,
+        //            BranchCampus = research.branch,
+        //            DateStarted = research.start_Date,
+        //            DateCompleted = research.end_Date,
+        //            Status = "Approved",
+        //            CreatedById = _userManager.GetUserId(User), // Get current user ID
+        //            CreatedOn = DateTime.Now,
+        //            Year = DateTime.Now.Year
+        //        };
+
+        //        _context.Add(accomplishment);
+        //        await _context.SaveChangesAsync();
+        //    }
+
+        //    var rscData = _rscdbContext.RSC_Requests.Any(e => e.ResearchTitle == researchTitle);
+        //    if(rscData == true)
+        //    {
+        //        var research2 = await _rscdbContext.RSC_Requests
+        //            .FirstOrDefaultAsync(e => e.ResearchTitle == researchTitle);
+
+        //        if (research2 == null)
+        //        {
+        //            return NotFound("No record found");
+        //        }
+
+        //        var accomplishment = new AddAccomplishment
+        //        {
+        //            ResearchTitle = research2.ResearchTitle,
+        //            LeadResearcherId = research2.UserId, // Map team_Leader
+        //            College = research2.College,
+        //            BranchCampus = research2.Branch,
+        //            DateStarted = research2.CreatedDate,
+        //            DateCompleted = research2.SubmittedDate,
+        //            Status = "Approved",
+        //            CreatedById = _userManager.GetUserId(User), // Get current user ID
+        //            CreatedOn = DateTime.Now,
+        //            Year = DateTime.Now.Year
+        //        };
+
+        //        _context.Add(accomplishment);
+        //        await _context.SaveChangesAsync();
+        //    }
+
+        //    return RedirectToAction("IndexRmcc");
+        //}
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Reject(string researchTitle)
+        //{
+        //    // Log or handle rejection as needed
+        //    return RedirectToAction("FetchAndAddAccomplishments");
+        //}
 
 
 
@@ -237,7 +239,7 @@ namespace ResearchManagementSystem.Controllers
                 .Include(a => a.CreatedBy);
 
             var rmccResult = await query
-                .Where(a => a.Status == "Approved" || a.CreatedById == currentUser.Id)// Only show accomplishments created by the RMCC user
+                .Where(a => a.CreatedById == currentUser.Id)// Only show accomplishments created by the RMCC user
                 .Select(a => new RMCCAccomplishmentViewModel
                 {
                     ProductionId = a.ProductionId.ToString(),
@@ -529,35 +531,7 @@ namespace ResearchManagementSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Define college options
-            var collegeOptions = new List<string>
-    {
-        "College of Engineering",
-        "College of Arts and Sciences",
-        "College of Business Administration",
-        "College of Education"
-    };
-            ViewBag.CollegeOptions = new SelectList(collegeOptions);
 
-            // Define department options
-            var departmentOptions = new List<string>
-    {
-        "Information Technology",
-        "Arts and Sciences",
-        "Business Administration",
-        "Education"
-    };
-            ViewBag.DepartmentOptions = new SelectList(departmentOptions);
-
-            // Define branchcampus options
-            var BranchCampusOptions = new List<string>
-    {
-        "PUPManila,Sta-Mesa",
-        "PUP-Taguig",
-        "PUP-QuezonCity",
-
-    };
-            ViewBag.BranchCampusOptions = new SelectList(BranchCampusOptions);
 
             // Get all faculty users
             var facultyUsers = await _userManager.GetUsersInRoleAsync("Faculty");
@@ -651,36 +625,6 @@ namespace ResearchManagementSystem.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
-            // Repopulate all dropdown lists
-            var collegeOptions = new List<string>
-    {
-        "College of Engineering",
-        "College of Arts and Sciences",
-        "College of Business Administration",
-        "College of Education"
-    };
-            ViewBag.CollegeOptions = new SelectList(collegeOptions);
-
-            var departmentOptions = new List<string>
-    {
-        "Information Technology",
-        "Arts and Sciences",
-        "Business Administration",
-        "Education"
-    };
-            ViewBag.DepartmentOptions = new SelectList(departmentOptions);
-
-
-            // Define branchcampus options
-            var BranchCampusOptions = new List<string>
-    {
-        "PUPManila,Sta-Mesa",
-        "PUP-Taguig",
-        "PUP-QuezonCity",
-
-    };
-            ViewBag.BranchCampusOptions = new SelectList(BranchCampusOptions);
 
 
             // Repopulate faculty lists
@@ -699,6 +643,10 @@ namespace ResearchManagementSystem.Controllers
 
             return View(addAccomplishment);
         }
+
+
+
+
 
         // GET: AddAccomplishments/Edit/5
         [HttpGet("Edit")]
@@ -769,8 +717,8 @@ namespace ResearchManagementSystem.Controllers
         }
 
 
-            // GET: AddAccomplishments/Delete/5
-            public async Task<IActionResult> Delete(string id)
+        // GET: AddAccomplishments/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -1413,7 +1361,7 @@ namespace ResearchManagementSystem.Controllers
         }
 
 
-        //[Authorize(Roles = "RMCC")]
+        //[Authorize(Roles = "RMCC , Director")]
         //public async Task<IActionResult> ExportToExcel(DateTime? startDate = null, DateTime? endDate = null)
         //{
         //    try
@@ -1585,283 +1533,663 @@ namespace ResearchManagementSystem.Controllers
         //    sheet.Cells[sheet.Dimension.Address].AutoFitColumns();
         //}
 
+        //[Authorize(Roles = "RMCC, Director")]
+        //public async Task<IActionResult> ExporttoExcel(DateTime? startDate = null, DateTime? endDate = null)
+        //{
+        //    try
+        //    {
+        //        // Set the license context for EPPlus
+        //        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+        //        // Create a new Excel package
+        //        using var excelPackage = new ExcelPackage();
+
+        //        // Add a worksheet for unified data
+        //        var unifiedSheet = excelPackage.Workbook.Worksheets.Add("Production, Presentations, Publications, Patents, and Utilizations");
+
+        //        // Set header titles
+        //        unifiedSheet.Cells[1, 1].Value = "Production ID";
+        //        unifiedSheet.Cells[1, 2].Value = "Research Title";
+        //        unifiedSheet.Cells[1, 3].Value = "Year";
+        //        unifiedSheet.Cells[1, 4].Value = "Lead Researcher";
+        //        unifiedSheet.Cells[1, 5].Value = "Co-Lead Researcher";
+        //        unifiedSheet.Cells[1, 6].Value = "Members";
+        //        unifiedSheet.Cells[1, 7].Value = "StartDate";
+        //        unifiedSheet.Cells[1, 8].Value = "CompletedDate";
+        //        unifiedSheet.Cells[1, 9].Value = "Date of Presentation";
+        //        unifiedSheet.Cells[1, 10].Value = "Venue";
+        //        unifiedSheet.Cells[1, 11].Value = "Organizer";
+        //        unifiedSheet.Cells[1, 12].Value = "Article Title";
+        //        unifiedSheet.Cells[1, 13].Value = "Publication Date";
+        //        unifiedSheet.Cells[1, 14].Value = "Journal Title";
+        //        unifiedSheet.Cells[1, 15].Value = "Document Type";
+        //        unifiedSheet.Cells[1, 16].Value = "Volume/Issue";
+        //        unifiedSheet.Cells[1, 17].Value = "ISSN/ISBN";
+        //        unifiedSheet.Cells[1, 18].Value = "DOI";
+        //        unifiedSheet.Cells[1, 19].Value = "Index Journal";
+        //        unifiedSheet.Cells[1, 20].Value = "Supporting Document";
+        //        unifiedSheet.Cells[1, 21].Value = "Link";
+        //        unifiedSheet.Cells[1, 22].Value = "Patent ID";
+        //        unifiedSheet.Cells[1, 23].Value = "Patent Number";
+        //        unifiedSheet.Cells[1, 24].Value = "Application Form Filename";
+        //        unifiedSheet.Cells[1, 25].Value = "Utilization ID";
+        //        unifiedSheet.Cells[1, 26].Value = "Submitted On";
+        //        unifiedSheet.Cells[1, 27].Value = "Certificate Filename";
+
+        //        // Apply header colors
+        //        ApplyHeaderColors(unifiedSheet);
+
+        //        // Initialize the row counter
+        //        var row = 2;
+
+        //        // Fetch productions and related data (optimized)
+        //        var productions = await _context.Production
+        //            .Where(p => (!startDate.HasValue || p.DateStarted >= startDate.Value) &&
+        //                        (!endDate.HasValue || p.DateCompleted <= endDate.Value))
+        //            .Include(p => p.LeadResearcher)
+        //            .Include(p => p.CoLeadResearcher)
+        //            .Include(p => p.Memberone)
+        //            .Include(p => p.Membertwo)
+        //            .Include(p => p.Memberthree)
+        //            .ToListAsync();
+
+        //        foreach (var production in productions)
+        //        {
+        //            // Fetch related items in bulk (optimized)
+        //            var presentations = await _context.Presentation.Where(pr => pr.ProductionId == production.ProductionId).ToListAsync();
+        //            var publications = await _context.Publication.Where(pub => pub.ProductionId == production.ProductionId).ToListAsync();
+        //            var patents = await _context.Patent.Where(p => p.ProductionId == production.ProductionId).ToListAsync();
+        //            var utilizations = await _context.Utilization.Where(u => u.ProductionId == production.ProductionId).ToListAsync();
+
+        //            // Determine the max number of related rows (presentation, publication, patent, utilization)
+        //            var maxRows = Math.Max(presentations.Count, Math.Max(publications.Count, Math.Max(patents.Count, utilizations.Count)));
+
+        //            for (int i = 0; i < maxRows; i++)
+        //            {
+        //                // Write Production data
+        //                WriteProductionData(unifiedSheet, row, production);
+
+        //                // Write Presentation data
+        //                WritePresentationData(unifiedSheet, row, presentations, i);
+
+        //                // Write Publication data
+        //                WritePublicationData(unifiedSheet, row, publications, i);
+
+        //                // Write Patent data
+        //                WritePatentData(unifiedSheet, row, patents, i);
+
+        //                // Write Utilization data
+        //                WriteUtilizationData(unifiedSheet, row, utilizations, i);
+
+        //                row++;
+        //            }
+        //        }
+
+        //        // Auto-fit columns for better readability
+        //        unifiedSheet.Cells[unifiedSheet.Dimension.Address].AutoFitColumns();
+
+        //        // Return the Excel file as a downloadable file
+        //        var excelData = excelPackage.GetAsByteArray();
+        //        return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "AccomplishmentReport.xlsx");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception
+        //        ModelState.AddModelError("", "An error occurred while generating the Excel file: " + ex.Message);
+        //        return View("Error"); // Handle the error as needed
+        //    }
+        //}
+
+        //private void WriteProductionData(ExcelWorksheet unifiedSheet, int row, object production)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //private void ApplyHeaderColors(ExcelWorksheet sheet)
+        //{
+        //    var productionHeaderRange = sheet.Cells[1, 1, 1, 12];
+        //    productionHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //    productionHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+
+        //    var presentationHeaderRange = sheet.Cells[1, 9, 1, 11];
+        //    presentationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //    presentationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Orange);
+
+        //    var publicationHeaderRange = sheet.Cells[1, 12, 1, 21];
+        //    publicationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //    publicationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+
+        //    var patentHeaderRange = sheet.Cells[1, 22, 1, 24];
+        //    patentHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //    patentHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
+
+        //    var utilizationHeaderRange = sheet.Cells[1, 25, 1, 27];
+        //    utilizationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //    utilizationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Purple);
+        //}
+
+        //private void WriteProductionData(ExcelWorksheet sheet, int row, AddAccomplishment production)
+        //{
+        //    sheet.Cells[row, 1].Value = production.ProductionId;
+        //    sheet.Cells[row, 2].Value = production.ResearchTitle;
+        //    sheet.Cells[row, 3].Value = production.Year;
+        //    sheet.Cells[row, 4].Value = $"{production.LeadResearcher?.FirstName} {production.LeadResearcher?.LastName}";
+        //    sheet.Cells[row, 5].Value = $"{production.CoLeadResearcher?.FirstName} {production.CoLeadResearcher?.LastName}";
+        //    sheet.Cells[row, 6].Value = $"{production.Memberone?.FirstName} {production.Memberone?.LastName}, {production.Membertwo?.FirstName} {production.Membertwo?.LastName}, {production.Memberthree?.FirstName} {production.Memberthree?.LastName}";
+        //    sheet.Cells[row, 7].Value = production.DateStarted.ToString("MM/dd/yyyy");
+        //    sheet.Cells[row, 8].Value = production.DateCompleted?.ToString("MM/dd/yyyy");
+        //}
+
+        //private void WritePresentationData(ExcelWorksheet sheet, int row, List<AddPresentation> presentations, int index)
+        //{
+        //    if (index < presentations.Count)
+        //    {
+        //        var presentation = presentations[index];
+        //        sheet.Cells[row, 9].Value = presentation.DateofPresentation?.ToString("MM/dd/yyyy");
+        //        sheet.Cells[row, 10].Value = presentation.Venue;
+        //        sheet.Cells[row, 11].Value = $"{presentation.OrganizerOne}, {presentation.OrganizerTwo}";
+        //    }
+        //    else
+        //    {
+        //        sheet.Cells[row, 9].Value = sheet.Cells[row, 10].Value = sheet.Cells[row, 11].Value = string.Empty;
+        //    }
+        //}
+
+        //private void WritePublicationData(ExcelWorksheet sheet, int row, List<AddPublication> publications, int index)
+        //{
+        //    if (index < publications.Count)
+        //    {
+        //        var publication = publications[index];
+        //        sheet.Cells[row, 12].Value = publication.ArticleTitle;
+        //        sheet.Cells[row, 13].Value = publication.PublicationDate?.ToString("MM/dd/yyyy");
+        //        sheet.Cells[row, 14].Value = publication.JournalPubTitle;
+        //        sheet.Cells[row, 15].Value = publication.DocumentType;
+        //        sheet.Cells[row, 16].Value = publication.VolnoIssueNo;
+        //        sheet.Cells[row, 17].Value = publication.IssnIsbnEssn;
+        //        sheet.Cells[row, 18].Value = publication.DOI;
+        //        sheet.Cells[row, 19].Value = publication.IndexJournal;
+        //        sheet.Cells[row, 20].Value = publication.SuppDocs;
+        //        sheet.Cells[row, 21].Value = publication.Link;
+        //    }
+        //    else
+        //    {
+        //        sheet.Cells[row, 12].Value = sheet.Cells[row, 13].Value = sheet.Cells[row, 14].Value = string.Empty;
+        //    }
+        //}
+
+        //private void WritePatentData(ExcelWorksheet sheet, int row, List<AddPatent> Patents, int index)
+        //{
+        //    if (index < Patents.Count)
+        //    {
+        //        var patent = Patents[index];
+        //        sheet.Cells[row, 22].Value = patent.patentId;
+        //        sheet.Cells[row, 23].Value = patent.PatentNo;
+        //        sheet.Cells[row, 24].Value = patent.ApplicationFormFileName;
+        //    }
+        //    else
+        //    {
+        //        sheet.Cells[row, 22].Value = sheet.Cells[row, 23].Value = sheet.Cells[row, 24].Value = string.Empty;
+        //    }
+        //}
+
+        //private void WriteUtilizationData(ExcelWorksheet sheet, int row, List<AddUtilization> utilizations, int index)
+        //{
+        //    if (index < utilizations.Count)
+        //    {
+        //        var utilization = utilizations[index];
+        //        sheet.Cells[row, 25].Value = utilization.UtilizationId;
+        //        sheet.Cells[row, 26].Value = utilization.SubmittedOn.ToString("MM/dd/yyyy");
+        //        sheet.Cells[row, 27].Value = utilization.CertificateofUtilizationFileName;
+        //    }
+        //    else
+        //    {
+        //        sheet.Cells[row, 25].Value = sheet.Cells[row, 26].Value = sheet.Cells[row, 27].Value = string.Empty;
+        //    }
+        //}
+
+
+
+
+
+
+
         [Authorize(Roles = "RMCC, Director")]
-        public async Task<IActionResult> ExporttoExcel(DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IActionResult> ExportToExcel(int? year = null, DateTime? startDate = null, DateTime? endDate = null, string? BranchCampus = null, string? College = null, string? Department = null)
         {
             try
             {
-                // Set the license context for EPPlus
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-                // Create a new Excel package
                 using var excelPackage = new ExcelPackage();
+                var sheet = excelPackage.Workbook.Worksheets.Add("Accomplishments");
 
-                // Add a worksheet for unified data
-                var unifiedSheet = excelPackage.Workbook.Worksheets.Add("Production, Presentations, Publications, Patents, and Utilizations");
+                // Starting column for the first section
+                var startColumn = 1;
 
-                // Set header titles
-                unifiedSheet.Cells[1, 1].Value = "Production ID";
-                unifiedSheet.Cells[1, 2].Value = "Research Title";
-                unifiedSheet.Cells[1, 3].Value = "Year";
-                unifiedSheet.Cells[1, 4].Value = "Lead Researcher";
-                unifiedSheet.Cells[1, 5].Value = "Co-Lead Researcher";
-                unifiedSheet.Cells[1, 6].Value = "Members";
-                unifiedSheet.Cells[1, 7].Value = "StartDate";
-                unifiedSheet.Cells[1, 8].Value = "CompletedDate";
+                // Fill productions and get the filtered ProductionId list
+                startColumn = await FillProductions(sheet, 1, startColumn, year, startDate, endDate, BranchCampus, College, Department);
 
-                unifiedSheet.Cells[1, 9].Value = "Date of Presentation";
-                unifiedSheet.Cells[1, 10].Value = "Venue";
-                unifiedSheet.Cells[1, 11].Value = "Organizer";
+                // Get the filtered ProductionId list after filling productions
+                var filteredProductionIds = await _context.Production
+                    .Where(p => (!year.HasValue || p.Year == year.Value) &&
+                                (!startDate.HasValue || p.DateStarted >= startDate.Value) &&
+                                (!endDate.HasValue || p.DateCompleted <= endDate.Value) &&
+                               (string.IsNullOrEmpty(BranchCampus) || p.BranchCampus == BranchCampus) &&
+                               (string.IsNullOrEmpty(College) || p.College == College) &&
+                               (string.IsNullOrEmpty(Department) || p.Department == Department))
 
-                // Publications headers
-                unifiedSheet.Cells[1, 12].Value = "Article Title";
-                unifiedSheet.Cells[1, 13].Value = "Publication Date";
-                unifiedSheet.Cells[1, 14].Value = "Journal Title";
-                unifiedSheet.Cells[1, 15].Value = "Document Type";
-                unifiedSheet.Cells[1, 16].Value = "Volume/Issue";
-                unifiedSheet.Cells[1, 17].Value = "ISSN/ISBN";
-                unifiedSheet.Cells[1, 18].Value = "DOI";
-                unifiedSheet.Cells[1, 19].Value = "Index Journal";
-                unifiedSheet.Cells[1, 20].Value = "Supporting Document";
-                unifiedSheet.Cells[1, 21].Value = "Link";
-
-                // Patents headers
-                unifiedSheet.Cells[1, 22].Value = "Patent ID";
-                unifiedSheet.Cells[1, 23].Value = "Patent Number";
-                unifiedSheet.Cells[1, 24].Value = "Application Form Filename";
-
-                // Utilizations headers
-                unifiedSheet.Cells[1, 25].Value = "Utilization ID";
-                unifiedSheet.Cells[1, 26].Value = "Submitted On";
-                unifiedSheet.Cells[1, 27].Value = "Certificate Filename";
-
-
-                // Apply yellow color to Production header
-                var productionHeaderRange = unifiedSheet.Cells[1, 1, 1, 12]; // Columns 1 to 12
-                productionHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                productionHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
-
-                // Apply orange color to Presentation header
-                var presentationHeaderRange = unifiedSheet.Cells[2, 1, 2, 12]; // Columns 1 to 12 in the next row
-                presentationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                presentationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Orange);
-
-
-                var publicationHeaderRange = unifiedSheet.Cells[1, 12, 1, 22]; // Publication columns
-                publicationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                publicationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
-
-                // Patent header range
-                var patentHeaderRange = unifiedSheet.Cells[1, 23, 1, 25]; // Patent columns
-                patentHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                patentHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Green);
-
-                // Utilization header range
-                var utilizationHeaderRange = unifiedSheet.Cells[1, 26, 1, 28]; // Utilization columns
-                utilizationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                utilizationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Purple);
-
-
-
-                var row = 2;
-
-                // Fetch Productions and related data
-                var productions = await _context.Production
-                    .Include(p => p.LeadResearcher)
-                    .Include(p => p.CoLeadResearcher)
-                    .Include(p => p.Memberone)
-                    .Include(p => p.Membertwo)
-                    .Include(p => p.Memberthree)
-                    .Include(p => p.CreatedBy)
-                    .Where(p => !startDate.HasValue || p.DateStarted >= startDate.Value)
-                    .Where(p => !endDate.HasValue || p.DateCompleted <= endDate.Value)
+                    .Select(p => p.ProductionId)
                     .ToListAsync();
 
-                foreach (var production in productions)
-                {
-                    // Fetch related items
-                    var presentations = await _context.Presentation
-                        .Where(pr => pr.ProductionId == production.ProductionId)
-                        .ToListAsync();
+                // Pass the filtered ProductionIds to FillPresentations
+                startColumn = await FillPresentations(sheet, 1, startColumn, filteredProductionIds);
 
-                    var publications = await _context.Publication
-                        .Where(pub => pub.ProductionId == production.ProductionId)
-                        .ToListAsync();
+                startColumn = await FillPublications(sheet, 1, startColumn, filteredProductionIds);
 
-                    var patents = await _context.Patent
-                        .Where(p => p.ProductionId == production.ProductionId)
-                        .ToListAsync();
+                startColumn = await FillPatents(sheet, 1, startColumn, filteredProductionIds);
 
-                    var utilizations = await _context.Utilization
-                        .Where(u => u.ProductionId == production.ProductionId)
-                        .ToListAsync();
+                startColumn = await FillUtilizations(sheet, 1, startColumn, filteredProductionIds);
 
-                    // Determine max rows for related items
-                    var maxRows = Math.Max(presentations.Count, Math.Max(publications.Count, Math.Max(patents.Count, utilizations.Count)));
 
-                    for (int i = 0; i < maxRows; i++)
-                    {
-                        // Write Production data
-                        unifiedSheet.Cells[row, 1].Value = production.ProductionId;
-                        unifiedSheet.Cells[row, 2].Value = production.ResearchTitle;
-                        unifiedSheet.Cells[row, 3].Value = production.Year;
-                        unifiedSheet.Cells[row, 4].Value = $"{production.LeadResearcher.FirstName} {production.LeadResearcher.LastName}";
-                        unifiedSheet.Cells[row, 5].Value = $"{production.CoLeadResearcher.FirstName} {production.CoLeadResearcher.LastName}";
-                        unifiedSheet.Cells[row, 6].Value = $"{production.Memberone.FirstName} {production.Memberone.LastName}, {production.Membertwo.FirstName} {production.Membertwo.LastName}, {production.Memberthree.FirstName} {production.Memberthree.LastName}";
 
-                        // Handle nullable DateTime
-                        unifiedSheet.Cells[row, 7].Value = production.DateStarted.ToString("MM/dd/yyyy") ?? ""; // Use null-coalescing operator
-                        unifiedSheet.Cells[row, 8].Value = production.DateCompleted?.ToString("MM/dd/yyyy") ?? ""; // Use null-coalescing operator
-
-                        // Other data writing logic...
-
-                        // Presentation data
-                        if (i < presentations.Count)
-                        {
-                            var presentation = presentations[i];
-                            unifiedSheet.Cells[row, 9].Value = presentation.DateofPresentation?.ToString("MM/dd/yyyy");
-                            unifiedSheet.Cells[row, 10].Value = presentation.Venue;
-                            unifiedSheet.Cells[row, 11].Value = $"{presentation.OrganizerOne}, {presentation.OrganizerTwo}";
-                        }
-                        else
-                        {
-                            unifiedSheet.Cells[row, 9].Value = ""; // Leave blank if no presentation
-                            unifiedSheet.Cells[row, 10].Value = "";
-                            unifiedSheet.Cells[row, 11].Value = "";
-                        }
-
-                        // Publication data
-                        if (i < publications.Count)
-                        {
-                            var publication = publications[i];
-                            unifiedSheet.Cells[row, 12].Value = publication.ArticleTitle;
-                            unifiedSheet.Cells[row, 13].Value = publication.PublicationDate?.ToString("MM/dd/yyyy");
-                            unifiedSheet.Cells[row, 14].Value = publication.JournalPubTitle;
-                            unifiedSheet.Cells[row, 15].Value = publication.DocumentType;
-                            unifiedSheet.Cells[row, 16].Value = publication.VolnoIssueNo;
-                            unifiedSheet.Cells[row, 17].Value = publication.IssnIsbnEssn;
-                            unifiedSheet.Cells[row, 18].Value = publication.DOI;
-                            unifiedSheet.Cells[row, 19].Value = publication.IndexJournal;
-                            unifiedSheet.Cells[row, 20].Value = publication.SuppDocs;
-                            unifiedSheet.Cells[row, 21].Value = publication.Link;
-                        }
-                        else
-                        {
-                            unifiedSheet.Cells[row, 12].Value = ""; // Leave blank if no publication
-                            unifiedSheet.Cells[row, 13].Value = "";
-                            unifiedSheet.Cells[row, 14].Value = "";
-                            unifiedSheet.Cells[row, 15].Value = "";
-                            unifiedSheet.Cells[row, 16].Value = "";
-                            unifiedSheet.Cells[row, 17].Value = "";
-                            unifiedSheet.Cells[row, 18].Value = "";
-                            unifiedSheet.Cells[row, 19].Value = "";
-                            unifiedSheet.Cells[row, 20].Value = "";
-                            unifiedSheet.Cells[row, 21].Value = "";
-                        }
-
-                        // Patent data
-                        if (i < patents.Count)
-                        {
-                            var patent = patents[i];
-                            unifiedSheet.Cells[row, 22].Value = patent.patentId;
-                            unifiedSheet.Cells[row, 23].Value = patent.PatentNo;
-                            unifiedSheet.Cells[row, 24].Value = patent.ApplicationFormFileName;
-                        }
-                        else
-                        {
-                            unifiedSheet.Cells[row, 22].Value = ""; // Leave blank if no patent
-                            unifiedSheet.Cells[row, 23].Value = "";
-                            unifiedSheet.Cells[row, 24].Value = "";
-                        }
-
-                        // Utilization data
-                        if (i < utilizations.Count)
-                        {
-                            var utilization = utilizations[i];
-                            unifiedSheet.Cells[row, 25].Value = utilization.UtilizationId;
-                            unifiedSheet.Cells[row, 26].Value = utilization.SubmittedOn.ToString("MM/dd/yyyy");
-                            unifiedSheet.Cells[row, 27].Value = utilization.CertificateofUtilizationFileName;
-                        }
-                        else
-                        {
-                            unifiedSheet.Cells[row, 25].Value = ""; // Leave blank if no utilization
-                            unifiedSheet.Cells[row, 26].Value = "";
-                            unifiedSheet.Cells[row, 27].Value = "";
-                        }
-
-                        row++;
-                    }
-                }
-
-                // Auto-fit columns for better readability
-                unifiedSheet.Cells[unifiedSheet.Dimension.Address].AutoFitColumns();
-
-                // Return the Excel file as a downloadable file
                 var excelData = excelPackage.GetAsByteArray();
-                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "AccomplishmentReport.xlsx");
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Accomplishments.xlsx");
             }
             catch (Exception ex)
             {
-                // Log the exception
                 ModelState.AddModelError("", "An error occurred while generating the Excel file: " + ex.Message);
-                return View("Error"); // Handle the error as needed
+                return View("Error");
             }
         }
 
 
+        private async Task<int> FillProductions(ExcelWorksheet sheet, int startRow, int startColumn, int? year, DateTime? startDate, DateTime? endDate, string? BranchCampus = null, string? College = null, string? Department = null)
+        {
+            sheet.Cells[startRow, startColumn, startRow, startColumn + 10].Merge = true;
+
+            // Set headers
+            sheet.Cells[startRow, startColumn].Value = "Productions";
+            sheet.Cells[startRow + 1, startColumn].Value = "Production ID";
+            sheet.Cells[startRow + 1, startColumn + 1].Value = "Research Title";
+            sheet.Cells[startRow + 1, startColumn + 2].Value = "Year";
+            sheet.Cells[startRow + 1, startColumn + 3].Value = "Lead Researcher";
+            sheet.Cells[startRow + 1, startColumn + 4].Value = "Co-Lead Researcher";
+            sheet.Cells[startRow + 1, startColumn + 5].Value = "Members";
+            sheet.Cells[startRow + 1, startColumn + 6].Value = "StartDate";
+            sheet.Cells[startRow + 1, startColumn + 7].Value = "CompletedDate";
+            sheet.Cells[startRow + 1, startColumn + 8].Value = "Campus/Branch";
+            sheet.Cells[startRow + 1, startColumn + 9].Value = "College";
+            sheet.Cells[startRow + 1, startColumn + 10].Value = "Department";
+
+            var row = startRow + 2;
+            var productions = await _context.Production
+                .Include(p => p.LeadResearcher)
+                .Include(p => p.CoLeadResearcher)
+                .Include(p => p.Memberone)
+                .Include(p => p.Membertwo)
+                .Include(p => p.Memberthree)
+                  .Where(p => (!year.HasValue || p.Year == year.Value) &&
+                    (!startDate.HasValue || p.DateStarted >= startDate.Value) &&
+                    (!endDate.HasValue || p.DateCompleted <= endDate.Value) &&
+                    (string.IsNullOrEmpty(BranchCampus) || p.BranchCampus == BranchCampus) &&
+                    (string.IsNullOrEmpty(College) || p.College == College) &&
+                    (string.IsNullOrEmpty(Department) || p.Department == Department))
+                  .ToListAsync();
+
+            foreach (var production in productions)
+            {
+                sheet.Cells[row, startColumn].Value = production.ProductionId;
+                sheet.Cells[row, startColumn + 1].Value = production.ResearchTitle;
+                sheet.Cells[row, startColumn + 2].Value = production.Year;
+                sheet.Cells[row, startColumn + 3].Value = $"{production.LeadResearcher?.FirstName} {production.LeadResearcher?.LastName}";
+                sheet.Cells[row, startColumn + 4].Value = $"{production.CoLeadResearcher?.FirstName} {production.CoLeadResearcher?.LastName}";
+                sheet.Cells[row, startColumn + 5].Value = $"{production.Memberone?.FirstName} {production.Memberone?.LastName}, {production.Membertwo?.FirstName} {production.Membertwo?.LastName}, {production.Memberthree?.FirstName} {production.Memberthree?.LastName}";
+                sheet.Cells[row, startColumn + 6].Value = production.DateStarted.ToString("MM/dd/yyyy");
+                sheet.Cells[row, startColumn + 7].Value = production.DateCompleted?.ToString("MM/dd/yyyy");
+                sheet.Cells[row, startColumn + 8].Value = production.BranchCampus;
+                sheet.Cells[row, startColumn + 9].Value = production.College;
+                sheet.Cells[row, startColumn + 10].Value = production.Department;
+
+                row++;
+            }
+
+            // Add color to differentiate sections
+            using (var range = sheet.Cells[startRow, startColumn, row - 1, startColumn + 10])
+            {
+                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+            }
+
+            // Make the first two rows bold and center-aligned
+            using (var range = sheet.Cells[startRow, startColumn, startRow + 1, startColumn + 10])
+            {
+                range.Style.Font.Bold = true; // Apply bold font
+                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center; // Center-align horizontally
+            }
+
+            // Add a bottom border to the second row
+            using (var range = sheet.Cells[startRow + 1, startColumn, startRow + 1, startColumn + 10])
+            {
+                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                range.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black); // Set the bottom border to black
+            }
+
+            sheet.Cells[startRow, startColumn, row - 1, startColumn + 11].AutoFitColumns();
+            return startColumn + 11; // Move to the next column block
+        }
+
+        private async Task<int> FillPresentations(ExcelWorksheet sheet, int startRow, int startColumn, List<string> filteredProductionIds)
+        {
+            sheet.Cells[startRow, startColumn, startRow, startColumn + 2].Merge = true;
+
+            // Set headers
+            sheet.Cells[startRow, startColumn].Value = "Presentations";
+            sheet.Cells[startRow + 1, startColumn].Value = "Date of Presentation";
+            sheet.Cells[startRow + 1, startColumn + 1].Value = "Venue";
+            sheet.Cells[startRow + 1, startColumn + 2].Value = "Organizer";
+
+            var row = startRow + 2;
+
+            // Fetch only presentations that are linked to the filtered production IDs
+            var presentations = await _context.Presentation
+                .Where(p => filteredProductionIds.Contains(p.AddAccomplishment.ProductionId))
+                .ToListAsync();
+
+            foreach (var presentation in presentations)
+            {
+                sheet.Cells[row, startColumn].Value = presentation.DateofPresentation?.ToString("MM/dd/yyyy");
+                sheet.Cells[row, startColumn + 1].Value = presentation.Venue;
+                sheet.Cells[row, startColumn + 2].Value = $"{presentation.OrganizerOne}, {presentation.OrganizerTwo}";
+                row++;
+            }
+
+            // Make the first two rows bold and center-aligned
+            using (var range = sheet.Cells[startRow, startColumn, startRow + 1, startColumn + 2])
+            {
+                range.Style.Font.Bold = true; // Apply bold font
+                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center; // Center-align horizontally
+            }
+
+            // Add a black bottom border to the second row
+            using (var range = sheet.Cells[startRow + 1, startColumn, startRow + 1, startColumn + 2])
+            {
+                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                range.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black); // Set the bottom border to black
+            }
+
+            // Add color to differentiate sections
+            using (var range = sheet.Cells[startRow, startColumn, row - 1, startColumn + 2])
+            {
+                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
+            }
+
+            sheet.Cells[startRow, startColumn, row - 1, startColumn + 2].AutoFitColumns();
+            return startColumn + 3; // Move to the next column block
+        }
+
+        private async Task<int> FillPublications(ExcelWorksheet sheet, int startRow, int startColumn, List<string> filteredProductionIds)
+        {
+            sheet.Cells[startRow, startColumn, startRow, startColumn + 10].Merge = true;
+
+            // Set headers
+            sheet.Cells[startRow, startColumn].Value = "Publications";
+            sheet.Cells[startRow + 1, startColumn].Value = "Publication ID";
+            sheet.Cells[startRow + 1, startColumn + 1].Value = "Article/Title";
+            sheet.Cells[startRow + 1, startColumn + 2].Value = "Date of Publication";
+            sheet.Cells[startRow + 1, startColumn + 3].Value = "Title of Journal Publication";
+            sheet.Cells[startRow + 1, startColumn + 4].Value = "Document Type";
+            sheet.Cells[startRow + 1, startColumn + 5].Value = "Volume and Issue No.";
+            sheet.Cells[startRow + 1, startColumn + 6].Value = "ISSN/ISBN/ESSN";
+            sheet.Cells[startRow + 1, startColumn + 7].Value = "DOI";
+            sheet.Cells[startRow + 1, startColumn + 8].Value = "Index Journal";
+            sheet.Cells[startRow + 1, startColumn + 9].Value = "Supporting Document";
+            sheet.Cells[startRow + 1, startColumn + 10].Value = "Link";
+
+            var row = startRow + 2;
+
+            // Fetch only publications linked to the filtered production IDs
+            var publications = await _context.Publication
+                .Where(pub => filteredProductionIds.Contains(pub.ProductionId))
+                .ToListAsync();
+
+            foreach (var publication in publications)
+            {
+                sheet.Cells[row, startColumn].Value = publication.publicationId;
+                sheet.Cells[row, startColumn + 1].Value = publication.ArticleTitle;
+                sheet.Cells[row, startColumn + 2].Value = publication.PublicationDate?.ToString("MM/dd/yyyy");
+                sheet.Cells[row, startColumn + 3].Value = publication.JournalPubTitle;
+                sheet.Cells[row, startColumn + 4].Value = publication.DocumentType;
+                sheet.Cells[row, startColumn + 5].Value = publication.VolnoIssueNo;
+                sheet.Cells[row, startColumn + 6].Value = publication.IssnIsbnEssn;
+                sheet.Cells[row, startColumn + 7].Value = publication.DOI;
+                sheet.Cells[row, startColumn + 8].Value = publication.IndexJournal;
+                sheet.Cells[row, startColumn + 9].Value = publication.SuppDocs;
+                sheet.Cells[row, startColumn + 10].Value = publication.Link;
+
+                row++;
+            }
+
+            // Add color to differentiate sections
+            using (var range = sheet.Cells[startRow, startColumn, row - 1, startColumn + 10])
+            {
+                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightPink);
+            }
+
+            // Make the first two rows bold and center-aligned
+            using (var range = sheet.Cells[startRow, startColumn, startRow + 1, startColumn + 10])
+            {
+                range.Style.Font.Bold = true; // Apply bold font
+                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center; // Center-align horizontally
+            }
+
+            // Add a bottom border to the second row
+            using (var range = sheet.Cells[startRow + 1, startColumn, startRow + 1, startColumn + 10])
+            {
+                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                range.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black); // Set the bottom border to black
+            }
+
+            sheet.Cells[startRow, startColumn, row - 1, startColumn + 10].AutoFitColumns();
+            return startColumn + 11; // Move to the next column block
+        }
+
+        private async Task<int> FillPatents(ExcelWorksheet sheet, int startRow, int startColumn, List<string> filteredProductionIds)
+        {
+            sheet.Cells[startRow, startColumn, startRow, startColumn + 2].Merge = true;
+
+            // Set headers
+            sheet.Cells[startRow, startColumn].Value = "Patents";
+            sheet.Cells[startRow + 1, startColumn].Value = "Patent ID";
+            sheet.Cells[startRow + 1, startColumn + 1].Value = "Patent Number";
+            sheet.Cells[startRow + 1, startColumn + 2].Value = "Application Form File Name";
+
+            var row = startRow + 2;
+
+            // Fetch only patents that are linked to the filtered production IDs
+            var patents = await _context.Patent
+                .Where(p => filteredProductionIds.Contains(p.ProductionId))
+                .ToListAsync();
+
+            foreach (var patent in patents)
+            {
+                sheet.Cells[row, startColumn].Value = patent.patentId;
+                sheet.Cells[row, startColumn + 1].Value = patent.PatentNo;
+                sheet.Cells[row, startColumn + 2].Value = patent.ApplicationFormFileName;
+                row++;
+            }
+
+            // Add color to differentiate sections
+            using (var range = sheet.Cells[startRow, startColumn, row - 1, startColumn + 2])
+            {
+                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+            }
+
+            // Make the first two rows bold and center-aligned
+            using (var range = sheet.Cells[startRow, startColumn, startRow + 1, startColumn + 2])
+            {
+                range.Style.Font.Bold = true; // Apply bold font
+                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center; // Center-align horizontally
+            }
+
+            // Add a black bottom border to the second row
+            using (var range = sheet.Cells[startRow + 1, startColumn, startRow + 1, startColumn + 2])
+            {
+                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                range.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black); // Set the bottom border to black
+            }
+
+            sheet.Cells[startRow, startColumn, row - 1, startColumn + 2].AutoFitColumns();
+            return startColumn + 3; // Move to the next column block
+        }
+
+        private async Task<int> FillUtilizations(ExcelWorksheet sheet, int startRow, int startColumn, List<string> filteredProductionIds)
+        {
+            sheet.Cells[startRow, startColumn, startRow, startColumn + 2].Merge = true;
+
+            // Set headers
+            sheet.Cells[startRow, startColumn].Value = "Utilizations";
+            sheet.Cells[startRow + 1, startColumn].Value = "Utilization ID";
+            sheet.Cells[startRow + 1, startColumn + 1].Value = "Submitted On";
+            sheet.Cells[startRow + 1, startColumn + 2].Value = "Certificate File Name";
+
+            var row = startRow + 2;
+
+            // Fetch only utilizations that are linked to the filtered production IDs
+            var utilizations = await _context.Utilization
+                .Where(u => filteredProductionIds.Contains(u.ProductionId))
+                .ToListAsync();
+
+            foreach (var utilization in utilizations)
+            {
+                sheet.Cells[row, startColumn].Value = utilization.UtilizationId;
+                sheet.Cells[row, startColumn + 1].Value = utilization.SubmittedOn.ToString("yyyy-MM-dd");
+                sheet.Cells[row, startColumn + 2].Value = utilization.CertificateofUtilizationFileName;
+                row++;
+            }
+
+            // Add color to differentiate sections
+            using (var range = sheet.Cells[startRow, startColumn, row - 1, startColumn + 2])
+            {
+                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Tomato);
+            }
+
+            // Make the first two rows bold and center-aligned
+            using (var range = sheet.Cells[startRow, startColumn, startRow + 1, startColumn + 2])
+            {
+                range.Style.Font.Bold = true; // Apply bold font
+                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center; // Center-align horizontally
+            }
+
+            // Add a black bottom border to the second row
+            using (var range = sheet.Cells[startRow + 1, startColumn, startRow + 1, startColumn + 2])
+            {
+                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                range.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black); // Set the bottom border to black
+            }
+
+            sheet.Cells[startRow, startColumn, row - 1, startColumn + 2].AutoFitColumns();
+            return startColumn + 3; // Move to the next column block
+        }
+
         [Authorize(Roles = "RMCC, Director")]
-        public async Task<IActionResult> ProductionExportToExcel()
+        public async Task<IActionResult> ProductionExportToExcel(
+        int? year = null,
+        DateTime? startDate = null,
+        DateTime? endDate = null,
+        string? BranchCampus = null,
+        string? College = null,
+        string? Department = null)
         {
             try
             {
                 // Set the license context for EPPlus
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // or LicenseContext.Commercial if applicable
 
-                // Fetch accomplishments from the database
-                var accomplishments = await _context.Production
-                    .Include(a => a.LeadResearcher)
-                    .Include(a => a.CoLeadResearcher)
-                    .Include(a => a.Memberone)
-                    .Include(a => a.Membertwo)
-                    .Include(a => a.Memberthree)
-                    .Include(a => a.CreatedBy)
-                    .ToListAsync();
+                // Start building the query with the base data
+                var productionsQuery = _context.Production
+                    .Include(p => p.LeadResearcher)
+                    .Include(p => p.CoLeadResearcher)
+                    .Include(p => p.Memberone)
+                    .Include(p => p.Membertwo)
+                    .Include(p => p.Memberthree)
+                    .AsQueryable();
+
+                // Apply filters based on provided parameters
+                if (year.HasValue)
+                {
+                    productionsQuery = productionsQuery.Where(p => p.Year == year.Value);
+                }
+                if (startDate.HasValue)
+                {
+                    productionsQuery = productionsQuery.Where(p => p.DateStarted >= startDate.Value);
+                }
+                if (endDate.HasValue)
+                {
+                    productionsQuery = productionsQuery.Where(p => p.DateCompleted <= endDate.Value);
+                }
+                if (!string.IsNullOrEmpty(BranchCampus))
+                {
+                    productionsQuery = productionsQuery.Where(p => p.BranchCampus.Contains(BranchCampus));
+                }
+                if (!string.IsNullOrEmpty(College))
+                {
+                    productionsQuery = productionsQuery.Where(p => p.College.Contains(College));
+                }
+                if (!string.IsNullOrEmpty(Department))
+                {
+                    productionsQuery = productionsQuery.Where(p => p.Department.Contains(Department));
+                }
+
+                // Fetch the filtered production data from the database
+                var productions = await productionsQuery.ToListAsync();
 
                 // Create a new Excel package
                 using var excelPackage = new ExcelPackage();
-                var workSheet = excelPackage.Workbook.Worksheets.Add("Accomplishments");
+                var workSheet = excelPackage.Workbook.Worksheets.Add("Productions");
 
                 // Add headers
-
-                workSheet.Cells[1, 1].Value = "Year";
+                workSheet.Cells[1, 1].Value = "Production ID";
                 workSheet.Cells[1, 2].Value = "Research Title";
-                workSheet.Cells[1, 3].Value = "Lead Researcher";
-                workSheet.Cells[1, 4].Value = "Co-Lead Researcher";
-                workSheet.Cells[1, 5].Value = "Members";
-                workSheet.Cells[1, 6].Value = "Branch/Campus/College/Department";
-                //workSheet.Cells[1, 7].Value = "Created By";
-                workSheet.Cells[1, 7].Value = "Created On";
+                workSheet.Cells[1, 3].Value = "Year";
+                workSheet.Cells[1, 4].Value = "Lead Researcher";
+                workSheet.Cells[1, 5].Value = "Co-Lead Researcher";
+                workSheet.Cells[1, 6].Value = "Members";
+                workSheet.Cells[1, 7].Value = "Date Started";
+                workSheet.Cells[1, 8].Value = "Date Completed";
+                workSheet.Cells[1, 9].Value = "Branch/Campus";
+                workSheet.Cells[1, 10].Value = "College";
+                workSheet.Cells[1, 11].Value = "Department";
+
+                var productionHeaderRange = workSheet.Cells[1, 1, 1, 11]; // 1 - 11
+                productionHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                productionHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+                productionHeaderRange.Style.Font.Bold = true;
+                productionHeaderRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                productionHeaderRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                productionHeaderRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                productionHeaderRange.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
 
                 // Add data
                 var row = 2;
-                foreach (var item in accomplishments)
+                foreach (var production in productions)
                 {
-                    var year = item.Year == null ? string.Empty : item.Year.ToString();
-                    var leadResearcher = await _userManager.Users.FirstOrDefaultAsync(e => e.Id == item.LeadResearcherId);
-                    var coleadResearcher = string.Empty;
-                    var otherMembers = string.Empty;
-                    var branchCampus = item.BranchCampus == null ? string.Empty : item.BranchCampus;
-                    var college = item.College == null ? string.Empty : item.College;
-                    var dept = item.Department == null ? string.Empty : item.Department;
-
-                    workSheet.Cells[row, 1].Value = year;
-                    workSheet.Cells[row, 2].Value = item.ResearchTitle;
-                    workSheet.Cells[row, 3].Value = $"{leadResearcher.FirstName} {leadResearcher.LastName}";
-                    workSheet.Cells[row, 4].Value = coleadResearcher;
-                    workSheet.Cells[row, 5].Value = otherMembers;
-                    workSheet.Cells[row, 6].Value = $"{branchCampus} {college} {dept}";
-                    //workSheet.Cells[row, 7].Value = $"{item.CreatedBy.FirstName} {item.CreatedBy.LastName}";
-                    workSheet.Cells[row, 7].Value = item.CreatedOn;
+                    workSheet.Cells[row, 1].Value = production.ProductionId;
+                    workSheet.Cells[row, 2].Value = production.ResearchTitle;
+                    workSheet.Cells[row, 3].Value = production.Year;
+                    workSheet.Cells[row, 4].Value = $"{production.LeadResearcher?.FirstName} {production.LeadResearcher?.LastName}";
+                    workSheet.Cells[row, 5].Value = $"{production.CoLeadResearcher?.FirstName} {production.CoLeadResearcher?.LastName}";
+                    workSheet.Cells[row, 6].Value = $"{production.Memberone?.FirstName} {production.Memberone?.LastName}, " +
+                        $"{production.Membertwo?.FirstName} {production.Membertwo?.LastName}, " +
+                        $"{production.Memberthree?.FirstName} {production.Memberthree?.LastName}";
+                    workSheet.Cells[row, 7].Value = production.DateStarted.ToString("MM/dd/yyyy");
+                    workSheet.Cells[row, 8].Value = production.DateCompleted?.ToString("MM/dd/yyyy");
+                    workSheet.Cells[row, 9].Value = production.BranchCampus;
+                    workSheet.Cells[row, 10].Value = production.College;
+                    workSheet.Cells[row, 11].Value = production.Department;
 
                     row++;
                 }
@@ -1871,29 +2199,50 @@ namespace ResearchManagementSystem.Controllers
 
                 // Return the Excel file as a downloadable file
                 var excelData = excelPackage.GetAsByteArray();
-                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Accomplishments.xlsx");
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Production Report.xlsx");
             }
             catch (Exception ex)
             {
                 // Log the exception (you can implement your logging mechanism here)
                 ModelState.AddModelError("", "An error occurred while generating the Excel file: " + ex.Message);
-                return NotFound("Error"); // Return an error view or handle as needed
+                return View("Error"); // Return an error view or handle as needed
             }
         }
 
 
+
+
         [Authorize(Roles = "RMCC, Director")]
-        public async Task<IActionResult> PresentationExportToExcel()
+        public async Task<IActionResult> PresentationExportToExcel(DateTime? startDate, DateTime? endDate, string level)
         {
             try
             {
                 // Set the license context for EPPlus
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // or LicenseContext.Commercial if applicable
 
-                // Fetch presentation data from the database
-                var presentations = await _context.Presentation
+                // Build the query with filters
+                var presentationsQuery = _context.Presentation
                     .Include(p => p.AddAccomplishment)
-                    .ToListAsync();
+                    .AsQueryable(); // Convert to IQueryable for filtering
+
+                // Apply the date range filter if provided
+                if (startDate.HasValue)
+                {
+                    presentationsQuery = presentationsQuery.Where(p => p.DateofPresentation >= startDate.Value);
+                }
+                if (endDate.HasValue)
+                {
+                    presentationsQuery = presentationsQuery.Where(p => p.DateofPresentation <= endDate.Value);
+                }
+
+                // Apply the level filter if provided
+                if (!string.IsNullOrEmpty(level))
+                {
+                    presentationsQuery = presentationsQuery.Where(p => p.Level == level);
+                }
+
+                // Fetch the filtered data
+                var presentations = await presentationsQuery.ToListAsync();
 
                 // Create a new Excel package
                 using var excelPackage = new ExcelPackage();
@@ -1907,6 +2256,15 @@ namespace ResearchManagementSystem.Controllers
                 workSheet.Cells[1, 5].Value = "Date of Presentation";
                 workSheet.Cells[1, 6].Value = "Level";
                 workSheet.Cells[1, 7].Value = "Venue";
+
+                var presentationHeaderRange = workSheet.Cells[1, 1, 1, 7]; // 1 - 7
+                presentationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                presentationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
+                presentationHeaderRange.Style.Font.Bold = true;
+                presentationHeaderRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                presentationHeaderRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                presentationHeaderRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                presentationHeaderRange.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
 
                 // Add data
                 var row = 2;
@@ -1928,7 +2286,7 @@ namespace ResearchManagementSystem.Controllers
 
                 // Return the Excel file as a downloadable file
                 var excelData = excelPackage.GetAsByteArray();
-                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Presentations.xlsx");
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Presentation Report.xlsx");
             }
             catch (Exception ex)
             {
@@ -1938,18 +2296,31 @@ namespace ResearchManagementSystem.Controllers
             }
         }
 
+
         [Authorize(Roles = "RMCC, Director")]
-        public async Task<IActionResult> PublicationExportToExcel()
+        public async Task<IActionResult> PublicationExportToExcel(DateTime? startDate, DateTime? endDate)
         {
             try
             {
                 // Set the license context for EPPlus
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-                // Fetch publication data from the database
-                var publications = await _context.Publication
+                // Fetch publication data from the database with date range filter
+                var publicationsQuery = _context.Publication
                     .Include(p => p.AddAccomplishment)
-                    .ToListAsync();
+                    .AsQueryable();
+
+                // Apply date range filter if both startDate and endDate are provided
+                if (startDate.HasValue)
+                {
+                    publicationsQuery = publicationsQuery.Where(p => p.PublicationDate >= startDate.Value);
+                }
+                if (endDate.HasValue)
+                {
+                    publicationsQuery = publicationsQuery.Where(p => p.PublicationDate <= endDate.Value);
+                }
+
+                var publications = await publicationsQuery.ToListAsync();
 
                 // Create a new Excel package
                 using var excelPackage = new ExcelPackage();
@@ -1968,6 +2339,16 @@ namespace ResearchManagementSystem.Controllers
                 workSheet.Cells[1, 10].Value = "Journal Index";
                 workSheet.Cells[1, 11].Value = "Supporting Documents";
                 workSheet.Cells[1, 12].Value = "Link";
+
+
+                var publicationHeaderRange = workSheet.Cells[1, 1, 1, 12]; // 1 - 12
+                publicationHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                publicationHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightPink);
+                publicationHeaderRange.Style.Font.Bold = true;
+                publicationHeaderRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                publicationHeaderRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                publicationHeaderRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                publicationHeaderRange.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
 
                 // Add data
                 var row = 2;
@@ -1994,7 +2375,7 @@ namespace ResearchManagementSystem.Controllers
 
                 // Return the Excel file as a downloadable file
                 var excelData = excelPackage.GetAsByteArray();
-                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Publications.xlsx");
+                return File(excelData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Publication Report.xlsx");
             }
             catch (Exception ex)
             {
@@ -2003,6 +2384,7 @@ namespace ResearchManagementSystem.Controllers
                 return View("Error"); // Return an error view or handle as needed
             }
         }
+
 
 
         [Authorize(Roles = "RMCC, Director")]
@@ -2027,6 +2409,16 @@ namespace ResearchManagementSystem.Controllers
                 workSheet.Cells[1, 2].Value = "Production ID";
                 workSheet.Cells[1, 3].Value = "Patent Number";
                 workSheet.Cells[1, 4].Value = "Application Form File Name";
+
+
+                var patentHeaderRange = workSheet.Cells[1, 1, 1, 4]; // 1 - 4
+                patentHeaderRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                patentHeaderRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                patentHeaderRange.Style.Font.Bold = true;
+                patentHeaderRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                patentHeaderRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                patentHeaderRange.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                patentHeaderRange.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
 
                 // Add data
                 var row = 2;
@@ -2080,4 +2472,5 @@ namespace ResearchManagementSystem.Controllers
 
     }
 }
+
 

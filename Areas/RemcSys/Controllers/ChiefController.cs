@@ -45,11 +45,11 @@ namespace RemcSys.Controllers
             _roleManager = roleManager;
             _webHostEnvironment = webHostEnvironment;
             _mlContext = new MLContext(seed: 0);
-            _smtpUser = Environment.GetEnvironmentVariable("SMTP_USER") ?? "pueblosregienaldnb15@gmail.com";
-            _smtpPass = Environment.GetEnvironmentVariable("SMTP_PASS") ?? "fzds ayox qhaj mvdb";
+            _smtpUser = Environment.GetEnvironmentVariable("SMTP_USER") ?? "remc.rmo2@gmail.com";
+            _smtpPass = Environment.GetEnvironmentVariable("SMTP_PASS") ?? "rhmh oyge mwky ozzx";
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefDashboard() // Dashboard of the Chief
         {
             if (_context.REMC_Settings.First().isMaintenance)
@@ -78,7 +78,7 @@ namespace RemcSys.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefNotif() // Notification of the Chief
         {
             if (_context.REMC_Settings.First().isMaintenance)
@@ -93,7 +93,7 @@ namespace RemcSys.Controllers
             return View(logs);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UFResearchApp(string searchString) // List of University Funded Research Application
         {
             /*await CheckMissedEvaluations();*/
@@ -117,7 +117,7 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearchApplication>());
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> EFResearchApp(string searchString) // List of Externally Funded Research Application
         {
             ViewData["currentFilter"] = searchString;
@@ -139,7 +139,7 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearchApplication>());
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UFRLApp(string searchString) // List of University Funded Research Load Application
         {
             ViewData["currentFilter"] = searchString;
@@ -160,7 +160,7 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearchApplication>());
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> DocuList(string id) // Documentary Requirements per Application
         {
             if (id == null)
@@ -572,7 +572,7 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UEResearchApp(string searchString)
         {
             ViewData["currentFilter"] = searchString;
@@ -1254,13 +1254,13 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public IActionResult EthicsClearanceStatus()
         {
             return View();
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefResearchEvaluation(string id)
         {
             var fra = await _context.REMC_FundedResearchApplication.FindAsync(id);
@@ -1297,21 +1297,22 @@ namespace RemcSys.Controllers
                 .FirstOrDefaultAsync(e => e.fra_Id == id);
 
             var logAction = await _context.REMC_ActionLogs.Where(l => l.FraId == fra.fra_Id && l.Action.Contains($"{fra.research_Title} needs to apply/upload ethics clearance.") && l.isTeamLeader == true).FirstOrDefaultAsync();
-            if(logAction == null)
+            if (logAction == null)
             {
                 await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} needs to apply/upload ethics clearance.", true, false, false, fra.fra_Id);
             }
 
-            if(ethics == null || ethics.file_Status == "Pending")
+            if (ethics == null || ethics.clearanceFile == null)
             {
-                if(ethics == null)
+                return RedirectToAction("EthicsClearanceStatus");
+                /*if (ethics == null || ethics.file_Status == null)
                 {
                     return RedirectToAction("EthicsClearanceStatus");
                 }
                 else if (ethics.file_Status == "Pending")
                 {
                     return RedirectToAction("DocuList", "Chief", new {id = fra.fra_Id});
-                }
+                }*/
             }
 
             var model = new Tuple<List<ViewChiefEvaluationVM>, List<FileRequirement>>
@@ -1438,7 +1439,7 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UploadNTP(string searchString)
         {
             ViewData["currentFilter"] = searchString;
@@ -1558,7 +1559,7 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ArchivedResearch(string searchString)
         {
             ViewData["currentFilter"] = searchString;
@@ -1579,7 +1580,7 @@ namespace RemcSys.Controllers
             return View(researchAppList);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> RequirementList(string id) // Documentary Requirements per Application in Archived Research
         {
             if (id == null)
@@ -1607,7 +1608,7 @@ namespace RemcSys.Controllers
             return View(fileRequirement);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ChiefEvaluationResult(string id)
         {
             var fra = await _context.REMC_FundedResearchApplication.FindAsync(id);
@@ -1646,7 +1647,7 @@ namespace RemcSys.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UniversityFundedResearch(string searchString)
         {
             ViewData["currentFilter"] = searchString;
@@ -1670,7 +1671,7 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearch>());
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ExternallyFundedResearch(string searchString)
         {
             ViewData["currentFilter"] = searchString;
@@ -1693,7 +1694,7 @@ namespace RemcSys.Controllers
             return View(new List<FundedResearch>());
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> UniversityFundedResearchLoad(string searchString)
         {
             ViewData["currentFilter"] = searchString;
@@ -1897,11 +1898,11 @@ namespace RemcSys.Controllers
             return RedirectToAction("ProgressReportList", "Chief", new {id = frId});
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> GenerateReport()
         {
             var recentReports = await _context.REMC_GenerateReports
-                .Where(r => r.isArchived == false)
+                .Where(r => r.isArchived == false && r.UserType == "Chief")
                 .OrderByDescending(r => r.generateDate)
                 .Take(10)
                 .ToListAsync();
@@ -2614,7 +2615,7 @@ namespace RemcSys.Controllers
             return RedirectToAction("ArchivedReport");
         }
 
-        [Authorize(Roles = "REMC Chief, Director")]
+        [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> GenerateGAWADNominees()
         {
             var recentFile = await _context.REMC_GenerateGAWADNominees
@@ -3079,5 +3080,592 @@ namespace RemcSys.Controllers
 
             return RedirectToAction("Settings");
         }
+
+        [Authorize(Roles = "Director")]
+        public async Task<IActionResult> GenerateReportDirector()
+        {
+            var recentReports = await _context.REMC_GenerateReports
+                .Where(r => r.isArchived == false && r.UserType == "Director")
+                .OrderByDescending(r => r.generateDate)
+                .Take(10)
+                .ToListAsync();
+
+            return View(recentReports);
+        }
+
+
+        public async Task<IActionResult> GenerateReportsDirector(string reportType, DateTime startDate, DateTime endDate)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (reportType == "Application")
+            {
+                var application = await _context.REMC_FundedResearchApplication
+                    .Where(f => new[] { "Submitted", "UnderEvaluation", "Approved" }.Contains(f.application_Status)
+                        && DateOnly.FromDateTime(f.submission_Date) >= DateOnly.FromDateTime(startDate)
+                        && DateOnly.FromDateTime(f.submission_Date) <= DateOnly.FromDateTime(endDate))
+                    .OrderBy(f => f.submission_Date)
+                    .ToListAsync();
+
+                if (application == null || !application.Any())
+                {
+                    return NotFound("No data found for the selected report type and date range.");
+                }
+
+                // Generate Excel report using EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("FundedResearchApplications");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "DTS Number";
+                    worksheet.Cells[1, 2].Value = "Colleges/Branches";
+                    worksheet.Cells[1, 3].Value = "Research Title";
+                    worksheet.Cells[1, 4].Value = "Funded Research Type";
+                    worksheet.Cells[1, 5].Value = "Proponent/s";
+                    worksheet.Cells[1, 6].Value = "Nature of Involvement";
+                    worksheet.Cells[1, 7].Value = "Status";
+                    worksheet.Cells[1, 8].Value = "Amount of Funding";
+                    worksheet.Cells[1, 9].Value = "Date of Submission";
+
+                    // Add data to cells
+                    int row = 2;
+                    foreach (var item in application)
+                    {
+                        var teamMembers = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members);
+                        var involvement = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members.Select(_ => "Co-Lead"));
+
+                        worksheet.Cells[row, 1].Value = item.dts_No;
+                        if (item.college == null)
+                        {
+                            worksheet.Cells[row, 2].Value = item.branch;
+                        }
+                        if (item.college != null)
+                        {
+                            worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        }
+                        worksheet.Cells[row, 3].Value = item.research_Title;
+                        worksheet.Cells[row, 4].Value = item.fra_Type;
+                        worksheet.Cells[row, 5].Value = item.applicant_Name + teamMembers;
+                        worksheet.Cells[row, 6].Value = "Lead" + involvement;
+                        worksheet.Cells[row, 7].Value = item.application_Status;
+                        worksheet.Cells[row, 8].Value = "Php" + (item.total_project_Cost.HasValue ? item.total_project_Cost.Value.ToString("N0") : "0");
+                        worksheet.Cells[row, 9].Value = item.submission_Date.ToString("MMMM d, yyyy");
+                        row++;
+                    }
+
+                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Convert Excel package to a byte array
+                    var excelData = package.GetAsByteArray();
+                    var s = startDate.ToString("MMddyyyy");
+                    var e = endDate.ToString("MMddyyyy");
+                    var genRep = new GenerateReport
+                    {
+                        gr_Id = Guid.NewGuid().ToString(),
+                        gr_fileName = $"FRAReport{s}-{e}.xlsx",
+                        gr_fileType = ".xlsx",
+                        gr_Data = excelData,
+                        gr_startDate = startDate,
+                        gr_endDate = endDate,
+                        gr_typeofReport = "Funded Research Applications",
+                        generateDate = DateTime.Now,
+                        UserType = "Director",
+                        isArchived = false
+                    };
+                    _context.REMC_GenerateReports.Add(genRep);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("GenerateReportDirector");
+                }
+            }
+            else if (reportType == "Evaluator")
+            {
+                var evaluators = await _context.REMC_Evaluator
+                    .Include(e => e.Evaluations)
+                    .OrderBy(e => e.evaluator_Name)
+                    .ToListAsync();
+
+                if (evaluators == null || !evaluators.Any())
+                {
+                    return NotFound("No data found for the selected report type and date range.");
+                }
+
+                // Generate Excel report using EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("EvaluatorsReport");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Evaluator Name";
+                    worksheet.Cells[1, 2].Value = "Evaluator Email";
+                    worksheet.Cells[1, 3].Value = "Field of Interest";
+                    worksheet.Cells[1, 4].Value = "Pending";
+                    worksheet.Cells[1, 5].Value = "Completed";
+                    worksheet.Cells[1, 6].Value = "Declined";
+
+                    // Add data to cells
+                    int row = 2;
+                    foreach (var item in evaluators)
+                    {
+                        var interestFields = item.field_of_Interest == null ? string.Empty : string.Join(" / ", item.field_of_Interest);
+                        int pending = item.Evaluations.Where(e => e.evaluation_Status == "Pending").Count();
+                        int completed = item.Evaluations.Where(e => new[] { "Approved", "Rejected" }.Contains(e.evaluation_Status)).Count();
+                        int declined = item.Evaluations.Where(e => e.evaluation_Status == "Decline").Count();
+
+
+                        worksheet.Cells[row, 1].Value = item.evaluator_Name;
+                        worksheet.Cells[row, 2].Value = item.evaluator_Email;
+                        worksheet.Cells[row, 3].Value = interestFields;
+                        worksheet.Cells[row, 4].Value = pending;
+                        worksheet.Cells[row, 5].Value = completed;
+                        worksheet.Cells[row, 6].Value = declined;
+                        row++;
+                    }
+
+                    worksheet.Cells["A1:F1"].Style.Font.Bold = true;
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Convert Excel package to a byte array
+                    var excelData = package.GetAsByteArray();
+                    var date = DateTime.Now.ToString("MMddyyyy:HHmmss");
+                    var genRep = new GenerateReport
+                    {
+                        gr_Id = Guid.NewGuid().ToString(),
+                        gr_fileName = $"UFREvaluatorsReport{date}.xlsx",
+                        gr_fileType = ".xlsx",
+                        gr_Data = excelData,
+                        gr_startDate = DateTime.Now,
+                        gr_endDate = DateTime.Now,
+                        gr_typeofReport = "UFR - Evaluators",
+                        generateDate = DateTime.Now,
+                        UserType = "Director",
+                        isArchived = false
+                    };
+                    _context.REMC_GenerateReports.Add(genRep);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("GenerateReportDirector");
+                }
+
+            }
+            else if (reportType == "OngoingUFR")
+            {
+                var ongoingUFR = await _context.REMC_FundedResearches
+                    .Where(f => f.fr_Type == "University Funded Research" && f.status != "Completed"
+                       && DateOnly.FromDateTime(f.start_Date) >= DateOnly.FromDateTime(startDate)
+                       && DateOnly.FromDateTime(f.start_Date) <= DateOnly.FromDateTime(endDate))
+                    .OrderBy(f => f.start_Date)
+                    .ToListAsync();
+
+                if (ongoingUFR == null || !ongoingUFR.Any())
+                {
+                    return NotFound("No data found for the selected report type and date range.");
+                }
+
+                // Generate Excel report using EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("OngoingUFR");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Research Work Number";
+                    worksheet.Cells[1, 2].Value = "Colleges/Branches";
+                    worksheet.Cells[1, 3].Value = "Research Title";
+                    worksheet.Cells[1, 4].Value = "Proponent/s";
+                    worksheet.Cells[1, 5].Value = "Nature of Involvement";
+                    worksheet.Cells[1, 6].Value = "Status";
+                    worksheet.Cells[1, 7].Value = "Amount of Funding";
+                    worksheet.Cells[1, 8].Value = "Started Date";
+                    worksheet.Cells[1, 9].Value = "Projected End Date";
+
+                    // Add data to cells
+                    int row = 2;
+                    foreach (var item in ongoingUFR)
+                    {
+                        var teamMembers = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members);
+                        var involvement = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members.Select(_ => "Co-Lead"));
+
+                        worksheet.Cells[row, 1].Value = item.fr_Id;
+                        worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        worksheet.Cells[row, 3].Value = item.research_Title;
+                        worksheet.Cells[row, 4].Value = item.team_Leader + teamMembers;
+                        worksheet.Cells[row, 5].Value = "Lead" + involvement;
+                        worksheet.Cells[row, 6].Value = item.status;
+                        worksheet.Cells[row, 7].Value = "Php" + (item.total_project_Cost.HasValue ? item.total_project_Cost.Value.ToString("N0") : "0");
+                        worksheet.Cells[row, 8].Value = item.start_Date.ToString("MMMM d, yyyy");
+                        worksheet.Cells[row, 9].Value = item.end_Date.ToString("MMMM d, yyyy");
+                        row++;
+                    }
+
+                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Convert Excel package to a byte array
+                    var excelData = package.GetAsByteArray();
+                    var s = startDate.ToString("MMddyyyy");
+                    var e = endDate.ToString("MMddyyyy");
+                    var genRep = new GenerateReport
+                    {
+                        gr_Id = Guid.NewGuid().ToString(),
+                        gr_fileName = $"OngoingUFRReport{s}-{e}.xlsx",
+                        gr_fileType = ".xlsx",
+                        gr_Data = excelData,
+                        gr_startDate = startDate,
+                        gr_endDate = endDate,
+                        gr_typeofReport = "Ongoing University Funded Research",
+                        generateDate = DateTime.Now,
+                        UserType = "Director",
+                        isArchived = false
+                    };
+                    _context.REMC_GenerateReports.Add(genRep);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("GenerateReportDirector");
+                }
+            }
+            else if (reportType == "OngoingEFR")
+            {
+                var ongoingEFR = await _context.REMC_FundedResearches
+                    .Where(f => f.fr_Type == "Externally Funded Research" && f.status != "Completed"
+                       && DateOnly.FromDateTime(f.start_Date) >= DateOnly.FromDateTime(startDate)
+                       && DateOnly.FromDateTime(f.start_Date) <= DateOnly.FromDateTime(endDate))
+                    .OrderBy(f => f.start_Date)
+                    .ToListAsync();
+
+                if (ongoingEFR == null || !ongoingEFR.Any())
+                {
+                    return NotFound("No data found for the selected report type and date range.");
+                }
+
+                // Generate Excel report using EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("OngoingEFR");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Research Work Number";
+                    worksheet.Cells[1, 2].Value = "Colleges/Branches";
+                    worksheet.Cells[1, 3].Value = "Research Title";
+                    worksheet.Cells[1, 4].Value = "Proponent/s";
+                    worksheet.Cells[1, 5].Value = "Nature of Involvement";
+                    worksheet.Cells[1, 6].Value = "Status";
+                    worksheet.Cells[1, 7].Value = "Amount of Funding";
+                    worksheet.Cells[1, 8].Value = "Started Date";
+                    worksheet.Cells[1, 9].Value = "Projected End Date";
+
+                    // Add data to cells
+                    int row = 2;
+                    foreach (var item in ongoingEFR)
+                    {
+                        var teamMembers = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members);
+                        var involvement = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members.Select(_ => "Co-Lead"));
+
+                        worksheet.Cells[row, 1].Value = item.fr_Id;
+                        worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        worksheet.Cells[row, 3].Value = item.research_Title;
+                        worksheet.Cells[row, 4].Value = item.team_Leader + teamMembers;
+                        worksheet.Cells[row, 5].Value = "Lead" + involvement;
+                        worksheet.Cells[row, 6].Value = item.status;
+                        worksheet.Cells[row, 7].Value = "Php" + (item.total_project_Cost.HasValue ? item.total_project_Cost.Value.ToString("N0") : "0");
+                        worksheet.Cells[row, 8].Value = item.start_Date.ToString("MMMM d, yyyy");
+                        worksheet.Cells[row, 9].Value = item.end_Date.ToString("MMMM d, yyyy");
+                        row++;
+                    }
+
+                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Convert Excel package to a byte array
+                    var excelData = package.GetAsByteArray();
+                    var s = startDate.ToString("MMddyyyy");
+                    var e = endDate.ToString("MMddyyyy");
+                    var genRep = new GenerateReport
+                    {
+                        gr_Id = Guid.NewGuid().ToString(),
+                        gr_fileName = $"OngoingEFRReport{s}-{e}.xlsx",
+                        gr_fileType = ".xlsx",
+                        gr_Data = excelData,
+                        gr_startDate = startDate,
+                        gr_endDate = endDate,
+                        gr_typeofReport = "Ongoing Externally Funded Research",
+                        generateDate = DateTime.Now,
+                        UserType = "Director",
+                        isArchived = false
+                    };
+                    _context.REMC_GenerateReports.Add(genRep);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("GenerateReportDirector");
+                }
+            }
+            else if (reportType == "OngoingUFRL")
+            {
+                var ongoingUFRL = await _context.REMC_FundedResearches
+                    .Where(f => f.fr_Type == "University Funded Research Load" && f.status != "Completed"
+                       && DateOnly.FromDateTime(f.start_Date) >= DateOnly.FromDateTime(startDate)
+                       && DateOnly.FromDateTime(f.start_Date) <= DateOnly.FromDateTime(endDate))
+                    .OrderBy(f => f.start_Date)
+                    .ToListAsync();
+
+                if (ongoingUFRL == null || !ongoingUFRL.Any())
+                {
+                    return NotFound("No data found for the selected report type and date range.");
+                }
+
+                // Generate Excel report using EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("OngoingUFRL");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Research Work Number";
+                    worksheet.Cells[1, 2].Value = "Colleges/Branches";
+                    worksheet.Cells[1, 3].Value = "Research Title";
+                    worksheet.Cells[1, 4].Value = "Proponent/s";
+                    worksheet.Cells[1, 5].Value = "Nature of Involvement";
+                    worksheet.Cells[1, 6].Value = "Status";
+                    worksheet.Cells[1, 7].Value = "Amount of Funding";
+                    worksheet.Cells[1, 8].Value = "Started Date";
+                    worksheet.Cells[1, 9].Value = "Projected End Date";
+
+                    // Add data to cells
+                    int row = 2;
+                    foreach (var item in ongoingUFRL)
+                    {
+                        var teamMembers = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members);
+                        var involvement = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members.Select(_ => "Co-Lead"));
+
+                        worksheet.Cells[row, 1].Value = item.fr_Id;
+                        worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        worksheet.Cells[row, 3].Value = item.research_Title;
+                        worksheet.Cells[row, 4].Value = item.team_Leader + teamMembers;
+                        worksheet.Cells[row, 5].Value = "Lead" + involvement;
+                        worksheet.Cells[row, 6].Value = item.status;
+                        worksheet.Cells[row, 7].Value = "Php" + (item.total_project_Cost.HasValue ? item.total_project_Cost.Value.ToString("N0") : "0");
+                        worksheet.Cells[row, 8].Value = item.start_Date.ToString("MMMM d, yyyy");
+                        worksheet.Cells[row, 9].Value = item.end_Date.ToString("MMMM d, yyyy");
+                        row++;
+                    }
+
+                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Convert Excel package to a byte array
+                    var excelData = package.GetAsByteArray();
+
+                    var s = startDate.ToString("MMddyyyy");
+                    var e = endDate.ToString("MMddyyyy");
+                    var genRep = new GenerateReport
+                    {
+                        gr_Id = Guid.NewGuid().ToString(),
+                        gr_fileName = $"OngoingUFRLReport{s}-{e}.xlsx",
+                        gr_fileType = ".xlsx",
+                        gr_Data = excelData,
+                        gr_startDate = startDate,
+                        gr_endDate = endDate,
+                        gr_typeofReport = "Ongoing University Funded Research Load",
+                        generateDate = DateTime.Now,
+                        UserType = "Director",
+                        isArchived = false
+                    };
+                    _context.REMC_GenerateReports.Add(genRep);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("GenerateReportDirector");
+                }
+            }
+            else if (reportType == "ResearchProduction")
+            {
+                // Retrieve data from the database based on reportType, startDate, and endDate
+                var reportData = await _context.REMC_FundedResearches
+                    .Where(f => f.status == "Completed" && DateOnly.FromDateTime(f.end_Date) >= DateOnly.FromDateTime(startDate)
+                        && DateOnly.FromDateTime(f.end_Date) <= DateOnly.FromDateTime(endDate))
+                    .OrderBy(f => f.fr_Type)
+                    .ToListAsync();
+
+                if (reportData == null || !reportData.Any())
+                {
+                    return NotFound("No data found for the selected report type and date range.");
+                }
+
+                // Generate Excel report using EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("ResearchProduction");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Research Work Number";
+                    worksheet.Cells[1, 2].Value = "Colleges/Branches";
+                    worksheet.Cells[1, 3].Value = "Research Title";
+                    worksheet.Cells[1, 4].Value = "Proponent/s";
+                    worksheet.Cells[1, 5].Value = "Nature of Involvement";
+                    worksheet.Cells[1, 6].Value = "Funded Type";
+                    worksheet.Cells[1, 7].Value = "Amount of Funding";
+                    worksheet.Cells[1, 8].Value = "Started Date";
+                    worksheet.Cells[1, 9].Value = "Completed Date";
+
+                    // Add data to cells
+                    int row = 2;
+                    foreach (var item in reportData)
+                    {
+                        var teamMembers = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members);
+                        var involvement = item.team_Members.Contains("N/A") ? string.Empty : "/" + string.Join("/", item.team_Members.Select(_ => "Co-Lead"));
+
+                        worksheet.Cells[row, 1].Value = item.fr_Id;
+                        worksheet.Cells[row, 2].Value = item.college + "/" + item.branch;
+                        worksheet.Cells[row, 3].Value = item.research_Title;
+                        worksheet.Cells[row, 4].Value = item.team_Leader + teamMembers;
+                        worksheet.Cells[row, 5].Value = "Lead" + involvement;
+                        worksheet.Cells[row, 6].Value = item.fr_Type;
+                        worksheet.Cells[row, 7].Value = "Php" + (item.total_project_Cost.HasValue ? item.total_project_Cost.Value.ToString("N0") : "0");
+                        worksheet.Cells[row, 8].Value = item.start_Date.ToString("MMMM d, yyyy");
+                        worksheet.Cells[row, 9].Value = item.end_Date.ToString("MMMM d, yyyy");
+                        row++;
+                    }
+
+                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Convert Excel package to a byte array
+                    var excelData = package.GetAsByteArray();
+
+                    var s = startDate.ToString("MMddyyyy");
+                    var e = endDate.ToString("MMddyyyy");
+                    var genRep = new GenerateReport
+                    {
+                        gr_Id = Guid.NewGuid().ToString(),
+                        gr_fileName = $"ResearchProductionReport{s}-{e}.xlsx",
+                        gr_fileType = ".xlsx",
+                        gr_Data = excelData,
+                        gr_startDate = startDate,
+                        gr_endDate = endDate,
+                        gr_typeofReport = "Research Production",
+                        generateDate = DateTime.Now,
+                        UserType = "Director",
+                        isArchived = false
+                    };
+                    _context.REMC_GenerateReports.Add(genRep);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("GenerateReportDirector");
+                }
+            }
+            else if (reportType == "ForecastedUFRFunds")
+            {
+                var yearlyCosts = _context.REMC_UFRForecastings
+                    .GroupBy(d => d.Year)
+                    .Select(g => new UFRForecasting { Year = g.Key, ProjectCosts = g.Sum(x => x.ProjectCosts) })
+                    .OrderBy(x => x.Year)
+                    .ToList();
+
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using var package = new ExcelPackage();
+                var worksheet = package.Workbook.Worksheets.Add("Forecast");
+
+                worksheet.Cells[1, 1].Value = "Year";
+                worksheet.Cells[1, 2].Value = "Total University Funded Research Cost";
+                worksheet.Cells[1, 3].Value = "Forecasted Year 1";
+                worksheet.Cells[1, 4].Value = "Forecasted Fund of Year 1";
+                worksheet.Cells[1, 5].Value = "Forecasted Year 2";
+                worksheet.Cells[1, 6].Value = "Forecasted Fund of Year 2";
+
+                int row = 2;
+                foreach (var item in yearlyCosts)
+                {
+                    worksheet.Cells[row, 1].Value = item.Year;
+                    worksheet.Cells[row, 2].Value = item.ProjectCosts;
+
+                    if (yearlyCosts.Where(y => y.Year <= item.Year).Count() >= 5)
+                    {
+                        var currentData = yearlyCosts.Where(y => y.Year <= item.Year).ToList();
+                        var dataView = _mlContext.Data.LoadFromEnumerable(currentData);
+
+                        var forecastingPipeline = _mlContext.Forecasting.ForecastBySsa(
+                            outputColumnName: nameof(ForecastOutput.ForecastedCosts),
+                            inputColumnName: nameof(UFRForecasting.ProjectCosts),
+                            windowSize: 2,
+                            seriesLength: currentData.Count,
+                            trainSize: currentData.Count,
+                            horizon: 2,
+                            confidenceLevel: 0.95f,
+                            confidenceLowerBoundColumn: nameof(ForecastOutput.LowerBoundCosts),
+                            confidenceUpperBoundColumn: nameof(ForecastOutput.UpperBoundCosts)
+                        );
+
+                        var model = forecastingPipeline.Fit(dataView);
+                        var forecastEngine = model.CreateTimeSeriesEngine<UFRForecasting, ForecastOutput>(_mlContext);
+                        var forecast = forecastEngine.Predict();
+
+                        int forecastYear1 = item.Year + 1;
+                        float forecastedFundYear1 = forecast.ForecastedCosts[0];
+                        worksheet.Cells[row, 3].Value = forecastYear1;
+                        worksheet.Cells[row, 4].Value = Math.Round(forecast.ForecastedCosts[0], 2);
+
+                        currentData.Add(new UFRForecasting { Year = forecastYear1, ProjectCosts = forecastedFundYear1 });
+
+                        var updatedDataView = _mlContext.Data.LoadFromEnumerable(currentData);
+                        var updatedForecastingPipeline = _mlContext.Forecasting.ForecastBySsa(
+                            outputColumnName: nameof(ForecastOutput.ForecastedCosts),
+                            inputColumnName: nameof(UFRForecasting.ProjectCosts),
+                            windowSize: 2,
+                            seriesLength: currentData.Count,
+                            trainSize: currentData.Count,
+                            horizon: 2,
+                            confidenceLevel: 0.95f,
+                            confidenceLowerBoundColumn: nameof(ForecastOutput.LowerBoundCosts),
+                            confidenceUpperBoundColumn: nameof(ForecastOutput.UpperBoundCosts)
+                        );
+
+                        var updatedModel = updatedForecastingPipeline.Fit(updatedDataView);
+                        var updatedForecastingEngine = updatedModel.CreateTimeSeriesEngine<UFRForecasting, ForecastOutput>(_mlContext);
+                        var updatedForecast = updatedForecastingEngine.Predict();
+
+                        int forecastYear2 = item.Year + 2;
+                        worksheet.Cells[row, 5].Value = forecastYear2;
+                        worksheet.Cells[row, 6].Value = Math.Round(updatedForecast.ForecastedCosts[1], 2);
+                    }
+
+                    row++;
+                }
+
+                worksheet.Cells[1, 1, 1, 6].Style.Font.Bold = true;
+                worksheet.Cells[2, 2, row - 1, 2].Style.Numberformat.Format = "#,##0.00";
+                worksheet.Cells[2, 4, row - 1, 4].Style.Numberformat.Format = "#,##0.00";
+                worksheet.Cells[2, 6, row - 1, 6].Style.Numberformat.Format = "#,##0.00";
+                worksheet.Cells[1, 1, row - 1, 6].AutoFitColumns();
+
+                var excelData = package.GetAsByteArray();
+                var date = DateTime.Now.ToString("MMddyyyy:HHmmss");
+                var genRep = new GenerateReport
+                {
+                    gr_Id = Guid.NewGuid().ToString(),
+                    gr_fileName = $"UFRFundsReport{date}.xlsx",
+                    gr_fileType = ".xlsx",
+                    gr_Data = excelData,
+                    gr_startDate = startDate,
+                    gr_endDate = endDate,
+                    gr_typeofReport = "Research Production",
+                    generateDate = DateTime.Now,
+                    UserType = "Director",
+                    isArchived = false
+                };
+                _context.REMC_GenerateReports.Add(genRep);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("GenerateReportDirector");
+
+            }
+            return NotFound("Invalid selected report type");
+        }
+
+
+
     }
 }

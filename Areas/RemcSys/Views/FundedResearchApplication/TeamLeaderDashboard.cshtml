@@ -64,13 +64,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                        <h5 class="modal-title" id="addEventModalLabel">Add New Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form asp-action="AddEvent" method="post">
                             <div class="mb-3">
-                                <label for="event-title" class="form-label">Event Title</label>
+                                <label for="event-title" class="form-label">Task Title</label>
                                 <input type="text" class="form-control" id="event-title" name="eventTitle" required>
                             </div>
                             <div class="mb-3">
@@ -81,7 +81,7 @@
                                 <label for="event-end" class="form-label">End Date</label>
                                 <input type="date" class="form-control" id="event-end" name="endDate" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Event</button>
+                            <button type="submit" class="btn btn-primary">Add Task</button>
                         </form>
                     </div>
                 </div>
@@ -237,7 +237,7 @@
             nextDayThreshold: '00:00:00',
             customButtons: {
                 addEventButton: {
-                    text: 'Add Event',
+                    text: 'Add Task',
                     click: function () {
                         // Show modal to add event
                         addEventModal.show();

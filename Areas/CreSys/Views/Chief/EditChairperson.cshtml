@@ -1,0 +1,81 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.ChairpersonEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Chairperson";
+}
+
+<!-- Add custom CSS for maroon theme -->
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <style>
+        /* Custom maroon theme */
+        .card {
+            background-color: #800000; /* Maroon background */
+            color: white; /* White text */
+            border: none;
+        }
+
+        .card-header {
+            background-color: #9b111e; /* Darker maroon for the header */
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #9b111e; /* Maroon button */
+            border-color: #9b111e;
+        }
+
+       .btn-secondary {
+            background-color: #f0ad4e; /* Yellow for Cancel button */
+            border-color: #f0ad4e;
+            color: black; /* Black text for better contrast */
+        }
+
+        .btn-secondary:hover {
+            background-color: #ec971f; /* Darker yellow on hover */
+            border-color: #ec971f;
+        }
+        .btn-primary:hover {
+            background-color: #800000; /* Darken maroon on hover */
+            border-color: #800000;
+        }
+
+        .form-control {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+    </style>
+</head>
+
+<!-- Main content within a card -->
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            Edit Chairperson
+        </div>
+        <div class="card-body">
+            <form asp-action="EditChairperson" method="post">
+                <input type="hidden" name="ChairpersonId" value="@Model.ChairpersonId" />
+
+                <!-- Name field -->
+                <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" readonly />
+                </div>
+
+                <!-- Field of Study Dropdown -->
+                <div class="form-group">
+                    <label for="FieldOfStudy">Field of Study</label>
+                    @Html.DropDownListFor(m => m.FieldOfStudy, new SelectList(Model.AllFieldsOfStudy, Model.FieldOfStudy), "Select a Field of Study", new { @class = "form-control", @required = "required" })
+                </div>
+
+                <!-- Save Changes button -->
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="@Url.Action("ViewChairperson", "Chief")" class="btn btn-secondary ml-2">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

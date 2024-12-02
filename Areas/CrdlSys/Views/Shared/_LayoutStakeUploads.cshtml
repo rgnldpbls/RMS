@@ -19,9 +19,6 @@
 <body>
     <header class="research-navbar">
         <div class="navbar-container-left">
-            <div class="" onclick="toggleSidebar()">
-                <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
-            </div>
             <div class="logo">
                 <img src="~/assets/rmologo.png" alt="Logo">
                 <div class="logo-text">
@@ -39,27 +36,7 @@
             </ul>
         </nav>
     </header>
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <a class="text-dark text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-            <div class="profile-section d-block text-center">
-
-                <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 d-block mx-auto mb-2">
-
-                <!-- Clickable Hello, [Username] link -->
-
-                <p class="user-email my-0 fs-6 fw-light text-white">Hello, @User.Identity?.Name!</p>
-            </div>
-        </a>
-
-        <div class="logout-section mt-3">
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="logout-button btn btn-link text-white w-100">
-                    <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
-                </button>
-            </form>
-        </div>
-    </div>
+    
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

@@ -138,7 +138,6 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/Faculty/Index");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
@@ -149,7 +148,7 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
-                // Set the custom fields (FirstName, MiddleName, LastName)
+                // Set the custom fields (FirstName, MiddleName, LastName, etc.)
                 user.FirstName = Input.FirstName;
                 user.MiddleName = Input.MiddleName;
                 user.LastName = Input.LastName;
@@ -159,7 +158,6 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                 user.Department = Input.Department;
                 user.Webmail = null;
 
-
                 // Create the user with the provided password
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -167,8 +165,8 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // Assign the selected role (student or faculty)
-                    if (Input.Role == "student" || Input.Role == "faculty" || Input.Role == "external Researcher" || Input.Role == "stakeholder")
+                    // Assign the selected role
+                    if (Input.Role == "student" || Input.Role == "faculty" || Input.Role == "External Researcher" || Input.Role == "stakeholder")
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
                     }
@@ -191,8 +189,18 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        // Redirect to the appropriate dashboard based on role
+                        string dashboardUrl = Input.Role switch
+                        {
+                            "student" => Url.Content("~/Student/Index"),
+                            "faculty" => Url.Content("~/Faculty/Index"),
+                            "stakeholder" => Url.Content("~/CrdlSys/Stakeholder/Homestake"),
+                            "External Researcher" => Url.Content("~/CreSys/Home/Index"),
+                            _ => Url.Content("~/") // Default fallback
+                        };
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return LocalRedirect(dashboardUrl);
                     }
                 }
 
@@ -202,9 +210,10 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // If we got this far, something failed; redisplay the form
             return Page();
         }
+
 
 
         private ApplicationUser CreateUser()
@@ -232,3 +241,5 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
     }
 
 }
+
+

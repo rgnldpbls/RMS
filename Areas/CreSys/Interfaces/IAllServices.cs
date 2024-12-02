@@ -12,7 +12,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Interfaces
         Task<byte[]> GetTerminalReportAsync(string urecNo);
         Task<IEnumerable<CompletionReportViewModel>> GetCompletionReportsAsync();
         Task<EthicsClearance> GetClearanceByUrecNoAsync(string urecNo);
-        List<ResearchReportModel> GetFilteredResearchData(ReportGenerationViewModel model);
+        Task<List<ResearchReportModel>> GetFilteredResearchData(ReportGenerationViewModel model);
         byte[] GenerateExcelFile(List<ResearchReportModel> researchData, DateTime? startDate, DateTime? endDate, out string fileName);
 
         Task<List<EthicsApplication>> GetApplicationsByFieldOfStudyAsync(string userId);
@@ -52,5 +52,6 @@ namespace ResearchManagementSystem.Areas.CreSys.Interfaces
         Task<List<EthicsEvaluator>> GetAssignedEvaluatorsAsync(string urecNo);
         Task AddLogAsync(EthicsApplicationLogs log);
         Task<bool> SaveEthicsFormAsync(EthicsApplicationForms form);
+
     }
 }

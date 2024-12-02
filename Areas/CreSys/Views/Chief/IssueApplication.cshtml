@@ -10,33 +10,7 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
 </head>
 
-<!-- Success Modal -->
-@if (!string.IsNullOrEmpty(successMessage))
-{
-    <script>
-        // Trigger modal on page load
-        $(document).ready(function () {
-            $('#successModal').modal('show');
-        });
-    </script>
 
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Success</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @successMessage
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 <div class="header-container">
     <h2 class="title">Evaluation Details</h2>
     <button class="btn-back" onclick="goBack()">Back</button>
@@ -73,8 +47,23 @@
                             </div>
                         </div>
                     </p>
-                    <p><strong>Field of Study:</strong> @Model.EthicsApplication.FieldOfStudy</p>
-                    <p><strong>College: </strong> @Model.NonFundedResearchInfo.College</p>
+                    <div class="row">
+                        <p><strong>Field of Study:</strong> @Model.EthicsApplication.FieldOfStudy</p>
+                        @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.Campus))
+                        {
+                            <p><strong>Campus:</strong> @Model.NonFundedResearchInfo.Campus</p>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.College))
+                        {
+                            <p><strong>College:</strong> @Model.NonFundedResearchInfo.College</p>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.University))
+                        {
+                            <p><strong>Institution:</strong> @Model.NonFundedResearchInfo.University</p>
+                        }
+                    </div>
                 </div>
 
                 <div class="col text-end">
@@ -148,7 +137,7 @@
         <script>
             function openPdfInNewTab(fileType, urecNo, evaluationId) {
                 // Construct the URL for the ViewEvaluationSheet action
-                const url = @Url.Action("ViewEvaluationSheet", "Chief")? fileType = ${ fileType }& urecNo=${ urecNo }& evaluationId=${ evaluationId };
+                const url = `@Url.Action("ViewEvaluationSheet", "Chief")?fileType=${fileType}&urecNo=${urecNo}&evaluationId=${evaluationId}`;
 
                 // Open the URL in a new tab
                 window.open(url, '_blank');
@@ -202,7 +191,7 @@
                             <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM15", UrecNo = Model.EthicsApplication.UrecNo })" target="_blank" class="btn btn-danger">
                                 View Form 15
                             </a>
-
+                        
                             <!-- Display the decision dropdown and remarks as usual -->
                             <div class="form-group">
                                 <label for="applicationDecision">Decision</label>
@@ -211,9 +200,15 @@
                                     <option value="Approve">Approve</option>
                                     <option value="Minor Revisions">Minor Revisions</option>
                                     <option value="Major Revisions">Major Revisions</option>
-                                    <option value="Decline">Decline</option>
                                 </select>
                             </div>
+                            <div id="approveButtonContainer" style="display: none; margin-top: 10px; margin-bottom: 10px;">
+                                <button id="generateClearanceButton" class="btn btn-outline-success" type="button" data-urec-no="@Model.EthicsApplication.UrecNo">
+                                    Generate Clearance
+                                </button>
+                            </div>
+
+
 
                             <!-- Remarks section, displaying concatenated comments from all evaluations -->
                             <div class="form-group">
@@ -224,14 +219,14 @@
                                     {
                                         if (!string.IsNullOrEmpty(evaluation.ProtocolRecommendation) && !string.IsNullOrEmpty(evaluation.ProtocolRemarks))
                                         {
-                                            @Html.Raw("• " + evaluation.ProtocolRemarks + "\n")
+                                            @Html.Raw(" " + evaluation.ProtocolRemarks + "\n")
                                         }
                                         if (!string.IsNullOrEmpty(evaluation.ConsentRecommendation) && !string.IsNullOrEmpty(evaluation.ConsentRemarks))
                                         {
-                                            @Html.Raw("• " + evaluation.ConsentRemarks + "\n")
+                                            @Html.Raw(" " + evaluation.ConsentRemarks + "\n")
                                         }
                                     }
-                                                </textarea>
+                                    </textarea>
                             </div>
 
                             <!-- File upload section for PDF, enabled only if 'Approve' is selected -->
@@ -251,9 +246,14 @@
                                     <option value="Approve">Approve</option>
                                     <option value="Minor Revisions">Minor Revisions</option>
                                     <option value="Major Revisions">Major Revisions</option>
-                                    <option value="Decline">Decline</option>
                                 </select>
                             </div>
+                            <div id="approveButtonContainer" style="display: none; margin-top: 10px; margin-bottom: 10px;">
+                                <button id="generateClearanceButton" class="btn btn-outline-success" type="button" data-urec-no="@Model.EthicsApplication.UrecNo">
+                                    Generate Clearance
+                                </button>
+                            </div>
+
 
                             <!-- Remarks section, displaying concatenated comments from all evaluations -->
                             <div class="form-group">
@@ -264,14 +264,14 @@
                                     {
                                         if (!string.IsNullOrEmpty(evaluation.ProtocolRecommendation) && !string.IsNullOrEmpty(evaluation.ProtocolRemarks))
                                         {
-                                            @Html.Raw("• " + evaluation.ProtocolRemarks + "\n")
+                                            @Html.Raw(" " + evaluation.ProtocolRemarks + "\n")
                                         }
                                         if (!string.IsNullOrEmpty(evaluation.ConsentRecommendation) && !string.IsNullOrEmpty(evaluation.ConsentRemarks))
                                         {
-                                            @Html.Raw("• " + evaluation.ConsentRemarks + "\n")
+                                            @Html.Raw(" " + evaluation.ConsentRemarks + "\n")
                                         }
                                     }
-                                                            </textarea>
+                                                </textarea>
                             </div>
 
                             <!-- File upload section for PDF, enabled only if 'Approve' is selected -->
@@ -373,60 +373,73 @@
             var pdfUrl = '@Url.Action("ViewClearanceFile", "Researcher")' + '?urecNo=' + encodeURIComponent(urecNo);
             window.open(pdfUrl, '_blank'); // Open in a new tab
         }
-
+       
 
         function openPdfInModal(pdfUrl) {
             document.getElementById("pdfViewer").src = pdfUrl;
             $('#pdfModal').modal('show');
         }
-        document.addEventListener('DOMContentLoaded', function () {
-            const applicationDecision = document.getElementById('applicationDecision');
-            const formSubmitButton = document.getElementById('formSubmitButton');
-            const issueApplicationForm = document.getElementById('issueApplicationForm');
-            const decisionValue = document.getElementById('decisionValue');
+       document.addEventListener('DOMContentLoaded', function () {
+    const applicationDecision = document.getElementById('applicationDecision');
+    const approveButtonContainer = document.getElementById('approveButtonContainer');
+    const generateClearanceButton = document.getElementById('generateClearanceButton');
+    const issueApplicationForm = document.getElementById('issueApplicationForm');
+    const formSubmitButton = document.getElementById('formSubmitButton');
+    const decisionValue = document.getElementById('decisionValue');
 
-            // When the decision dropdown changes, update the hidden input with the selected value
-            if (applicationDecision) {
-                applicationDecision.addEventListener('change', function () {
-                    // Set the value of the hidden field to the selected decision
-                    decisionValue.value = this.value;
+    // Handle dropdown change for application decision
+    if (applicationDecision) {
+        applicationDecision.addEventListener('change', function () {
+            const selectedValue = this.value;
 
-                    // Control visibility of the submit button based on decision
-                    if (this.value === 'Approve') {
-                        formSubmitButton.style.display = 'inline-block'; // Show button for "Approve"
-                    } else if (this.value === 'Minor Revisions' || this.value === 'Major Revisions') {
-                        formSubmitButton.style.display = 'none'; // Hide button for revisions
-                    } else {
-                        formSubmitButton.style.display = 'none'; // Hide button for other decisions
-                    }
-                });
+            // Set the decision value in the hidden field
+            decisionValue.value = selectedValue;
+
+            // Toggle visibility of the approve button container based on the selected decision
+            if (selectedValue === 'Approve') {
+                approveButtonContainer.style.display = 'block'; // Show the "Generate Clearance" button
+                formSubmitButton.style.display = 'inline-block'; // Show the submit button
+            } else {
+                approveButtonContainer.style.display = 'none'; // Hide the "Generate Clearance" button
+                formSubmitButton.style.display = 'none'; // Hide the submit button
             }
-
-
-
-            // Add a confirmation prompt on form submission
-            issueApplicationForm.addEventListener('submit', function (event) {
-                let decision = applicationDecision ? applicationDecision.value : '';
-                let confirmationMessage = '';
-
-                if (decision === 'Approve') {
-                    confirmationMessage = "Are you sure you want to upload and issue the clearance?";
-                } else if (decision === 'Disapprove') {
-                    confirmationMessage = "Are you sure you want to disapprove this application?";
-                }
-
-                // Only show the confirmation if there’s a specific decision
-                if (confirmationMessage && !confirm(confirmationMessage)) {
-                    event.preventDefault(); // Prevent form submission if user cancels
-                }
-
-                // Ensure decision is set before submitting
-                if (!decisionValue.value) {
-                    alert("Please select a decision.");
-                    event.preventDefault(); // Prevent form submission if no decision is selected
-                }
-            });
         });
+    }
+
+    // Navigate to the approval page when "Generate Clearance" is clicked
+    if (generateClearanceButton) {
+        generateClearanceButton.addEventListener('click', function () {
+            const urecNo = this.dataset.urecNo; // Get UREC No from the data attribute
+            const remarks = encodeURIComponent(document.getElementById("remarks").value); // Get the remarks from the textarea
+
+            // Append the remarks to the URL
+            window.location.href = '/Chief/GenerateClearancePDF/' + urecNo + '?remarks=' + remarks; // Use ?remarks= for query params
+        });
+    }
+        
+    // Add a confirmation prompt on form submission
+    issueApplicationForm.addEventListener('submit', function (event) {
+        let decision = applicationDecision ? applicationDecision.value : '';
+        let confirmationMessage = '';
+
+        if (decision === 'Approve') {
+            confirmationMessage = "Are you sure you want to upload and issue the clearance?";
+        } else if (decision === 'Disapprove') {
+            confirmationMessage = "Are you sure you want to disapprove this application?";
+        }
+
+        // Show confirmation if applicable
+        if (confirmationMessage && !confirm(confirmationMessage)) {
+            event.preventDefault(); // Stop form submission if user cancels
+        }
+
+        // Validate that a decision is selected
+        if (!decisionValue.value) {
+            alert("Please select a decision.");
+            event.preventDefault(); // Stop form submission if no decision
+        }
+    });
+});
 
 
         function handleReturnForAmendment() {
@@ -448,4 +461,6 @@
         }
 
     </script>
+
 }
+

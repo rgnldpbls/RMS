@@ -1,4 +1,4 @@
-﻿html, body {
+﻿﻿html, body {
     overflow: auto;
     height: 100%;
     margin: 0;
@@ -68,15 +68,15 @@
 
     .logo-text h5 {
         font-family: 'Poppins', sans-serif !important;
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 16px !important;
+        font-weight: bold !important;
         color: white;
         margin: 0;
     }
 
     .logo-text p {
         font-family: 'Montserrat', sans-serif !important;
-        font-size: 12px;
+        font-size: 12px !important;
         color: white;
         margin: 0;
     }
@@ -103,8 +103,8 @@
         .navbar-links ul li a {
             text-decoration: none;
             color: white;
-            font-size: 18px;
-            font-family: 'Poppins', sans-serif;
+            font-size: 18px !important;
+            font-family: 'Poppins', sans-serif !important;
             padding: 10px 20px; /* Adds padding around links for better click area */
             position: relative;
             display: inline-block; /* Ensures the hover underline works correctly */
@@ -163,7 +163,7 @@ section {
 
     .navbar-icons i {
         color: white;
-        font-size: 20px;
+        font-size: 20px !important;
         cursor: pointer;
     }
 
@@ -213,9 +213,9 @@ section {
 }
 
 .modal-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
     text-align: center;
     width: 100%;
 }
@@ -224,8 +224,8 @@ section {
     background-color: #FFDB89; /* Light yellow background */
     color: #850000; /* Deep red text */
     border: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1.2rem !important;
     border-radius: 25px;
     padding: 10px;
     margin-bottom: 10px;
@@ -270,9 +270,9 @@ section {
 }
 
 .modal-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
     text-align: center;
     width: 100%;
 }
@@ -281,8 +281,8 @@ section {
     background-color: #FFDB89; /* Light yellow background */
     color: #850000; /* Deep red text */
     border: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1.2rem !important;
     border-radius: 25px;
     padding: 10px;
     margin-bottom: 10px;
@@ -313,10 +313,10 @@ section {
 
 /* Custom heading styles */
 .custom-heading {
-    font-size: 65px;
+    font-size: 65px !important;
     line-height: 70px;
     margin-top: -5%;
-    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+    font-family: 'Poppins', sans-serif !important; /* Apply Poppins font */
     color: #ffdb89; /* Set text color */
     text-align: center;
     display: block; /* Ensure it's a block element for proper vertical stacking */
@@ -324,9 +324,9 @@ section {
 }
 
 .custom-heading2 {
-    font-size: 65px;
+    font-size: 65px !important;
     line-height: 70px;
-    font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+    font-family: 'Poppins', sans-serif !important; /* Apply Poppins font */
     color: #ffdb89; /* Set text color */
     text-align: center;
     display: block; /* Ensure it's a block element for proper vertical stacking */
@@ -336,9 +336,9 @@ section {
 .first-line, .second-line, .third-line, .fourth-line {
     width: 1230px;
     line-height: 10px;
-    font-size: 20px;
-    font-weight: 400;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    font-family: 'Montserrat', sans-serif !important;
     color: #fff;
     text-align: center;
     display: flex;
@@ -363,10 +363,10 @@ section {
     }
 
     .custom-heading, .custom-heading2 {
-        font-size: clamp(32px, 5vw, 65px);
+        font-size: clamp(32px, 5vw, 65px) !important;
         line-height: 1.2;
         padding: 0 20px;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Poppins', sans-serif !important;
         color: #ffdb89;
         text-align: center;
         text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -379,22 +379,22 @@ section {
 }
 
 .container h1 {
-    font-size: 60px;
+    font-size: 60px !important;
     margin: 0;
-    font-weight: bold;
+    font-weight: bold !important;
     color: #FFDB89;
 }
 
 .container p {
-    font-size: 20px;
+    font-size: 20px !important;
     margin: 20px 0;
 }
 
 .custom-heading, .custom-heading2 {
-    font-size: clamp(32px, 5vw, 65px);
+    font-size: clamp(32px, 5vw, 65px) !important;
     line-height: 1.2;
     padding: 0 20px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
     color: #ffdb89;
     text-align: center;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -407,9 +407,9 @@ section {
 
 
 .container h1 {
-    font-size: 60px;
+    font-size: 60px !important;
     margin: 0;
-    font-weight: bold;
+    font-weight: bold !important;
     color: #FFDB89;
 }
 
@@ -461,12 +461,12 @@ section {
     }
 
     .sidebar .profile-info h3 {
-        font-size: 16px;
+        font-size: 16px !important;
         margin-bottom: 3px;
     }
 
     .sidebar .profile-info .user-email, .sidebar .profile-info .user-id {
-        font-size: 12px;
+        font-size: 12px !important;
         color: #ccc;
     }
 
@@ -484,7 +484,7 @@ section {
                 text-decoration: none;
                 display: flex;
                 align-items: center;
-                font-size: 16px;
+                font-size: 16px !important;
             }
 
                 .sidebar .menu-section ul li a img {
@@ -515,8 +515,8 @@ section {
 }
 
 .nav-item {
-    font-family: "Poppins";
-    font-weight: bold;
+    font-family: "Poppins" !important;
+    font-weight: bold !important;
 }
 
     .nav-item:hover {
@@ -533,13 +533,13 @@ section {
 }
 
 .pup {
-    font-family: "Montserrat";
-    font-size: 14px;
+    font-family: "Montserrat" !important;
+    font-size: 14px !important;
 }
 
 .rmo {
-    font-family: "Poppins";
-    font-weight: bold;
+    font-family: "Poppins" !important;
+    font-weight: bold !important;
 }
 
 a {

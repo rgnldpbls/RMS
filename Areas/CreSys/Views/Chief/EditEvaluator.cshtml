@@ -1,0 +1,88 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.EditEvaluatorViewModel
+
+@{
+    ViewData["Title"] = "Edit Evaluator";
+}
+
+<!-- Add custom CSS for maroon theme -->
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <style>
+        /* Custom maroon theme */
+        .card {
+            background-color: #800000; /* Maroon background */
+            color: white; /* White text */
+            border: none;
+        }
+
+        .card-header {
+            background-color: #9b111e; /* Darker maroon for the header */
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #9b111e; /* Maroon button */
+            border-color: #9b111e;
+        }
+
+        .btn-secondary {
+            background-color: #f0ad4e; /* Yellow for Cancel button */
+            border-color: #f0ad4e;
+            color: black; /* Black text for better contrast */
+        }
+
+        .btn-secondary:hover {
+            background-color: #ec971f; /* Darker yellow on hover */
+            border-color: #ec971f;
+        }
+        .btn-primary:hover {
+            background-color: #800000; /* Darken maroon on hover */
+            border-color: #800000;
+        }
+
+        .form-control {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+    </style>
+</head>
+
+<!-- Main content within a card -->
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            Edit Evaluator
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <!-- Hidden field to pass the id -->
+                <input type="hidden" name="Evaluator.EthicsEvaluatorId" value="@Model.Evaluator.EthicsEvaluatorId" />
+
+                <div class="form-group">
+                    <label for="evaluatorName">Name</label>
+                    <input type="text" id="evaluatorName" name="Evaluator.Name" class="form-control" value="@Model.Evaluator.Name" readonly />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label>Expertise</label>
+                    <div>
+                        @foreach (var expertise in Model.ExpertiseList)
+                        {
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="SelectedExpertise" value="@expertise.ExpertiseId"
+                                @(Model.SelectedExpertise.Contains(expertise.ExpertiseId) ? "checked" : "") />
+                                <label class="form-check-label">@expertise.ExpertiseName</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="@Url.Action("ViewEthicsEvaluator", "Chief", new { id = Model.Evaluator.EthicsEvaluatorId })" class="btn btn-secondary ml-2">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

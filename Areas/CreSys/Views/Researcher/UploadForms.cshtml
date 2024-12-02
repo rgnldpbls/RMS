@@ -39,7 +39,7 @@
     {
         <button type="button" class="btn btn-danger" onclick="confirmCancellation()">Cancel Application</button>
     }
-
+    
 </div>
 <div id="headercard" class="card border-light mb-3" style="width:contain">
     <div class="card-header">
@@ -127,6 +127,20 @@
         </div>
         <div class="row">
             <p><strong>Field of Study:</strong> @Model.EthicsApplication.FieldOfStudy</p>
+            @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.Campus))
+            {
+                <p><strong>Campus:</strong> @Model.NonFundedResearchInfo.Campus</p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.College))
+            {
+                <p><strong>College:</strong> @Model.NonFundedResearchInfo.College</p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.University))
+            {
+                <p><strong>Institution:</strong> @Model.NonFundedResearchInfo.University</p>
+            }
         </div>
     </div>
 </div>
@@ -267,43 +281,45 @@
                     </div>
                 }
 
-
-                <!-- FORM10 -->
-                <div class="form-group">
-                    @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM10") == true)
-                    {
-                        @if (Model.InitialReview?.Status != "Returned")
+                <!-- FORM-10 -->
+                @if (Model?.EthicsForms?.Any(f => f.EthicsFormId == "FORM10" && f.IsRequired) == true)
+                {
+                    <div class="form-group">
+                        @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM10") == true)
                         {
-                            <div class="document-actions">
-                                <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM10", UrecNo = Model.EthicsApplication.UrecNo })"
-                                   target="_blank"
-                                   class="btn btn-primary">
-                                    <i class="fas fa-eye"></i>
-                                    View FORM 10 - Research Study Protocol
-                                </a>
-                                <div class="btn-icon-wrapper">
-                                    <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM10", UrecNo = Model.EthicsApplication.UrecNo })"
-                                       class="btn-icon">
-                                        <i class="fas fa-download"></i>
+                            @if (Model.InitialReview?.Status != "Returned")
+                            {
+                                <div class="document-actions">
+                                    <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM10", UrecNo = Model.EthicsApplication.UrecNo })"
+                                       target="_blank"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-eye"></i>
+                                        View FORM 10 - Research Study Protocol
                                     </a>
+                                    <div class="btn-icon-wrapper">
+                                        <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM10", UrecNo = Model.EthicsApplication.UrecNo })"
+                                           class="btn-icon">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-
-
+                            }
+                            else
+                            {
+                                @* Show the file upload option for updating *@
+                                <label for="editFORM10" class="text-muted">Upload updated FORM 10 if asked:</label>
+                                <input asp-for="editFORM10" class="form-control pdf-upload" type="file" accept=".pdf" id="editFORM10" />
+                            }
                         }
                         else
                         {
-                            <label for="editFORM10" class="text-muted">Upload updated FORM - 10 if asked:</label>
-                            <input asp-for="editFORM10" class="form-control pdf-upload" type="file" accept=".pdf" />
+                            @* Show the initial upload option *@
+                            <label asp-for="FORM10">Upload FORM 10 - Research Study Protocol:</label>
+                            <input asp-for="FORM10" class="form-control pdf-upload" type="file" accept=".pdf" id="FORM10" />
+                            <span asp-validation-for="FORM10" class="text-danger"></span>
                         }
-                    }
-                    else
-                    {
-                        <label asp-for="FORM10">Upload FORM 10 - Research Study Protocol:</label>
-                        <input asp-for="FORM10" class="form-control pdf-upload" type="file" accept=".pdf" />
-                        <span asp-validation-for="FORM10" class="text-danger"></span>
-                    }
-                </div>
+                    </div>
+                }
 
                 <!-- LI -->
                 <div class="form-group">
@@ -416,131 +432,134 @@
                 <!-- Upload Sections -->
                 <div class="ethics-forms-container">
                     <!-- FORM 11 - Informed Consent Form -->
-                    @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM11") == true)
-                    {
-                        // Show file input to replace FORM 11 if the review is "Returned"
-                        @if (Model.InitialReview?.Status == "Returned")
+                    
+                        @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM11") == true)
                         {
-                            <label for="editFORM11">Replace Ethics Form 11 Informed Consent:</label>
-                            <input asp-for="editFORM11" id="form11-file" class="form-control pdf-upload" type="file" accept=".pdf" />
-                        }
-                        else
-                        {
-                            // Show view/download buttons if the review is not "Returned"
-                            <div class="document-actions">
-                                <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM11", UrecNo = Model.EthicsApplication.UrecNo })"
-                                   target="_blank"
-                                   class="btn btn-primary">
-                                    <i class="fas fa-eye"></i>
-                                    FORM 11 - Informed Consent Form.pdf
-                                </a>
-                                <div class="btn-icon-wrapper">
-                                    <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM11", UrecNo = Model.EthicsApplication.UrecNo })"
-                                       class="btn-icon">
-                                        <i class="fas fa-download"></i>
+                            // Show file input to replace FORM 11 if the review is "Returned"
+                            @if (Model.InitialReview?.Status == "Returned")
+                            {
+                                <label for="editFORM11">Replace Ethics Form 11 Informed Consent:</label>
+                                <input asp-for="editFORM11" id="form11-file" class="form-control pdf-upload" type="file" accept=".pdf" />
+                            }
+                            else
+                            {
+                                // Show view/download buttons if the review is not "Returned"
+                                <div class="document-actions">
+                                    <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM11", UrecNo = Model.EthicsApplication.UrecNo })"
+                                       target="_blank"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-eye"></i>
+                                        FORM 11 - Informed Consent Form.pdf
                                     </a>
+                                    <div class="btn-icon-wrapper">
+                                        <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM11", UrecNo = Model.EthicsApplication.UrecNo })"
+                                           class="btn-icon">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        // Check if the latest ethics log Status is "Applied"
-                        @if (Model?.EthicsApplicationLog?.LastOrDefault()?.Status == "Applied")
-                        {
-                            // Show upload option if the log Status is "Applied"
-                            <label for="FORM11">Upload Ethics Form 11 Informed Consent:</label>
-                            <input asp-for="FORM11" id="form11-file" class="form-control pdf-upload" type="file" accept=".pdf" />
-                            <span asp-validation-for="FORM11" class="text-danger"></span>
+                            }
                         }
                         else
                         {
-                            // Optionally display a message or nothing if not "Applied"
+                            // Check if the latest ethics log Status is "Applied"
+                            @if (Model?.EthicsApplicationLog?.LastOrDefault()?.Status == "Applied")
+                            {
+                            // Show upload option if the log Status is "Applied"
+                                <label for="FORM11">Upload Ethics Form 11 Informed Consent:</label>
+                                <input asp-for="FORM11" id="form11-file" class="form-control pdf-upload" type="file" accept=".pdf" />
+                                <span asp-validation-for="FORM11" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                // Optionally display a message or nothing if not "Applied"
+                            }
                         }
-                    }
-
+                    
 
                     <!-- FORM 12 - Assent Form for Minor-Participants -->
-                    @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM12") == true)
-                    {
-                        @if (Model.InitialReview?.Status == "Returned")
+                    
+                        @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM12") == true)
                         {
-                            <label for="editFORM12">Replace Ethics Form 12 Assent Form:</label>
-                            <input asp-for="editFORM12" id="form12-file" class="form-control pdf-upload" type="file" accept=".pdf" />
-                        }
-                        else
-                        {
-                            <div class="document-actions">
-                                <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM12", UrecNo = Model.EthicsApplication.UrecNo })"
-                                   target="_blank"
-                                   class="btn btn-primary">
-                                    <i class="fas fa-eye"></i>
-                                    FORM 12 - Assent Form for Minor-Participants
-                                </a>
-                                <div class="btn-icon-wrapper">
-                                    <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM12", UrecNo = Model.EthicsApplication.UrecNo })"
-                                       class="btn-icon">
-                                        <i class="fas fa-download"></i>
+                            @if (Model.InitialReview?.Status == "Returned")
+                            {
+                                <label for="editFORM12">Replace Ethics Form 12 Assent Form:</label>
+                                <input asp-for="editFORM12" id="form12-file" class="form-control pdf-upload" type="file" accept=".pdf" />
+                            }
+                            else
+                            {
+                                <div class="document-actions">
+                                    <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM12", UrecNo = Model.EthicsApplication.UrecNo })"
+                                       target="_blank"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-eye"></i>
+                                        FORM 12 - Assent Form for Minor-Participants
                                     </a>
+                                    <div class="btn-icon-wrapper">
+                                        <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM12", UrecNo = Model.EthicsApplication.UrecNo })"
+                                           class="btn-icon">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        @if (Model?.EthicsApplicationLog?.LastOrDefault()?.Status == "Applied")
-                        {
-                            <label for="FORM12">Upload Ethics Form 12 Assent Form:</label>
-                            <input asp-for="FORM12" id="form12-file" class="form-control pdf-upload" type="file" accept=".pdf" />
-                            <span asp-validation-for="FORM12" class="text-danger"></span>
+                            }
                         }
                         else
                         {
-                            // Optionally display a message or nothing if not "Applied"
+                            @if (Model?.EthicsApplicationLog?.LastOrDefault()?.Status == "Applied")
+                            {
+                                <label for="FORM12">Upload Ethics Form 12 Assent Form:</label>
+                                <input asp-for="FORM12" id="form12-file" class="form-control pdf-upload" type="file" accept=".pdf" />
+                                <span asp-validation-for="FORM12" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                // Optionally display a message or nothing if not "Applied"
+                            }
                         }
-                    }
-
+                    
 
                     <!-- FORM 10.1 - Non-Human Determination Form -->
-                    @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM10_1") == true)
-                    {
-                        @if (Model.InitialReview?.Status == "Returned")
+                   
+                        @if (Model?.EthicsApplicationForms?.Any(f => f.EthicsFormId == "FORM10_1") == true)
                         {
-                            <label for="editFORM10_1">Replace Ethics Form 10.1 Non-Human Determination Form:</label>
-                            <input asp-for="editFORM10_1" id="form10-1-file" class="form-control pdf-upload" type="file" accept=".pdf" />
-                        }
-                        else
-                        {
-                            <div class="document-actions">
-                                <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM10_1", UrecNo = Model.EthicsApplication.UrecNo })"
-                                   target="_blank"
-                                   class="btn btn-primary">
-                                    <i class="fas fa-eye"></i>
-                                    FORM 10.1 - Non-Human Determinant Template
-                                </a>
-                                <div class="btn-icon-wrapper">
-                                    <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM10_1", UrecNo = Model.EthicsApplication.UrecNo })"
-                                       class="btn-icon">
-                                        <i class="fas fa-download"></i>
+                            @if (Model.InitialReview?.Status == "Returned")
+                            {
+                                <label for="editFORM10_1">Replace Ethics Form 10.1 Non-Human Determination Form:</label>
+                                <input asp-for="editFORM10_1" id="form10-1-file" class="form-control pdf-upload" type="file" accept=".pdf" />
+                            }
+                            else
+                            {
+                                <div class="document-actions">
+                                    <a href="@Url.Action("ViewFile", "Researcher", new { formId = "FORM10_1", UrecNo = Model.EthicsApplication.UrecNo })"
+                                       target="_blank"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-eye"></i>
+                                        FORM 10.1 - Non-Human Determinant Template
                                     </a>
+                                    <div class="btn-icon-wrapper">
+                                        <a href="@Url.Action("DownloadFile", "Researcher", new { formId = "FORM10_1", UrecNo = Model.EthicsApplication.UrecNo })"
+                                           class="btn-icon">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        @if (Model?.EthicsApplicationLog?.LastOrDefault()?.Status == "Applied")
-                        {
-                            <label for="FORM10_1">Upload Ethics Form 10.1 Non-Human Determination Form:</label>
-                            <input asp-for="FORM10_1" id="form10-1-file" class="form-control pdf-upload" type="file" accept=".pdf" />
-                            <span asp-validation-for="FORM10_1" class="text-danger"></span>
+                            }
                         }
                         else
                         {
-                            // Optionally display a message or nothing if not "Applied"
+                            @if (Model?.EthicsApplicationLog?.LastOrDefault()?.Status == "Applied")
+                            {
+                                <label for="FORM10_1">Upload Ethics Form 10.1 Non-Human Determination Form:</label>
+                                <input asp-for="FORM10_1" id="form10-1-file" class="form-control pdf-upload" type="file" accept=".pdf" />
+                                <span asp-validation-for="FORM10_1" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                // Optionally display a message or nothing if not "Applied"
+                            }
                         }
-                    }
-
+                    
                 </div>
             </div>
         </div>
@@ -588,10 +607,10 @@
             <div class="card-header">
                 <h5>
                     Ethics Clearance Details
-                    <i class="fa-solid fa-eye text-info"
-                       style="cursor: pointer; font-size: 1.25rem;"
+                   <i class="fa-solid fa-eye text-info" 
+                       style="cursor: pointer; font-size: 1.25rem;" 
                        onclick="viewEthicsClearance('@Model.EthicsApplication.UrecNo')"
-                       onmouseover="this.style.color='blue';"
+                       onmouseover="this.style.color='blue';" 
                        onmouseout="this.style.color='inherit';">
                     </i>
                 </h5>

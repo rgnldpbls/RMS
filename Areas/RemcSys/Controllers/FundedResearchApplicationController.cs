@@ -43,8 +43,8 @@ namespace RemcSys.Controllers
             _userManager = userManager;
             _environment = environment;
             _actionLogger = actionLogger;
-            _smtpUser = Environment.GetEnvironmentVariable("SMTP_USER") ?? "pueblosregienaldnb15@gmail.com";
-            _smtpPass = Environment.GetEnvironmentVariable("SMTP_PASS") ?? "fzds ayox qhaj mvdb";
+            _smtpUser = Environment.GetEnvironmentVariable("SMTP_USER") ?? "remc.rmo2@gmail.com";
+            _smtpPass = Environment.GetEnvironmentVariable("SMTP_PASS") ?? "rhmh oyge mwky ozzx";
         }
 
         [Authorize(Roles = "Admin")]
@@ -732,14 +732,14 @@ namespace RemcSys.Controllers
             var fr = await _context.REMC_FundedResearchEthics.FirstOrDefaultAsync(f => f.fra_Id == id);
             if(fr == null)
             {
-                return RedirectToAction("SelectFREthics", "FundedResearchApplication", new { fraId = id, hasEthics = false });
+                return RedirectToAction("ViewEthicsStatus", "FundedResearchApplication", new { fraId = id, hasEthics = false, urecNo = ""});
             }
             
-            return RedirectToAction("SelectFREthics", "FundedResearchApplication", new { fraId = id, hasEthics =  true});
+            return RedirectToAction("ViewEthicsStatus", "FundedResearchApplication", new { fraId = id, hasEthics =  true, urecNo = fr.urecNo});
         }
 
         [Authorize(Roles ="Faculty")]
-        public IActionResult SelectFREthics(string fraId, bool hasEthics)
+        public IActionResult ViewEthicsStatus(string fraId, bool hasEthics, string urecNo)
         {
             if (fraId == null)
             {
@@ -747,10 +747,12 @@ namespace RemcSys.Controllers
             }
             ViewBag.Id = fraId;
             ViewBag.hasEthics = hasEthics;
+            ViewBag.urecNo = urecNo;
+            
             return View();
         }
 
-        [Authorize(Roles ="Faculty")]
+        /*[Authorize(Roles ="Faculty")]
         public async Task<IActionResult> UploadEthicsClearance(string id)
         {
             if (id == null)
@@ -770,10 +772,9 @@ namespace RemcSys.Controllers
             ViewBag.Members = fra.team_Members;
 
             return View();
-        }
+        }*/
 
-        [HttpPost]
-        public async Task<IActionResult> SubmitEthicsClearance(IFormFile file, string id)
+        public async Task<IActionResult> GenerateEthics(string id)
         {
             if(id == null)
             {
@@ -785,56 +786,35 @@ namespace RemcSys.Controllers
                 return NotFound("Funded Research Application not found!");
             }
 
-            if (file == null || file.Length == 0)
+            var researchEthics = new FundedResearchEthics
             {
-                return NotFound("There is no uploaded file. Please upload the file and try to submit again.");
-            }
-
-            byte[] pdfData;
-            using (var ms  = new MemoryStream())
-            {
-                await file.CopyToAsync(ms);
-                pdfData = ms.ToArray();
-                var researchEthics = new FundedResearchEthics
-                {
-                    fre_Id = Guid.NewGuid().ToString(),
-                    file_Name = file.FileName,
-                    file_Type = Path.GetExtension(file.FileName),
-                    clearanceFile = pdfData,
-                    file_Status = "Pending",
-                    file_Feedback = null,
-                    file_Uploaded = DateTime.Now,
-                    fra_Id = fra.fra_Id
-                };
-                _context.REMC_FundedResearchEthics.Add(researchEthics);
-            }
-            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} already uploaded the Ethics Clearance.", true, true, false, fra.fra_Id);
+                fre_Id = Guid.NewGuid().ToString(),
+                file_Uploaded = DateTime.Now,
+                fra_Id = fra.fra_Id
+            };
+            _context.REMC_FundedResearchEthics.Add(researchEthics);
             await _context.SaveChangesAsync();
-            return RedirectToAction("ApplicationStatus", new {id = fra.fra_Id});
+            return RedirectToAction("ApplyFundedEthics", "Researcher", new {area = "CreSys", id = fra.fra_Id});
         }
 
         public async Task<IActionResult> PreviewFile(string id) // Preview of PDF Files
         {
             var fileRequirement = await _context.REMC_FileRequirement.FindAsync(id);
-            if(fileRequirement == null)
+            if(fileRequirement != null)
             {
-                return NotFound("No File found!");
-            }
-
-            if(fileRequirement.file_Type == ".pdf")
-            {
-                return File(fileRequirement.data, "application/pdf");
+                if (fileRequirement.file_Type == ".pdf")
+                {
+                    return File(fileRequirement.data, "application/pdf");
+                }
             }
 
             var researchEthics = await _context.REMC_FundedResearchEthics.FindAsync(id);
-            if(researchEthics == null)
+            if(researchEthics != null)
             {
-                return NotFound("No file found!");
-            }
-
-            if(researchEthics.file_Type == ".pdf")
-            {
-                return File(researchEthics.clearanceFile, "application/pdf");
+                if (researchEthics.file_Type == ".pdf")
+                {
+                    return File(researchEthics.clearanceFile, "application/pdf");
+                }
             }
 
             return BadRequest("Only PDF files can be previewed.");

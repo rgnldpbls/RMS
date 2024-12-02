@@ -32,6 +32,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //Dependencies Injection CRE
 builder.Services.AddScoped<IEthicsEmailService, EthicsEmailService>();
 builder.Services.AddScoped<IAllServices, AllServices>();
+builder.Services.AddScoped<IPdfGenerationService, PdfGenerationService>();
 
 
 // Configure Identity services with unique email requirement

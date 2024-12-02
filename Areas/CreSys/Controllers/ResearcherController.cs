@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RemcSys.Data;
 using ResearchManagementSystem.Areas.CreSys.Data;
 using ResearchManagementSystem.Areas.CreSys.Interfaces;
 using ResearchManagementSystem.Areas.CreSys.Models;
@@ -19,13 +20,15 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         private readonly CreDbContext _context;
         private readonly IEthicsEmailService _emailService;
         private readonly IAllServices _allServices;
+        private readonly RemcDBContext _remcDbContext;
 
-        public ResearcherController(UserManager<ApplicationUser> userManager, CreDbContext context, IEthicsEmailService emailService, IAllServices allServices)
+        public ResearcherController(UserManager<ApplicationUser> userManager, CreDbContext context, IEthicsEmailService emailService, IAllServices allServices, RemcDBContext remcDbContext)
         {
             _userManager = userManager;
             _context = context;
             _emailService = emailService;
             _allServices = allServices;
+            _remcDbContext = remcDbContext;
         }
         public IActionResult Index()
         {
@@ -391,6 +394,85 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             return RedirectToAction("Applications");
         }
+
+        /*Integration from REMC*/
+        public async Task<IActionResult> ApplyFundedEthics(string id)
+        {
+            if (id == null)
+            {
+                return NotFound("No Funded Research Application Id found!");
+            }
+            var fr = await _remcDbContext.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == id);
+            if (fr == null)
+            {
+                return NotFound("No Funded Research Application found!");
+            }
+
+            bool titleExists = await _context.CRE_NonFundedResearchInfo.AnyAsync(r => r.Title == fr.research_Title);
+            if (titleExists)
+            {
+                return BadRequest("This research title already exists.");
+            }
+
+            var ethicsApplication = new EthicsApplication
+            {
+                UrecNo = await GenerateUrecNoAsync(),
+                UserId = fr.UserId,
+                Name = fr.applicant_Name,
+                SubmissionDate = DateTime.Now,
+                FieldOfStudy = fr.field_of_Study
+            };
+
+            var nfri = new NonFundedResearchInfo
+            {
+                NonFundedResearchId = await GenerateNonFundedResearchIdAsync(),
+                UserId = fr.UserId,
+                Name = fr.applicant_Name,
+                UrecNo = ethicsApplication.UrecNo,
+                DateSubmitted = DateTime.Now,
+                Title = fr.research_Title,
+                College = fr.college == null ? null : fr.college,
+                Campus = fr.branch == null ? null : fr.branch,
+                University = "Polytechnic University of the Philippines"
+            };
+
+            var ethicsApplyLog = new EthicsApplicationLogs
+            {
+                UrecNo = ethicsApplication.UrecNo,
+                UserId = fr.UserId,
+                Name = fr.applicant_Name,
+                Status = "Applied",
+                ChangeDate = DateTime.Now,
+            };
+
+            _context.CRE_EthicsApplication.Add(ethicsApplication);
+            _context.CRE_NonFundedResearchInfo.Add(nfri);
+            _context.CRE_EthicsApplicationLogs.Add(ethicsApplyLog);
+
+            if (fr.team_Members != null && fr.team_Members.Any())
+            {
+                foreach (var member in fr.team_Members)
+                {
+                    var coProponent = new CoProponent
+                    {
+                        NonFundedResearchId = nfri.NonFundedResearchId,
+                        CoProponentName = member
+                    };
+
+                    _context.CRE_CoProponents.Add(coProponent);
+                }
+            }
+
+            var fre = await _remcDbContext.REMC_FundedResearchEthics.FirstAsync(fre => fre.fra_Id == id);
+            fre.urecNo = ethicsApplication.UrecNo;
+
+            await _context.SaveChangesAsync();
+            await _remcDbContext.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Your application has been submitted successfully.";
+            return RedirectToAction("Applications");
+        }
+
 
         public async Task<IActionResult> ConfirmCancelApplication(string applicationId)
         {
@@ -769,35 +851,32 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         [HttpGet]
         public async Task<IActionResult> TrackApplication(string urecNo)
         {
-            // Fetch the application based on urecNo
-            var application = await _context.CRE_EthicsApplication
-                                            .FirstOrDefaultAsync(app => app.UrecNo == urecNo);
-
-            // Fetch the related NonFundedResearchInfo
-            var nonFundedResearchInfo = await _context.CRE_NonFundedResearchInfo
-                                                      .Include(info => info.CoProponents)
-                                                      .FirstOrDefaultAsync(info => info.UrecNo == urecNo);
-
-            // Fetch the logs related to the application
-            var logs = await _context.CRE_EthicsApplicationLogs
-                                     .Where(log => log.UrecNo == urecNo)
-                                     .OrderByDescending(log => log.ChangeDate)
-                                     .ToListAsync();
+            // Fetch the application, related NonFundedResearchInfo, and logs in one query using Include
+            var applicationWithDetails = await _context.CRE_EthicsApplication
+                .Where(app => app.UrecNo == urecNo)
+                .Include(app => app.NonFundedResearchInfo)
+                    .ThenInclude(info => info.CoProponents)
+                .Include(app => app.EthicsApplicationLogs)  // Fetch related logs
+                .FirstOrDefaultAsync();
 
             // If no application is found or no logs exist, show message and redirect
-            if (application == null || !logs.Any())
+            if (applicationWithDetails == null || !applicationWithDetails.EthicsApplicationLogs.Any())
             {
                 TempData["ErrorMessage"] = "No logs available for the provided UREC No.";
                 return Redirect(Request.Headers["Referer"].ToString());
             }
 
-            // Pass data to the view using ViewBag
-            ViewBag.Application = application;
-            ViewBag.NonFundedResearchInfo = nonFundedResearchInfo;
-            ViewBag.CoProponents = nonFundedResearchInfo?.CoProponents?.ToList() ?? new List<CoProponent>();
-            ViewBag.Logs = logs;
+            // Create the ViewModel
+            var viewModel = new TrackApplicationViewModel
+            {
+                Application = applicationWithDetails,
+                NonFundedResearchInfo = applicationWithDetails.NonFundedResearchInfo,
+                CoProponents = applicationWithDetails.NonFundedResearchInfo?.CoProponents?.ToList() ?? new List<CoProponent>(),
+                Logs = applicationWithDetails.EthicsApplicationLogs.ToList()
+            };
 
-            return View();
+            // Pass the ViewModel to the view
+            return View(viewModel);
         }
 
 

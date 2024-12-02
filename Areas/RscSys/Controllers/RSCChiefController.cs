@@ -33,6 +33,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using ResearchManagementSystem.Models;
 using Table = iText.Layout.Element.Table;
 using Tuple = System.Tuple;
+using CrdlSys.Data;
 
 
 namespace rscSys_final.Controllers
@@ -45,12 +46,14 @@ namespace rscSys_final.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         //private readonly ILogger<RSCResearcherController> _logger;
         private readonly IWebHostEnvironment _environment;
-        public RSCChiefController(rscSysfinalDbContext context, UserManager<ApplicationUser> userManager, /*ILogger<RSCResearcherController> logger,*/ IWebHostEnvironment environment)
+        private readonly CrdlDbContext _crdlDbContext;
+        public RSCChiefController(rscSysfinalDbContext context, UserManager<ApplicationUser> userManager, /*ILogger<RSCResearcherController> logger,*/ IWebHostEnvironment environment, CrdlDbContext crdlDbContext)
         {
             _context = context;
             _userManager = userManager;
             //_logger = logger;
             _environment = environment;
+            _crdlDbContext = crdlDbContext;
         }
 
         [HttpPost]
@@ -953,7 +956,7 @@ namespace rscSys_final.Controllers
                })
                .ToList();
 
-                    return View(incentivesData);
+            return View(incentivesData);
         }
 
         public IActionResult AssistanceOverview()
@@ -1302,7 +1305,7 @@ namespace rscSys_final.Controllers
                                            .Include(at => at.ApplicationSubCategories) // Include related subcategories if needed
                                            .Include(at => at.Checklists) // Include related checklists if needed
                                            .FirstOrDefault(at => at.ApplicationTypeId == id);
-        
+
             if (applicationType != null)
             {
                 // Optionally, handle cascading deletes or remove related entities
@@ -1825,12 +1828,12 @@ namespace rscSys_final.Controllers
                 EvaluatorAssignments = assignedEvaluators,
                 EvaluatorProfile = evaluatorsList.Select(e => new rscSys_final.Models.Evaluator
                 {
-                    EvaluatorId = e.User.EvaluatorId ,
+                    EvaluatorId = e.User.EvaluatorId,
                     Name = e.User.Name,
                     Specialization = e.User.Specialization,
-                    PendingCount = e.PendingCount, 
+                    PendingCount = e.PendingCount,
                     CompletedCount = e.CompletedCount,
-                    DeclinedCount = e.DeclinedCount    
+                    DeclinedCount = e.DeclinedCount
                 }).ToList()
             };
 
@@ -2018,7 +2021,7 @@ namespace rscSys_final.Controllers
             return RedirectToAction("Applications"/*, new { requestId }*/);
         }
 
-        public IActionResult Applications(string searchTerm,string collegeFilter, string applicationTypeFilter, int? yearFilter, int page = 1)
+        public IActionResult Applications(string searchTerm, string collegeFilter, string applicationTypeFilter, int? yearFilter, int page = 1)
         {
             int pageSize = 10;
 
@@ -2027,7 +2030,7 @@ namespace rscSys_final.Controllers
                 .Include(r => r.DocumentHistories) // Include document histories
                 .Include(r => r.EvaluatorAssignments) // Include evaluator assignments
                     .ThenInclude(ea => ea.Evaluators) // Include evaluator user information
-/*                .OrderBy(r => r.CreatedDate) // Order by CreatedDate or another relevant field*/
+                /*                .OrderBy(r => r.CreatedDate) // Order by CreatedDate or another relevant field*/
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
@@ -2172,6 +2175,143 @@ namespace rscSys_final.Controllers
                 .ToListAsync();
 
             return Json(uploadedFiles);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetCalendarEvents()
+        {
+            var events = await _crdlDbContext.ResearchEvent
+                .Where(e => !e.IsArchived)
+                .ToListAsync();
+
+            System.Diagnostics.Debug.WriteLine($"Found {events.Count} events");
+
+            var formattedEvents = events.Select(e => new
+            {
+                id = e.ResearchEventId,
+                title = e.EventName,
+                start = e.EventDate.ToString("yyyy-MM-ddTHH:mm:ss"),
+                end = e.EndTime.ToString("yyyy-MM-ddTHH:mm:ss"),
+                description = e.EventDescription,
+                location = e.EventLocation,
+                eventType = e.EventType,
+                backgroundColor = GetEventTypeColor(e.EventType)
+            }).ToList();
+
+            return Json(formattedEvents);
+        }
+        private string GetEventTypeColor(string eventType)
+        {
+            return eventType.ToLower() switch
+            {
+                "workshop" => "#4e73df",    // Blue
+                "seminar" => "#1cc88a",     // Green
+                "publication" => "#f6c23e",  // Yellow
+                _ => "#e74a3b"              // Red for Others
+            };
+        }
+
+        // GET: Reports
+        public IActionResult GenerateReportDirector()
+        {
+            var model = new ReportFilterViewModel
+            {
+                GeneratedReports = _context.RSC_GeneratedReports.ToList() // Retrieve generated reports for the view
+            };
+            ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
+            .Count(n => !n.NotificationStatus && n.Role == "Chief , Director");
+
+            return View(model);
+        }
+
+
+        // Controller Action to Generate Report for director
+        [HttpPost]
+        public async Task<IActionResult> GenerateReportDirector(ReportFilterViewModel model, string fileType)
+        {
+            List<rscSys_final.Models.Request> requests;
+
+            // Fetch requests based on the selected criteria
+            if (model.ReportType == "Summary Report" && string.IsNullOrEmpty(model.College) && model.StartDate == null && model.EndDate == null && string.IsNullOrEmpty(model.Branch))
+            {
+                requests = await _context.RSC_Requests
+                    .Where(r => r.Status == "Approved" || r.Status == "Endorsed by RMO")
+                    .ToListAsync();
+            }
+            else
+            {
+                requests = await _context.RSC_Requests
+                 .Where(r => (r.Status == "Approved" || r.Status == "Endorsed by RMO") &&
+                             (model.StartDate == null || r.CreatedDate >= model.StartDate) &&
+                             (model.EndDate == null || r.CreatedDate <= model.EndDate) &&
+                             (string.IsNullOrEmpty(model.College) || r.College == model.College) &&
+                             (string.IsNullOrEmpty(model.Branch) || r.Branch == model.Branch) &&
+                             (model.ReportType != "Actual Number of Approved Thesis And Dissertation Grant" ||
+                              r.ApplicationType == "Master's Thesis" || r.ApplicationType == "Dissertation") &&
+                             (model.ReportType != "Actual Number of Approved National Paper Presentation" ||
+                              r.ApplicationType.Contains("National Paper Presentation")) &&
+                             (model.ReportType != "Actual Number of Approved International Paper Presentation" ||
+                              r.ApplicationType.Contains("International Paper Presentation")) &&
+                             (model.ReportType != "Actual Number of Approved Publication and Citation Incentives" ||
+                              r.ApplicationType.Contains("Citation")) &&
+                             (model.ReportType != "Actual Number of Approved Industrial Design, Utility Model, and Patent Incentive" ||
+                              r.ApplicationType.Contains("Industrial Design, Utility Model, and Patent")) &&
+                             (model.ReportType != "Actual Number of Approved University Publication Assistance" ||
+                              r.ApplicationType.Contains("University Publication Assistance"))
+                              )
+                .ToListAsync();
+            }
+
+            // Group and prepare report data by year
+            var groupedRequests = requests.GroupBy(r => r.CreatedDate.Year)
+                                          .OrderBy(g => g.Key)
+                                          .ToList();
+
+            var reportData = groupedRequests.Select(g => new ReportData
+            {
+                Year = g.Key,
+                TotalRequests = g.Count(),
+                TotalSpent = g.Sum(r => r.RequestSpent),
+                Requests = g.ToList()
+            }).ToList();
+
+            byte[] fileData;
+            string mimeType;
+            string fileExtension;
+
+            // Generate the report based on the selected file type
+            if (fileType == "Pdf")
+            {
+                fileData = GeneratePdfReport(reportData, reportData.Sum(r => r.TotalSpent), requests.Count, model.ReportType);
+                mimeType = "application/pdf";
+                fileExtension = "pdf";
+            }
+            else if (fileType == "Excel")
+            {
+                fileData = GenerateExcelReport(reportData, model.ReportType);
+                mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                fileExtension = "xlsx";
+            }
+            else
+            {
+                return BadRequest("Invalid file type selected.");
+            }
+
+            // Save the generated report to the database
+            var report = new GeneratedReport
+            {
+                ReportName = $"{model.ReportType}_{DateTime.Now:yyyyMMdd_HHmmss}",
+                FileData = fileData,
+                FileType = mimeType,
+                GeneratedDate = DateTime.Now,
+                GeneratedBy = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            };
+
+            _context.RSC_GeneratedReports.Add(report);
+            await _context.SaveChangesAsync();
+
+            // Return the file for download
+            return File(fileData, mimeType, $"{model.ReportType}_{DateTime.Now:yyyyMMdd_HHmmss}.{fileExtension}");
         }
     }
 }

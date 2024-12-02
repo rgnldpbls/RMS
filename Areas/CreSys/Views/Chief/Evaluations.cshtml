@@ -1,5 +1,7 @@
 ﻿@model ResearchManagementSystem.Areas.CreSys.ViewModels.ListViewModels.ApplicationEvaluationListViewModel
-
+@{
+    ViewData["Title"] = "All Evaluations";
+}
 <head>
     <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
@@ -78,7 +80,7 @@
                     {
                         <tr>
                             <td class="urec-column underline">
-                                <a asp-controller="Chief" asp-action="EvaluateApplication" asp-route-urecNo="@application.EthicsApplication?.UrecNo" class="">
+                                <a asp-controller="Chief" asp-action="EvaluateApplicationPdfGen" asp-route-urecNo="@application.EthicsApplication?.UrecNo" class="">
                                     @application.EthicsApplication?.UrecNo
                                 </a>
                             </td>

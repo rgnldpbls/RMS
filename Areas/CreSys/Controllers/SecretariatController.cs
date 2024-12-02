@@ -29,6 +29,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Secretariat")]
+        [HttpGet]
         public async Task<IActionResult> InitialReview()
         {
             var viewModel = new InitialReviewListViewModel
@@ -106,7 +108,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 })
                 .ToListAsync();
         }
-
+        [Authorize(Roles = "Secretariat")]
+        [HttpGet]
         public async Task<IActionResult> Details(string urecNo)
         {
             if (string.IsNullOrEmpty(urecNo))
@@ -173,8 +176,9 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             }
         }
 
+        [Authorize(Roles = "Secretariat")]
+         
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ApproveApplication(string urecNo, string comments)
         {
             if (string.IsNullOrEmpty(urecNo))
@@ -280,8 +284,9 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return RedirectToAction("InitialReview");
         }
 
+        [Authorize(Roles = "Secretariat")]
+         
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReturnApplication(string urecNo, string comments)
         {
             if (string.IsNullOrEmpty(urecNo))

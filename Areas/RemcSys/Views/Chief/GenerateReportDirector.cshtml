@@ -1,0 +1,141 @@
+﻿@model IEnumerable<GenerateReport>
+@{
+    ViewData["Title"] = "Generate Reports";
+    Layout = "Director";
+}
+<style>
+    body {
+        background-color: #E8E6E6;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #850000;
+    }
+
+    input[type="submit"], input[type="reset"], #modalbtn, input[type="button"], .new {
+        background: #850000;
+        border-radius: 15px;
+        height: 50px;
+        padding: 0px 30px;
+        color: white;
+        font-family: "Inter";
+        font-size: 20px;
+        border: none;
+        outline: none;
+        box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+        transition: ease-in-out .1s
+    }
+
+        input[type="submit"]:hover, input[type="reset"]:hover, #modalbtn:hover, input[type="button"]:hover, .new:hover {
+            background: #560000;
+        }
+</style>
+
+<div class="generate-report-container">
+    <div class="container shadow h4 p-4 text-white text-start rounded-4 fw-bold" style="background: #850000; font-family: Poppins;">
+        Generate Report
+    </div>
+    <div class="container p-4 bg-white shadow rounded-4 mb-3">
+    <div class="category-dropdown">
+            <label class="form-label" for="specialization">Select Report Type</label>
+        <select id="specialization" class="category-select form-select mb-3">
+            <option value="" disabled selected>Select Report Type...</option>
+            <option value="Application">Funded Research Application</option>
+            <option value="OngoingUFR">Ongoing University Funded Research</option>
+            <option value="OngoingEFR">Ongoing Externally Funded Research</option>
+            <option value="OngoingUFRL">Ongoing University Funded Research Load</option>
+            <option value="ResearchProduction">Research Production</option>
+            @* <option value="ForecastedUFRFunds">Forcasted UFR Funds</option> *@
+            <option value="Evaluator">University Funded Research - Evaluators</option>
+        </select>
+    </div>
+
+    <div class="date-wrapper">
+        <div class="date-container" id="dateContainer">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                        <div class="date-group">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input type="date" id="startDate" class="date-input form-control mb-3">
+                        </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                        <div class="date-group">
+                            <label for="endDate" class="form-label">End Date</label>
+                            <input type="date" id="endDate" class="date-input form-control mb-3">
+                        </div>
+                </div>
+            </div>
+           
+        </div>
+            <div class="container d-flex justify-content-end">
+                <button class="generate-btn new mt-3">Generate Report</button>
+            </div>
+    </div>
+        
+    
+</div>
+</div>
+<div class="recent-reports">
+    <div class="container shadow h4 p-4 text-white text-start rounded-4 fw-bold" style="background: #850000; font-family: Poppins;">
+        Recent Generated Reports
+    </div>
+    <div class="container p-4 bg-white shadow rounded-4">
+    @if (Model != null && Model.Any())
+    {
+        <ul style="list-style-type: none;">
+            @foreach (var report in Model)
+            {
+                <li class="container shadow-sm p-2 my-2 bg-danger-subtle rounded-4" style="list-style-type: none;">
+                    <span>@report.gr_fileName - Generated @ActionLog.GetTimeAgo(report.generateDate)</span>
+                    <a href="@Url.Action("PreviewFile", new {id = report.gr_Id})" class="btn btn-danger btn-sm" role="button">[Download]</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="container">No recent generated report yet.</div>
+    }
+    </div>
+</div>
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("startDate").setAttribute("max", today);
+    document.getElementById("endDate").setAttribute("max", today);
+
+    const reportType = document.getElementById("specialization");
+    const dateContainer = document.getElementById("dateContainer");
+
+    reportType.addEventListener('change', function () {
+        const selectedValue = this.value;
+        if (selectedValue == "Evaluator" || selectedValue == "ForecastedUFRFunds") {
+            dateContainer.style.display = 'none';
+        }
+        else {
+            dateContainer.style.display = 'flex';
+        }
+    });
+
+    document.querySelector('.generate-btn').addEventListener('click', function () {
+        const selectedType = document.getElementById("specialization").value;
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        if ((selectedType != "Evaluator" && selectedType != "ForecastedUFRFunds") && startDate && endDate) {
+            const url = `/RemcSys/Chief/GenerateReportsDirector?reportType=${selectedType}&startDate=${startDate}&endDate=${endDate}`;
+            window.location.href = url;
+        }
+        else if (selectedType == "Evaluator" || selectedType == "ForecastedUFRFunds") {
+            const url = `/RemcSys/Chief/GenerateReportsDirector?reportType=${selectedType}&startDate=null&endDate=null`;
+            window.location.href = url;
+        }
+        else {
+            alert("Please select all the necessary fields.");
+        }
+    });
+</script>
+
+
+
+

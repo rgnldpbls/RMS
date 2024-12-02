@@ -54,20 +54,38 @@
                     </div>
 
                     <!-- Modal for Event Details -->
-                    <div class="modal fade" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                    <div class="modal fade event-modal" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="eventModalLabel">@researchEvent.EventName</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p><strong>Type:</strong> @researchEvent.EventType</p>
-                                    <p><strong>Date:</strong> @researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
-                                    <p><strong>End Time:</strong> @researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyy hh:mm tt"))</p>
-                                    <p><strong>Location:</strong> @researchEvent.EventLocation</p>
-                                    <p><strong>Attendees:</strong> @researchEvent.ParticipantsCount</p>
-                                    <p><strong>Description:</strong> @researchEvent.EventDescription</p>
+                                    <div class="row label-row">
+                                        <strong class="label">Type:</strong>
+                                        <p class="value">@researchEvent.EventType</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label">Date:</strong>
+                                        <p class="value">@researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label">End Time:</strong>
+                                        <p class="value">@researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyy hh:mm tt"))</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label location-row">Location:</strong>
+                                        <p class="value">@researchEvent.EventLocation</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label attendees-row">Attendees:</strong>
+                                        <p class="value">@researchEvent.ParticipantsCount</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label description-row">Description:</strong>
+                                        <p class="value">@researchEvent.EventDescription</p>
+                                    </div>
 
                                     @if (researchEvent.EventStatus == "Postponed")
                                     {
@@ -183,20 +201,38 @@
                     </div>
 
                     <!-- Modal for Event Details -->
-                    <div class="modal fade" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                    <div class="modal fade event-modal" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="eventModalLabel">@researchEvent.EventName</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p><strong>Type:</strong> @researchEvent.EventType</p>
-                                    <p><strong>Date:</strong> @researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
-                                    <p><strong>End Time:</strong> @researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyyy hh:mm tt"))</p>
-                                    <p><strong>Location:</strong> @researchEvent.EventLocation</p>
-                                    <p><strong>Attendees:</strong> @researchEvent.ParticipantsCount</p>
-                                    <p><strong>Description:</strong> @researchEvent.EventDescription</p>
+                                    <div class="row">
+                                        <div class="label label-row"><strong>Type:</strong></div>
+                                        <div class="value"><p>@researchEvent.EventType</p></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label"><strong>Date:</strong></div>
+                                        <div class="value"><p>@researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label"><strong>End Time:</strong></div>
+                                        <div class="value"><p>@researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyyy hh:mm tt"))</p></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label location-row"><strong>Location:</strong></div>
+                                        <div class="value"><p>@researchEvent.EventLocation</p></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label attendees-row"><strong>Attendees:</strong></div>
+                                        <div class="value"><p>@researchEvent.ParticipantsCount</p></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="label description-row"><strong>Description:</strong></div>
+                                        <div class="value"><p>@researchEvent.EventDescription</p></div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -242,19 +278,38 @@
                     </div>
 
                     <!-- Modal for Event Details -->
-                    <div class="modal fade" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                    <div class="modal fade event-modal" id="eventModal-@researchEvent.ResearchEventId" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="eventModalLabel">@researchEvent.EventName</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p><strong>Type:</strong> @researchEvent.EventType</p>
-                                    <p><strong>Date:</strong> @researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
-                                    <p><strong>End Time:</strong> @researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyy hh:mm tt"))</p>                                    <p><strong>Location:</strong> @researchEvent.EventLocation</p>
-                                    <p><strong>Attendees:</strong> @researchEvent.ParticipantsCount</p>
-                                    <p><strong>Description:</strong> @researchEvent.EventDescription</p>
+                                    <div class="row">
+                                        <strong class="label label-row">Type:</strong>
+                                        <p class="value">@researchEvent.EventType</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label">Date:</strong>
+                                        <p class="value">@researchEvent.EventDate.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EventDate).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label">End Time:</strong>
+                                        <p class="value">@researchEvent.EndTime.ToString("MM/dd/yyyy hh:mm tt") (GMT: @TimeZoneInfo.ConvertTimeToUtc(researchEvent.EndTime).ToString("MM/dd/yyyy hh:mm tt"))</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label location-row">Location:</strong>
+                                        <p class="value">@researchEvent.EventLocation</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label attendees-row">Attendees:</strong>
+                                        <p class="value">@researchEvent.ParticipantsCount</p>
+                                    </div>
+                                    <div class="row">
+                                        <strong class="label description-row">Description:</strong>
+                                        <p class="value">@researchEvent.EventDescription</p>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -272,3 +327,4 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
+

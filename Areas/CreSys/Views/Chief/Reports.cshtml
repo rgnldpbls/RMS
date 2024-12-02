@@ -18,8 +18,7 @@
         <thead>
             <tr>
                 <th>Report Name</th>
-                <th>File Type</th>
-                <th>College</th>        
+               
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Date Generated</th>
@@ -31,8 +30,7 @@
             {
                 <tr>
                     <td>@report.ReportName</td>
-                    <td>@report.ReportFileType</td>
-                    <td>@report.College</td>
+                  
                     <td>@report.ReportStartDate.ToShortDateString()</td>
                     <td>@report.ReportEndDate.ToShortDateString()</td>
                     <td>@report.DateGenerated.ToShortDateString()</td>
@@ -42,10 +40,7 @@
                             <i class="fas fa-download"></i>
                         </a>
 
-                        <!-- Submit Report Button -->
-                        <a href="@Url.Action("SubmitReport", "Chief", new { reportId = report.EthicsReportId })" class="btn btn-info btn-sm" title="Submit Report">
-                            <i class="fas fa-share-square"></i>
-                        </a>
+                    
 
                         <!-- Delete Report Button with Confirmation -->
                         <button type="button" class="btn btn-danger btn-sm" title="Delete Report" onclick="confirmDelete('@report.EthicsReportId', '@report.ReportName')">

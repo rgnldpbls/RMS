@@ -52,12 +52,22 @@
         font-size: 70px;
     }
 
-
+    .calendar {
+        flex: 2;
+        width: 100%;
+        background-color: #f8f9fa; /* Light gray */
+        border-radius: 8px;
+        border: 2px solid #850000;
+        padding: 10px;
+        margin-right: 20px;
+    }
 </style>
 
 <div class="container mt-4 dashboard">
     <h1 class="mb-0 dash">Dashboard</h1>
     <p class="lead">Welcome, RSC Chief!</p>
+
+    <div id="calendar" class="calendar mb-3"></div>
 
     <div class="row g-4">
         <div class="col-md-8">
@@ -140,6 +150,8 @@
 
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var ctx = document.getElementById('applicationSummaryChart').getContext('2d');
@@ -171,6 +183,79 @@
                     '<span>' + data.datasets[0].data[index] + '%</span></div>';
             });
             document.getElementById('chartLegend').innerHTML = legendHtml;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var modal = new bootstrap.Modal(document.querySelector('.modal'));
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                events: '/RscSys/RSCChief/GetCalendarEvents',
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: true
+                },
+                eventClick: function (info) {
+                    showEventDetails(info.event);
+                },
+                eventDidMount: function (info) {
+                    // Add tooltip with event details
+                    $(info.el).tooltip({
+                        title: `
+                                    ${info.event.title}
+                                    Time: ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}
+                                    Location: ${info.event.extendedProps.location}
+                                    Type: ${info.event.extendedProps.eventType}
+                                `,
+                        html: true,
+                        placement: 'top',
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                },
+                dayMaxEvents: true, // allow "more" link when too many events
+                themeSystem: 'bootstrap5',
+                height: 'auto',
+                contentHeight: 'auto'
+            });
+
+            calendar.render();
+
+            function showEventDetails(event) {
+                const modal = document.querySelector('.modal');
+                const modalBody = modal.querySelector('.modal-body');
+
+                // Clear previous form
+                modalBody.innerHTML = `
+                            <div class="event-details">
+                                <h3 class="mb-3">${event.title}</h3>
+                                <p><strong>Date:</strong> ${moment(event.start).format('MMMM D, YYYY')}</p>
+                                <p><strong>Time:</strong> ${moment(event.start).format('hh:mm A')} - ${moment(event.end).format('hh:mm A')}</p>
+                                <p><strong>Location:</strong> ${event.extendedProps.location}</p>
+                                <p><strong>Type:</strong> ${event.extendedProps.eventType}</p>
+                                <p><strong>Description:</strong></p>
+                                <p>${event.extendedProps.description}</p>
+                            </div>
+                        `;
+
+                // Show the modal
+                const bsModal = new bootstrap.Modal(modal);
+                bsModal.show();
+            }
+
+            // Refresh calendar events every 5 minutes
+            setInterval(function () {
+                calendar.refetchEvents();
+            }, 300000);
         });
     </script>
 }

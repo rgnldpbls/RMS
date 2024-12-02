@@ -2,7 +2,7 @@
 
 namespace ResearchManagementSystem.Areas.CreSys.ViewModels
 {
-    public class PendingIssuanceViewModel
+    public class PendingIssuanceViewModel : ApplicationViewModel
     {
         public EthicsApplication EthicsApplication { get; set; }
         public NonFundedResearchInfo NonFundedResearchInfo { get; set; }

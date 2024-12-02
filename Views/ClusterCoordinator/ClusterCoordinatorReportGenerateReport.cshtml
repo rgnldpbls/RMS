@@ -6,19 +6,570 @@
     Layout = "RMCC_Layout";
 }
 <link href="~/css/ClusterCoordinator-Report-GenerateReport.css" rel="stylesheet" />
+<style>
+    .form-control, .form-select {
+        border: 1px solid #850000;
+    }
+
+    input[type="submit"], input[type="reset"], #modalbtn, input[type="button"], .new {
+        background: #850000;
+        border-radius: 15px;
+        height: 50px;
+        padding: 0px 30px;
+        color: white;
+        font-family: "Inter";
+        font-size: 20px;
+        border: none;
+        outline: none;
+        box-shadow: 2px 5px 5px rgb(0, 0, 0, 0.10), -2px 5px 5px rgb(0, 0, 0, 0.10);
+        transition: ease-in-out .1s
+    }
+
+        input[type="submit"]:hover, input[type="reset"]:hover, #modalbtn:hover, input[type="button"]:hover, .new:hover {
+            background: #560000;
+        }
+
+    .cat {
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+        color: #850000;
+        font-weight: bolder;
+        font-family: "Poppins";
+        border-bottom: 5px solid #850000;
+    }
+</style>
 
 <div>
-    <!--navbar-->
+    @* <!--navbar-->
     <div class="nnvb container mt-3 mb-3">
         <div class="row">
             <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
                 <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReport" id="aactive">Generate Report</a>
             </div>
-            <div class="itm col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
-                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportSubmitReport" id="inaactive">Submit Report</a>
+
+        </div>
+    </div> *@
+
+    <div class="cat display-6 mb-3 pb-1">Generate Report</div>
+    <!--Accomplishment Report-->
+    <button class="btn container shadow h4 p-4 text-white text-start" type="button" id="title" style="background: #850000;" data-bs-toggle="collapse" data-bs-target="#accomplishmentcollapse">
+        Accomplishment Report
+    </button>
+
+    <form method="get" asp-controller="AddAccomplishments" asp-action="ExportToExcel" class="collapse" id="accomplishmentcollapse">
+        <div class="container mb-3 bg-white p-4 shadow rounded-4 mb-3">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <label for="year" class="form-label">Select Year (Optional):</label>
+                    <select name="year" id="year" class="form-select mb-3">
+                        <option value="">-- All Years --</option> <!-- Placeholder for no year filter -->
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date" name="startDate" id="startDate" class="form-control mb-3">
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label for="endDate" class="form-label">End Date:</label>
+                    <input type="date" name="endDate" id="endDate" class="form-control mb-3">
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-lg-4 col-sm-12">
+                    <label for="BranchCampus" class="form-label">Select Campus/Branch(Optional):</label>
+                    <select name="BranchCampus" id="BranchCampus" class="form-select mb-3">
+                        <option value="">-- Select Campus --</option>
+                        <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
+                        <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
+                        <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
+                        <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
+                        <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
+                        <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
+                        <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
+                        <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
+                        <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
+                        <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
+                        <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
+                        <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
+                        <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
+                        <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
+                        <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                        <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
+                        <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
+                        <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
+                        <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
+                        <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
+                        <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                    </select>
+                </div>
+                <!-- College Selection -->
+                <div class="col-lg-4 col-sm-12">
+                    <label for="College" class="form-label">Select College:</label>
+                    <select name="College" id="College" class="form-select mb-3">
+                        <option value="">-- Select College --</option>
+                        <option value="CAF">College of Accountancy and Finance (CAF)</option>
+                        <option value="CADBE">College of Architecture, Design and the Built Environment (CADBE)</option>
+                        <option value="CAL">College of Arts and Letters (CAL)</option>
+                        <option value="CBA">College of Business Administration (CBA)</option>
+                        <option value="COC">College of Communication (COC)</option>
+                        <option value="CCIS">College of Computer and Information Sciences (CCIS)</option>
+                        <option value="COED">College of Education (COED)</option>
+                        <option value="CE">College of Engineering (CE)</option>
+                        <option value="CHK">College of Human Kinetics (CHK)</option>
+                        <option value="CL">College of Law (CL)</option>
+                        <option value="CPSPA">College of Political Science and Public Administration (CPSPA)</option>
+                        <option value="CSSD">College of Social Sciences and Development (CSSD)</option>
+                        <option value="CS">College of Science (CS)</option>
+                        <option value="CTHTM">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
+                        <option value="ITECH">Institute of Technology (ITECH)</option>
+                    </select>
+                </div>
+
+                <!-- Department Dropdown -->
+                <div class="col-lg-4 col-sm-12">
+                    <label for="Department" class="form-label">Select Department:</label>
+                    <select name="Department" id="Department" class="form-select mb-3">
+                        <option value="">-- Select Department --</option>
+
+                        <!-- CAF Department -->
+                        <optgroup label="CAF">
+                            <option value="BSA">Bachelor of Science in Accountancy</option>
+                            <option value="BSMA">Bachelor of Science in Management Accounting</option>
+                            <option value="BSBAFM">Bachelor of Science in Business Administration Major in Financial Management</option>
+                        </optgroup>
+
+                        <!-- CADBE Department -->
+                        <optgroup label="CADBE">
+                            <option value="BS-ARCH">Bachelor of Science in Architecture</option>
+                            <option value="BSID">Bachelor of Science in Interior Design</option>
+                            <option value="BSEP">Bachelor of Science in Environmental Planning</option>
+                        </optgroup>
+
+                        <!-- CAL Department -->
+                        <optgroup label="CAL">
+                            <option value="ABELS">Bachelor of Arts in English Language Studies</option>
+                            <option value="ABF">Bachelor of Arts in Filipinology</option>
+                            <option value="ABLCS">Bachelor of Arts in Literary and Cultural Studies</option>
+                            <option value="AB-PHILO">Bachelor of Arts in Philosophy</option>
+                            <option value="BPEA">Bachelor of Performing Arts major in Theater Arts</option>
+                        </optgroup>
+
+                        <!-- CBA Department -->
+                        <optgroup label="CBA">
+                            <option value="DBA">Doctor in Business Administration</option>
+                            <option value="MBA">Master in Business Administration</option>
+                            <option value="BSBAHRM">Bachelor of Science in Business Administration major in Human Resource Management</option>
+                            <option value="BSBA-MM">Bachelor of Science in Business Administration major in Marketing Management</option>
+                            <option value="BSENTREP">Bachelor of Science in Entrepreneurship</option>
+                            <option value="BSOA">Bachelor of Science in Office Administration</option>
+                        </optgroup>
+
+                        <!-- COC Department -->
+                        <optgroup label="COC">
+                            <option value="BADPR">Bachelor in Advertising and Public Relations</option>
+                            <option value="BA_Broadcasting">Bachelor of Arts in Broadcasting</option>
+                            <option value="BAJ">Bachelor of Arts in Journalism</option>
+                        </optgroup>
+
+                        <!-- CCIS Department -->
+                        <optgroup label="CCIS">
+                            <option value="BSCS">Bachelor of Science in Computer Science</option>
+                            <option value="BSIT">Bachelor of Science in Information Technology</option>
+                        </optgroup>
+
+                        <!-- COED Department -->
+                        <optgroup label="COED">
+                            <option value="PhDEM">Doctor of Philosophy in Education Management</option>
+                            <option value="MAEM">Master of Arts in Education Management</option>
+                            <option value="MBE">Master in Business Education</option>
+                            <option value="MLIS">Master of Library and Information Science</option>
+                            <option value="MAELT">Master of Arts in English Language Teaching</option>
+                            <option value="MAEd-ME">Master of Arts in Education major in Mathematics Education</option>
+                            <option value="MAPES">Master of Arts in Physical Education and Sports</option>
+                            <option value="MAED-TCA">Master of Arts in Education major in Teaching in the Challenged Areas</option>
+                            <option value="PBDE">Post-Baccalaureate Diploma in Education</option>
+                            <option value="BTLEd">Bachelor of Technology and Livelihood Education</option>
+                            <option value="BLIS">Bachelor of Library and Information Science</option>
+                            <option value="BSEd">Bachelor of Secondary Education</option>
+                            <option value="BEEd">Bachelor of Elementary Education</option>
+                            <option value="BECEd">Bachelor of Early Childhood Education</option>
+                        </optgroup>
+
+                        <!-- CE Department -->
+                        <optgroup label="CE">
+                            <option value="BSCE">Bachelor of Science in Civil Engineering</option>
+                            <option value="BSCpE">Bachelor of Science in Computer Engineering</option>
+                            <option value="BSEE">Bachelor of Science in Electrical Engineering</option>
+                            <option value="BSECE">Bachelor of Science in Electronics Engineering</option>
+                            <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+                            <option value="BSME">Bachelor of Science in Mechanical Engineering</option>
+                            <option value="BSRE">Bachelor of Science in Railway Engineering</option>
+                        </optgroup>
+
+                        <!-- CHK Department -->
+                        <optgroup label="CHK">
+                            <option value="BPE">Bachelor of Physical Education</option>
+                            <option value="BSESS">Bachelor of Science in Exercises and Sports</option>
+                        </optgroup>
+
+                        <!-- CL Department -->
+                        <optgroup label="CL">
+                            <option value="JD">Juris Doctor</option>
+                        </optgroup>
+
+                        <!-- CPSPA Department -->
+                        <optgroup label="CPSPA">
+                            <option value="DPA">Doctor in Public Administration</option>
+                            <option value="MPA">Master in Public Administration</option>
+                            <option value="BPA">Bachelor of Public Administration</option>
+                            <option value="BAIS">Bachelor of Arts in International Studies</option>
+                            <option value="BAPE">Bachelor of Arts in Political Economy</option>
+                            <option value="BAPS">Bachelor of Arts in Political Science</option>
+                        </optgroup>
+
+                        <!-- CSSD Department -->
+                        <optgroup label="CSSD">
+                            <option value="BAH">Bachelor of Arts in History</option>
+                            <option value="BAS">Bachelor of Arts in Sociology</option>
+                            <option value="BSC">Bachelor of Science in Cooperatives</option>
+                            <option value="BSE">Bachelor of Science in Economics</option>
+                            <option value="BSPSY">Bachelor of Science in Psychology</option>
+                        </optgroup>
+
+                        <!-- CS Department -->
+                        <optgroup label="CS">
+                            <option value="BSFT">Bachelor of Science in Food Technology</option>
+                            <option value="BSAPMATH">Bachelor of Science in Applied Mathematics</option>
+                            <option value="BSBIO">Bachelor of Science in Biology</option>
+                            <option value="BSCHEM">Bachelor of Science in Chemistry</option>
+                            <option value="BSMATH">Bachelor of Science in Mathematics</option>
+                            <option value="BSND">Bachelor of Science in Nutrition and Dietetics</option>
+                            <option value="BSPHY">Bachelor of Science in Physics</option>
+                            <option value="BSSTAT">Bachelor of Science in Statistics</option>
+                        </optgroup>
+
+                        <!-- CTHTM Department -->
+                        <optgroup label="CTHTM">
+                            <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                            <option value="BSTM">Bachelor of Science in Tourism Management</option>
+                            <option value="BSTRM">Bachelor of Science in Transportation Management</option>
+                        </optgroup>
+
+                        <!-- ITECH Department -->
+                        <optgroup label="ITECH">
+                            <option value="DCvET">Diploma in Civil Engineering Technology</option>
+                            <option value="DCET">Diploma in Computer Engineering Technology</option>
+                            <option value="DEET">Diploma in Electrical Engineering Technology</option>
+                            <option value="DECET">Diploma in Electronics Engineering Technology</option>
+                            <option value="DICT">Diploma in Information Communication Technology</option>
+                            <option value="DMET">Diploma in Mechanical Engineering Technology</option>
+                            <option value="DOMT">Diploma in Office Management Technology</option>
+                            <option value="DRET">Diploma in Railway Engineering Technology</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="container d-flex justify-content-end">
+                <button type="submit" class="new mt-3">Generate Report</button>
             </div>
         </div>
-    </div>
+
+    </form>
+
+    <!--Production Report-->
+    <button class="btn container shadow h4 p-4 text-white text-start" type="button" id="title" style="background: #850000;" data-bs-toggle="collapse" data-bs-target="#productioncollapse">
+        Production Report
+    </button>
+
+    <form method="get" asp-controller="AddAccomplishments" asp-action="ProductionExportToExcel" class="collapse" id="productioncollapse">
+        <div class="container mb-3 bg-white p-4 shadow rounded-4 mb-3">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <label for="year" class="form-label">Select Year (Optional):</label>
+                    <select name="year" id="year" class="form-select mb-3">
+                        <option value="">-- All Years --</option> <!-- Placeholder for no year filter -->
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date" name="startDate" id="startDate" class="form-control mb-3">
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label for="endDate" class="form-label">End Date:</label>
+                    <input type="date" name="endDate" id="endDate" class="form-control mb-3">
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-lg-4 col-sm-12">
+                    <label for="BranchCampus" class="form-label">Select Campus/Branch(Optional):</label>
+                    <select name="BranchCampus" id="BranchCampus" class="form-select mb-3">
+                        <option value="">-- Select Campus --</option>
+                        <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
+                        <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
+                        <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
+                        <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
+                        <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
+                        <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
+                        <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
+                        <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
+                        <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
+                        <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
+                        <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
+                        <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
+                        <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
+                        <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
+                        <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                        <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
+                        <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
+                        <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
+                        <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
+                        <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
+                        <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                    </select>
+                </div>
+                <!-- College Selection -->
+                <div class="col-lg-4 col-sm-12">
+                    <label for="College" class="form-label">Select College:</label>
+                    <select name="College" id="College" class="form-select mb-3">
+                        <option value="">-- Select College --</option>
+                        <option value="CAF">College of Accountancy and Finance (CAF)</option>
+                        <option value="CADBE">College of Architecture, Design and the Built Environment (CADBE)</option>
+                        <option value="CAL">College of Arts and Letters (CAL)</option>
+                        <option value="CBA">College of Business Administration (CBA)</option>
+                        <option value="COC">College of Communication (COC)</option>
+                        <option value="CCIS">College of Computer and Information Sciences (CCIS)</option>
+                        <option value="COED">College of Education (COED)</option>
+                        <option value="CE">College of Engineering (CE)</option>
+                        <option value="CHK">College of Human Kinetics (CHK)</option>
+                        <option value="CL">College of Law (CL)</option>
+                        <option value="CPSPA">College of Political Science and Public Administration (CPSPA)</option>
+                        <option value="CSSD">College of Social Sciences and Development (CSSD)</option>
+                        <option value="CS">College of Science (CS)</option>
+                        <option value="CTHTM">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
+                        <option value="ITECH">Institute of Technology (ITECH)</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-4 col-sm-12">
+                    <label for="Department" class="form-label">Select Department:</label>
+                    <select name="Department" id="Department" class="form-select mb-3">
+                        <option value="">-- Select Department --</option>
+
+                        <!-- CAF Department -->
+                        <optgroup label="CAF">
+                            <option value="BSA">Bachelor of Science in Accountancy</option>
+                            <option value="BSMA">Bachelor of Science in Management Accounting</option>
+                            <option value="BSBAFM">Bachelor of Science in Business Administration Major in Financial Management</option>
+                        </optgroup>
+
+                        <!-- CADBE Department -->
+                        <optgroup label="CADBE">
+                            <option value="BS-ARCH">Bachelor of Science in Architecture</option>
+                            <option value="BSID">Bachelor of Science in Interior Design</option>
+                            <option value="BSEP">Bachelor of Science in Environmental Planning</option>
+                        </optgroup>
+
+                        <!-- CAL Department -->
+                        <optgroup label="CAL">
+                            <option value="ABELS">Bachelor of Arts in English Language Studies</option>
+                            <option value="ABF">Bachelor of Arts in Filipinology</option>
+                            <option value="ABLCS">Bachelor of Arts in Literary and Cultural Studies</option>
+                            <option value="AB-PHILO">Bachelor of Arts in Philosophy</option>
+                            <option value="BPEA">Bachelor of Performing Arts major in Theater Arts</option>
+                        </optgroup>
+
+                        <!-- CBA Department -->
+                        <optgroup label="CBA">
+                            <option value="DBA">Doctor in Business Administration</option>
+                            <option value="MBA">Master in Business Administration</option>
+                            <option value="BSBAHRM">Bachelor of Science in Business Administration major in Human Resource Management</option>
+                            <option value="BSBA-MM">Bachelor of Science in Business Administration major in Marketing Management</option>
+                            <option value="BSENTREP">Bachelor of Science in Entrepreneurship</option>
+                            <option value="BSOA">Bachelor of Science in Office Administration</option>
+                        </optgroup>
+
+                        <!-- COC Department -->
+                        <optgroup label="COC">
+                            <option value="BADPR">Bachelor in Advertising and Public Relations</option>
+                            <option value="BA_Broadcasting">Bachelor of Arts in Broadcasting</option>
+                            <option value="BAJ">Bachelor of Arts in Journalism</option>
+                        </optgroup>
+
+                        <!-- CCIS Department -->
+                        <optgroup label="CCIS">
+                            <option value="BSCS">Bachelor of Science in Computer Science</option>
+                            <option value="BSIT">Bachelor of Science in Information Technology</option>
+                        </optgroup>
+
+                        <!-- COED Department -->
+                        <optgroup label="COED">
+                            <option value="PhDEM">Doctor of Philosophy in Education Management</option>
+                            <option value="MAEM">Master of Arts in Education Management</option>
+                            <option value="MBE">Master in Business Education</option>
+                            <option value="MLIS">Master of Library and Information Science</option>
+                            <option value="MAELT">Master of Arts in English Language Teaching</option>
+                            <option value="MAEd-ME">Master of Arts in Education major in Mathematics Education</option>
+                            <option value="MAPES">Master of Arts in Physical Education and Sports</option>
+                            <option value="MAED-TCA">Master of Arts in Education major in Teaching in the Challenged Areas</option>
+                            <option value="PBDE">Post-Baccalaureate Diploma in Education</option>
+                            <option value="BTLEd">Bachelor of Technology and Livelihood Education</option>
+                            <option value="BLIS">Bachelor of Library and Information Science</option>
+                            <option value="BSEd">Bachelor of Secondary Education</option>
+                            <option value="BEEd">Bachelor of Elementary Education</option>
+                            <option value="BECEd">Bachelor of Early Childhood Education</option>
+                        </optgroup>
+
+                        <!-- CE Department -->
+                        <optgroup label="CE">
+                            <option value="BSCE">Bachelor of Science in Civil Engineering</option>
+                            <option value="BSCpE">Bachelor of Science in Computer Engineering</option>
+                            <option value="BSEE">Bachelor of Science in Electrical Engineering</option>
+                            <option value="BSECE">Bachelor of Science in Electronics Engineering</option>
+                            <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+                            <option value="BSME">Bachelor of Science in Mechanical Engineering</option>
+                            <option value="BSRE">Bachelor of Science in Railway Engineering</option>
+                        </optgroup>
+
+                        <!-- CHK Department -->
+                        <optgroup label="CHK">
+                            <option value="BPE">Bachelor of Physical Education</option>
+                            <option value="BSESS">Bachelor of Science in Exercises and Sports</option>
+                        </optgroup>
+
+                        <!-- CL Department -->
+                        <optgroup label="CL">
+                            <option value="JD">Juris Doctor</option>
+                        </optgroup>
+
+                        <!-- CPSPA Department -->
+                        <optgroup label="CPSPA">
+                            <option value="DPA">Doctor in Public Administration</option>
+                            <option value="MPA">Master in Public Administration</option>
+                            <option value="BPA">Bachelor of Public Administration</option>
+                            <option value="BAIS">Bachelor of Arts in International Studies</option>
+                            <option value="BAPE">Bachelor of Arts in Political Economy</option>
+                            <option value="BAPS">Bachelor of Arts in Political Science</option>
+                        </optgroup>
+
+                        <!-- CSSD Department -->
+                        <optgroup label="CSSD">
+                            <option value="BAH">Bachelor of Arts in History</option>
+                            <option value="BAS">Bachelor of Arts in Sociology</option>
+                            <option value="BSC">Bachelor of Science in Cooperatives</option>
+                            <option value="BSE">Bachelor of Science in Economics</option>
+                            <option value="BSPSY">Bachelor of Science in Psychology</option>
+                        </optgroup>
+
+                        <!-- CS Department -->
+                        <optgroup label="CS">
+                            <option value="BSFT">Bachelor of Science in Food Technology</option>
+                            <option value="BSAPMATH">Bachelor of Science in Applied Mathematics</option>
+                            <option value="BSBIO">Bachelor of Science in Biology</option>
+                            <option value="BSCHEM">Bachelor of Science in Chemistry</option>
+                            <option value="BSMATH">Bachelor of Science in Mathematics</option>
+                            <option value="BSND">Bachelor of Science in Nutrition and Dietetics</option>
+                            <option value="BSPHY">Bachelor of Science in Physics</option>
+                            <option value="BSSTAT">Bachelor of Science in Statistics</option>
+                        </optgroup>
+
+                        <!-- CTHTM Department -->
+                        <optgroup label="CTHTM">
+                            <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                            <option value="BSTM">Bachelor of Science in Tourism Management</option>
+                            <option value="BSTRM">Bachelor of Science in Transportation Management</option>
+                        </optgroup>
+
+                        <!-- ITECH Department -->
+                        <optgroup label="ITECH">
+                            <option value="DCvET">Diploma in Civil Engineering Technology</option>
+                            <option value="DCET">Diploma in Computer Engineering Technology</option>
+                            <option value="DEET">Diploma in Electrical Engineering Technology</option>
+                            <option value="DECET">Diploma in Electronics Engineering Technology</option>
+                            <option value="DICT">Diploma in Information Communication Technology</option>
+                            <option value="DMET">Diploma in Mechanical Engineering Technology</option>
+                            <option value="DOMT">Diploma in Office Management Technology</option>
+                            <option value="DRET">Diploma in Railway Engineering Technology</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+            </div>
+            <div class="container d-flex justify-content-end">
+                <button type="submit" class="new mt-3">Generate Report</button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <!--Presentation Report-->
+    <button class="btn container shadow h4 p-4 text-white text-start" type="button" id="title" style="background: #850000;" data-bs-toggle="collapse" data-bs-target="#presentationcollapse">
+        Presentation Report
+    </button>
+
+    <form method="get" asp-controller="AddAccomplishments" asp-action="PresentationExportToExcel" class="collapse" id="presentationcollapse">
+        <div class="container mb-3 bg-white p-4 shadow rounded-4 mb-3">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date" name="startDate" id="startDate" class="form-control mb-3" />
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label for="endDate" class="form-label">End Date:</label>
+                    <input type="date" name="endDate" id="endDate" class="form-control mb-3" />
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label for="level" class="form-label">Select Level (Optional):</label>
+                    <select name="level" id="level" class="form-select mb-3">
+                        <option value="">-- All Levels --</option>
+                        <option value="Level 1">National</option>
+                        <option value="Level 2">Internatinal</option>
+                        <option value="Level 3">Regional</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="container d-flex justify-content-end">
+                <button type="submit" class="new mt-3">Generate Report</button>
+            </div>
+        </div>
+    </form>
+
+    <!--Publication Report-->
+    <button class="btn container shadow h4 p-4 text-white text-start" type="button" id="title" style="background: #850000;" data-bs-toggle="collapse" data-bs-target="#publicationcollapse">
+        Publication Report
+    </button>
+
+
+    <form method="get" asp-controller="AddAccomplishments" asp-action="PublicationExportToExcel" class="collapse" id="publicationcollapse">
+        <div class="container mb-3 bg-white p-4 shadow rounded-4 mb-3">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date" name="startDate" id="startDate" class="form-control mb-3" />
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <label for="endDate" class="form-label">End Date:</label>
+                    <input type="date" name="endDate" id="endDate" class="form-control mb-3" />
+                </div>
+
+            </div>
+
+            <div class="container d-flex justify-content-end">
+                <button type="submit" class="new mt-3">Generate Report</button>
+            </div>
+        </div>
+
+    </form>
 
     <!--input fields-->
     <form action="" class="container" method="post">
@@ -41,37 +592,39 @@
             Select Report Type
         </div>
 
-        
+
 
         <!--report types-->
-                
-                    
-                    <div class="container d-block">
-                        <div class="my-2">
-                            <a asp-controller="AddAccomplishments" asp-action="ExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Accomplishment Report</a>
-                        </div>
-                        <div class="my-2">
-                            <a asp-controller="AddAccomplishments" asp-action="ProductionExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Production Report</a>
-                        </div>
-                        <div class="my-2">
-                            <a asp-controller="AddAccomplishments" asp-action="PresentationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Presentation Report</a>
-                        </div>
-                        <div class="my-2">
-                            <a asp-controller="AddAccomplishments" asp-action="PublicationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Publication Report</a>
-                        </div>
-                         <div class="my-2">
-                            <a asp-controller="AddAccomplishments" asp-action="PatentExportToExcel" class="btn btn-outline-danger w-100 text-start">Download Patent Report</a>
-                         </div>
+        @*  <div class="container d-block">
+
+        <div class="my-2">
+        <a asp-controller="AddAccomplishments" asp-action="ProductionExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Production Report</a>
+        </div>
+        <div class="my-2">
+        <a asp-controller="AddAccomplishments" asp-action="PresentationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Presentation Report</a>
+        </div>
+        <div class="my-2">
+        <a asp-controller="AddAccomplishments" asp-action="PublicationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Publication Report</a>
+        </div>
+        <div class="my-2">
+        <a asp-controller="AddAccomplishments" asp-action="PatentExportToExcel" class="btn btn-outline-danger w-100 text-start">Download Patent Report</a>
+        </div>
 
 
-                    </div>
-                
-       @*  <div class="me-2">
-        <button type="submit" asp-controller="ClusterCoordinator" asp-action="GenerateConsolidatedReport" class="report mb-3">Generate Report</button>
-            <button type="submit" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReportPreview" class="report me-2 mb-3">Report Preview</button>
         </div> *@
-        
+
+        @*  <div class="me-2">
+        <button type="submit" asp-controller="ClusterCoordinator" asp-action="GenerateConsolidatedReport" class="report mb-3">Generate Report</button>
+        <button type="submit" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReportPreview" class="report me-2 mb-3">Report Preview</button>
+        </div> *@
+
+
     </form>
     <script src="~/js/ClusterCoordinator-Report-GenerateReport.js"></script>
+
+
+
 </div>
+
+
 

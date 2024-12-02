@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ResearchManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Xceed.Words.NET;
 
 namespace CrdlSys.Services
 {
@@ -329,13 +330,13 @@ namespace CrdlSys.Services
                         {
                             if (doc.IsManuallyUnarchived)
                             {
-                                doc.ContractStatus = "Expired"; 
-                                doc.IsArchived = false; 
+                                doc.ContractStatus = "Expired";
+                                doc.IsArchived = false;
                             }
                             else
                             {
                                 doc.ContractStatus = "Expired";
-                                doc.IsArchived = true; 
+                                doc.IsArchived = true;
 
                                 if (!doc.LastNotificationSent.HasValue || doc.LastNotificationSent.Value.Date != DateTime.Today)
                                 {
@@ -346,15 +347,14 @@ namespace CrdlSys.Services
                         }
                         else
                         {
-                            doc.ContractStatus = "Expired"; 
+                            doc.ContractStatus = "Expired";
                         }
                     }
                     else
                     {
-                        doc.ContractStatus = "Active";
-
-                        if (doc.TypeOfDocument == "MOA")
+                        if (doc.ContractStatus != "Expired" && doc.ContractStatus != "Terminated")
                         {
+                            doc.ContractStatus = "Active";
                             doc.IsArchived = false;
                         }
                     }
@@ -366,8 +366,7 @@ namespace CrdlSys.Services
         public void UpdateDocumentExpirationStatus()
         {
             var today = DateOnly.FromDateTime(DateTime.Now);
-            var uploads = _context.StakeholderUpload
-                .ToList();
+            var uploads = _context.StakeholderUpload.ToList();
 
             foreach (var upload in uploads)
             {
@@ -379,13 +378,13 @@ namespace CrdlSys.Services
                         {
                             if (upload.IsManuallyUnarchived)
                             {
-                                upload.ContractStatus = "Expired"; 
-                                upload.IsArchived = false; 
+                                upload.ContractStatus = "Expired";
+                                upload.IsArchived = false;
                             }
                             else
                             {
                                 upload.ContractStatus = "Expired";
-                                upload.IsArchived = true; 
+                                upload.IsArchived = true;
 
                                 if (!upload.LastNotificationSent.HasValue || upload.LastNotificationSent.Value.Date != DateTime.Today)
                                 {
@@ -396,16 +395,15 @@ namespace CrdlSys.Services
                         }
                         else
                         {
-                            upload.ContractStatus = "Expired"; 
+                            upload.ContractStatus = "Expired";
                         }
                     }
                     else
                     {
-                        upload.ContractStatus = "Active";
-
-                        if (upload.TypeOfDocument == "MOA")
+                        if (upload.ContractStatus != "Expired" && upload.ContractStatus != "Terminated")
                         {
-                            upload.IsArchived = false; 
+                            upload.ContractStatus = "Active";
+                            upload.IsArchived = false;
                         }
                     }
                 }

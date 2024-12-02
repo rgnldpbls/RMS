@@ -14,6 +14,7 @@ using System;
 using MailKit.Net.Smtp;
 using System.Security.Claims;
 using ResearchManagementSystem.Models;
+using ResearchManagementSystem.Areas.CreSys.Data;
 
 namespace rscSys_final.Controllers
 {
@@ -25,13 +26,15 @@ namespace rscSys_final.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RSCResearcherController> _logger;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly CreDbContext _creDbContext;
 
-        public RSCResearcherController(rscSysfinalDbContext context, UserManager<ApplicationUser> userManager, ILogger<RSCResearcherController> logger, IWebHostEnvironment hostingEnvironment)
+        public RSCResearcherController(rscSysfinalDbContext context, UserManager<ApplicationUser> userManager, ILogger<RSCResearcherController> logger, IWebHostEnvironment hostingEnvironment, CreDbContext creDbContext)
         {
             _context = context;
             _userManager = userManager;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
+            _creDbContext = creDbContext;
         }
 
         public async Task<IActionResult> Memo()
@@ -124,11 +127,11 @@ namespace rscSys_final.Controllers
                 DocumentHistories = documentHistories
             };
 
-             // Get the temporary upload path
+            // Get the temporary upload path
             var tempUploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "temp", user.Email, request.DtsNo);
 
             // Fetch files from the temporary directory
-            var tempFiles = Directory.Exists(tempUploadPath) 
+            var tempFiles = Directory.Exists(tempUploadPath)
                 ? Directory.GetFiles(tempUploadPath)
                     .Select(filePath => new Requirement
                     {
@@ -229,7 +232,7 @@ namespace rscSys_final.Controllers
             }
 
             var application = _context.RSC_Requests
-                .Include(r => r.Requirements) 
+                .Include(r => r.Requirements)
                 .FirstOrDefault(r => r.RequestId == id);
 
             if (application == null)
@@ -429,15 +432,27 @@ namespace rscSys_final.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveAsDraft(Draft draft)
         {
-            if (ModelState.IsValid)
+            // Validate ModelState
+            if (!ModelState.IsValid)
+            {
+                // Log or return detailed error messages for debugging
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                return Json(new { success = false, errors });
+            }
+
+            try
             {
                 // Get UserId from claims
                 draft.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                // Handle the draft saving logic here...
+                // Check if the draft exists
                 var existingDraft = await _context.RSC_Drafts.FindAsync(draft.DraftId);
                 if (existingDraft != null)
                 {
+                    // Update existing draft
+                    existingDraft.Name = draft.Name;
+                    existingDraft.Email = draft.Email;
+                    existingDraft.Branch = draft.Branch;
                     existingDraft.ApplicationType = draft.ApplicationType;
                     existingDraft.FieldOfStudy = draft.FieldOfStudy;
                     existingDraft.ResearchTitle = draft.ResearchTitle;
@@ -446,16 +461,22 @@ namespace rscSys_final.Controllers
                 }
                 else
                 {
+                    // Create a new draft
                     draft.CreatedDate = DateTime.Now;
                     _context.RSC_Drafts.Add(draft);
                 }
 
+                // Save changes
                 await _context.SaveChangesAsync();
                 return Json(new { success = true });
             }
-
-            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                return Json(new { success = false, error = ex.Message });
+            }
         }
+
 
         public async Task<IActionResult> ViewApplication(int draftId)
         {
@@ -540,7 +561,7 @@ namespace rscSys_final.Controllers
                 DraftId = draftId,
                 ChecklistId = checklistId,
                 FileName = fileName,
-                FileType = uploadedFile.ContentType,
+                FileType = "application/pdf",
                 UploadDate = DateTime.Now,
                 IsResubmitted = false
             };
@@ -623,18 +644,47 @@ namespace rscSys_final.Controllers
         public IActionResult SubmitAsRequest(int draftId)
         {
             var draft = _context.RSC_Drafts
-                         .Include(d => d.Requirements)
-                         .FirstOrDefault(d => d.DraftId == draftId);
+                .Include(d => d.Requirements)
+                .FirstOrDefault(d => d.DraftId == draftId);
 
             if (draft == null)
             {
                 return Json(new { success = false, error = "Draft not found." });
             }
 
+            // Validation for duplicate DTS number
+            var duplicateDtsExists = _context.RSC_Requests.Any(r => r.DtsNo == draft.DtsNo);
+            if (duplicateDtsExists)
+            {
+                return Json(new { success = false, error = "A request with the same DTS number already exists." });
+            }
+
+            // Validation for duplicate research titles
+            if (draft.ApplicationType == "Publication and Citation Incentives")
+            {
+                var publicationCount = _context.RSC_Requests
+                    .Count(r => r.ApplicationType == "Publication and Citation Incentives" && r.ResearchTitle == draft.ResearchTitle);
+
+                if (publicationCount >= 10)
+                {
+                    return Json(new { success = false, error = "The maximum limit of 10 applications for Publication and Citation Incentives has been reached for this research title." });
+                }
+            }
+            else
+            {
+                var duplicateTitleExists = _context.RSC_Requests
+                    .Any(r => r.ApplicationType == draft.ApplicationType && r.ResearchTitle == draft.ResearchTitle);
+
+                if (duplicateTitleExists)
+                {
+                    return Json(new { success = false, error = "A request with the same research title already exists for this application type." });
+                }
+            }
+
             // Calculate requestSpent based on ApplicationType or ApplicationSubCategory
             decimal requestSpent = 0;
             var subCategory = _context.RSC_ApplicationSubCategories
-                               .FirstOrDefault(sc => sc.CategoryName == draft.ApplicationType);
+                .FirstOrDefault(sc => sc.CategoryName == draft.ApplicationType);
 
             if (subCategory != null)
             {
@@ -643,7 +693,7 @@ namespace rscSys_final.Controllers
             else
             {
                 var applicationType = _context.RSC_ApplicationTypes
-                                     .FirstOrDefault(at => at.ApplicationTypeName == draft.ApplicationType);
+                    .FirstOrDefault(at => at.ApplicationTypeName == draft.ApplicationType);
                 if (applicationType != null)
                 {
                     requestSpent = applicationType.Amount;
@@ -701,7 +751,7 @@ namespace rscSys_final.Controllers
                 {
                     UserId = chiefUser.Id,
                     NotificationTitle = "New Application Request",
-                    NotificationMessage = $"A new application request has been submitted by {draft.Name} withh the DTS No. {draft.DtsNo}.",
+                    NotificationMessage = $"A new application request has been submitted by {draft.Name} with the DTS No. {draft.DtsNo}.",
                     NotificationCreationDate = DateTime.Now,
                     NotificationStatus = false,
                     Role = "Chief"
@@ -777,6 +827,60 @@ namespace rscSys_final.Controllers
             var fileType = document.FileType; // Set the file type (e.g., "application/pdf")
 
             return File(document.FileData, fileType, fileName);
+        }
+
+        public IActionResult ViewFile(int requirementId)
+        {
+            var requirement = _context.RSC_Requirements.FirstOrDefault(r => r.RequirementId == requirementId);
+
+            if (requirement == null)
+            {
+                return NotFound();
+            }
+
+            Response.Headers.Add("Content-Disposition", "inline; filename=\"" + requirement.FileName + "\"");
+            return File(requirement.FileData, requirement.FileType);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RetrieveEthicsClearance(string urecNumber, int draftId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(urecNumber))
+            {
+                return Json(new { success = false, message = "Please provide a UREC number." });
+            }
+
+            // Retrieve the ethics clearance using the UREC number
+            var ethicsClearance = await _creDbContext.CRE_EthicsClearance
+                .FirstOrDefaultAsync(e => e.UrecNo == urecNumber && e.EthicsApplication.UserId == userId);
+
+            if (ethicsClearance != null)
+            {
+                // Fetch the checklist from the database and perform case-insensitive comparison in-memory
+                var checklist = (await _context.RSC_Checklists.ToListAsync())
+                    .FirstOrDefault(c => c.ChecklistName.Contains("Ethics Clearance", StringComparison.OrdinalIgnoreCase));
+
+                if (checklist == null)
+                {
+                    return Json(new { success = false, message = "No checklist for Ethics Clearance found." });
+                }
+
+                // Convert the clearance file to a Base64 string
+                var base64File = Convert.ToBase64String(ethicsClearance.ClearanceFile);
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ethics Clearance found! Would you like to upload it automatically?",
+                    clearanceFile = base64File,
+                    checklistId = checklist.ChecklistId,
+                    draftId = draftId
+                });
+            }
+
+            return Json(new { success = false, message = "No Ethics Clearance found for the provided UREC number. Please apply for Ethics Clearance." });
         }
 
     }

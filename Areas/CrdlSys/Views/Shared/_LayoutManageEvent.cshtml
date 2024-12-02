@@ -16,21 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="~/css/NavBars.css" asp-append-version="true">
-
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-oP1uCH5WzFgfqH7wD2ySNiM9b2IhUMq2w7QQYDQ8o4Zb/QOHQcQkE4lpnnJkSl0N" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/ChiefLinkNavBar.css" asp-append-version="true">
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <!-- Navbar -->
     <header class="research-navbar">
         <div class="navbar-container-left">
-            <div class="burger-menu">
-                <i class="fas fa-bars text-white"></i> <!-- Ensures consistent white color -->
-            </div>
             <div class="logo">
                 <img src="~/assets/rmologo.png" alt="Logo">
                 <div class="logo-text">
@@ -43,20 +35,14 @@
         <!-- Navigation Links -->
         <nav class="navbar-links">
             <ul id="nav-items">
-                <li><a asp-area="" asp-controller="Chief" asp-action="HomeChief" id="home-link">Home</a></li>
-                <li><a asp-area="" asp-controller="Chief" asp-action="ChiefHomePage" id="dashboard-link">Dashboard</a></li>
-                <li><a asp-area="" id="linkages-link" data-bs-toggle="modal" data-bs-target="#LayoutLinkagesTypeModal">Linkages</a></li>
-                <li><a asp-area="" id="events-link" data-bs-toggle="modal" data-bs-target="#LayoutManageEventsModal" class="active">Events</a></li>
-                <li><a asp-area="" asp-controller="Chief" asp-action="GenerateReport" id="reports-link">Reports</a></li>
+                <li><a asp-area="CrdlSys" asp-controller="Chief" asp-action="HomeChief" id="home-link">Home</a></li>
+                <li><a asp-area="CrdlSys" asp-controller="Chief" asp-action="ChiefHomePage" id="dashboard-link">Dashboard</a></li>
+                <li><a asp-area="CrdlSys" id="linkages-link" data-bs-toggle="modal" data-bs-target="#LayoutLinkagesTypeModal">Linkages</a></li>
+                <li><a asp-area="CrdlSys" id="events-link" data-bs-toggle="modal" data-bs-target="#LayoutManageEventsModal" class="active">Events</a></li>
+                <li><a asp-area="CrdlSys" asp-controller="Chief" asp-action="GenerateReport" id="reports-link">Reports</a></li>
             </ul>
         </nav>
     </header>
-
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <!-- Sidebar content here -->
-    </div>
 
     <!-- Main Content -->
     <main role="main" class="pb-3">
@@ -72,8 +58,8 @@
                     <h5 class="modal-title" id="LinkagesTypeModalLabel">Select Type</h5>
                 </div>
                 <div class="modal-body">
-                    <a asp-area="" asp-controller="Chief" asp-action="SendDocument" class="btn btn-custom">Send Document (MOA/MOU)</a>
-                    <a asp-area="" data-bs-toggle="modal" data-bs-target="#LayoutManageDocsModal" class="btn btn-custom">Manage Documents (MOA/MOU)</a>
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="SendDocument" class="btn btn-custom">Send Document (MOA/MOU)</a>
+                    <a asp-area="CrdlSys" data-bs-toggle="modal" data-bs-target="#LayoutManageDocsModal" class="btn btn-custom">Manage Documents (MOA/MOU)</a>
                 </div>
             </div>
         </div>
@@ -87,8 +73,8 @@
                     <h5 class="modal-title" id="ManageDocsModalLabel">Select Documents</h5>
                 </div>
                 <div class="modal-body">
-                    <a asp-area="" asp-controller="Chief" asp-action="ViewChiefUploads" class="btn btn-custom">Chief Uploads</a>
-                    <a asp-area="" asp-controller="Chief" asp-action="ViewStakeholderUploads" class="btn btn-custom">Stakeholder Uploads</a>
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ViewChiefUploads" class="btn btn-custom">Chief Uploads</a>
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ViewStakeholderUploads" class="btn btn-custom">Stakeholder Uploads</a>
                 </div>
             </div>
         </div>
@@ -117,8 +103,8 @@
                     <h5 class="modal-title" id="CreateEventModalLabel">Select Event to Create</h5>
                 </div>
                 <div class="modal-body">
-                    <a asp-area="" asp-controller="Chief" asp-action="CreateRCBAEvent" class="btn btn-custom">RCBA Event</a>
-                    <a href="https://giphy.com/gifs/fXnRObM8Q0RkOmR5nf" target="_blank" class="btn btn-custom">Conference</a>
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="CreateRCBAEvent" class="btn btn-custom">RCBA Event</a>
+                    <a href="https://rcbacrdlconferencewebsite.azurewebsites.net/" target="_blank" class="btn btn-custom">Conference</a>
                 </div>
             </div>
         </div>
@@ -132,61 +118,13 @@
                     <h5 class="modal-title" id="ViewEventModalLabel">Select Event to View</h5>
                 </div>
                 <div class="modal-body">
-                    <a asp-area="" asp-controller="Chief" asp-action="ManageRCBAEvent" class="btn btn-custom">RCBA Event</a>
-                    <a href="https://giphy.com/gifs/fXnRObM8Q0RkOmR5nf" target="_blank" class="btn btn-custom">Conference</a>
+                    <a asp-area="CrdlSys" asp-controller="Chief" asp-action="ManageRCBAEvent" class="btn btn-custom">RCBA Event</a>
+                    <a href="https://rcbacrdlconferencewebsite.azurewebsites.net/" target="_blank" class="btn btn-custom">Conference</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- JavaScript -->
-    <script>
-        // Fix body margin when modals are open to prevent layout shift
-        const adjustBodyMargin = () => {
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.body.style.marginRight = `${scrollbarWidth}px`;
-        };
-
-        const resetBodyMargin = () => {
-            document.body.style.marginRight = '';
-        };
-
-        // Manage modal state and ensure proper cleanup
-        document.querySelectorAll('.layout-modal').forEach(modal => {
-            modal.addEventListener('shown.bs.modal', () => {
-                adjustBodyMargin(); // Adjust body margin on modal open
-            });
-
-            modal.addEventListener('hidden.bs.modal', () => {
-                resetBodyMargin(); // Reset body margin on modal close
-                const backdrop = document.querySelector('.modal-backdrop'); // Find leftover backdrop
-                if (backdrop) backdrop.remove(); // Remove leftover backdrop
-            });
-        });
-
-        // Handle simultaneous modal clicks gracefully
-        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(trigger => {
-            trigger.addEventListener('click', event => {
-                // Close any currently open modals before opening a new one
-                const openModals = document.querySelectorAll('.modal.show');
-                openModals.forEach(modal => {
-                    const modalInstance = bootstrap.Modal.getInstance(modal);
-                    if (modalInstance) modalInstance.hide();
-                });
-
-                // Wait for the current modal to fully close before opening the next
-                setTimeout(() => {
-                    const targetModalId = trigger.getAttribute('data-bs-target');
-                    const targetModal = document.querySelector(targetModalId);
-                    if (targetModal) {
-                        const modalInstance = new bootstrap.Modal(targetModal);
-                        modalInstance.show();
-                    }
-                }, 100); // Adjust timeout if necessary
-            });
-        });
-    </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
