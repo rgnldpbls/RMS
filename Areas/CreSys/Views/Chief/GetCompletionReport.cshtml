@@ -17,8 +17,8 @@
             <p><strong>UREC No:</strong> @Model.EthicsApplication.UrecNo</p>
             <p><strong>Research Title:</strong> @Model.NonFundedResearchInfo.Title</p>
             <p><strong>Researcher:</strong> @Model.NonFundedResearchInfo.Name</p>
-            <p><strong>Start Date:</strong> @Model.CompletionReport.ResearchStartDate</p>
-            <p><strong>End Date:</strong> @Model.CompletionReport.ResearchEndDate</p>
+            <p><strong>Start Date:</strong> @Model.CompletionReport.ResearchStartDate.ToString("yyyy-MM-dd")</p>
+            <p><strong>End Date:</strong> @(Model.CompletionReport.ResearchEndDate?.ToString("yyyy-MM-dd") ?? "N/A")</p>
             <!-- Display CoProponents -->
             <h5>Co-Proponents:</h5>
             <ul>

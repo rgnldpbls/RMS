@@ -9,5 +9,6 @@ namespace ResearchManagementSystem.Areas.CreSys.ViewModels
         public NonFundedResearchInfo NonFundedResearchInfo { get; set; }
         public IEnumerable<CoProponent> CoProponents { get; set; }
         public string ChiefName { get; set; }
+        public IFormFile UploadedSignature { get; set; } // Signature upload
     }
 }

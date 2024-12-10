@@ -14,7 +14,14 @@
     <div class="chart-container">
         <canvas id="forecastChart" width="800" height="400"></canvas>
     </div>
+
+    <p><strong>Mean Absolute Error (MAE):</strong> @ViewBag.MAE.ToString("#,##0.00")</p>
+    <p><strong>Root Mean Squared Error (RMSE):</strong> @ViewBag.RMSE.ToString("#,##0.00")</p>
+    <p><strong>Mean Absolute Percentage Error (MAPE):</strong> @ViewBag.MAPE</p>
+    <p><strong>R-Squared:</strong> @ViewBag.RSquared</p>
+    <p><strong>Signal-to-Noise Ratio (SNR):</strong> @ViewBag.SNR</p>
 </div>
+
     <div class="table-container">
         <table class="forecast-table">
             <thead>
@@ -120,6 +127,8 @@
             </tbody>
         </table>
     </div>
+
+
 
     <button id="export" class="export-button">Export as Excel</button>
 

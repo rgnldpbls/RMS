@@ -80,6 +80,74 @@
                 </div>
             </div>
         </div>
+
+       
+
+        <div class="ranking-section" style="background-color: maroon; padding: 20px; border-radius: 8px; margin-top: 20px;">
+            <h2 style="color: yellow; font-size: 24px; text-align: center; margin-bottom: 15px;">
+                <i class="fas fa-star" style="color: yellow;"></i> Best Performing Evaluators
+            </h2>
+            <table style="width: 100%; color: white; text-align: left; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="border-bottom: 2px solid yellow; padding: 10px; font-size: 18px;">Rank</th>
+                        <th style="border-bottom: 2px solid yellow; padding: 10px; font-size: 18px;">Evaluator Name</th>
+                        <th style="border-bottom: 2px solid yellow; padding: 10px; font-size: 18px;">Completed Evaluations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.BestPerformingEvaluators.Any())
+                    {
+                        foreach (var evaluator in Model.BestPerformingEvaluators)
+                        {
+                            <tr>
+                                <td style="padding: 10px; font-size: 16px;">@evaluator.Rank</td>
+                                <td style="padding: 10px; font-size: 16px;">@evaluator.EvaluatorName</td>
+                                <td style="padding: 10px; font-size: 16px; text-align: center;">@evaluator.CompletedCount</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" style="padding: 10px; text-align: center; font-size: 16px; color: yellow;">
+                                No evaluators found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="padding: 20px; font-family: Arial, sans-serif;">
+            <h2 style="background-color: #800000; color: yellow; text-align: center; font-size: 1.8em; margin-bottom: 15px; padding: 10px; border-radius: 5px;">
+                <i class="fas fa-chart-line" style="color: yellow; margin-right: 10px;"></i>
+                Top 3 Fields of Study
+            </h2>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 0 auto; text-align: left; font-size: 1em;">
+                <thead>
+                    <tr style="background-color: maroon; color: yellow;">
+                        <th style="padding: 10px; border: 1px solid maroon; text-align: center;">Rank</th>
+                        <th style="padding: 10px; border: 1px solid maroon;">Field of Study</th>
+                        <th style="padding: 10px; border: 1px solid maroon;">Applications</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var field in Model.TopFields)
+                    {
+                        <tr style="background-color: @(field.Rank % 2 == 0 ? "#f9f9f9" : "#fff");">
+                            <td style="padding: 10px; border: 1px solid maroon; text-align: center; color: maroon;">
+                                <i class="fas @(field.Rank == 1 ? "fa-trophy" : field.Rank == 2 ? "fa-medal" : "fa-star")"
+                                   style="color: @(field.Rank == 1 ? "gold" : field.Rank == 2 ? "silver" : "bronze");"></i>
+                            </td>
+                            <td style="padding: 10px; border: 1px solid maroon; color: maroon;">@field.FieldName</td>
+                            <td style="padding: 10px; border: 1px solid maroon; color: maroon;">@field.ApplicationCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
@@ -135,65 +203,214 @@
             </div>
         </div>
         <div id="calendar" class="calendar">
-    </div>
-</div>
+        </div>
+        <!-- Chart Section -->
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <!-- Year Selection Dropdown -->
+                            <div class="form-group">
+                                <label for="yearSelect" class="text-maroon">Select Year</label>
+                                <select id="yearSelect" class="form-control form-control-lg" asp-for="SelectedYear" asp-items="@(new SelectList(Model.AvailableYears))">
+                                    <option value="">-- Select Year --</option>
+                                </select>
+                            </div>
 
+                            <!-- Month Selection Dropdown -->
+                            <div class="form-group">
+                                <label for="monthSelect" class="text-maroon">Select Month</label>
+                                <select id="monthSelect" class="form-control form-control-lg" asp-for="SelectedMonth" asp-items="@(new SelectList(Model.AvailableMonths, "Month", "MonthName"))">
+                                    <option value="">-- Select Month --</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <h5 class="text-maroon">
+                                    Total Applications for @Model.SelectedYear: @Model.TotalApplicationsForYear
+                                </h5>
+                            </div>
+                            <div class="mb-3">
+                                <h5 class="text-maroon">
+                                    Applications for <span id="month-name"></span> @Model.SelectedYear: @Model.ApplicationsPerMonth
+                                </h5>
+                            </div>
 
-<!-- JS Libraries -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+                            <!-- Canvas for Chart -->
+                            <canvas id="monthlyApplicationsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- Calendar Initialization -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const calendarEl = document.getElementById('calendar');
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        if (!calendarEl) {
-            console.error('Calendar element not found!');
-            return;
-        }
+        <script>
+            // Array of month names
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
 
-        console.log('Initializing FullCalendar...');
+            // Fetch the selected year and month to refresh the chart
+            document.getElementById('yearSelect').addEventListener('change', function () {
+                const selectedYear = this.value;
+                const selectedMonth = document.getElementById('monthSelect').value;
+                window.location.href = `@Url.Action("Dashboard", "Chief")?selectedYear=${selectedYear}&selectedMonth=${selectedMonth}`;
+            });
 
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-            },
-            events: '/CreSys/Chief/GetCalendarEvents',
-            eventTimeFormat: {
-                hour: '2-digit',
-                minute: '2-digit',
-                meridiem: true
-            },
-            eventClick: function (info) {
-                const modal = new bootstrap.Modal(document.getElementById('eventModal'));
-                const modalBody = document.querySelector('.modal-body');
+            document.getElementById('monthSelect').addEventListener('change', function () {
+                const selectedMonth = this.value;
+                const selectedYear = document.getElementById('yearSelect').value;
+                window.location.href = `@Url.Action("Dashboard", "Chief")?selectedYear=${selectedYear}&selectedMonth=${selectedMonth}`;
+            });
 
-                if (modalBody) {
-                    modalBody.innerHTML = `
-                            <div>
-                                <h3>${info.event.title}</h3>
-                                <p><strong>Date:</strong> ${moment(info.event.start).format('MMMM D, YYYY')}</p>
-                                <p><strong>Time:</strong> ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}</p>
-                                <p><strong>Location:</strong> ${info.event.extendedProps.location || 'Not specified'}</p>
-                                <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
-                            </div>`;
+            // Initial chart data based on the selected year and month
+            const selectedYear = @Model.SelectedYear;
+            const selectedMonth = @Model.SelectedMonth;
+
+            // Set the month name in the span
+            document.getElementById('month-name').textContent = months[selectedMonth - 1];  // Adjust because JavaScript arrays are 0-indexed
+
+            const chartData = {
+                labels: ['Applications', 'Clearances Issued', 'Terminal Reports', 'Certificates Issued'],
+                datasets: [{
+                    label: `Data for ${selectedMonth}/${selectedYear}`,
+                    data: [
+            @Model.ApplicationsPerMonth,
+            @Model.TotalClearancesIssued,
+            @Model.TotalTerminalReports,
+            @Model.TotalCertificatesIssued
+                        ],
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e'],
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Render the chart
+            const ctx = document.getElementById('monthlyApplicationsChart').getContext('2d');
+            const monthlyApplicationsChart = new Chart(ctx, config);
+        </script>
+        <!-- Custom CSS for Maroon and White Light Design -->
+        <style>
+            body {
+                background-color: #fff; /* White background for a light theme */
+                color: #4b001f; /* Maroon text color */
+                font-family: 'Arial', sans-serif; /* Font style */
+            }
+
+            .text-maroon {
+                color: #4b001f; /* Maroon text */
+            }
+
+            .form-control {
+                border: 1px solid #4b001f; /* Maroon border for inputs */
+                color: #4b001f; /* Maroon text inside inputs */
+                background-color: #f8f9fa; /* Light background for inputs */
+            }
+
+                .form-control:focus {
+                    border-color: #9f1d2a; /* Darker maroon on focus */
+                    box-shadow: 0 0 0 0.2rem rgba(159, 29, 42, 0.25); /* Light maroon shadow */
                 }
 
-                modal.show();
-            },
-            dayMaxEvents: true,
-            height: 'auto',
-            contentHeight: 'auto',
-            themeSystem: 'bootstrap5'
+            .card {
+                background-color: #fff; /* White background for the card */
+                border: 1px solid #e3e6f0; /* Light grey border for the card */
+            }
+
+            .card-body {
+                padding: 2rem; /* Padding inside card */
+            }
+
+                .card-body h5 {
+                    font-weight: 500;
+                }
+
+
+            /* Custom chart container */
+            #monthlyApplicationsChart {
+                margin-top: 2rem;
+                max-width: 100%;
+                height: 400px;
+            }
+
+            label {
+                font-weight: bold;
+            }
+        </style>
+
+    </div>
+
+
+    <!-- JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+    <!-- Calendar Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+
+            if (!calendarEl) {
+                console.error('Calendar element not found!');
+                return;
+            }
+
+            console.log('Initializing FullCalendar...');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                events: '/CreSys/Chief/GetCalendarEvents',
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: true
+                },
+                eventClick: function (info) {
+                    const modal = new bootstrap.Modal(document.getElementById('eventModal'));
+                    const modalBody = document.querySelector('.modal-body');
+
+                    if (modalBody) {
+                        modalBody.innerHTML = `
+                                    <div>
+                                        <h3>${info.event.title}</h3>
+                                        <p><strong>Date:</strong> ${moment(info.event.start).format('MMMM D, YYYY')}</p>
+                                        <p><strong>Time:</strong> ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}</p>
+                                        <p><strong>Location:</strong> ${info.event.extendedProps.location || 'Not specified'}</p>
+                                        <p><strong>Description:</strong> ${info.event.extendedProps.description || 'No description'}</p>
+                                    </div>`;
+                    }
+
+                    modal.show();
+                },
+                dayMaxEvents: true,
+                height: 'auto',
+                contentHeight: 'auto',
+                themeSystem: 'bootstrap5'
+            });
+
+            calendar.render();
+
+            console.log('FullCalendar rendered successfully.');
         });
-
-        calendar.render();
-
-        console.log('FullCalendar rendered successfully.');
-    });
-</script>
+    </script>
+    

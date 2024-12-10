@@ -13,7 +13,7 @@
         <form asp-action="FormFill" method="post" id="generateForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ResearchType">Funded Research Type:</label>
+                <label asp-for="ResearchType">Funded Research Type: <span style="color: #850000">*</span></label>
                 <div class="dropdown-container">
                     <select asp-for="ResearchType" class="form-control custom-select">
                         @if (ViewBag.Type == "University Funded Research")
@@ -34,18 +34,18 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectTitle">Program/Project Title:</label>
+                <label asp-for="ProjectTitle">Program/Project Title: <span style="color: #850000">*</span></label>
                 <input asp-for="ProjectTitle" type="text" class="form-control" id="projectTitle" placeholder="Research Title..."/>
                 <span id="titleError" class="text-danger"></span>
                 <span asp-validation-for="ProjectTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectLeader">Program/Project Proponent: </label>
+                <label asp-for="ProjectLeader">Program/Project Proponent: <span style="color: #850000">*</span></label>
                 <input asp-for="ProjectLeader" type="text" class="form-control" placeholder="Project Leader..." value="@ViewBag.Name" readonly/>
                 <span asp-validation-for="ProjectLeader" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectMembers">Program/Project Co-Proponent's and Research Assistants: [Select N/A if Not Applicable]</label>
+                <label asp-for="ProjectMembers">Program/Project Co-Proponent's and Research Assistants: [Select N/A if Not Applicable] <span style="color: #850000">*</span></label>
                 <select id="memberSelect" class="form-control">
                     <option value="" disabled selected>Select Members...</option>
                     <option value="N/A">N/A</option>
@@ -63,33 +63,33 @@
                 <span asp-validation-for="ProjectMembers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImplementingInstitution">Implementing Institution:</label>
+                <label asp-for="ImplementingInstitution">Implementing Institution: <span style="color: #850000">*</span></label>
                 @Html.TextAreaFor(m => m.ImplementingInstitution, new { @class = "form-control", @placeholder = "Implementing Institution...", @rows = "3" })
                 <span asp-validation-for="ImplementingInstitution" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CollaboratingInstitution">Collaborating Institution:</label>
+                <label asp-for="CollaboratingInstitution">Collaborating Institution: <span style="color: #850000">*</span></label>
                 @Html.TextAreaFor(m => m.CollaboratingInstitution, new { @class = "form-control", @placeholder = "Collaborating Institution...", @rows = "3" })
                 <span asp-validation-for="CollaboratingInstitution" class="text-danger"></span>
             </div>
             @if(ViewBag.Type == "Externally Funded Research")
             {
                 <div class="form-group">
-                    <label asp-for="NameOfExternalFundingAgency">External Funding Agency:</label>
+                    <label asp-for="NameOfExternalFundingAgency">External Funding Agency: <span style="color: #850000">*</span></label>
                     @Html.TextAreaFor(m => m.NameOfExternalFundingAgency, new { @class = "form-control", @placeholder = "External Funding Agency...", @rows = "3" })
                     <span asp-validation-for="NameOfExternalFundingAgency" class="text-danger"></span>
                 </div>
             }
             <div class="form-group">
-                <label asp-for="ProjectDuration">Project Duration: [in months]</label>
+                <label asp-for="ProjectDuration">Project Duration: [in months] <span style="color: #850000">*</span></label>
                 <div class="input-group">
-                    <input asp-for="ProjectDuration" type="number" class="form-control" placeholder="Project Duration..." min="1" max="36" />
+                    <input asp-for="ProjectDuration" type="number" class="form-control" placeholder="Project Duration..." min="6" max="12" value="12" />
                     <span class="input-group-text">month/s</span>
                 </div>
                 <span asp-validation-for="ProjectDuration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TotalProjectCost">Total Project Cost:</label>
+                <label asp-for="TotalProjectCost">Total Project Cost: <span style="color: #850000">*</span></label>
                 <div class="input-group">
                     <span class="input-group-text">₱</span>
                     <input asp-for="TotalProjectCost" type="text" class="form-control" id="totalProjectCost" placeholder="Total Project Cost..." oninput="formatCurrency(this)" />
@@ -97,22 +97,22 @@
                 <span asp-validation-for="TotalProjectCost" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Objectives">Objectives:</label>
+                <label asp-for="Objectives">Objectives: <span style="color: #850000">*</span></label>
                 @Html.TextAreaFor(m => m.Objectives, new { @class = "form-control", @placeholder = "Objectives...", @rows = "5" })
                 <span asp-validation-for="Objectives" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Scope">Scope:</label>
+                <label asp-for="Scope">Scope: <span style="color: #850000">*</span></label>
                 @Html.TextAreaFor(m => m.Scope, new { @class = "form-control", @placeholder = "Scope...", @rows = "5" })
                 <span asp-validation-for="Scope" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Methodology">Methodology:</label>
+                <label asp-for="Methodology">Methodology: <span style="color: #850000">*</span></label>
                 @Html.TextAreaFor(m => m.Methodology, new { @class = "form-control", @placeholder = "Methodology...", @rows = "5" })
                 <span asp-validation-for="Methodology" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StudyField">Field of the Study:</label>
+                <label asp-for="StudyField">Field of the Study: <span style="color: #850000">*</span></label>
                 <div class="dropdown-container">
                     <select asp-for="StudyField" class="form-control custom-select">
                         <option value="" disabled selected>Select Field of Study...</option>

@@ -91,7 +91,7 @@ namespace ResearchManagementSystem.Areas.CreSys.ViewModels.ListViewModels
 
             Questions.Add(new Question("Remarks/Reasons for unfavorable decision:", AnswerType.Text)
             {
-                Answer = " " // Set default answer
+                Answer = null
             });
         }
     }

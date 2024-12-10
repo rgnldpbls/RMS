@@ -45,11 +45,23 @@
             </div>
             <form asp-action="GoToEthics" asp-route-id="@item.fra_Id" method="post">
                 <div class="step">
-                    <div class="step-icon unlocked">
+                    <div class="step-icon @(ViewBag.EthicsStatus == "Not Yet Applied" ? "locked" : ViewBag.EthicsStatus == "In Progress" ? "progress" : "unlocked")">
                         <i class="bi bi-file-earmark-lock-fill"></i>
                     </div>
                     <strong>Ethics Clearance Secured</strong>
-                    <button class="clearance-btn" type="submit" style="font-size:12px; margin-left: 5px;">View</button>
+                    <p style="font-size: 12px;"><strong>Status:</strong> @ViewBag.EthicsStatus</p>
+                    @if (ViewBag.EthicsStatus == "Not Yet Applied")
+                    {
+                        <button class="clearance-btn" type="submit" style="font-size:12px; margin-left: 5px;">Apply</button>
+                    }
+                    else if (ViewBag.EthicsStatus == "In Progress")
+                    {
+                        <a href="@Url.Action("UploadForms", "Researcher", new {area = "CreSys", UrecNo = ViewBag.UrecNo})" class="clearance-btn" style="font-size:12px; margin-left: 5px;">View</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("TrackApplication", "Researcher", new {area = "CreSys", UrecNo = ViewBag.UrecNo})" class="clearance-btn" style="font-size:12px; margin-left: 5px;">View</a>
+                    }
                 </div>
             </form>
             <div class="step">

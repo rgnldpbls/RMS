@@ -736,7 +736,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                 ConsentRecommendation = "Pending",
                 ConsentRemarks = string.Empty,
 
-                EvaluationStatus = "Assigned"
+                EvaluationStatus = "Assigned",
+                StartDate = DateTime.Now
             };
 
             await _context.CRE_EthicsEvaluation.AddAsync(ethicsEvaluation);

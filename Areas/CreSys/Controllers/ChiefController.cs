@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using RemcSys.Data;
@@ -351,7 +352,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 }
             }
 
-            return RedirectToAction("FilteredApplications");
+            return RedirectToAction("ApplicationsApprovedForEvaluation");
         }
 
 
@@ -692,8 +693,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 ProtocolRemarks = model.EthicsEvaluation.ProtocolRemarks,
                 ConsentRecommendation = model.EthicsEvaluation.ConsentRecommendation,
                 ConsentRemarks = model.EthicsEvaluation.ConsentRemarks,
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 ProtocolReviewSheet = model.ProtocolReviewSheet != null
                     ? await GetFileContentAsync(model.ProtocolReviewSheet)
                     : null,
@@ -915,7 +916,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                     }
                 }
 
-                var fre = await _remcDbContext.REMC_FundedResearchEthics.FirstAsync(f => f.urecNo == urecNo);
+                var fre = await _remcDbContext.REMC_FundedResearchEthics.FirstOrDefaultAsync(f => f.urecNo == urecNo);
                 if(fre != null)
                 {
                     if(uploadedFile.Length > 0)
@@ -933,7 +934,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                     fre.file_Uploaded = DateTime.Now;
 
                     var fra = await _remcDbContext.REMC_FundedResearchApplication.FirstAsync(f => f.fra_Id == fre.fra_Id);
-                    await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} has already an Ethics Clearance", true, true, false, fra.fra_Id);
+                    await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} already has Ethics Clearance", true, true, false, fra.fra_Id);
                 }
 
 
@@ -1012,7 +1013,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = "Ethics clearance issued successfully!";
-                return RedirectToAction("Evaluations");
+                return RedirectToAction("PendingExemptEvaluations");
             }
             else if (applicationDecision == "Minor Revisions" || applicationDecision == "Major Revisions")
             {
@@ -1057,7 +1058,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = $"{applicationDecision} processed successfully!";
-                return RedirectToAction("Evaluations");
+                return RedirectToAction("PendingExemptEvaluations");
             }
             else
             {
@@ -1146,7 +1147,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 {
                     UrecNo = urecNo,
                     CertificateFile = certificateBytes, // Store the byte array of the certificate
-                    IssuedDate = DateOnly.FromDateTime(DateTime.UtcNow) // Set the issued date to today
+                    IssuedDate = DateOnly.FromDateTime(DateTime.Now) // Set the issued date to today
                 };
 
                 // Save the certificate to the database
@@ -1171,7 +1172,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 {
                     UrecNo = urecNo,
                     Status = "Completion Certificate Issued",
-                    ChangeDate = DateTime.UtcNow,
+                    ChangeDate = DateTime.Now,
                     UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     Comments = "Completion certificate has been issued."
                 };
@@ -1549,6 +1550,41 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return File(report.ReportFile, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
+
+        public IActionResult ViewEthicsEvaluators(string sortColumn = "Completed", string sortDirection = "asc")
+        {
+            // Fetch all the Ethics Evaluators from the database
+            var evaluators = _context.CRE_EthicsEvaluator.AsQueryable();
+
+            // Sort based on the specified column and direction
+            switch (sortColumn.ToLower())
+            {
+                case "completed":
+                    evaluators = sortDirection == "asc" ? evaluators.OrderBy(e => e.Completed) : evaluators.OrderByDescending(e => e.Completed);
+                    break;
+                case "pending":
+                    evaluators = sortDirection == "asc" ? evaluators.OrderBy(e => e.Pending) : evaluators.OrderByDescending(e => e.Pending);
+                    break;
+                case "declined":
+                    evaluators = sortDirection == "asc" ? evaluators.OrderBy(e => e.Declined) : evaluators.OrderByDescending(e => e.Declined);
+                    break;
+                default:
+                    evaluators = evaluators.OrderBy(e => e.Completed); // Default sort by Completed
+                    break;
+            }
+
+            // Return the sorted list to the view
+            return View(evaluators.ToList());
+        }
+
+        public IActionResult ViewChairperson()
+        {
+            // Fetch all chairpersons from the database
+            var chairpersons = _context.CRE_Chairperson.ToList();
+
+            // Pass the data to the view
+            return View(chairpersons);
+        }
         public async Task<IActionResult> AddEvaluators()
         {
             // Get the "Ethics Evaluator" role
@@ -1580,49 +1616,114 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             return View(newEvaluators);
         }
+
         [Authorize(Roles = "CRE Chief")]
         [HttpGet]
-        public IActionResult Dashboard()
+        public IActionResult Dashboard(int? selectedYear, int? selectedMonth)
         {
+            // Use the current year and month as fallback if no year or month is provided
+            int year = selectedYear ?? DateTime.Now.Year;
+            int month = selectedMonth ?? DateTime.Now.Month;
+
             // Get the total number of applications with logs
             var totalApplications = _context.CRE_EthicsApplication
                 .Where(application => application.EthicsApplicationLogs.Any()) // Only count applications with logs
                 .Count();
 
-            // Get the total number of ethics clearances
-            var totalClearancesIssued = _context.CRE_EthicsClearance.Count();
+            // Get the total number of applications with logs for the selected year and month
+            var applicationsPerMonth = _context.CRE_EthicsApplication
+                .Where(application => application.EthicsApplicationLogs.Any()) // Only count applications with logs
+                .Where(application => application.SubmissionDate.Year == year && application.SubmissionDate.Month == month) // Filter by year and month
+                .Count();
 
-            // Get the total number of terminal reports
-            var totalTerminalReports = _context.CRE_CompletionReports.Count();
+            var totalApplicationsForYear = _context.CRE_EthicsApplication
+              .Where(app => app.SubmissionDate.Year == selectedYear)
+              .Count();
+            // Fetch the number of applications per month for the selected year (for chart data)
+            var applicationsPerMonthByYear = _context.CRE_EthicsApplication
+              .Where(application => application.EthicsApplicationLogs.Any()) // Only count applications with logs
+              .GroupBy(application => new { Year = application.SubmissionDate.Year, Month = application.SubmissionDate.Month }) // Group by Year and Month
+              .Select(group => new ApplicationsPerMonth
+              {
+                  Year = group.Key.Year,
+                  Month = group.Key.Month,
+                  ApplicationCount = group.Count() // Count the number of applications per group
+              })
+              .OrderBy(group => group.Year)
+              .ThenBy(group => group.Month)
+              .ToList();
 
-            // Get the total number of certificates issued
-            var totalCertificatesIssued = _context.CRE_CompletionCertificates.Count();
+            // Get the total number of ethics clearances for the selected year and month
+            var totalClearancesIssued = _context.CRE_EthicsClearance
+                .Where(clearance => clearance.IssuedDate.HasValue && clearance.IssuedDate.Value.Year == year && clearance.IssuedDate.Value.Month == month)
+                .Count();
 
-            // Fetch the top performing fields of study based on non-funded applications
+            // Get the total number of terminal reports for the selected year and month
+            var totalTerminalReports = _context.CRE_CompletionReports
+                .Where(report => report.SubmissionDate.Year == year && report.SubmissionDate.Month == month)
+                .Count();
+
+            // Get the total number of certificates issued for the selected year and month
+            var totalCertificatesIssued = _context.CRE_CompletionCertificates
+                .Where(cert => cert.IssuedDate.Year == year && cert.IssuedDate.Month == month)
+                .Count();
+
+            // Fetch the top performing fields of study for the selected year and month
             var topFields = _context.CRE_EthicsApplication
-                .GroupBy(application => application.FieldOfStudy)
-                .Select(group => new
-                {
-                    FieldOfStudy = group.Key,
-                    ApplicationCount = group.Count()
-                })
-                .OrderByDescending(x => x.ApplicationCount) // Order by most applications
-                .Take(3) // Get the top 3 fields
-                .ToList();
+              .Where(application => application.SubmissionDate.Year == year) // Only filter by year
+              .GroupBy(application => application.FieldOfStudy)
+              .Select(group => new
+              {
+                  FieldOfStudy = group.Key,
+                  ApplicationCount = group.Count()
+              })
+              .OrderByDescending(x => x.ApplicationCount) // Order by most applications
+              .Take(3) // Get the top 3 fields
+              .ToList();
 
-            // Prepare the model
+
+            var bestPerformingEvaluators = _context.CRE_EthicsEvaluator
+               .Where(evaluator => evaluator.AccountStatus == "Active").ToList()
+               .OrderByDescending(evaluator => evaluator.Completed) // Order by most completed evaluations
+               .Take(3) // Get the top 3 evaluators
+               .Select((evaluator, index) => new BestEvaluatorViewModel
+               {
+                   EvaluatorName = evaluator.Name,
+                   CompletedCount = evaluator.Completed,
+                   Rank = index + 1
+               })
+               .ToList();
+            // Prepare the model to pass to the view
             var model = new ChiefDashboardViewModel
             {
                 TotalApplications = totalApplications,
+                ApplicationsPerMonth = applicationsPerMonth,
+                ApplicationsPerMonthByYear = applicationsPerMonthByYear,
+                TotalApplicationsForYear = totalApplicationsForYear,
                 TotalClearancesIssued = totalClearancesIssued,
                 TotalTerminalReports = totalTerminalReports,
                 TotalCertificatesIssued = totalCertificatesIssued,
+                BestPerformingEvaluators = bestPerformingEvaluators,
                 TopFields = topFields.Select((field, index) => new TopFieldViewModel
                 {
                     FieldName = field.FieldOfStudy,
                     ApplicationCount = field.ApplicationCount,
                     Rank = index + 1
-                }).ToList() // Map to the view model
+                }).ToList(),
+                SelectedYear = year,
+                SelectedMonth = month, // Add selected month to the model
+                AvailableYears = _context.CRE_EthicsApplication
+                    .Select(application => application.SubmissionDate.Year)
+                    .Distinct()
+                    .OrderBy(year => year)
+                    .ToList(),
+                AvailableMonths = Enumerable.Range(1, 12)
+                    .Select(m => new MonthViewModel
+                    {
+                        Month = m,
+                        MonthName = new DateTime(2000, m, 1).ToString("MMMM")
+                    })
+                    .ToList()
             };
 
             return View(model);
@@ -1685,9 +1786,10 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             // Fetch the current user's record
             var currentUser = await _userManager.FindByIdAsync(currentUserId);
+            // Concatenate the full name with middle initial
+            var middleInitial = string.IsNullOrEmpty(currentUser.MiddleName) ? "" : $"{currentUser.MiddleName[0]}.";
+            var fullName = $"{currentUser.FirstName} {middleInitial} {currentUser.LastName}".Trim();
 
-            // Concatenate the full name (FirstName, MiddleName, LastName)
-            var fullName = $"{currentUser.FirstName} {currentUser.MiddleName} {currentUser.LastName}".Trim();
             var ethicsEvaluation = baseModel.EthicsEvaluation.FirstOrDefault();
             // Check if EthicsEvaluation already exists
             if (ethicsEvaluation == null)
@@ -1752,8 +1854,10 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EvaluateApplicationPdfGen(EvaluationSheetsViewModel model)
+        public async Task<IActionResult> EvaluateApplicationPdfGen(EvaluationSheetsViewModel model, string action)
         {
+          
+
             var coProponents = _context.CRE_NonFundedResearchInfo
                    .Include(nf => nf.CoProponents)
                    .Where(e => e.UrecNo == model.InformedConsentForm.EthicsApplication.UrecNo)
@@ -1765,6 +1869,39 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             var informedConsentPdf = await _pdfGenerationService.GenerateInformedConsentPdf(model.InformedConsentForm);
             var protocolReviewPdf = await _pdfGenerationService.GenerateProtocolReviewPdf(model.ProtocolReviewForm);
             // For Protocol Review Form
+            if (action == "Preview")
+            {
+                using (var zipMemoryStream = new MemoryStream())
+                {
+                    using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, true))
+                    {
+                        // Add the Informed Consent PDF to the ZIP file
+                        var informedConsentEntry = zipArchive.CreateEntry("InformedConsent.pdf");
+                        using (var entryStream = informedConsentEntry.Open())
+                        {
+                            // Convert the byte[] to a MemoryStream and copy the content
+                            using (var pdfStream = new MemoryStream(informedConsentPdf))
+                            {
+                                await pdfStream.CopyToAsync(entryStream);
+                            }
+                        }
+
+                        // Add the Protocol Review PDF to the ZIP file
+                        var protocolReviewEntry = zipArchive.CreateEntry("ProtocolReview.pdf");
+                        using (var entryStream = protocolReviewEntry.Open())
+                        {
+                            // Convert the byte[] to a MemoryStream and copy the content
+                            using (var pdfStream = new MemoryStream(protocolReviewPdf))
+                            {
+                                await pdfStream.CopyToAsync(entryStream);
+                            }
+                        }
+                    }
+
+                    // Return the ZIP file as a downloadable file
+                    return File(zipMemoryStream.ToArray(), "application/zip", "EvaluationSheets.zip");
+                }
+            }
             var protocolRecommendationQuestion = GetQuestionByKeyword(model.ProtocolReviewForm.Questions, "Recommendation");
             var protocolRemarksQuestion = GetQuestionByKeyword(model.ProtocolReviewForm.Questions, "Remarks");
 
@@ -1826,8 +1963,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 ProtocolRemarks = protocolRemarks,
                 ConsentRecommendation = consentRecommendation,
                 ConsentRemarks = consentRemarks,
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
                 ProtocolReviewSheet = protocolReviewPdf, // The byte array for the informed consent PDF
                 InformedConsentForm = informedConsentPdf // The byte array for the protocol review PDF
             };
@@ -1962,10 +2099,10 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendClearanceToResearcher(string urecNo)
+        public async Task<IActionResult> SendClearanceToResearcher(string urecNo, EthicsClearanceViewModel viewModel)
         {
             // Retrieve the current user's ID
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             // Fetch the application and related data for the ViewModel
             var application = await _context.CRE_EthicsApplication
@@ -1986,14 +2123,12 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 ModelState.AddModelError("", "Application not found.");
                 return View();
             }
-            var viewModel = new EthicsClearanceViewModel
-            {
-                EthicsApplication = application,
-                InitialReview = application.InitialReview,
-                NonFundedResearchInfo = application.NonFundedResearchInfo,
-                CoProponents = application.NonFundedResearchInfo.CoProponents,
-                ChiefName = chiefName
-            };
+            // Populate the viewModel with all necessary information
+            viewModel.EthicsApplication = application;
+            viewModel.InitialReview = application.InitialReview;
+            viewModel.NonFundedResearchInfo = application.NonFundedResearchInfo;
+            viewModel.CoProponents = application.NonFundedResearchInfo.CoProponents;
+            viewModel.ChiefName = chiefName;
             // Generate the PDF using the existing service
             byte[] pdfData = await _pdfGenerationService.GenerateClearancePdf(viewModel);
 
@@ -2006,7 +2141,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 ClearanceFile = pdfData, // Save the generated PDF
             };
 
-            var fre = await _remcDbContext.REMC_FundedResearchEthics.FirstAsync(f => f.urecNo == urecNo);
+            var fre = await _remcDbContext.REMC_FundedResearchEthics.FirstOrDefaultAsync(f => f.urecNo == urecNo);
             if (fre != null)
             {
                 fre.clearanceFile = pdfData;
@@ -2016,7 +2151,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 fre.file_Uploaded = DateTime.Now;
 
                 var fra = await _remcDbContext.REMC_FundedResearchApplication.FirstAsync(f => f.fra_Id == fre.fra_Id);
-                await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} has already an Ethics Clearance", true, true, false, fra.fra_Id);
+                await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"{fra.research_Title} already has Ethics Clearance", true, true, false, fra.fra_Id);
             }
 
             _context.CRE_EthicsClearance.Add(ethicsClearance);
@@ -2091,161 +2226,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             await _context.SaveChangesAsync();
             // Add additional actions like notifications or emails
             TempData["SuccessMessage"] = "Ethics clearance issued and PDF generated successfully!";
-            return RedirectToAction("Evaluations");
+            return RedirectToAction("PendingExemptEvaluations");
         }
-
-        [Authorize(Roles = "Director")]
-        [HttpGet]
-        public async Task<IActionResult> GenerateReportDirector()
-        {
-            var reports = await _context.CRE_EthicsReport
-                .Where(r => !r.IsArchived)
-                .ToListAsync();
-            return View(reports);
-        }
-
-        [Authorize(Roles = "Director")]
-        [HttpGet]
-        public IActionResult GenerateReportDirectorFilter()
-        {
-            var viewModel = new ReportGenerationViewModel
-            {
-                SelectedCollege = null,
-                SelectedCampus = null,
-                InternalResearcherType = null
-            };
-            return View(viewModel);
-        }
-        
-        [Authorize(Roles = "Director")]
-        [HttpPost]
-        public async Task<IActionResult> GenerateReportDirectorFilter(ReportGenerationViewModel model)
-        {
-
-            DateTime? startDate = model.StartDate;
-            DateTime? endDate = model.EndDate;
-
-            var researchData = await _allServices.GetFilteredResearchData(model);
-
-            // Get the college and field of study acronyms and full names
-            string collegeAcronym = string.Empty;
-            string collegeFullName = string.Empty;
-
-            // Check if the college is null or external researcher is selected
-            if (model.ExternalApplications)
-            {
-                collegeFullName = "For External Researcher Applications";
-                collegeAcronym = "ER";  // Append "ER" for External Researcher
-            }
-            else
-            {
-                // Check if SelectedCollege is "All Colleges" or if it's an invalid value (assuming empty string is invalid)
-                if (string.IsNullOrEmpty(model.SelectedCollege) || model.SelectedCollege == "All Colleges")
-                {
-                    // If college is null or "All Colleges", use campus acronyms
-                    string campusAcronym = GetCampusAcronym(model.SelectedCampus);
-
-                    // Fallback logic in case campus acronym is empty or invalid
-                    if (string.IsNullOrEmpty(campusAcronym))
-                    {
-                        // Handle the case where no valid campus acronym is found (optional, based on your business logic)
-                        collegeFullName = "";  // Set a default value or handle accordingly
-                        collegeAcronym = "";
-                    }
-                    else
-                    {
-                        collegeFullName = campusAcronym;  // Set college full name to campus acronym
-                        collegeAcronym = campusAcronym;
-                    }
-                }
-                else
-                {
-                    // Get full name and acronym for the selected college
-                    collegeFullName = GetCollegeFullName(model.SelectedCollege);
-                    collegeAcronym = GetCollegeAcronym(model.SelectedCollege);
-                }
-            }
-
-
-            // Get field of study acronym
-            string fieldAcronym = GetFieldOfStudyAcronym(model.SelectedFieldOfStudy);
-
-            // Remove the DateTime.Now part from the file name
-            string fileNameSuffix = string.Empty;
-
-            // Add college acronym to the file name if a specific college is selected (or campus if external application)
-            if (!string.IsNullOrEmpty(collegeAcronym))
-            {
-                fileNameSuffix += $"_{collegeAcronym}";
-            }
-
-            // Add field acronym if a specific field of study is selected
-            if (model.SelectedFieldOfStudy != "All Field of Study")
-            {
-                fileNameSuffix += $"_{fieldAcronym}";
-            }
-
-            // Generate the file contents (Excel file)
-            var fileContents = _allServices.GenerateExcelFile(researchData, startDate, endDate, out string fileName);
-
-            // Save the report to the database
-            var report = new EthicsReport
-            {
-                EthicsReportId = Guid.NewGuid().ToString(),  // Generate a new unique ID
-                ReportName = fileName + fileNameSuffix,      // Use the simplified name
-                ReportFileType = "Excel",                    // File type (Excel or others)
-                ReportFile = fileContents,
-                ReportStartDate = startDate.Value,
-                ReportEndDate = endDate.Value,
-                College = collegeFullName,  // Use full college name here (or "For External Researcher Applications")
-                DateGenerated = DateTime.Now,
-                IsArchived = false  // Default to false
-            };
-
-            // Save report to the database (assumes your database context is named _context)
-            _context.CRE_EthicsReport.Add(report);
-            _context.SaveChanges();
-
-            // Add a success message to TempData
-            TempData["SuccessMessage"] = "Report generated successfully!";
-            // Redirect to the Reports view after the file is generated
-            return RedirectToAction("GenerateReportDirector", "Chief");
-        }
-        public IActionResult ViewEthicsEvaluators(string sortColumn = "Completed", string sortDirection = "asc")
-        {
-            // Fetch all the Ethics Evaluators from the database
-            var evaluators = _context.CRE_EthicsEvaluator.AsQueryable();
-
-            // Sort based on the specified column and direction
-            switch (sortColumn.ToLower())
-            {
-                case "completed":
-                    evaluators = sortDirection == "asc" ? evaluators.OrderBy(e => e.Completed) : evaluators.OrderByDescending(e => e.Completed);
-                    break;
-                case "pending":
-                    evaluators = sortDirection == "asc" ? evaluators.OrderBy(e => e.Pending) : evaluators.OrderByDescending(e => e.Pending);
-                    break;
-                case "declined":
-                    evaluators = sortDirection == "asc" ? evaluators.OrderBy(e => e.Declined) : evaluators.OrderByDescending(e => e.Declined);
-                    break;
-                default:
-                    evaluators = evaluators.OrderBy(e => e.Completed); // Default sort by Completed
-                    break;
-            }
-
-            // Return the sorted list to the view
-            return View(evaluators.ToList());
-        }
-
-        public IActionResult ViewChairperson()
-        {
-            // Fetch all chairpersons from the database
-            var chairpersons = _context.CRE_Chairperson.ToList();
-
-            // Pass the data to the view
-            return View(chairpersons);
-        }
-
 
         [Authorize(Roles = "CRE Chief")]
         public async Task<IActionResult> EditEvaluator(int id)
@@ -2443,5 +2425,236 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             // Redirect to the list page
             return RedirectToAction("ViewChairperson");
         }
+        [Authorize(Roles = "Director")]
+        [HttpGet]
+        public async Task<IActionResult> GenerateReportDirector()
+        {
+            var reports = await _context.CRE_EthicsReport
+                .Where(r => !r.IsArchived)
+                .ToListAsync();
+            return View(reports);
+        }
+
+        [Authorize(Roles = "Director")]
+        [HttpGet]
+        public IActionResult GenerateReportDirectorFilter()
+        {
+            var viewModel = new ReportGenerationViewModel
+            {
+                SelectedCollege = null,
+                SelectedCampus = null,
+                InternalResearcherType = null
+            };
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "Director")]
+        [HttpPost]
+        public async Task<IActionResult> GenerateReportDirectorFilter(ReportGenerationViewModel model)
+        {
+
+            DateTime? startDate = model.StartDate;
+            DateTime? endDate = model.EndDate;
+
+            var researchData = await _allServices.GetFilteredResearchData(model);
+
+            // Get the college and field of study acronyms and full names
+            string collegeAcronym = string.Empty;
+            string collegeFullName = string.Empty;
+
+            // Check if the college is null or external researcher is selected
+            if (model.ExternalApplications)
+            {
+                collegeFullName = "For External Researcher Applications";
+                collegeAcronym = "ER";  // Append "ER" for External Researcher
+            }
+            else
+            {
+                // Check if SelectedCollege is "All Colleges" or if it's an invalid value (assuming empty string is invalid)
+                if (string.IsNullOrEmpty(model.SelectedCollege) || model.SelectedCollege == "All Colleges")
+                {
+                    // If college is null or "All Colleges", use campus acronyms
+                    string campusAcronym = GetCampusAcronym(model.SelectedCampus);
+
+                    // Fallback logic in case campus acronym is empty or invalid
+                    if (string.IsNullOrEmpty(campusAcronym))
+                    {
+                        // Handle the case where no valid campus acronym is found (optional, based on your business logic)
+                        collegeFullName = "";  // Set a default value or handle accordingly
+                        collegeAcronym = "";
+                    }
+                    else
+                    {
+                        collegeFullName = campusAcronym;  // Set college full name to campus acronym
+                        collegeAcronym = campusAcronym;
+                    }
+                }
+                else
+                {
+                    // Get full name and acronym for the selected college
+                    collegeFullName = GetCollegeFullName(model.SelectedCollege);
+                    collegeAcronym = GetCollegeAcronym(model.SelectedCollege);
+                }
+            }
+
+
+            // Get field of study acronym
+            string fieldAcronym = GetFieldOfStudyAcronym(model.SelectedFieldOfStudy);
+
+            // Remove the DateTime.Now part from the file name
+            string fileNameSuffix = string.Empty;
+
+            // Add college acronym to the file name if a specific college is selected (or campus if external application)
+            if (!string.IsNullOrEmpty(collegeAcronym))
+            {
+                fileNameSuffix += $"_{collegeAcronym}";
+            }
+
+            // Add field acronym if a specific field of study is selected
+            if (model.SelectedFieldOfStudy != "All Field of Study")
+            {
+                fileNameSuffix += $"_{fieldAcronym}";
+            }
+
+            // Generate the file contents (Excel file)
+            var fileContents = _allServices.GenerateExcelFile(researchData, startDate, endDate, out string fileName);
+
+            // Save the report to the database
+            var report = new EthicsReport
+            {
+                EthicsReportId = Guid.NewGuid().ToString(),  // Generate a new unique ID
+                ReportName = fileName + fileNameSuffix,      // Use the simplified name
+                ReportFileType = "Excel",                    // File type (Excel or others)
+                ReportFile = fileContents,
+                ReportStartDate = startDate.Value,
+                ReportEndDate = endDate.Value,
+                College = collegeFullName,  // Use full college name here (or "For External Researcher Applications")
+                DateGenerated = DateTime.Now,
+                IsArchived = false  // Default to false
+            };
+
+            // Save report to the database (assumes your database context is named _context)
+            _context.CRE_EthicsReport.Add(report);
+            _context.SaveChanges();
+
+            // Add a success message to TempData
+            TempData["SuccessMessage"] = "Report generated successfully!";
+            // Redirect to the Reports view after the file is generated
+            return RedirectToAction("GenerateReportDirector", "Chief");
+        }
+        [Authorize(Roles = "CRE Chief")]
+        public IActionResult UploadMemo()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "CRE Chief")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadMemo(IFormFile uploadedFile, string memoNumber, string? memoName, string memoDescription)
+        {
+            if (uploadedFile == null || uploadedFile.Length == 0)
+            {
+                ModelState.AddModelError("uploadedFile", "File is required.");
+                return View();
+            }
+
+            using var memoryStream = new MemoryStream();
+            await uploadedFile.CopyToAsync(memoryStream);
+            var memo = new EthicsMemoranda
+            {
+                MemoNumber = memoNumber,
+                MemoName = memoName,
+                MemoDescription = memoDescription,
+                MemoFile = memoryStream.ToArray() 
+            };
+
+            // Save to database
+            _context.CRE_EthicsMemoranda.Add(memo);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Memo uploaded successfully.";
+            return RedirectToAction("ListMemos");
+        }
+
+        [Authorize(Roles = "CRE Chief")]
+        public IActionResult ListMemos()
+        {
+            var memos = _context.CRE_EthicsMemoranda.ToList(); 
+            return View(memos);
+        }
+        [Authorize(Roles = "CRE Chief")]
+        public IActionResult EditMemo(int id)
+        {
+            var memo = _context.CRE_EthicsMemoranda.FirstOrDefault(m => m.MemoId == id);
+
+            if (memo == null)
+                return NotFound();
+
+            return View(memo); // Redirect to an edit view with the memo
+        }
+        [Authorize(Roles = "CRE Chief")]
+        [HttpPost]
+        public IActionResult EditMemo(EthicsMemoranda updatedMemo, IFormFile uploadedFile)
+        {
+           
+            var memo = _context.CRE_EthicsMemoranda.FirstOrDefault(m => m.MemoId == updatedMemo.MemoId);
+
+            if (memo == null)
+            {
+                return NotFound(); // If memo is not found, return 404
+            }
+
+            // Update memo details
+            memo.MemoName = updatedMemo.MemoName;
+            memo.MemoDescription = updatedMemo.MemoDescription;
+
+            // If a new file is uploaded, update the memo file
+            if (uploadedFile != null && uploadedFile.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    uploadedFile.CopyTo(memoryStream);
+                    memo.MemoFile = memoryStream.ToArray(); // Store the uploaded file as a byte array
+                }
+            }
+
+            _context.SaveChanges(); // Save changes to the database
+            TempData["SuccessMessage"] = "Memo updated successfully!";
+            return RedirectToAction("ListMemos"); // Redirect to the list of memos
+            
+        }
+
+
+
+        [Authorize(Roles = "CRE Chief")]
+        [HttpPost]
+        public IActionResult DeleteMemo(int id)
+        {
+            var memo = _context.CRE_EthicsMemoranda.FirstOrDefault(m => m.MemoId == id);
+
+            if (memo != null)
+            {
+                _context.CRE_EthicsMemoranda.Remove(memo);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("ListMemos");
+        }
+
+
+        public IActionResult DownloadMemo(int id)
+        {
+            var memo = _context.CRE_EthicsMemoranda.FirstOrDefault(m => m.MemoId == id);
+
+            if (memo == null || memo.MemoFile == null)
+            {
+                return NotFound("Memo or file not found.");
+            }
+
+            // You can change the file type based on your file (e.g., PDF, DOCX, etc.)
+            return File(memo.MemoFile, "application/octet-stream", $"{memo.MemoName ?? "Memo"}_{memo.MemoNumber}.pdf");
+        }
+
     }
 }

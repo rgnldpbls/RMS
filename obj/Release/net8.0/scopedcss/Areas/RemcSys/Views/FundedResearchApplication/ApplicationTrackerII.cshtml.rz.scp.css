@@ -55,6 +55,11 @@ h1[b-82ovq14abh] {
         color: #000000;
     }
 
+    .step-icon.progress[b-82ovq14abh] {
+        background-color: #DBBF1B;
+        color: #fff;
+    }
+
     .step-icon.unlocked[b-82ovq14abh] {
         border: 2px solid #0D6B4A;
         background-color: #0D6B4A;

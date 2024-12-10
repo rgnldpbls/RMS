@@ -14,11 +14,11 @@
     public class Question
     {
         public string QuestionText { get; set; }
-        public string Answer { get; set; }
+        public string? Answer { get; set; }
         public AnswerType AnswerType { get; set; }  // Using the enum instead of a string
         public List<string> Options { get; set; }
         public string FollowUpText { get; set; }
-        public string FollowUpAnswer { get; set; }
+        public string? FollowUpAnswer { get; set; }
 
         // Constructor for simple yes/no or text questions
         public Question()

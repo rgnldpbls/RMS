@@ -175,30 +175,45 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var evaluator = await _context.CRE_EthicsEvaluator
+            var currentEvaluator = await _context.CRE_EthicsEvaluator
                 .FirstOrDefaultAsync(e => e.UserID == userId);
-            if (evaluator == null)
+            if (currentEvaluator == null)
             {
-                // Store the message in TempData
                 TempData["ErrorMessage"] = "Please press 'Get Started' to select your Expertise.";
-
-                // Redirect to the same page (you can use the current URL or an action)
                 var refererUrl = Request.Headers["Referer"].ToString();
+                return !string.IsNullOrEmpty(refererUrl)
+                    ? Redirect(refererUrl)
+                    : RedirectToAction("Index", "Home");
+            }
 
-                // If the Referer is not null or empty, redirect to that URL
-                if (!string.IsNullOrEmpty(refererUrl))
+            var currentDate = DateTime.Now;
+
+            var evaluators = await _context.CRE_EthicsEvaluator
+                .Include(e => e.EthicsEvaluation.Where(ev => ev.EvaluationStatus == "Assigned"))
+                .ToListAsync();
+
+            foreach (var evaluator in evaluators)
+            {
+                foreach (var evaluation in evaluator.EthicsEvaluation)
                 {
-                    return Redirect(refererUrl);
-                }
-                else
-                {
-                    // If no referer is available, redirect to a default page
-                    return RedirectToAction("Index", "Home"); // or any default page
+                    if (evaluation.StartDate.HasValue && evaluation.StartDate.Value.AddDays(3) < currentDate)
+                    {
+                        string reasonForDecline = "Automatically declined due to evaluator inactivity.";
+
+                        // Auto-decline the evaluation
+                        await _allServices.UpdateEvaluationStatusAsync(evaluation.EvaluationId, "Declined", reasonForDecline, evaluator.UserID);
+                        await _allServices.UpdateApplicationStatusAsync(evaluation.EvaluationId, evaluation.UrecNo, "Unassigned");
+
+                        evaluator.Declined += 1; // Increment decline count
+                    }
                 }
             }
-            // Extract the evaluatorId from the evaluator object
-            var evaluatorId = evaluator.EthicsEvaluatorId; // Adjust according to your model
 
+            // Save changes for all evaluators
+            await _context.SaveChangesAsync();
+
+            // Load data for the current evaluator's view model
+            var evaluatorId = currentEvaluator.EthicsEvaluatorId; // Adjust as needed
             var viewModel = new TabbedEvaluationViewModel
             {
                 EvaluationAssignments = await _allServices.GetAssignedEvaluationsAsync(evaluatorId),
@@ -320,7 +335,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 var newEvaluation = new EthicsEvaluation
                 {
                     EvaluationStatus = acceptanceStatus,
-                    StartDate = DateTime.UtcNow,
+                    StartDate = DateTime.Now,
                     EthicsEvaluatorId = ethicsEvaluatorId,
                     Name = evaluator.Name,
                     UrecNo = urecNo
@@ -740,7 +755,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EvaluateApplicationPdfGen(EvaluationSheetsViewModel model)
+        public async Task<IActionResult> EvaluateApplicationPdfGen(EvaluationSheetsViewModel model, string action)
         {
 
             var coProponents = _context.CRE_NonFundedResearchInfo
@@ -753,6 +768,40 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             var informedConsentPdf = await _pdfGenerationService.GenerateInformedConsentPdf(model.InformedConsentForm);
             var protocolReviewPdf = await _pdfGenerationService.GenerateProtocolReviewPdf(model.ProtocolReviewForm);
+            // For Protocol Review Form
+            if (action == "Preview")
+            {
+                using (var zipMemoryStream = new MemoryStream())
+                {
+                    using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, true))
+                    {
+                        // Add the Informed Consent PDF to the ZIP file
+                        var informedConsentEntry = zipArchive.CreateEntry("InformedConsent.pdf");
+                        using (var entryStream = informedConsentEntry.Open())
+                        {
+                            // Convert the byte[] to a MemoryStream and copy the content
+                            using (var pdfStream = new MemoryStream(informedConsentPdf))
+                            {
+                                await pdfStream.CopyToAsync(entryStream);
+                            }
+                        }
+
+                        // Add the Protocol Review PDF to the ZIP file
+                        var protocolReviewEntry = zipArchive.CreateEntry("ProtocolReview.pdf");
+                        using (var entryStream = protocolReviewEntry.Open())
+                        {
+                            // Convert the byte[] to a MemoryStream and copy the content
+                            using (var pdfStream = new MemoryStream(protocolReviewPdf))
+                            {
+                                await pdfStream.CopyToAsync(entryStream);
+                            }
+                        }
+                    }
+
+                    // Return the ZIP file as a downloadable file
+                    return File(zipMemoryStream.ToArray(), "application/zip", "EvaluationSheets.zip");
+                }
+            }
             // For Protocol Review Form
             var protocolRecommendationQuestion = GetQuestionByKeyword(model.ProtocolReviewForm.Questions, "Recommendation");
             var protocolRemarksQuestion = GetQuestionByKeyword(model.ProtocolReviewForm.Questions, "Remarks");

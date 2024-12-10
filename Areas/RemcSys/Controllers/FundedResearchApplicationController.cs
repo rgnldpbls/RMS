@@ -188,7 +188,7 @@ namespace RemcSys.Controllers
         }
 
         [Authorize(Roles = "Faculty")]
-        public async Task<IActionResult> TeamLeaderDashboard() // Dashboard of the Faculty or TeamLeader
+        public async Task<IActionResult> TeamLeaderDashboard(string searchString) // Dashboard of the Faculty or TeamLeader
         {
             if (_context.REMC_Settings.First().isMaintenance)
             {
@@ -196,14 +196,22 @@ namespace RemcSys.Controllers
             }
 
             var user = await _userManager.GetUserAsync(User);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound("No user found!");
             }
 
-            var fra = await _context.REMC_FundedResearchApplication
+            ViewData["currentFilter "] = searchString;
+            var researchQuery = _context.REMC_FundedResearchApplication
+                .Where(f => new[] { "University Funded Research", "Externally Funded Research", "University Funded Research Load" }.Contains(f.fra_Type) && (f.UserId == user.Id || f.team_Members.Contains($"{user.FirstName} {user.MiddleName} {user.LastName}")));
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                researchQuery = researchQuery.Where(s => s.research_Title.Contains(searchString));
+            }
+
+            var fra = await researchQuery
                 .Include(f => f.FundedResearch)
-                .Where(f => f.UserId == user.Id)
                 .OrderByDescending(f => f.submission_Date)
                 .ToListAsync();
 
@@ -476,7 +484,7 @@ namespace RemcSys.Controllers
             {
                 _context.REMC_GeneratedForms.Remove(form);
             }
-            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + " is submitted.", true, true, false, fra.fra_Id);
+            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, $"The application for {fra.research_Title} is submitted.", true, true, false, fra.fra_Id);
             await _context.SaveChangesAsync();
             if (fra.fra_Type == "University Funded Research")
             {
@@ -649,6 +657,25 @@ namespace RemcSys.Controllers
                 .OrderByDescending(log => log.Timestamp)
                 .ToListAsync();
 
+            var fre = await _context.REMC_FundedResearchEthics.FirstOrDefaultAsync(f => f.fra_Id == fraId);
+            if(fre == null)
+            {
+                ViewBag.EthicsStatus = "Not Yet Applied";
+            }
+            else
+            {
+                if(fre.file_Status == "In Progress")
+                {
+                    ViewBag.EthicsStatus = "In Progress";
+                    ViewBag.UrecNo = fre.urecNo;
+                }
+                else
+                {
+                    ViewBag.EthicsStatus = "Approved";
+                    ViewBag.UrecNo = fre.urecNo;
+                }
+            }
+
             var model = new Tuple<IEnumerable<FundedResearchApplication>, IEnumerable<ActionLog>>(fraList, logs);
             return View(model);
         }
@@ -722,23 +749,30 @@ namespace RemcSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GoToEthics(string id) // To be Revised
+        public async Task<IActionResult> GoToEthics(string id) 
         {
             if(id == null)
             {
                 return NotFound("No Funded Research App ID found!");
             }
-
-            var fr = await _context.REMC_FundedResearchEthics.FirstOrDefaultAsync(f => f.fra_Id == id);
-            if(fr == null)
+            var fra = await _context.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == id);
+            if(fra == null)
             {
-                return RedirectToAction("ViewEthicsStatus", "FundedResearchApplication", new { fraId = id, hasEthics = false, urecNo = ""});
+                return NotFound("Funded Research Application not found!");
             }
-            
-            return RedirectToAction("ViewEthicsStatus", "FundedResearchApplication", new { fraId = id, hasEthics =  true, urecNo = fr.urecNo});
+            var researchEthics = new FundedResearchEthics
+            {
+                fre_Id = Guid.NewGuid().ToString(),
+                file_Status = "In Progress",
+                file_Uploaded = DateTime.Now,
+                fra_Id = fra.fra_Id
+            };
+            _context.REMC_FundedResearchEthics.Add(researchEthics);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ApplyFundedEthics", "Researcher", new {area = "CreSys", id = fra.fra_Id});
         }
 
-        [Authorize(Roles ="Faculty")]
+        /*[Authorize(Roles ="Faculty")]
         public IActionResult ViewEthicsStatus(string fraId, bool hasEthics, string urecNo)
         {
             if (fraId == null)
@@ -750,7 +784,7 @@ namespace RemcSys.Controllers
             ViewBag.urecNo = urecNo;
             
             return View();
-        }
+        }*/
 
         /*[Authorize(Roles ="Faculty")]
         public async Task<IActionResult> UploadEthicsClearance(string id)
@@ -774,7 +808,7 @@ namespace RemcSys.Controllers
             return View();
         }*/
 
-        public async Task<IActionResult> GenerateEthics(string id)
+        /*public async Task<IActionResult> GenerateEthics(string id)
         {
             if(id == null)
             {
@@ -789,13 +823,14 @@ namespace RemcSys.Controllers
             var researchEthics = new FundedResearchEthics
             {
                 fre_Id = Guid.NewGuid().ToString(),
+                file_Status = "In Progress",
                 file_Uploaded = DateTime.Now,
                 fra_Id = fra.fra_Id
             };
             _context.REMC_FundedResearchEthics.Add(researchEthics);
             await _context.SaveChangesAsync();
             return RedirectToAction("ApplyFundedEthics", "Researcher", new {area = "CreSys", id = fra.fra_Id});
-        }
+        }*/
 
         public async Task<IActionResult> PreviewFile(string id) // Preview of PDF Files
         {
@@ -885,6 +920,25 @@ namespace RemcSys.Controllers
                 .Where(f => f.Name == teamLead && f.isTeamLeader == true && f.FraId == fraId)
                 .OrderByDescending(log => log.Timestamp)
                 .ToListAsync();
+
+            var fre = await _context.REMC_FundedResearchEthics.FirstOrDefaultAsync(f => f.fra_Id == fraId);
+            if (fre == null)
+            {
+                ViewBag.EthicsStatus = "Not Yet Applied";
+            }
+            else
+            {
+                if (fre.file_Status == "In Progress")
+                {
+                    ViewBag.EthicsStatus = "In Progress";
+                    ViewBag.UrecNo = fre.urecNo;
+                }
+                else
+                {
+                    ViewBag.EthicsStatus = "Approved";
+                    ViewBag.UrecNo = fre.urecNo;
+                }
+            }
 
             var model = new Tuple<IEnumerable<FundedResearchApplication>, IEnumerable<ActionLog>>(fraList, logs);
             return View(model);

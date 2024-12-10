@@ -44,7 +44,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("ApplicationTypeId");
 
-                    b.ToTable("RSC_ApplicationSubCategories", (string)null);
+                    b.ToTable("RSC_ApplicationSubCategories");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.ApplicationType", b =>
@@ -74,7 +74,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("ApplicationTypeId");
 
-                    b.ToTable("RSC_ApplicationTypes", (string)null);
+                    b.ToTable("RSC_ApplicationTypes");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Checklist", b =>
@@ -101,7 +101,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("ApplicationTypeId");
 
-                    b.ToTable("RSC_Checklists", (string)null);
+                    b.ToTable("RSC_Checklists");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Criterion", b =>
@@ -126,7 +126,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("FormId");
 
-                    b.ToTable("RSC_Criteria", (string)null);
+                    b.ToTable("RSC_Criteria");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.DocumentHistory", b =>
@@ -154,7 +154,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RSC_DocumentHistories", (string)null);
+                    b.ToTable("RSC_DocumentHistories");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Draft", b =>
@@ -208,7 +208,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("DraftId");
 
-                    b.ToTable("RSC_Drafts", (string)null);
+                    b.ToTable("RSC_Drafts");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.EvaluationDocument", b =>
@@ -241,7 +241,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("EvaluatorAssignmentId");
 
-                    b.ToTable("RSC_EvaluationDocuments", (string)null);
+                    b.ToTable("RSC_EvaluationDocuments");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.EvaluationForm", b =>
@@ -258,7 +258,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("FormId");
 
-                    b.ToTable("RSC_EvaluationForms", (string)null);
+                    b.ToTable("RSC_EvaluationForms");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.EvaluationFormResponse", b =>
@@ -294,7 +294,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("EvaluatorId");
 
-                    b.ToTable("RSC_EvaluationFormResponses", (string)null);
+                    b.ToTable("RSC_EvaluationFormResponses");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.EvaluationGeneralComment", b =>
@@ -319,7 +319,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("EvaluatorAssignmentId");
 
-                    b.ToTable("RSC_EvaluationGeneralComments", (string)null);
+                    b.ToTable("RSC_EvaluationGeneralComments");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Evaluator", b =>
@@ -345,7 +345,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("EvaluatorId");
 
-                    b.ToTable("RSC_Evaluators", (string)null);
+                    b.ToTable("RSC_Evaluators");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.EvaluatorAssignment", b =>
@@ -382,7 +382,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RSC_EvaluatorAssignments", (string)null);
+                    b.ToTable("RSC_EvaluatorAssignments");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.FinalDocument", b =>
@@ -412,7 +412,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RSC_FinalDocuments", (string)null);
+                    b.ToTable("RSC_FinalDocuments");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.GeneratedReport", b =>
@@ -444,7 +444,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("ReportId");
 
-                    b.ToTable("RSC_GeneratedReports", (string)null);
+                    b.ToTable("RSC_GeneratedReports");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Memorandum", b =>
@@ -479,7 +479,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("memorandumId");
 
-                    b.ToTable("RSC_Memorandums", (string)null);
+                    b.ToTable("RSC_Memorandums");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Notifications", b =>
@@ -519,7 +519,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("EvaluatorAssignmentId");
 
-                    b.ToTable("RSC_Notifications", (string)null);
+                    b.ToTable("RSC_Notifications");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Request", b =>
@@ -583,7 +583,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("RequestId");
 
-                    b.ToTable("RSC_Requests", (string)null);
+                    b.ToTable("RSC_Requests");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Requirement", b =>
@@ -629,7 +629,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RSC_Requirements", (string)null);
+                    b.ToTable("RSC_Requirements");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.StatusHistory", b =>
@@ -657,7 +657,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RSC_StatusHistories", (string)null);
+                    b.ToTable("RSC_StatusHistories");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.Template", b =>
@@ -682,7 +682,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
 
                     b.HasKey("TemplateId");
 
-                    b.ToTable("RSC_Templates", (string)null);
+                    b.ToTable("RSC_Templates");
                 });
 
             modelBuilder.Entity("rscSys_final.Models.ApplicationSubCategory", b =>
@@ -700,8 +700,7 @@ namespace ResearchManagementSystem.Migrations.rscSysfinalDb
                 {
                     b.HasOne("rscSys_final.Models.ApplicationSubCategory", "ApplicationSubCategory")
                         .WithMany("Checklists")
-                        .HasForeignKey("ApplicationSubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationSubCategoryId");
 
                     b.HasOne("rscSys_final.Models.ApplicationType", "ApplicationType")
                         .WithMany("Checklists")

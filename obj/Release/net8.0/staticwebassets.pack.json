@@ -13,6 +13,34 @@
       "PackagePath": "staticwebassets\\App_Data\\positive-words.txt"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\britannic-regular.otf",
+      "PackagePath": "staticwebassets\\Fonts\\britannic-regular.otf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\californian-fb.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\californian-fb.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\calisto-mt.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\calisto-mt.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\century-gothic-bold.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\century-gothic-bold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\century-gothic-regular.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\century-gothic-regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\segoe-ui-regular.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\segoe-ui-regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\Fonts\\times-new-roman-ps.otf",
+      "PackagePath": "staticwebassets\\Fonts\\times-new-roman-ps.otf"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\FormFiles\\CERTIFICATE OF VALIDITY.docx",
       "PackagePath": "staticwebassets\\FormFiles\\CERTIFICATE OF VALIDITY.docx"
     },
@@ -469,6 +497,10 @@
       "PackagePath": "staticwebassets\\images\\OrgStruct.png"
     },
     {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\images\\PUP Logo - clearance.png",
+      "PackagePath": "staticwebassets\\images\\PUP Logo - clearance.png"
+    },
+    {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\images\\RMOLogo.png",
       "PackagePath": "staticwebassets\\images\\RMOLogo.png"
     },
@@ -519,6 +551,10 @@
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\images\\facebook-brands-solid.svg",
       "PackagePath": "staticwebassets\\images\\facebook-brands-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\images\\footer-image-clearance.png",
+      "PackagePath": "staticwebassets\\images\\footer-image-clearance.png"
     },
     {
       "Id": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\wwwroot\\images\\linkedin.svg",

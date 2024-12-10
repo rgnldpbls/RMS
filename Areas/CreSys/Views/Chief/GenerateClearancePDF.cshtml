@@ -7,61 +7,199 @@
     <link rel="stylesheet" href="~/css/DetailsInitialReview.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
 </head>
-<div class="container">
-
-    <div class="card border-light mb-3" style="width: contain">
-        <div class="card-header">
+<div class="container mt-4">
+    <div class="card border-maroon mb-3 rounded">
+        <div class="card-header bg-maroon text-white">
             <div class="row">
-            <h2>Ethics Clearance Content</h2>
-                <p><strong>Date:</strong> @DateTime.Now.ToShortDateString()</p>
-                <strong>To/For:</strong>
-                <ul>
+                <div class="col-12 text-center">
+                    <h2>ETHICS CLEARANCE ISSUANCE</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body bg-white text-black">
+            <div class="row mb-3">
+                <div class="col text-start">
+                    <strong>UREC Code:</strong> @Model.EthicsApplication.UrecNo
+                </div>
+                <div class="col text-center">
+                    <strong>Research Title: </strong>@Model.NonFundedResearchInfo.Title.ToUpper()
+                </div>
+                <div class="col text-end">
+                    <strong>Date:</strong> @DateTime.Now.ToShortDateString()
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <strong>To/For:</strong>
+                    <ul class="list-unstyled">
+                        <li><ol>@Model.NonFundedResearchInfo.Name</ol></li>
+                        @if (Model.NonFundedResearchInfo.CoProponents != null && Model.NonFundedResearchInfo.CoProponents.Any())
+                        {
+                            foreach (var proponent in Model.NonFundedResearchInfo.CoProponents)
+                            {
+                                <li><ol>@proponent.CoProponentName</ol></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <strong>From:</strong> @Model.ChiefName
+                </div>
+            </div>
 
-                <ol> @Model.NonFundedResearchInfo.Name</ol>
-                @if (Model.NonFundedResearchInfo.CoProponents != null && Model.NonFundedResearchInfo.CoProponents.Any())
-                {
-                    foreach (var proponent in Model.NonFundedResearchInfo.CoProponents)
-                    {
-                    <ol>@proponent.CoProponentName</ol>
-                    }
-                }  
-                </ul>
-                <p><strong>Subject:</strong> Ethics Clearance</p>
-                <p><strong>From:</strong> @Model.ChiefName</p>
-
-
-                <h5>@Model.NonFundedResearchInfo.Title.ToUpper()</h5>
-
-
-
-                <p><strong>UREC Code:</strong> @Model.EthicsApplication.UrecNo</p>
-                <p><strong>Type of Review:</strong> @Model.InitialReview.ReviewType</p>
-                <p><strong>Approval Date:</strong> @DateTime.Now.ToShortDateString()</p>
-                <p><strong>Expiry Date:</strong> @DateTime.Now.AddYears(1).ToShortDateString()</p>
-                <p><strong>PUP-UREC Decision:</strong> Approve</p>
-
-
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>Type of Review:</strong> @Model.InitialReview.ReviewType
+                </div>
+                <div class="col-6 text-end">
+                    <strong>Approval Date:</strong> @DateTime.Now.ToShortDateString()
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>Expiry Date:</strong> @DateTime.Now.AddYears(1).ToShortDateString()
+                </div>
+                <div class="col-6 text-end">
+                    <strong>PUP-UREC Decision:</strong> Approve
+                </div>
             </div>
         </div>
     </div>
 </div>
-<form asp-action="GenerateClearancePDF" method="post">
-    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
-    <input type="hidden" asp-for="@Model.InitialReview" />
-    <input type="hidden" asp-for="@Model.EthicsApplication" />
-    <input type="hidden" asp-for="@Model.CoProponents" />
-    <input type="hidden" asp-for="@Model.ChiefName" />
 
-    <button type="submit" class="btn btn-outline-success mb-2">Generate PDF</button>
-</form>
 
-<form asp-action="SendClearanceToResearcher" method="post" onsubmit="return confirmSendToResearcher()">
-    <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
-    <button type="submit" class="btn btn-success">Issue Generated Clearance</button>
-</form>
+<div class="form-container">
+    <!-- Generate PDF Form -->
+    <div class="form-group form-container-maroon">
+        <form asp-action="GenerateClearancePDF" method="post" enctype="multipart/form-data" onsubmit="return validateSignatureUpload('GenerateClearancePDF')">
+            <label for="UploadedSignature" class="form-label">Upload Signature for PDF (removed background):</label>
+
+            <!-- File input for UploadedSignature with asp-for binding -->
+            <input type="file" class="form-control" id="UploadedSignaturePDF" asp-for="UploadedSignature" accept="image/png, image/jpeg" />
+            <span id="signatureErrorPDF" class="text-danger"></span>
+
+            <!-- Hidden inputs for other model properties -->
+            <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
+            <input type="hidden" asp-for="@Model.InitialReview" />
+            <input type="hidden" asp-for="@Model.EthicsApplication" />
+            <input type="hidden" asp-for="@Model.CoProponents" />
+            <input type="hidden" asp-for="@Model.ChiefName" />
+
+            <button type="submit" class="btn btn-warning m-2">Generate PDF</button>
+        </form>
+    </div>
+
+    <!-- Send Clearance to Researcher Form -->
+    <div class="form-group form-container-maroon">
+        <form asp-action="SendClearanceToResearcher" method="post" enctype="multipart/form-data" onsubmit="return validateSignatureUpload('SendClearanceToResearcher') && confirmSendToResearcher()">
+            <label for="UploadedSignature" class="form-label">Upload Signature for Sending Clearance:</label>
+
+            <!-- File input for UploadedSignature with asp-for binding -->
+            <input type="file" class="form-control" id="UploadedSignatureClearance" asp-for="UploadedSignature" accept="image/png, image/jpeg" />
+            <span id="signatureError" class="text-danger"></span>
+
+            <!-- Hidden inputs for other model properties -->
+            <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
+            <input type="hidden" asp-for="@Model.InitialReview" />
+            <input type="hidden" asp-for="@Model.EthicsApplication" />
+            <input type="hidden" asp-for="@Model.CoProponents" />
+            <input type="hidden" asp-for="@Model.ChiefName" />
+
+            <button type="submit" class="btn btn-warning m-2">Issue Generated Clearance</button>
+        </form>
+    </div>
+
+</div>
+
+
 
 <script>
+    // This function validates the file input for both forms
+    function validateSignatureUpload(formId) {
+        const fileInput = document.getElementById(formId === 'GenerateClearancePDF' ? 'UploadedSignaturePDF' : 'UploadedSignatureClearance');
+        const errorMessageElement = formId === 'GenerateClearancePDF' ? document.getElementById('signatureErrorPDF') : document.getElementById('signatureError');
+        errorMessageElement.innerHTML = ""; // Clear previous error messages
+
+        const file = fileInput.files[0];
+
+        if (!file) {
+            errorMessageElement.innerHTML = "Please upload a signature.";
+            return false; // Prevent form submission
+        }
+
+        // Check file type (ensure it's PNG or JPEG)
+        const allowedTypes = ['image/png', 'image/jpeg'];
+        if (!allowedTypes.includes(file.type)) {
+            errorMessageElement.innerHTML = "Only PNG or JPEG files are allowed for the signature.";
+            return false; // Prevent form submission
+        }
+
+        return true; // Proceed with form submission
+    }
+
     function confirmSendToResearcher() {
         return confirm("Are you sure you want to send the Ethics Clearance to the researcher?");
     }
 </script>
+<style>
+    /* Add maroon background and styling for form containers */
+    .form-container-maroon {
+        background-color: #800000; /* Maroon background color */
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: white; /* Text color for readability */
+    }
+
+        .form-container-maroon .form-label {
+            font-weight: bold;
+            color: white; /* Label color */
+        }
+
+        .form-container-maroon .form-control {
+            background-color: #9c3d3d; /* Lighter maroon for form controls */
+            border: 1px solid #800000; /* Maroon border */
+            color: white;
+        }
+
+        .form-container-maroon .btn {
+            padding: 10px 20px; /* Add padding to the buttons */
+            font-size: 16px;
+            border-radius: 5px; /* Round the button corners */
+        }
+
+        .form-container-maroon .btn-warning {
+            background-color: #f1c232; /* Yellow color */
+            border-color: #f1c232; /* Yellow border */
+            color: #800000; /* Maroon text color */
+        }
+
+        .form-container-maroon .btn-outline-warning {
+            background-color: transparent; /* Transparent background */
+            border-color: #f1c232; /* Yellow border */
+            color: #f1c232; /* Yellow text */
+        }
+
+            .form-container-maroon .btn-warning:hover,
+            .form-container-maroon .btn-outline-warning:hover {
+                background-color: #e0c42e; /* Darker yellow for hover effect */
+                border-color: #e0c42e;
+                color: #800000; /* Maroon text color on hover */
+            }
+
+        .form-container-maroon .text-danger {
+            color: #f8d7da; /* Light red for error messages */
+        }
+
+    .bg-maroon {
+        background-color: #800000; /* Maroon */
+    }
+
+    .border-maroon {
+        border-color: #800000; /* Maroon */
+    }
+
+</style>

@@ -169,7 +169,7 @@ namespace RemcSys.Controllers
                 fr.reminded_SevenDaysOverdue = false;
             }
             await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, 
-                fr.research_Title + $" already uploaded the {docuType}.", true, true, false, fr.fra_Id);
+                $"The research titled {fr.research_Title} uploaded the {docuType}.", true, true, false, fr.fra_Id);
             await _context.SaveChangesAsync();
             return RedirectToAction("ProgressReportStatus", new { id = id });
         }
@@ -332,7 +332,7 @@ namespace RemcSys.Controllers
             }
 
             await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type,
-                fr.research_Title + " already uploaded the Terminal Report.", true, true, false, fr.fra_Id);
+                $"The research titled {fr.research_Title} uploaded the Terminal Report.", true, true, false, fr.fra_Id);
             await _context.SaveChangesAsync();
             return RedirectToAction("ProgressReportStatus", new { id = id });
         }
@@ -400,7 +400,7 @@ namespace RemcSys.Controllers
             }
 
             await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type,
-                fr.research_Title + " already uploaded the Liquidation Report.", true, true, false, fr.fra_Id);
+                $"The research titled {fr.research_Title} uploaded the Liquidation Report.", true, true, false, fr.fra_Id);
             await _context.SaveChangesAsync();
             return RedirectToAction("ProgressReportStatus", new { id = id });
         }

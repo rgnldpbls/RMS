@@ -143,11 +143,11 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="collegeFilter">College:</label>
-                <select name="collegeFilter" id="collegeFilter"  class="form-select">
-                    <option value="">Filter by College</option>
-                    @foreach (var college in ViewBag.Colleges as List<string>)
+                <select name="collegeFilter" id="collegeFilter" class="form-select">
+                    <option value="">Filter By College</option>
+                    @foreach (var college in ViewBag.Colleges)
                     {
-                        if (ViewBag.SelectedCollege == college)
+                        if (college == ViewBag.SelectedCollege)
                         {
                             <option value="@college" selected>@college</option>
                         }
@@ -162,9 +162,9 @@
                 <label for="applicationTypeFilter">Application Type:</label>
                 <select name="applicationTypeFilter" id="applicationTypeFilter" class="form-select">
                     <option value="">Filter by Application Type</option>
-                    @foreach (var type in ViewBag.ApplicationTypes as List<string>)
+                    @foreach (var type in (List<string>)ViewBag.ApplicationTypes)
                     {
-                        if (ViewBag.SelectedApplicationType == type)
+                        if (type == ViewBag.SelectedApplicationType)
                         {
                             <option value="@type" selected>@type</option>
                         }
@@ -178,19 +178,19 @@
             <div class="col-md-4">
                 <label for="yearFilter">Year of Filed Date:</label>
                 <select name="yearFilter" id="yearFilter" class="form-select">
-                <option value="">Filter by Year</option>
-                @foreach (var year in ViewBag.Years as List<int>)
-                {
-                    if (ViewBag.SelectedYear == year)
+                    <option value="">Filter by Year</option>
+                    @foreach (var year in (List<int>)ViewBag.Years)
                     {
-                        <option value="@year" selected>@year</option>
+                        if (year == ViewBag.SelectedYear)
+                        {
+                            <option value="@year" selected>@year</option>
+                        }
+                        else
+                        {
+                            <option value="@year">@year</option>
+                        }
                     }
-                    else
-                    {
-                        <option value="@year">@year</option>
-                    }
-                }
-            </select>
+                </select>
             </div>
         </div>
     </div>
@@ -220,7 +220,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var request in Model.Where(r => r.Status == "For Evaluation" || r.Status == "For Compliance"))
+                @foreach (var request in Model.Where(r => r.Status == "For Evaluation" || r.Status == "For Compliance")
+                    .OrderBy(r => r.RequestId))
                 {
                     <tr>
                             <td class="dts-column">@request.DtsNo</td>
@@ -448,9 +449,9 @@
             </table>
         }
     </div>
-        <!-- Pagination Controls -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
+                <!-- Previous Page Link -->
                 @if (ViewBag.CurrentPage > 1)
                 {
                     <li class="page-item">
@@ -460,6 +461,7 @@
                     </li>
                 }
 
+                <!-- Page Numbers -->
                 @for (int i = 1; i <= ViewBag.TotalPages; i++)
                 {
                     <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
@@ -467,6 +469,7 @@
                     </li>
                 }
 
+                <!-- Next Page Link -->
                 @if (ViewBag.CurrentPage < ViewBag.TotalPages)
                 {
                     <li class="page-item">
@@ -516,12 +519,30 @@
         });
     }
 </script>
-
+@* 
 <script>
     // Automatically submit the form when a filter is changed
     document.querySelectorAll('.form-select').forEach(function (select) {
         select.addEventListener('change', function () {
             document.getElementById('filterForm').submit();
         });
+    });
+</script> *@
+
+<script>
+    document.getElementById("collegeFilter").addEventListener("change", function () {
+        document.getElementById("filterForm").submit();
+    });
+</script>
+
+<script>
+    document.getElementById("applicationTypeFilter").addEventListener("change", function () {
+        document.getElementById("filterForm").submit();
+    });
+</script>
+
+<script>
+    document.getElementById("yearFilter").addEventListener("change", function () {
+        document.getElementById("filterForm").submit();
     });
 </script>

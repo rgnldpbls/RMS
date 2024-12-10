@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBK4o1gMSeY9u1P1N+8kFdQTLqHIjHZ4gG0dASV0bQ3DExXG7U1T+zPmA=="
-          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     @* <link rel="stylesheet" href="~/css/SlateTheme.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="container-fluid">
+                <a class="btn" data-bs-toggle="offcanvas" href="#sidebar" role="button" aria-controls="sidebar">
+                    <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+                </a>
                 <a class="navbar-brand" href="#">
                     <img src="~/images/RMOlogo.png" alt="Logo" style="height: 50px; width: auto;">
                 </a>
@@ -28,11 +31,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                  
+
                     <ul class="navbar-nav flex-grow-1">
                         <!-- Home Link -->
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="CreSys" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="CreSys" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
@@ -43,18 +46,18 @@
                             switch (currentRole)
                             {
                                 case "Secretariat":
-                                    
+
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Secretariat" asp-action="InitialReview">Application</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Secretariat" asp-action="InitialReview">Application</a>
                                     </li>
                                     break;
 
                                 case "CRE Chief":
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="Dashboard">Dashboard</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Chief" asp-action="Dashboard">Dashboard</a>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link text-white dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Ethics
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -65,60 +68,60 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="EthicsForms">Forms</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Chief" asp-action="EthicsForms">Forms</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="ViewEthicsEvaluators">Manage</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Chief" asp-action="ViewEthicsEvaluators">Manage</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chief" asp-action="Reports">Reports</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Chief" asp-action="Reports">Reports</a>
                                     </li>
                                     break;
                                 case "Chairperson":
-                                   
+
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Chairperson" asp-action="SelectApplication">Application</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Chairperson" asp-action="SelectApplication">Application</a>
                                     </li>
                                     break;
 
                                 case "CRE Evaluator":
-                                    
+
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Evaluator" asp-action="EvaluatorView">Evaluation</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Evaluator" asp-action="EvaluatorView">Evaluation</a>
                                     </li>
                                     break;
 
                                 case "Student":
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="Applications">Applications</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="Applications">Applications</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="DownloadForms">Forms</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="DownloadForms">Forms</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="ViewNotifications">Notifications</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="ViewNotifications">Notifications</a>
                                     </li>
                                     break;
                                 case "External Researcher":
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="Applications">Applications</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="Applications">Applications</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="DownloadForms">Forms</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="DownloadForms">Forms</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="ViewNotifications">Notifications</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="ViewNotifications">Notifications</a>
                                     </li>
                                     break;
                                 case "Faculty":
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="Applications">Applications</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="Applications">Applications</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="DownloadForms">Forms</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="DownloadForms">Forms</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-area="CreSys" asp-controller="Researcher" asp-action="ViewNotifications">Notifications</a>
+                                        <a class="nav-link text-white" asp-area="CreSys" asp-controller="Researcher" asp-action="ViewNotifications">Notifications</a>
                                     </li>
                                     break;
                             }
@@ -131,7 +134,7 @@
                         {
                             <!-- Role Switch Dropdown -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="btn btn-outline-light dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
                                     @(Context.Session.GetString("CurrentRole")) <!-- Default text if no role is set -->
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -154,29 +157,82 @@
                                     }
                                 </div>
                             </li>
+                            <li class="hoverfxright me-2 p-2 rounded-2">
+                                @if (Context.Session.GetString("CurrentRole") == "Student")
+                                {
+                                    <a asp-area="" asp-controller="Student" asp-action="StudentCenters">
+                                        <i class="fa-solid fa-landmark fa-lg" style="color: #ffffff;"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-area="" asp-controller="Faculty" asp-action="FacultyCenters">
+                                        <i class="fa-solid fa-landmark fa-lg" style="color: #ffffff;"></i>
+                                    </a>
+                                }
+                            </li>
+                            <li class="hoverfxright me-2 p-2 rounded-2">
+                                <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i></a>
+                            </li>
 
-                            <!-- Show Logout when user is logged in -->
-                            <li class="nav-item">
-                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                    <button type="submit" class="nav-link btn btn-link" style="color: white; text-decoration: none;">
-                                        Logout
-                                    </button>
-                                    @Html.AntiForgeryToken()
-                                </form>
-                            </li>
                         }
-                        else
+                        <!-- Show Logout when user is logged in -->
+                        <!--Yung log in and logout dito, pwede na tanggalin kasi meron na sa side bar-->
+                        @*  <li class="nav-item">
+                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link" style="color: white; text-decoration: none;">
+                        Logout
+                        </button>
+                        @Html.AntiForgeryToken()
+                        </form>
+                        </li>
+                        }
+
+                        *@
+
+                        @*  else
                         {
-                            <!-- Show Login link when no user is logged in -->
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                        }
+                        <!-- Show Login link when no user is logged in -->
+                        <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                        } *@
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+    <div class="offcanvas offcanvas-start sidebar" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+        <a class="text-dark text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <div class="profile-section d-block text-center">
+
+                <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 d-block mx-auto mb-2">
+
+                <!-- Clickable Hello, [Username] link -->
+
+                <p class="user-email my-0 fs-6 fw-light text-white">Hello, @User.Identity?.Name!</p>
+            </div>
+        </a>
+
+
+        <div class="menu-section">
+            <ul>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="AddFAQs" asp-action="Index"><i class="fa-solid fa-person-circle-question fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">FAQs</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyRateUs"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Rate Us</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyReportGenerateReport"><i class="fa-solid fa-file-export fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Report</span></a></li>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-area="" asp-controller="Faculty" asp-action="FacultyAbout"><i class="fa-solid fa-circle-info fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">About</span></a></li>
+            </ul>
+        </div>
+
+        <div class="logout-section mt-3">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="logout-button btn btn-link text-white w-100">
+                    <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
+                </button>
+            </form>
+        </div>
+    </div>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -222,15 +278,8 @@
     </footer> *@
     <!-- Load jQuery (only once) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Load Bootstrap JS (and CSS in the head) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBK4o1gMSeY9u1P1N+8kFdQTLqHIjHZ4gG0dASV0bQ3DExXG7U1T+zPmA=="
-          crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <!-- Optional: Include jQuery Validate -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
     <!-- Your custom JavaScript file -->
     <script src="~/js/site.js" asp-append-version="true"></script>

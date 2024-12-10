@@ -33,6 +33,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IEthicsEmailService, EthicsEmailService>();
 builder.Services.AddScoped<IAllServices, AllServices>();
 builder.Services.AddScoped<IPdfGenerationService, PdfGenerationService>();
+builder.Services.AddHostedService<EvaluationReminderService>();
 
 
 // Configure Identity services with unique email requirement

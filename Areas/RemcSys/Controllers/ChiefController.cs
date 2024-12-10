@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Humanizer;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
@@ -210,6 +211,7 @@ namespace RemcSys.Controllers
                 fileReq.file_Feedback = fileFeedback;
 
                 _context.SaveChanges();
+                await SendFileResubmissionEmail(fra.applicant_Name, fra.research_Title, fra.applicant_Email);
                 await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, "You need to resubmit this " + fileReq.file_Name + ". " +
                     "Kindly check the feedback for the changes.", true, false, false, fra.fra_Id);
                 return Json(new { success = true });
@@ -235,6 +237,41 @@ namespace RemcSys.Controllers
             return Json(new { success = false });
         }
 
+        public async Task SendFileResubmissionEmail(string name, string researchTitle, string email)
+        {
+            var subject = "Action Required: File Resubmission Needed for " + researchTitle;
+            var htmlBody = $@"
+                <html>
+                    <body style='font-family: Arial, sans-serif;'  font-size: 20px>
+                        <br>
+                        <div style='margin-bottom: 22px;'>
+                            Dear Professor {name},<br><br>
+                            Greetings!<br><br>
+                            This is to inform you that the Chief of the Research Evaluation and Monitoring Center (REMC) has requested the resubmission of certain files related to your research titled <strong>{researchTitle}</strong>.
+                        </div>
+
+                        <div style='margin-bottom: 22px;'>
+                            Kindly review the feedback provided and submit the revised documents through the system at your earliest convenience.
+                            You can access the system here: {{insert Website Link}}.
+                        </div>
+
+                        <div style='margin-bottom: 22px;'>
+                            Your timely action will ensure the smooth continuation of the evaluation process.
+                            Should you need assistance or clarification, please do not hesitate to contact us.
+                        </div>
+                        <hr>
+
+                        <footer style='margin-top: 30px; font-size: 1em;'>
+                            <strong><em>This is an automated email from the Research Evaluation Management Center (REMC). Please do not reply to this email.
+                            For inquiries, contact the chief at <strong>chief@example.com</strong>.</em></strong><br><br>
+                            <img src='cid:{{footerImageContentId}}' alt='Footer Image' style='width: 100%; max-width: 800px; height: auto;' />
+                        </footer>
+
+                    </body>
+                </html>";
+            await SendEmailAsync(email, subject, htmlBody);
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdateStatus(string fr_Id, string newStatus) //Updating the File Status into Checked on each Documentary Requirements
         {
@@ -250,7 +287,7 @@ namespace RemcSys.Controllers
                 }
                 file.file_Status = newStatus;
                 _context.SaveChanges();
-                await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, file.file_Name + " already checked by the Chief.",
+                await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, file.file_Name + " was checked by the Chief.",
                     true, false, false, fra.fra_Id);
 
                 var allFilesChecked = _context.REMC_FileRequirement
@@ -287,13 +324,48 @@ namespace RemcSys.Controllers
                 ethics.file_Status = newStatus;
                 _context.SaveChanges();
 
-                await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, ethics.file_Name + " already verified by the Chief.",
+                await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, ethics.file_Name + " was verified by the Chief.",
                    true, false, false, fra.fra_Id);
 
                 return Json(new { success = true });
             }
 
             return Json(new { success = false, message = "Bad Request!" });
+        }
+
+        public async Task SendUnderEvaluationEmail(string name, string researchTitle, string email)
+        {
+            var subject = "Your Research is Now Under Evaluation - " + researchTitle;
+            var htmlBody = $@"
+                <html>
+                    <body style='font-family: Arial, sans-serif;'  font-size: 20px>
+                        <br>
+                        <div style='margin-bottom: 22px;'>
+                            Dear Professor {name},<br><br>
+                            Greetings!<br><br>
+                            We are pleased to inform you that your research titled <strong>{researchTitle}</strong> is now under evaluation by subject experts.
+                            This evaluation process is an essential step to ensure the quality and success of your research proposal.
+                        </div>
+
+                        <div style='margin-bottom: 22px;'>
+                            You may check the progress of your application from time to time through the Research Management Office System: {{insert Website Link}}.
+                        </div>
+
+                        <div style='margin-bottom: 22px;'>
+                            Thank you for your commitment for advancing research excellence.
+                            Should you have any questions or concerns, feel free to contact us.
+                        </div>
+                        <hr>
+
+                        <footer style='margin-top: 30px; font-size: 1em;'>
+                            <strong><em>This is an automated email from the Research Evaluation Management Center (REMC). Please do not reply to this email.
+                            For inquiries, contact the chief at <strong>chief@example.com</strong>.</em></strong><br><br>
+                            <img src='cid:{{footerImageContentId}}' alt='Footer Image' style='width: 100%; max-width: 800px; height: auto;' />
+                        </footer>
+
+                    </body>
+                </html>";
+            await SendEmailAsync(email, subject, htmlBody);
         }
 
         [HttpPost]
@@ -429,21 +501,22 @@ namespace RemcSys.Controllers
                     fra_Id = fraId,
                     evaluation_Grade = null,
                     assigned_Date = DateTime.Now,
-                    evaluation_Deadline = DateTime.Now.AddDays(daysEvaluation),
+                    evaluation_Deadline = DateTime.Now.AddDays(3),
                     evaluation_Date = null
                 };
 
                 assignedEvaluators.Add(newEvaluation);
-                await _actionLogger.LogActionAsync(evaluator.evaluator_Name, fra.fra_Type, "The chief assign you to evaluate the " + fra.research_Title + ".",
+                await _actionLogger.LogActionAsync(evaluator.evaluator_Name, fra.fra_Type, "You have been assigned to evaluate " + fra.research_Title + ".",
                     false, false, true, fra.fra_Id);
-                await SendEvaluatorEmail(evaluator.evaluator_Email, fra.research_Title, evaluator.evaluator_Name, DateTime.Now.AddDays(daysEvaluation).ToString("MMMM d, yyyy"));
+                await SendEvaluatorEmail(evaluator.evaluator_Email, fra.research_Title, evaluator.evaluator_Name, $"{daysEvaluation}");
                 evaluatorIndex = (evaluatorIndex + 1) % eligibleEvaluators.Count;
             }
             _context.REMC_Evaluations.AddRange(assignedEvaluators);
             fra.application_Status = "UnderEvaluation";
             await _context.SaveChangesAsync();
-            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + " already under techical evaluation.",
+            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + " is under techical evaluation.",
                 true, false, false, fra.fra_Id);
+            await SendUnderEvaluationEmail(fra.applicant_Name, fra.research_Title, fra.applicant_Email);
         }
 
         public async Task<List<Evaluator>> GetEligibleEvaluators(string fraId) // Assess if the Evaluators is eligible based on their field of interests
@@ -532,7 +605,7 @@ namespace RemcSys.Controllers
                         <div style='margin-bottom: 22px;'>
                             Dear Professor {name},<br><br>
                             Greetings!<br><br>
-                            You have been assigned to evaluate the research titled <strong>{researchTitle}</strong>.
+                            You have been assigned to evaluate the research titled <strong>{researchTitle}</strong>. You also have <strong>3 days</strong> to decline or the system will automatically assign you as evaluator.
                             The evaluation will play a key role in determining the research's progress, and we kindly request your prompt review.
                         </div>
 
@@ -551,7 +624,7 @@ namespace RemcSys.Controllers
                                 <li>Log in to the <strong>Research Evaluation Management Center (REMC)</strong> system: <a href='{{systemLink}}'>{{systemLink}}</a>.</li>
                                 <li>Navigate to the ""Evaluator"" section.</li>
                                 <li>Complete both the <strong>Grading Form</strong> and <strong>Comments Form</strong>.</li>
-                                <li>Submit your evaluations on or before <strong>{deadline}</strong>.</li>
+                                <li>Submit your evaluations on or before, <strong>{deadline}</strong> days after you accepted the evaluation.</li>
                             </ol>
                         </div>
 
@@ -749,7 +822,7 @@ namespace RemcSys.Controllers
                 evaluator_Name = evaluators.evaluator_Name,
                 evaluation_Grade = null,
                 assigned_Date = DateTime.Now,
-                evaluation_Deadline = DateTime.Now.AddDays(daysEvaluation),
+                evaluation_Deadline = DateTime.Now.AddDays(3),
                 evaluation_Date = null,
                 evaluator_Id = evaluatorId,
                 fra_Id = fraId
@@ -757,7 +830,7 @@ namespace RemcSys.Controllers
 
             await _actionLogger.LogActionAsync(evaluators.evaluator_Name, fra.fra_Type, "The chief assign you to evaluate the " + fra.research_Title + ".", 
                 false, false, true, fra.fra_Id);
-            await SendEvaluatorEmail(evaluators.evaluator_Email, fra.research_Title, evaluators.evaluator_Name, DateTime.Now.AddDays(daysEvaluation).ToString("MMMM d, yyyy"));
+            await SendEvaluatorEmail(evaluators.evaluator_Email, fra.research_Title, evaluators.evaluator_Name, $"{daysEvaluation}");
             _context.REMC_Evaluations.Add(evaluation);
             await _context.SaveChangesAsync();
 
@@ -769,7 +842,7 @@ namespace RemcSys.Controllers
             var today = DateTime.Today;
 
             var evaluations = await _context.REMC_Evaluations
-                .Where(e => e.evaluation_Status == "Pending")
+                .Where(e => e.evaluation_Status == "Accepted")
                 .Include(e => e.evaluator)
                 .Include(e => e.fundedResearchApplication)
                 .ToListAsync();
@@ -1495,7 +1568,7 @@ namespace RemcSys.Controllers
             fra.application_Status = "Proceed";
             fra.total_project_Cost = fundingAmount;
             await _context.SaveChangesAsync();
-            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + "'s Notice to proceed already uploaded and the Approved amount of funding is ₱ " + fundingAmount + ".", 
+            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type, fra.research_Title + "'s Notice to proceed is uploaded and the Approved amount of funding is ₱ " + fundingAmount + ".", 
                 true, false, false, fra.fra_Id);
             await SendProceedEmail(fra.applicant_Email, fra.research_Title, fra.applicant_Name);
 
@@ -1759,6 +1832,7 @@ namespace RemcSys.Controllers
                 progReport.file_Feedback = fileFeedback;
 
                 _context.SaveChanges();
+                await SendFileResubmissionEmail(fr.team_Leader, fr.research_Title, fr.teamLead_Email);
                 await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, "You need to resubmit this " + progReport.file_Name + ". " +
                     "Kindly check the feedback for the changes.", true, false, false, fr.fra_Id);
                 return Json(new { success = true });
@@ -1803,7 +1877,7 @@ namespace RemcSys.Controllers
                 fr.status = $"Checked {docuType}";
             }
             _context.SaveChanges();
-            await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, file.file_Name + " already checked by the Chief.",
+            await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, file.file_Name + " was checked by the Chief.",
                 true, false, false, fr.fra_Id);
 
             var allProgressReportChecked = _context.REMC_ProgressReports
@@ -1862,7 +1936,7 @@ namespace RemcSys.Controllers
                 fr.end_Date = DateTime.Now;
                 Directory.Delete(filledFolder, true);
                 await _context.SaveChangesAsync();
-                await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, fr.research_Title + " already uploaded the Certificate of Completion. Congratulations!",
+                await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, fr.research_Title + " obtained the Certificate of Completion. Congratulations!",
                     true, false, false, fr.fra_Id);
             }
             return Json(new { success = true });
@@ -2509,7 +2583,14 @@ namespace RemcSys.Controllers
                 .OrderBy(x => x.Year)
                 .ToList();
 
+            if(yearlyCosts.Count < 5)
+            {
+                return NotFound("Insufficient data for reliable forecasting.");
+            }
+
             var forecastData = new List<ForecastViewModel>();
+            var allActuals = new List<float>();
+            var allPredictions = new List<float>();
 
             foreach(var item in yearlyCosts)
             {
@@ -2570,10 +2651,39 @@ namespace RemcSys.Controllers
 
                     forecastRow.ForecastYear2 = forecastYear2;
                     forecastRow.ForecastedFundYear2 = forecastedFundYear2;
+
+                    if(item.Year + 1 < yearlyCosts.Max(y => y.Year))
+                    {
+                        float actualYear1 = yearlyCosts.FirstOrDefault(y => y.Year == forecastYear1)?.ProjectCosts ?? 0;
+                        allActuals.Add(actualYear1);
+                        allPredictions.Add(forecastedFundYear1);
+                    }
                 }
 
                 forecastData.Add(forecastRow);
             }
+
+            var mae = allActuals.Zip(allPredictions, (actual, predicted) => Math.Abs(actual - predicted)).Average();
+            var rmse = Math.Sqrt(allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(actual - predicted, 2)).Average());
+            var mape = allActuals.Zip(allPredictions, (actual, predicted) =>
+                actual != 0 ? Math.Abs((actual - predicted) / actual) * 100 : 0).Average();
+
+            var meanActual = allActuals.Average();
+            var totalVariance = allActuals.Sum(actual => Math.Pow(actual - meanActual, 2));
+            var explainedVariance = allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(predicted - meanActual, 2)).Sum();
+            var rSquared = explainedVariance / totalVariance;
+
+            // Signal-to-Noise Ratio (SNR)
+            var signalPower = allActuals.Sum(actual => Math.Pow(actual, 2));
+            var noisePower = allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(actual - predicted, 2)).Sum();
+            var snr = signalPower / noisePower;
+
+            ViewBag.MAE = mae;
+            ViewBag.RMSE = rmse;
+            ViewBag.MAPE = mape;
+            ViewBag.RSquared = rSquared;
+            ViewBag.SNR = snr;
+
             return View(forecastData);
         }
 
@@ -2872,7 +2982,7 @@ namespace RemcSys.Controllers
             var criteria = _context.REMC_Criterias.OrderBy(f => f.Id).ToList();
             var subCategory = _context.REMC_SubCategories.OrderBy(f => f.Id).ToList();
 
-            var model = new Tuple<Settings, List<Guidelines>, List<Criteria>, List<SubCategory>>(settings, guidelines, criteria, subCategory);
+            var model = new Tuple<RemcSys.Models.Settings, List<Guidelines>, List<Criteria>, List<SubCategory>>(settings, guidelines, criteria, subCategory);
             return View(model);
         }
 

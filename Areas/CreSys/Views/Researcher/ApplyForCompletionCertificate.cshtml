@@ -58,7 +58,7 @@
             }
 
             @* Completion Certificate Application Form *@
-            <form method="post" asp-action="ApplyForCompletionCertificate" enctype="multipart/form-data">
+            <form method="post" asp-action="ApplyForCompletionCertificate" enctype="multipart/form-data" id="researchForm" onsubmit="return validateDates()">
                 <input type="hidden" name="urecNo" value="@Model.EthicsApplication.UrecNo" />
 
                 <div class="form-group mt-3">
@@ -71,10 +71,13 @@
                     <input type="text" class="form-control" id="researchTitle" name="researchTitle" value="@Model.NonFundedResearchInfo.Title" readonly />
                 </div>
 
-                <div class="form-group">
-                    <label for="college">College/Department</label>
-                    <input type="text" class="form-control" id="college" name="college" value="@Model.NonFundedResearchInfo.College" readonly />
-                </div>
+                @if (!string.IsNullOrEmpty(Model.NonFundedResearchInfo.College))
+                {
+                    <div class="form-group">
+                        <label for="college">College/Department</label>
+                        <input type="text" class="form-control" id="college" name="college" value="@Model.NonFundedResearchInfo.College" readonly />
+                    </div>
+                }
 
                 @* Research Start Date *@
                 <div class="form-group">
@@ -104,3 +107,27 @@
         </div>
     </div>
 </div>
+<script>
+    function validateDates() {
+        // Get the values of start and end date
+        const startDate = document.getElementById("researchStartDate").value;
+        const endDate = document.getElementById("researchEndDate").value;
+
+        // Clear any previous error messages
+        document.getElementById("researchStartDateError").textContent = "";
+        document.getElementById("researchEndDateError").textContent = "";
+
+        // Convert to Date objects for comparison
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        // Check if start date is later than end date
+        if (start > end) {
+            document.getElementById("researchEndDateError").textContent = "End date cannot be earlier than start date.";
+            return false; // Prevent form submission
+        }
+
+        // Validation passed
+        return true;
+    }
+</script>

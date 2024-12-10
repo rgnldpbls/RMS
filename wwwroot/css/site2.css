@@ -162,14 +162,7 @@ main {
     flex: 1;
 }
 
-#navbarDropdown {
-    background-color: #A50000;
-    color: #fff;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    padding: 0.375rem 0.75rem;
-}
+
 
 .dropdown-menu {
     background-color: #fff;
@@ -188,3 +181,5 @@ main {
     .dropdown-item:hover {
         background-color: #f8f9fa;
     }
+
+

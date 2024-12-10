@@ -35,6 +35,9 @@ namespace RemcSys.Controllers
                 return RedirectToAction("UnderMaintenance", "Home");
             }
 
+            await CheckAssignedEvaluations();
+            await CheckMissedEvaluations();
+
             var user = await _userManager.GetUserAsync(User);
             if(user == null)
             {
@@ -58,7 +61,7 @@ namespace RemcSys.Controllers
 
             var pendingEvals = await _context.REMC_Evaluations
                 .Include(e => e.fundedResearchApplication)
-                .Where(e => e.evaluation_Status == "Pending" && e.evaluator_Id == evaluator.evaluator_Id)
+                .Where(e => e.evaluation_Status == "Accepted" && e.evaluator_Id == evaluator.evaluator_Id)
                 .OrderBy(e => e.evaluation_Deadline)
                 .ToListAsync();
             
@@ -90,7 +93,7 @@ namespace RemcSys.Controllers
             var today = DateTime.Today;
 
             var missedEvaluations = await _context.REMC_Evaluations
-                .Where(e => e.evaluation_Status == "Pending" && e.evaluation_Deadline <= today)
+                .Where(e => e.evaluation_Status == "Accepted" && e.evaluation_Deadline <= today)
                 .ToListAsync();
 
             foreach (var evaluation in missedEvaluations)
@@ -99,6 +102,115 @@ namespace RemcSys.Controllers
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task CheckAssignedEvaluations()
+        {
+            var daysEvaluation = _context.REMC_Settings.First().daysEvaluation;
+            var today = DateTime.Today;
+            var assignedEvals = await _context.REMC_Evaluations
+                .Where(e => e.evaluation_Status == "Pending" && e.evaluation_Deadline <= today)
+                .ToListAsync();
+            foreach(var evaluation in assignedEvals)
+            {
+                evaluation.evaluation_Status = "Accepted";
+                evaluation.evaluation_Deadline = DateTime.Now.AddDays(daysEvaluation);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        [Authorize(Roles = "REMC Evaluator")]
+        public async Task<IActionResult> AssignedEvaluations()
+        {
+            await CheckAssignedEvaluations();
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("User not found!");
+            }
+            var evaluator = _context.REMC_Evaluator.Where(e => e.UserId == user.Id).FirstOrDefault();
+            if (evaluator != null)
+            {
+                var assignedEvaluations = await _context.REMC_Evaluations
+                    .Where(e => e.evaluator_Id == evaluator.evaluator_Id && e.evaluation_Status == "Pending")
+                    .Join(_context.REMC_FundedResearchApplication,
+                        evaluation => evaluation.fra_Id,
+                        researchApp => researchApp.fra_Id,
+                        (evaluation, researchApp) => new ViewEvaluationVM
+                        {
+                            evaluation_Id = evaluation.evaluation_Id,
+                            dts_No = researchApp.dts_No,
+                            research_Title = researchApp.research_Title,
+                            field_of_Study = researchApp.field_of_Study,
+                            application_Status = researchApp.application_Status,
+                            evaluation_deadline = evaluation.evaluation_Deadline,
+                            fra_Id = researchApp.fra_Id
+                        })
+                    .OrderBy(e => e.evaluation_deadline)
+                    .ToListAsync();
+
+                return View(assignedEvaluations);
+            }
+            return View(new List<ViewEvaluationVM>());
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AcceptEvaluation(string id)
+        {
+            var daysEvaluation = _context.REMC_Settings.First().daysEvaluation;
+            if (id == null)
+            {
+                return NotFound("No Evaluation Id found!");
+            }
+
+            var evals = await _context.REMC_Evaluations.FirstOrDefaultAsync(e => e.evaluation_Id == id);
+            if(evals  == null)
+            {
+                return NotFound("Evaluation not found!");
+            }
+
+            var fra = await _context.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == evals.fra_Id);
+            if(fra == null)
+            {
+                return NotFound("Funded Research Application not found!");
+            }
+
+            evals.evaluation_Status = "Accepted";
+            evals.evaluation_Deadline = DateTime.Now.AddDays(daysEvaluation);
+            await _context.SaveChangesAsync();
+            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type,
+                $"{evals.evaluator_Name} has accepted to evaluate {fra.research_Title}.", false, true, false, fra.fra_Id);
+            return RedirectToAction("EvaluatorPending", "Evaluator", new { area = "RemcSys" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeclineEvaluation(string id)
+        {
+            if (id == null)
+            {
+                return NotFound("No Evaluation Id found!");
+            }
+
+            var evals = await _context.REMC_Evaluations.FirstOrDefaultAsync(e => e.evaluation_Id == id);
+            if (evals == null)
+            {
+                return NotFound("Evaluation not found!");
+            }
+
+            var fra = await _context.REMC_FundedResearchApplication.FirstOrDefaultAsync(f => f.fra_Id == evals.fra_Id);
+            if (fra == null)
+            {
+                return NotFound("Funded Research Application not found!");
+            }
+
+            evals.evaluation_Status = "Decline";
+            await _context.SaveChangesAsync();
+            await _actionLogger.LogActionAsync(fra.applicant_Name, fra.fra_Type,
+                $"{evals.evaluator_Name} has declined to evaluate {fra.research_Title}.", false, true, false, fra.fra_Id);
+            return RedirectToAction("AssignedEvaluations", "Evaluator", new { area = "RemcSys" });
         }
 
         [Authorize(Roles = "REMC Evaluator")]
@@ -116,12 +228,13 @@ namespace RemcSys.Controllers
             if(evaluator != null)
             {
                 var pendingEvaluations = await _context.REMC_Evaluations
-                    .Where(e => e.evaluator_Id == evaluator.evaluator_Id && e.evaluation_Status == "Pending")
+                    .Where(e => e.evaluator_Id == evaluator.evaluator_Id && e.evaluation_Status == "Accepted")
                     .Join(_context.REMC_FundedResearchApplication,
                         evaluation => evaluation.fra_Id,
                         researchApp => researchApp.fra_Id,
                         (evaluation, researchApp) => new ViewEvaluationVM
                         {
+                            evaluation_Id = evaluation.evaluation_Id,
                             dts_No = researchApp.dts_No,
                             research_Title = researchApp.research_Title,
                             field_of_Study = researchApp.field_of_Study,
@@ -156,6 +269,7 @@ namespace RemcSys.Controllers
                         researchApp => researchApp.fra_Id,
                         (evaluation, researchApp) => new ViewEvaluationVM
                         {
+                            evaluation_Id = evaluation.evaluation_Id,
                             dts_No = researchApp.dts_No,
                             research_Title = researchApp.research_Title,
                             field_of_Study = researchApp.field_of_Study,
@@ -190,6 +304,7 @@ namespace RemcSys.Controllers
                         researchApp => researchApp.fra_Id,
                         (evaluation, researchApp) => new ViewEvaluationVM
                         {
+                            evaluation_Id = evaluation.evaluation_Id,
                             dts_No = researchApp.dts_No,
                             research_Title = researchApp.research_Title,
                             field_of_Study = researchApp.field_of_Study,

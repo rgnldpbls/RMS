@@ -25,6 +25,64 @@ body[b-5fx6t3ozhh] {
         border: 1px solid #ccc;
     }
 
+.search-section[b-5fx6t3ozhh] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box[b-5fx6t3ozhh] {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-btn[b-5fx6t3ozhh] {
+    padding: 10px 20px;
+    background-color: #8b0a0a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .search-btn i[b-5fx6t3ozhh] {
+        font-size: 18px;
+    }
+
+.document-table[b-5fx6t3ozhh] {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .document-table th[b-5fx6t3ozhh],
+    .document-table td[b-5fx6t3ozhh] {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        height: 50px;
+    }
+
+    .document-table th[b-5fx6t3ozhh] {
+        background-color: #850000;
+        color: white;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    .document-table td[b-5fx6t3ozhh] {
+        height: 100%;
+    }
+
+    .document-table .research-details[b-5fx6t3ozhh] {
+        padding: 20px;
+        text-align: left;
+        line-height: 1.8;
+    }
+
 .welcome-section h1[b-5fx6t3ozhh] {
     color: #850000;
     font-size: 2.5rem;

@@ -117,7 +117,7 @@ public class rscSysfinalDbContext : DbContext
         .HasForeignKey(a => a.ApplicationTypeId)
         .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Entity<ApplicationType>()
+/*        builder.Entity<ApplicationType>()
             .HasMany(a => a.Checklists)
             .WithOne(c => c.ApplicationType)
             .HasForeignKey(c => c.ApplicationTypeId)
@@ -127,7 +127,7 @@ public class rscSysfinalDbContext : DbContext
             .HasMany(c => c.Checklists) // Relationship with Checklists
             .WithOne(c => c.ApplicationSubCategory) // Each checklist belongs to one sub-category
             .HasForeignKey(c => c.ApplicationSubCategoryId) // FK in Checklist
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade);*/
 
         builder.Entity<Evaluator>()
            .HasKey(e => e.EvaluatorId);

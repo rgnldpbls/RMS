@@ -105,7 +105,7 @@
         </div> *@
     </div>
     <div class="attachments-section">
-        <h2>List of Funded Researches</h2>
+        <h2>Archived Researches</h2>
         @{
             var archivedApplication = Model.Where(f => f.isArchive == true).ToList();
         }
@@ -113,7 +113,87 @@
         <div class="attachments-container">
             @if (archivedApplication != null && archivedApplication.Any())
             {
-                @foreach (var research in archivedApplication)
+                <div class="search-section">
+                    <!-- Search Form -->
+                    <form asp-controller="FundedResearchApplication" asp-action="TeamLeaderDashboard" method="get" class="form-inline mb-3">
+                        <input type="text" name="searchString" class="search-box" placeholder="Search by Research Title" value="@ViewData["currentFilter"]" />
+                        <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+
+                <table class="document-table">
+                    <thead>
+                        <tr>
+                            <th>Research Title</th>
+                            <th>Research Status</th>
+                            <th>Research Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var research in archivedApplication)
+                        {
+                            <tr>
+                                <td>@research.research_Title</td>
+                                <td>
+                                    @if (research.application_Status == "Proceed")
+                                    {
+                                        @if (research.FundedResearch != null && research.FundedResearch.isArchive == true)
+                                        {
+                                            @research.FundedResearch.status
+                                        }
+                                        else
+                                        {
+                                            @research.application_Status
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @research.application_Status
+                                    }
+                                </td>
+                                <td>@research.fra_Type</td>
+                                <td>
+                                    <p>
+                                        <strong>Documentary Requirements:</strong> <a href="@Url.Action("ApplicationStatus", "FundedResearchApplication",
+                                    new {id = research.fra_Id})" style="color: #850000;">View</a>
+                                    </p>
+                                    @if (research.fra_Type == "University Funded Research" && research.application_Status != "Withdrawn")
+                                    {
+                                        <p>
+                                            <strong>Evaluation Results:</strong> <a href="@Url.Action("EvaluationResult", "FundedResearchApplication",
+                                        new {id = research.fra_Id})" style="color: #850000;">View</a>
+                                        </p>
+
+                                        @if (research.FundedResearch != null && research.application_Status == "Proceed")
+                                        {
+                                            @if (research.FundedResearch.isArchive == true)
+                                            {
+                                                <p>
+                                                    <strong>Progress Reports:</strong> <a href="@Url.Action("ProgressReportStatus", "ProgressReport",
+                                                new {id = research.FundedResearch.fr_Id})" style="color: #850000;">View</a>
+                                                </p>
+                                            }
+                                        }
+                                    }
+                                    else if ((research.fra_Type == "Externally Funded Research" || research.fra_Type == "University Funded Research Load") &&
+                                    research.application_Status != "Withdrawn")
+                                    {
+                                        @if (research.FundedResearch != null && research.FundedResearch.isArchive == true)
+                                        {
+                                            <p>
+                                                <strong>Progress Reports:</strong> <a href="@Url.Action("ProgressReportStatus", "ProgressReport",
+                                    new {id = research.FundedResearch.fr_Id})" style="color: #850000;">View</a>
+                                            </p>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                @* @foreach (var research in archivedApplication)
                 {
                     <div class="attachment-card">
                         <div class="attachment-info">
@@ -172,11 +252,11 @@
                             }
                         </div>
                     </div>
-                }
+                } *@
             }
             else
             {
-                <p>No funded research yet.</p>
+                <p>No funded research found!</p>
             }
         </div>
     </div>

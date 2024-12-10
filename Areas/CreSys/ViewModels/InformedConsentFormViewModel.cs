@@ -16,7 +16,7 @@ namespace ResearchManagementSystem.Areas.CreSys.ViewModels
                 AnswerType.YesNoFollowUp)
             {
                 FollowUpText = "If NO, please explain.",
-                FollowUpAnswer = ""
+                FollowUpAnswer = null
             });
 
             // Regular Yes/No type questions
@@ -43,7 +43,7 @@ namespace ResearchManagementSystem.Areas.CreSys.ViewModels
             // Text question
             Questions.Add(new FormClasses.Question("Remarks/Reasons for unfavorable decision:", AnswerType.Text)
             {
-                Answer = " " // Set default answer
+                Answer = null
             });
         }
     }

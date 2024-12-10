@@ -19,6 +19,7 @@
 
     public class ViewEvaluationVM
     {
+        public string evaluation_Id { get; set; }
         public string fra_Id { get; set; }
         public string dts_No { get; set; }
         public string research_Title { get; set; }

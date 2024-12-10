@@ -55,6 +55,11 @@
         color: #000000;
     }
 
+    .step-icon.progress {
+        background-color: #DBBF1B;
+        color: #fff;
+    }
+
     .step-icon.unlocked {
         border: 2px solid #0D6B4A;
         background-color: #0D6B4A;

@@ -188,7 +188,7 @@
                                 <!-- Dropdown for Yes/No with default set to Yes and required attribute -->
                                 <select id="informed-consent-question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
                                         class="form-select yesno-dropdown informed-consent-followup-trigger"
-                                        data-followup-index="@i" required>
+                                        data-followup-index="@i" data-index="@i" required>
                                     <option value="Yes" selected>Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -201,25 +201,13 @@
                                     <textarea id="informed-consent-followup-text-@i" asp-for="InformedConsentForm.Questions[@i].FollowUpAnswer"
                                               class="form-control" rows="5"></textarea>
                                 </div>
-                                <input type="hidden" name="InformedConsentForm.Questions[@i].FollowUpAnswer"
-                                       value="@Model.InformedConsentForm.Questions[i].FollowUpAnswer" />
-                                <!-- Script to Show/Hide Follow-up based on answer -->
-                                <script>
-                                    document.getElementById('informed-consent-question-@i').addEventListener('change', function () {
-                                        var followUpContainer = document.getElementById('informed-consent-followup-@i');
-                                        if (this.value === 'No') {
-                                            followUpContainer.style.display = 'block';
-                                        } else {
-                                            followUpContainer.style.display = 'none';
-                                        }
-                                    });
-                                </script>
+                               
                             }
                             else if (Model.InformedConsentForm.Questions[i].AnswerType == AnswerType.MultiDropDown)
                             {
                                 <!-- Multi-Select Dropdown with required attribute -->
                                 <select id="question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
-                                        class="form-select" multiple required>
+                                        class="form-select" multiple data-index="@i" required>
                                     @foreach (var option in Model.InformedConsentForm.Questions[i].Options)
                                     {
                                         <option value="@option">@option</option>
@@ -239,7 +227,7 @@
                             {
                                 <!-- Default Dropdown for Yes/No with default set to Yes and required attribute -->
                                 <select id="question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
-                                        class="form-select" required>
+                                        class="form-select" data-index="@i" required>
                                     <option value="Yes" selected>Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -248,7 +236,7 @@
                             {
                                 <!-- Default Dropdown (Fallback for any other types, if any) -->
                                 <select id="question-@i" asp-for="InformedConsentForm.Questions[@i].Answer"
-                                        class="form-select" required>
+                                        class="form-select" data-index="@i" required>
                                     <option value="Yes" selected>Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -263,7 +251,7 @@
                     <!-- Evaluator Type for Protocol Review Form -->
                     <div class="mb-3">
                         <label for="protocol-review-evaluator-type" class="form-label">Evaluator Type</label>
-                        <select asp-for="ProtocolReviewForm.EvaluatorType" class="form-select" required>
+                        <select asp-for="ProtocolReviewForm.EvaluatorType" class="form-select"  required>
                             <option value="" disabled selected>--Select--</option>
                             <option value="REGULAR MEMBER">REGULAR MEMBER</option>
                             <option value="ALTERNATE MEMBER">ALTERNATE MEMBER</option>
@@ -312,7 +300,7 @@
                             {
                                 <!-- Dropdown for Multiple Choice -->
                                 <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
-                                        class="form-select" required id="question-@i">
+                                        class="form-select" data-index="@i" required id="question-@i">
                                     @foreach (var option in Model.ProtocolReviewForm.Questions[i].Options)
                                     {
                                         <option value="@option">@option</option>
@@ -323,7 +311,7 @@
                             {
                                 <!-- Multi-Select Dropdown -->
                                 <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
-                                        class="form-select" multiple required id="question-@i">
+                                        class="form-select" multiple data-index="@i" required id="question-@i">
                                     @foreach (var option in Model.ProtocolReviewForm.Questions[i].Options)
                                     {
                                         <option value="@option">@option</option>
@@ -334,7 +322,7 @@
                             {
                                 <!-- Yes/No Dropdown -->
                                 <select asp-for="ProtocolReviewForm.Questions[@i].Answer"
-                                        class="form-select" required id="question-@i">
+                                        class="form-select" data-index="@i" required id="question-@i">
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -353,58 +341,57 @@
 
                     <!-- JavaScript -->
                     <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            // Handle both forms separately by distinguishing them with a unique form identifier
-                            const informedConsentFollowUpTriggers = document.querySelectorAll(".informed-consent-followup-trigger");
-                            const protocolReviewFollowUpTriggers = document.querySelectorAll(".protocol-review-followup-trigger");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to toggle follow-up visibility based on selection
+        const toggleFollowUp = (trigger, followUpContainer) => {
+            const selectedValue = trigger.value.trim().toUpperCase();
 
-                            // Function to toggle follow-up visibility based on selection
-                            const toggleFollowUp = (trigger, followUpContainer) => {
-                                const selectedValue = trigger.value.trim().toUpperCase();
+            // If the value is 'No' or 'Unable to Assess', show the follow-up, otherwise hide it
+            if (selectedValue === "NO" || selectedValue === "UNABLE TO ASSESS") {
+                followUpContainer.style.display = "block";
+            } else {
+                followUpContainer.style.display = "none";
+            }
+        };
 
-                                // If the value is 'No', show the follow-up, otherwise hide it
-                                if (selectedValue === "NO" || selectedValue === "UNABLE TO ASSESS") {
-                                    followUpContainer.style.display = "block";
-                                } else {
-                                    followUpContainer.style.display = "none";
-                                }
-                            };
+        // Handle Informed Consent Form follow-up triggers
+        const informedConsentFollowUpTriggers = document.querySelectorAll(".informed-consent-followup-trigger");
+        informedConsentFollowUpTriggers.forEach(trigger => {
+            const questionIndex = trigger.dataset.index;
+            const followUpContainer = document.getElementById(`informed-consent-followup-${questionIndex}`);
 
-                            // Handle Informed Consent Form follow-up triggers
-                            informedConsentFollowUpTriggers.forEach(trigger => {
-                                const questionIndex = trigger.dataset.index;
-                                const followUpContainer = document.getElementById(`informed-consent-followup-${questionIndex}`);
+            if (!followUpContainer) {
+                console.error(`Follow-up container not found for question index ${questionIndex}`);
+                return;
+            }
 
-                                if (!followUpContainer) {
-                                    console.error(`Follow-up container not found for question index ${questionIndex}`);
-                                    return;
-                                }
+            // Attach event listener for changes in the select box
+            trigger.addEventListener("change", () => toggleFollowUp(trigger, followUpContainer));
 
-                                // Attach event listener for changes in the select box
-                                trigger.addEventListener("change", () => toggleFollowUp(trigger, followUpContainer));
+            // Initialize visibility on page load based on the current value
+            toggleFollowUp(trigger, followUpContainer);
+        });
 
-                                // Initialize visibility on page load based on the current value
-                                toggleFollowUp(trigger, followUpContainer);
-                            });
+        // Handle Protocol Review Form follow-up triggers (if needed)
+        const protocolReviewFollowUpTriggers = document.querySelectorAll(".protocol-review-followup-trigger");
+        protocolReviewFollowUpTriggers.forEach(trigger => {
+            const questionIndex = trigger.dataset.index;
+            const followUpContainer = document.getElementById(`protocol-review-followup-${questionIndex}`);
 
-                            // Handle Protocol Review Form follow-up triggers
-                            protocolReviewFollowUpTriggers.forEach(trigger => {
-                                const questionIndex = trigger.dataset.index;
-                                const followUpContainer = document.getElementById(`protocol-review-followup-${questionIndex}`);
+            if (!followUpContainer) {
+                console.error(`Follow-up container not found for question index ${questionIndex}`);
+                return;
+            }
 
-                                if (!followUpContainer) {
-                                    console.error(`Follow-up container not found for question index ${questionIndex}`);
-                                    return;
-                                }
+            // Attach event listener for changes in the select box
+            trigger.addEventListener("change", () => toggleFollowUp(trigger, followUpContainer));
 
-                                // Attach event listener for changes in the select box
-                                trigger.addEventListener("change", () => toggleFollowUp(trigger, followUpContainer));
+            // Initialize visibility on page load based on the current value
+            toggleFollowUp(trigger, followUpContainer);
+        });
+    });
+</script>
 
-                                // Initialize visibility on page load based on the current value
-                                toggleFollowUp(trigger, followUpContainer);
-                            });
-                        });
-                    </script>
 
                 </div>
 
@@ -414,6 +401,10 @@
                     <button type="button" id="backButton" class="btn btn-secondary" onclick="showPreviousSection()" style="display: none;">Back</button>
                     <button type="button" id="nextButton" class="btn btn-primary" onclick="showNextSection()">Next</button>
                     <button type="submit" id="submitButton" class="btn btn-success" style="display: none;">Submit Evaluation</button>
+                    <!-- Preview Button -->
+                    <button type="submit" id="previewButton" class="btn btn-info" style="display: none;" onclick="setPreviewAction()">Preview</button>
+                    <input type="hidden" id="action" name="action" value="" />  
+
                 </div>
             </form>
         </div>
@@ -574,6 +565,7 @@
                 // Change "Next" button to "Submit" on second page
                 document.getElementById("nextButton").style.display = "none";
                 document.getElementById("submitButton").style.display = "inline-block";
+                document.getElementById("previewButton").style.display = "inline-block";
                 document.getElementById("backButton").style.display = "inline-block"; // Show Back button
 
                 currentPage = 2;
@@ -608,7 +600,21 @@
             }
         });
 </script>
+<script>
+        // Function to set the action to Preview
+        function setPreviewAction() {
+            document.getElementById('action').value = 'Preview';
+        }
 
+        // Function to confirm submission before sending the form
+        function confirmSubmission() {
+            if (document.getElementById('action').value === 'Preview') {
+                return confirm('Are you sure you want to preview the evaluation?');
+            }
+            return true;  // Allow submission for other actions like Submit
+        }
+
+</script>
 }
 <style>
     .resizable-iframe {

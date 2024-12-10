@@ -34,6 +34,7 @@ using ResearchManagementSystem.Models;
 using Table = iText.Layout.Element.Table;
 using Tuple = System.Tuple;
 using CrdlSys.Data;
+using MailKit.Search;
 
 
 namespace rscSys_final.Controllers
@@ -771,6 +772,25 @@ namespace rscSys_final.Controllers
             return RedirectToAction("EvaluationForms"); // Redirect to the view that lists the memorandums
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditSubcategory(int CategoryId, string CategoryName, decimal SubAmount)
+        {
+            var subcategory = await _context.RSC_ApplicationSubCategories.FindAsync(CategoryId);
+
+            if (subcategory == null)
+            {
+                return NotFound();
+            }
+
+            subcategory.CategoryName = CategoryName;
+            subcategory.SubAmount = SubAmount;
+
+            _context.RSC_ApplicationSubCategories.Update(subcategory);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Checklist"); // Replace with your actual view name
+        }
+
         public IActionResult ViewEvaluator()
         {
 
@@ -975,7 +995,6 @@ namespace rscSys_final.Controllers
             return View(incentivesData);
         }
 
-
         public ActionResult Forecasting()
         {
             var requestData = _context.RSC_Requests
@@ -985,45 +1004,88 @@ namespace rscSys_final.Controllers
                 .Select(g => new RequestData
                 {
                     CreatedDate = new DateTime(g.Key, 1, 1),
-                    RequestSpent = (float)g.Sum(r => r.RequestSpent)
+                    RequestSpent = g.Sum(r => (float)r.RequestSpent)
                 })
                 .OrderBy(d => d.CreatedDate)
                 .ToList();
 
+            if (requestData.Count < 8)
+            {
+                ViewBag.Error = "Insufficient data for accurate forecasting. At least 8 years of data are required.";
+                return View();
+            }
+
             var mlContext = new MLContext();
-            var dataView = mlContext.Data.LoadFromEnumerable(requestData);
+            int seriesLength = requestData.Count;
+            int windowSize = Math.Max(3, seriesLength / 4);
+            int horizon = 2;
+
+            if (seriesLength <= 2 * windowSize)
+            {
+                ViewBag.Error = $"The input size for training should be greater than twice the window size. " +
+                                $"Series Length: {seriesLength}, Window Size: {windowSize}";
+                return View();
+            }
+
+            int testSetSize = Math.Max(2, seriesLength / 10);
+            var trainData = requestData.Take(seriesLength - testSetSize).ToList();
+            var testData = requestData.Skip(seriesLength - testSetSize).ToList();
+
+            var dataView = mlContext.Data.LoadFromEnumerable(trainData);
 
             var forecastingPipeline = mlContext.Forecasting.ForecastBySsa(
                 outputColumnName: "ForecastedSpent",
                 inputColumnName: "RequestSpent",
-                windowSize: 3,
-                seriesLength: requestData.Count,
-                trainSize: requestData.Count,
-                horizon: 2); // Change to forecast the next 2 years
+                windowSize: windowSize,
+                seriesLength: seriesLength,
+                trainSize: trainData.Count,
+                horizon: horizon);
 
             var mlModel = forecastingPipeline.Fit(dataView);
             var forecastEngine = mlModel.CreateTimeSeriesEngine<RequestData, RequestForecast>(mlContext);
             var forecast = forecastEngine.Predict();
 
-            // Prepare data for the chart
+            var actualValues = testData.Select(t => t.RequestSpent).ToList();
+            var predictedValues = forecast.ForecastedSpent.Take(testSetSize).ToList();
+
+            // Calculate MAE, MAPE, RMSE
+            double mae = actualValues.Zip(predictedValues, (actual, predicted) => Math.Abs(actual - predicted)).Average();
+            double mape = actualValues.Zip(predictedValues, (actual, predicted) => Math.Abs((actual - predicted) / actual)).Average() * 100;
+            double rmse = Math.Sqrt(actualValues.Zip(predictedValues, (actual, predicted) => Math.Pow(actual - predicted, 2)).Average());
+
+            // Calculate R-squared
+            double meanActual = actualValues.Average();
+            double ssTot = actualValues.Sum(actual => Math.Pow(actual - meanActual, 2));
+            double ssRes = actualValues.Zip(predictedValues, (actual, predicted) => Math.Pow(actual - predicted, 2)).Sum();
+            double rSquared = 1 - (ssRes / ssTot);
+
+            // Calculate Signal-to-Noise Ratio (SNR)
+            double residualStdDev = Math.Sqrt(ssRes / actualValues.Count);
+            double snr = meanActual / residualStdDev;
+
+            ViewBag.MAE = mae;
+            ViewBag.MAPE = mape;
+            ViewBag.RMSE = rmse;
+            ViewBag.RSquared = rSquared;
+            ViewBag.SNR = snr;
+
             var historicalYears = requestData.Select(d => d.CreatedDate.Year).ToList();
             var historicalSpent = requestData.Select(d => d.RequestSpent).ToList();
 
-            // Add forecasted years and budget
             var lastYear = requestData.Last().CreatedDate.Year;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < horizon; i++)
             {
-                var forecastYear = lastYear + (i + 1);
-                var forecastedBudget = forecast.ForecastedSpent[i];
-                historicalYears.Add(forecastYear);
-                historicalSpent.Add(forecastedBudget);
+                historicalYears.Add(lastYear + (i + 1));
+                historicalSpent.Add(forecast.ForecastedSpent[i]);
             }
 
-            // Pass data to the view
+            ViewBag.Years = historicalYears;
+            ViewBag.Spent = historicalSpent;
+
             var viewModel = new BudgetForecastViewModel
             {
-                Year = lastYear + 2, // The last forecasted year
-                ForecastedBudget = forecast.ForecastedSpent[1], // The budget for the second year
+                Year = lastYear + horizon,
+                ForecastedBudget = forecast.ForecastedSpent.Last(),
                 HistoricalData = requestData.Select(d => new HistoricalSpending
                 {
                     Year = d.CreatedDate.Year,
@@ -1031,14 +1093,10 @@ namespace rscSys_final.Controllers
                 }).ToList()
             };
 
-            ViewBag.Years = historicalYears;
-            ViewBag.Spent = historicalSpent;
-
-            ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
-                .Count(n => !n.NotificationStatus && n.Role == "Chief");
-
             return View(viewModel);
         }
+
+
 
         public async Task<IActionResult> Checklist()
         {
@@ -1261,14 +1319,46 @@ namespace rscSys_final.Controllers
         [HttpPost]
         public IActionResult DeleteCheck(int id)
         {
-            var checklist = _context.RSC_Checklists.Find(id);
-            if (checklist != null)
+            // Retrieve the checklist and include related requirements
+            var checklist = _context.RSC_Checklists
+                .Include(c => c.Requirements) // Include the related requirements
+                .FirstOrDefault(c => c.ChecklistId == id);
+
+            if (checklist == null)
             {
-                _context.RSC_Checklists.Remove(checklist);
-                _context.SaveChanges();
-                // Optionally add a success message
+                // Optionally handle the case where the checklist is not found
+                return NotFound(new { message = "Checklist not found." });
             }
-            return RedirectToAction("Checklist"); // Redirect to the appropriate view after deletion
+
+            try
+            {
+                // Remove all related requirements first
+                if (checklist.Requirements != null && checklist.Requirements.Any())
+                {
+                    _context.RSC_Requirements.RemoveRange(checklist.Requirements);
+                }
+
+                // Remove the checklist itself
+                _context.RSC_Checklists.Remove(checklist);
+
+                // Save changes to the database
+                _context.SaveChanges();
+
+                // Optionally add a success message or log the action
+                TempData["SuccessMessage"] = "Checklist and associated requirements deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if logging is implemented
+                // Example: _logger.LogError(ex, "Error deleting Checklist with ID: {id}", id);
+
+                // Optionally handle the error and return a meaningful response
+                TempData["ErrorMessage"] = "An error occurred while deleting the checklist.";
+                return RedirectToAction("Checklist");
+            }
+
+            // Redirect to the checklist view or another appropriate view after successful deletion
+            return RedirectToAction("Checklist");
         }
 
         [HttpPost]
@@ -1853,6 +1943,10 @@ namespace rscSys_final.Controllers
 
             ViewBag.EvaluationDeadlineOptions = evaluationDeadlineOptions;
 
+            // Count notifications where NotificationStatus is false for this user
+            ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
+                .Count(n => !n.NotificationStatus && n.Role == "Chief");
+
             return View(viewModel);
         }
 
@@ -2021,74 +2115,95 @@ namespace rscSys_final.Controllers
             return RedirectToAction("Applications"/*, new { requestId }*/);
         }
 
-        public IActionResult Applications(string searchTerm, string collegeFilter, string applicationTypeFilter, int? yearFilter, int page = 1)
+        // View all requests with pagination
+        public IActionResult Applications(int? yearFilter, string searchTerm = "", string collegeFilter = "", string applicationTypeFilter = "", int page = 1, int pageSize = 10)
         {
-            int pageSize = 10;
+            // Base query: Include related data
+            IQueryable<rscSys_final.Models.Request> requestsQuery = _context.RSC_Requests
+                .Include(r => r.DocumentHistories)
+                .Include(r => r.EvaluatorAssignments)
+                    .ThenInclude(ea => ea.Evaluators);
 
-            // Fetch all requests, including related data
-            var requests = _context.RSC_Requests
-                .Include(r => r.DocumentHistories) // Include document histories
-                .Include(r => r.EvaluatorAssignments) // Include evaluator assignments
-                    .ThenInclude(ea => ea.Evaluators) // Include evaluator user information
-                /*                .OrderBy(r => r.CreatedDate) // Order by CreatedDate or another relevant field*/
-                .AsQueryable();
+            // Apply filters conditionally
+            if (!string.IsNullOrEmpty(collegeFilter))
+            {
+                requestsQuery = requestsQuery.Where(r => r.College == collegeFilter);
+            }
+
+            if (!string.IsNullOrEmpty(applicationTypeFilter))
+            {
+                var selectedApplicationType = _context.RSC_ApplicationTypes
+                    .Include(at => at.ApplicationSubCategories)
+                    .FirstOrDefault(at => at.ApplicationTypeName == applicationTypeFilter);
+
+                if (selectedApplicationType != null)
+                {
+                    var subCategoryNames = selectedApplicationType.ApplicationSubCategories.Select(sc => sc.CategoryName).ToList();
+
+                    requestsQuery = requestsQuery.Where(r =>
+                        r.ApplicationType == applicationTypeFilter ||
+                        subCategoryNames.Contains(r.ApplicationType));
+                }
+            }
+
+            if (yearFilter.HasValue)
+            {
+                requestsQuery = requestsQuery.Where(r => r.CreatedDate.Year == yearFilter.Value);
+            }
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                // Filter the requests based on the search term
-                requests = requests.Where(r =>
-                    r.DtsNo.Contains(searchTerm) ||
-                    r.Name.Contains(searchTerm) ||
-                    r.ResearchTitle.Contains(searchTerm) ||
-                    r.ApplicationType.Contains(searchTerm));
-
-                // Pass the search term to the view to keep it in the search bar after searching
-                ViewBag.SearchTerm = searchTerm;
+                requestsQuery = requestsQuery.Where(r =>
+                    r.DtsNo.Contains(searchTerm) ||  // Replace with actual DTS No. field
+                    r.Name.Contains(searchTerm) ||  // Replace with actual Applicant Name field
+                    r.ResearchTitle.Contains(searchTerm)); // Replace with actual Research Title field
             }
 
-            // Filter by college
-            if (!string.IsNullOrEmpty(collegeFilter))
-            {
-                requests = requests.Where(r => r.College == collegeFilter);
-                ViewBag.SelectedCollege = collegeFilter;
-            }
+            // Get total requests count after filters
+            int totalRequests = requestsQuery.Count();
 
-            // Filter by application type
-            if (!string.IsNullOrEmpty(applicationTypeFilter))
-            {
-                requests = requests.Where(r => r.ApplicationType == applicationTypeFilter);
-                ViewBag.SelectedApplicationType = applicationTypeFilter;
-            }
-
-            // Filter by year of filed date
-            if (yearFilter.HasValue)
-            {
-                requests = requests.Where(r => r.CreatedDate.Year == yearFilter.Value);
-                ViewBag.SelectedYear = yearFilter.Value;
-            }
-
-            // Calculate total number of pages
-            int totalRequests = requests.Count();
-            var pagedRequests = requests
+            // Apply sorting and pagination
+            var requests = requestsQuery
+                .OrderByDescending(r => r.CreatedDate) // Sort by date, adjust if needed
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
-            // Pass pagination details to the view
+            // Dropdown data for filters
+            var applicationTypes = _context.RSC_ApplicationTypes
+                .Select(at => at.ApplicationTypeName)
+                .Distinct()
+                .ToList();
+
+            var colleges = _context.RSC_Requests
+                .Select(r => r.College)
+                .Distinct()
+                .ToList();
+
+            var years = _context.RSC_Requests
+                .Select(r => r.CreatedDate.Year)
+                .Distinct()
+                .OrderByDescending(y => y)
+                .ToList();
+
+            // Pass data to the view using ViewBag
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalRequests / pageSize);
+            ViewBag.ApplicationTypes = applicationTypes;
+            ViewBag.Years = years;
+            ViewBag.Colleges = colleges;
+            ViewBag.SelectedCollege = collegeFilter;
+            ViewBag.SelectedApplicationType = applicationTypeFilter;
+            ViewBag.SelectedYear = yearFilter;
+            ViewBag.SearchTerm = searchTerm;
 
-            // Pass additional data
+            // Count notifications where NotificationStatus is false for this user
             ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
                 .Count(n => !n.NotificationStatus && n.Role == "Chief");
 
-            // Pass filter options for dropdowns in the view
-            ViewBag.Colleges = _context.RSC_Requests.Select(r => r.College).Distinct().ToList();
-            ViewBag.ApplicationTypes = _context.RSC_Requests.Select(r => r.ApplicationType).Distinct().ToList();
-            ViewBag.Years = _context.RSC_Requests.Select(r => r.CreatedDate.Year).Distinct().OrderByDescending(y => y).ToList();
-
-            return View(pagedRequests);
+            return View(requests);
         }
+
 
         public async Task<IActionResult> Memorandums()
         {

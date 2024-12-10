@@ -166,10 +166,10 @@ namespace ResearchManagementSystem.Controllers
                 {
                     return RedirectToAction("Index", "Home", new { area = "CreSys" });
                 }
-                else if (selectedRole == "Student")
+                /*else if (selectedRole == "Student")
                 {
                     return RedirectToAction("Index", "Home", new { area = "CreSys" });
-                }
+                }*/
                 else if (selectedRole == "External Researcher")
                 {
                     return RedirectToAction("Index", "Home", new { area = "CreSys" });

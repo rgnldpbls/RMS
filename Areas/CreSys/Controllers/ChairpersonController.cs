@@ -218,9 +218,18 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                     {
                         // Construct the full name with first, middle initial, and last name
                         string evaluatorFullName = $"{evaluatorUser.FirstName} {evaluatorUser.MiddleName?.FirstOrDefault()}. {evaluatorUser.LastName}";
+                        string evaluatorEmail = evaluatorUser.Email;
 
                         // Now assign the evaluator with their full name
                         await _allServices.AssignEvaluatorAsync(urecNo, evaluatorId, evaluatorFullName);
+                        string subject = "Ethics Application Assignment";
+                        string body = $@"
+                        <p>You have assigned to evaluate the Ethics Application with UREC No: <strong>{urecNo}</strong>.</p>
+                        <p>Please note that you have <strong>3 days</strong> from now to make your decision to accept or decline the assignment.</p>
+                        <p>The assignment would autodecline after <strong>3 days</strong> if not given any decision.</p>
+                        <p>We appreciate your timely response in your decision to accept or decline the applicaiton.</p>";
+
+                        await _emailService.SendEmailAsync(evaluatorEmail, evaluatorFullName, subject, body);
                     }
                 }
             }

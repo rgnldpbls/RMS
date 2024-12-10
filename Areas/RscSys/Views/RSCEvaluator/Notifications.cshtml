@@ -56,7 +56,9 @@
 
 <div class="d-flex justify-content-between align-items-center titlemodal">
 <h1 class="h2 mb-0">Notifications</h1>
-<button class="btn btn-link text-decoration-none">Mark all as Read</button>
+    <form asp-action="MarkAllAsRead" method="post" class="d-inline">
+        <button type="submit" class="btn btn-primary btn-sm">Mark all as Read</button>
+    </form>
 </div>
 
 <div class="notifications-container">
@@ -64,7 +66,8 @@
     {
         foreach (var notification in Model)
         {
-            <div class="notification-item">
+            var notificationClass = notification.NotificationStatus ? "read" : "unread";
+            <div class="notification-item @notificationClass">
                 <div class="alert alert-light" role="alert">
                     <div class="d-flex justify-content-between align-items-start">
                         <p class="mb-0">@notification.NotificationTitle</p>
@@ -74,7 +77,6 @@
                         View
                     </button>
                 </div>
-                
             </div>
         }
     }

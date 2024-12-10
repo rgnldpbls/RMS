@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ViewEvaluationVM>
+@{
+    ViewData["Title"] = "Pending Evaluations";
+    Layout = "_NavEvaluator1";
+}
+<div class="pending-evaluations-container">
+    <h2 class="title">EVALUATIONS</h2>
+    <div class="eval-categories">
+        <a href="/RemcSys/Evaluator/AssignedEvaluations" class="eval-category assigned-eval">
+            <h3>Assigned Evaluation</h3>    
+        </a>
+        <a href="/RemcSys/Evaluator/EvaluatorPending" class="eval-category to-be">
+            <h3>To be Evaluated</h3>
+        </a>
+        <a href="/RemcSys/Evaluator/EvaluatorMissed" class="eval-category missed">
+            <h3>Missed </h3>
+        </a>
+        <a href="/RemcSys/Evaluator/EvaluatorEvaluated" class="eval-category evaluated">
+            <h3>Evaluated</h3>
+        </a>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <table class="document-table">
+            <thead>
+                <tr>
+                    <th>DTS No.</th>
+                    <th>Details</th>
+                    <th>Evaluation Deadline</th>
+                    @* <th>Status</th> *@
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @(item.dts_No != null ? item.dts_No : "-")
+                        </td>
+                        <td style="text-align: left;">
+                            <b>Research Title:</b> @item.research_Title<br />
+                            <b>Field of Study:</b> @item.field_of_Study
+                        </td>
+                        <td>
+                            @item.evaluation_deadline?.ToString("MMMM d, yyyy")
+                        </td>
+                        @* <td>
+                            <span class="status underevaluation">
+                                @item.application_Status
+                            </span>
+                        </td> *@
+                        <td class="action-buttons">
+                            <form asp-action="AcceptEvaluation" asp-route-id="@item.evaluation_Id" method="post">
+                                <button class="btn btn-success" type="submit">Accept</button>
+                            </form>
+                            <form asp-action="DeclineEvaluation" asp-route-id="@item.evaluation_Id" method="post">
+                                <button class="btn btn-danger" type="submit">Decline</button>
+                            </form>
+                            @* <a asp-action="EvaluationForm" asp-route-id="@item.fra_Id" class="fillup-btn">
+                                <i class="bi bi-journal-text" style="color: #000;"></i>
+                            </a> *@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No pending evaluations at this time.</p>
+    }
+    <a href="/RemcSys/Evaluator/EvaluatorDashboard" class="back-btn">Back</a>
+</div>

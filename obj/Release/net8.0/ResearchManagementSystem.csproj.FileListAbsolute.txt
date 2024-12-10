@@ -861,3 +861,4 @@ C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\o
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\bin\Release\net8.0\libman.json
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\ResearchManagementSystem.sourcelink.json
 C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\FundedResearchApplication\ViewEthicsStatus.cshtml.rz.scp.css
+C:\Users\Regienald Pueblos\Documents\Capstone Project\ResearchManagementSystem\obj\Release\net8.0\scopedcss\Areas\RemcSys\Views\Evaluator\AssignedEvaluations.cshtml.rz.scp.css

@@ -25,6 +25,64 @@
         border: 1px solid #ccc;
     }
 
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-btn {
+    padding: 10px 20px;
+    background-color: #8b0a0a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .search-btn i {
+        font-size: 18px;
+    }
+
+.document-table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .document-table th,
+    .document-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        height: 50px;
+    }
+
+    .document-table th {
+        background-color: #850000;
+        color: white;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    .document-table td {
+        height: 100%;
+    }
+
+    .document-table .research-details {
+        padding: 20px;
+        text-align: left;
+        line-height: 1.8;
+    }
+
 .welcome-section h1 {
     color: #850000;
     font-size: 2.5rem;

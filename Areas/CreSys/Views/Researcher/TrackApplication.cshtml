@@ -28,18 +28,18 @@
     <div class="timeline-container">
         <div class="timeline">
             @* Application Submitted *@
-            <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Applied") == true ? "completed" : "")">
-                <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Applied") == true ? "completed" : "")">
-                    <i class="fas fa-file-alt"></i>
+            <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Submit Documentary Requirements") == true ? "completed" : "")">
+                <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Submit Documentary Requirements") == true ? "completed" : "")">
+                    <i class="fa-solid fa-list"></i>
                 </div>
                 <div class="timeline-content">
                     <div class="timeline-title">Application Submitted</div>
                     <div class="timeline-date">
-                        @(Model.Logs?.FirstOrDefault(log => log.Status == "Applied")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                        @(Model.Logs?.FirstOrDefault(log => log.Status == "Submit Documentary Requirements")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
                     </div>
                 </div>
             </div>
-
+          
             @* Requirements Under Review *@
             <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Pending for Evaluation") == true ? "completed" : "")">
                 <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Pending for Evaluation") == true ? "completed" : "")">
@@ -53,39 +53,69 @@
                 </div>
             </div>
 
-            @* To Be Evaluated *@
             <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Approved for Evaluation") == true ? "completed" : "")">
                 <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Approved for Evaluation") == true ? "completed" : "")">
-                    <i class="fas fa-tasks"></i>
+                    <i class="fa-solid fa-file-circle-check"></i> <!-- Replace with a suitable Font Awesome icon -->
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-title">To Be Evaluated</div>
+                    <div class="timeline-title">Initial Review Passed</div>
                     <div class="timeline-date">
                         @(Model.Logs?.FirstOrDefault(log => log.Status == "Approved for Evaluation")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
                     </div>
                 </div>
             </div>
 
-            @* Application Under Evaluation *@>
-            <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Review Type Assigned") == true ? "completed" : "")">
-                <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Review Type Assigned") == true ? "completed" : "")">
-                    <i class="fas fa-check"></i>
+            @* Application Under Evaluation *@
+            @if (Model.InitialReview?.ReviewType == "Exempt")
+            {
+                <div class="timeline-item completed">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-ban"></i> <!-- Choose an appropriate icon -->
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Review Type Assigned</div>
+                        <div class="timeline-date">
+                            @(Model.Logs?.FirstOrDefault(log => log.Status == "Review Type Assigned")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Evaluators Assigned") == true ? "completed" : "")">
+                    <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Evaluators Assigned") == true ? "completed" : "")">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Evaluators Assigned</div>
+                        <div class="timeline-date">
+                            @(Model.Logs?.FirstOrDefault(log => log.Status == "Evaluators Assigned")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            @* Evaluation Complete *@
+            <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Evaluated") == true ? "completed" : "")">
+                <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Evaluated") == true ? "completed" : "")">
+                    <i class="fa-solid fa-clipboard-check"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-title">Application Under Evaluation</div>
+                    <div class="timeline-title">Evaluation Complete</div>
                     <div class="timeline-date">
-                        @(Model.Logs?.FirstOrDefault(log => log.Status == "Evaluators Assigned")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
+                        @(Model.Logs?.FirstOrDefault(log => log.Status == "Evaluated")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
                     </div>
                 </div>
             </div>
 
-            @* Evaluation Complete *@>
+            @* Evaluation Complete *@
             <div class="timeline-item @(Model.Logs?.Any(log => log.Status == "Clearance Issued") == true ? "completed" : "")">
                 <div class="timeline-icon @(Model.Logs?.Any(log => log.Status == "Clearance Issued") == true ? "completed" : "")">
                     <i class="fas fa-check-double"></i>
                 </div>
                 <div class="timeline-content">
-                    <div class="timeline-title">Evaluation Complete</div>
+                    <div class="timeline-title">Clearance Issued</div>
                     <div class="timeline-date">
                         @(Model.Logs?.FirstOrDefault(log => log.Status == "Clearance Issued")?.ChangeDate.ToString("MM/dd/yyyy h:mmtt") ?? "N/A")
                     </div>

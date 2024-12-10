@@ -16,10 +16,10 @@
         <!-- Researcher Type Dropdown -->
         <div class="form-group">
             <label for="ResearcherType">Researcher Type</label>
-            @Html.DropDownListFor(model => model.ReaserchType, 
-                new SelectList(new List<string> {"All Researcher", "External Researcher", "Internal Researcher" },
+            @Html.DropDownListFor(model => model.ReaserchType,
+                     new SelectList(new List<string> { "All Researcher", "External Researcher", "Internal Researcher" },
                      Model.ReaserchType ?? "All Researcher"),
-                new { @class = "form-control", id = "ResearcherType", @required = "required" })
+                     new { @class = "form-control", id = "ResearcherType", @required = "required" })
             @Html.ValidationMessageFor(model => model.ReaserchType, "", new { @class = "text-danger" })
         </div>
 
@@ -104,60 +104,60 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const researcherTypeDropdown = document.getElementById("ResearcherType");
-    const internalResearcherContainer = document.getElementById("InternalResearcherContainer");
-    const campusDropdown = document.getElementById("CampusDropdown");
-    const campusDropdownContainer = document.getElementById("CampusDropdownContainer");
-    const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
+        document.addEventListener("DOMContentLoaded", function () {
+        const researcherTypeDropdown = document.getElementById("ResearcherType");
+        const internalResearcherContainer = document.getElementById("InternalResearcherContainer");
+        const campusDropdown = document.getElementById("CampusDropdown");
+        const campusDropdownContainer = document.getElementById("CampusDropdownContainer");
+        const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
 
-    // Toggle visibility based on Researcher Type selection (Internal/External)
-    function toggleInternalResearcherFields() {
-        const researcherType = researcherTypeDropdown.value;
-        if (researcherType === "Internal Researcher") {
-            internalResearcherContainer.style.display = "block";
-        } else {
-            internalResearcherContainer.style.display = "none";
-        }
-    }
-
-    // Toggle campus/college visibility based on the researcher type
-    function toggleCampusAndCollegeVisibility() {
-        const researcherType = researcherTypeDropdown.value;
-        if (researcherType === "External Researcher" || researcherType === "All Researcher") {
-            campusDropdownContainer.style.display = "none";
-            collegeDropdownContainer.style.display = "none";
-        } else {
-            campusDropdownContainer.style.display = "block";
-            // Check if the selected campus is "Sta. Mesa (MAIN CAMPUS)"
-            if (campusDropdown.value === "Sta. Mesa (MAIN CAMPUS)") {
-                collegeDropdownContainer.style.display = "block";
+        // Toggle visibility based on Researcher Type selection (Internal/External)
+        function toggleInternalResearcherFields() {
+            const researcherType = researcherTypeDropdown.value;
+            if (researcherType === "Internal Researcher") {
+                internalResearcherContainer.style.display = "block";
             } else {
-                collegeDropdownContainer.style.display = "none";
+                internalResearcherContainer.style.display = "none";
             }
         }
-    }
 
-    // Initialize visibility based on default selection
-    toggleInternalResearcherFields();
-    toggleCampusAndCollegeVisibility();
+        // Toggle campus/college visibility based on the researcher type
+        function toggleCampusAndCollegeVisibility() {
+            const researcherType = researcherTypeDropdown.value;
+            if (researcherType === "External Researcher" || researcherType === "All Researcher") {
+                campusDropdownContainer.style.display = "none";
+                collegeDropdownContainer.style.display = "none";
+            } else {
+                campusDropdownContainer.style.display = "block";
+                // Check if the selected campus is "Sta. Mesa (MAIN CAMPUS)"
+                if (campusDropdown.value === "Sta. Mesa (MAIN CAMPUS)") {
+                    collegeDropdownContainer.style.display = "block";
+                } else {
+                    collegeDropdownContainer.style.display = "none";
+                }
+            }
+        }
 
-    // Event listeners
-    researcherTypeDropdown.addEventListener("change", function () {
+        // Initialize visibility based on default selection
         toggleInternalResearcherFields();
         toggleCampusAndCollegeVisibility();
-    });
 
-    // Toggle college dropdown visibility based on campus selection
-    campusDropdown.addEventListener("change", function () {
-        if (campusDropdown.value !== "Sta. Mesa (MAIN CAMPUS)") {
-            collegeDropdownContainer.style.display = "none";
-        } else {
-            collegeDropdownContainer.style.display = "block";
-        }
-    });
+        // Event listeners
+        researcherTypeDropdown.addEventListener("change", function () {
+            toggleInternalResearcherFields();
+            toggleCampusAndCollegeVisibility();
+        });
 
-    // Initial check to ensure campus and college visibility is correct on page load
-    toggleCampusAndCollegeVisibility();
-});
+        // Toggle college dropdown visibility based on campus selection
+        campusDropdown.addEventListener("change", function () {
+            if (campusDropdown.value !== "Sta. Mesa (MAIN CAMPUS)") {
+                collegeDropdownContainer.style.display = "none";
+            } else {
+                collegeDropdownContainer.style.display = "block";
+            }
+        });
+
+        // Initial check to ensure campus and college visibility is correct on page load
+        toggleCampusAndCollegeVisibility();
+    });
 </script>

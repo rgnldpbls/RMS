@@ -35,7 +35,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return View();
         }
 
-
+        
         [HttpGet]
         public async Task<IActionResult> Applications()
         {
@@ -335,7 +335,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             {
                 UrecNo = ethicsApplication.UrecNo,
                 UserId = userId,
-                Status = "Applied",
+                Status = "Submit Documentary Requirements",
                 ChangeDate = DateTime.Now
             };
 
@@ -727,24 +727,10 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 model.RCV = FileHelper.ConvertToFormFile(existingForms.FirstOrDefault(f => f.EthicsFormId == "RCV")?.File, "RCV.pdf");
                 model.CV = FileHelper.ConvertToFormFile(existingForms.FirstOrDefault(f => f.EthicsFormId == "CV")?.File, "CV.pdf");
                 model.LI = FileHelper.ConvertToFormFile(existingForms.FirstOrDefault(f => f.EthicsFormId == "LI")?.File, "LI.pdf");
+                model.QST = FileHelper.ConvertToFormFile(existingForms.FirstOrDefault(f => f.EthicsFormId == "QST")?.File, "QST.pdf");
+                model.CR = FileHelper.ConvertToFormFile(existingForms.FirstOrDefault(f => f.EthicsFormId == "CR")?.File, "CR.pdf"); 
             }
 
-            if (model.InvolvesHumanSubjects)
-            {
-                if (model.InvolvesMinors)
-                {
-                    // Nothing to remove for minors
-                }
-                else
-                {
-                    model.FORM12 = null;  // If no minors, remove FORM12
-                }
-            }
-            else
-            {
-                model.FORM11 = null; // If no human subjects, remove FORM11
-                model.FORM12 = null; // If no human subjects, remove FORM12
-            }
 
             var fileProperties = new List<(string PropertyName, IFormFile NewFile, IFormFile EditFile)>
             {
@@ -756,7 +742,9 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 (nameof(model.CAA), model.CAA, model.editCAA),
                 (nameof(model.RCV), model.RCV, model.editRCV),
                 (nameof(model.CV), model.CV, model.editCV),
-                (nameof(model.LI), model.LI, model.editLI)
+                (nameof(model.LI), model.LI, model.editLI),
+                (nameof(model.QST), model.QST, model.editQST),
+                (nameof(model.CR), model.CR, model.editCR)
             };
 
             foreach (var (propertyName, newFile, editFile) in fileProperties)
@@ -854,6 +842,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             // Fetch the application, related NonFundedResearchInfo, and logs in one query using Include
             var applicationWithDetails = await _context.CRE_EthicsApplication
                 .Where(app => app.UrecNo == urecNo)
+                .Include(app => app.InitialReview)
                 .Include(app => app.NonFundedResearchInfo)
                     .ThenInclude(info => info.CoProponents)
                 .Include(app => app.EthicsApplicationLogs)  // Fetch related logs
@@ -870,6 +859,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             var viewModel = new TrackApplicationViewModel
             {
                 Application = applicationWithDetails,
+                InitialReview = applicationWithDetails.InitialReview,
                 NonFundedResearchInfo = applicationWithDetails.NonFundedResearchInfo,
                 CoProponents = applicationWithDetails.NonFundedResearchInfo?.CoProponents?.ToList() ?? new List<CoProponent>(),
                 Logs = applicationWithDetails.EthicsApplicationLogs.ToList()

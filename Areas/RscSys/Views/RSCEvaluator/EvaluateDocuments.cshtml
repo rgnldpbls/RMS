@@ -113,6 +113,38 @@
                                     </a>
                                 </div>
                             }
+                            if (document.FileName.Contains("Proof-of-indexing", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                            if (document.FileName.Contains("Tabular-list-of-research", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                            if (document.FileName.Contains("Tabular-list-of-funded-research", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
+                            if (document.FileName.Contains("Copies-of-published-research", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <div class="uploaded-document bg-danger position-relative">
+                                    <a href="#" class="text-white" onclick="openPreview('@Url.Action("GetDocument", "RSCEvaluator", new { requirementId = document.RequirementId })')">
+                                        <i class="fas fa-file-pdf ms-3 me-2"></i> @document.FileName
+                                    </a>
+                                </div>
+                            }
                         }
 
                         // For other application types, show all documents

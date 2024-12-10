@@ -423,6 +423,9 @@
                     <button type="button" id="backButton" class="btn btn-secondary" onclick="showPreviousSection()" style="display: none;">Back</button>
                     <button type="button" id="nextButton" class="btn btn-primary" onclick="showNextSection()">Next</button>
                     <button type="submit" id="submitButton" class="btn btn-success" style="display: none;">Submit Evaluation</button>
+                    <!-- Preview Button -->
+                    <button type="submit" id="previewButton" class="btn btn-info" style="display: none;" onclick="setPreviewAction()">Preview</button>
+                    <input type="hidden" id="action" name="action" value="" />  
                 </div>
             </form>
         </div>
@@ -583,6 +586,7 @@
                 // Change "Next" button to "Submit" on second page
                 document.getElementById("nextButton").style.display = "none";
                 document.getElementById("submitButton").style.display = "inline-block";
+                document.getElementById("previewButton").style.display = "inline-block";
                 document.getElementById("backButton").style.display = "inline-block"; // Show Back button
 
                 currentPage = 2;
@@ -617,6 +621,22 @@
             }
         });
     </script>
+        <script>
+            // Function to set the action to Preview
+            function setPreviewAction() {
+                document.getElementById('action').value = 'Preview';
+            }
+
+            // Function to confirm submission before sending the form
+            function confirmSubmission() {
+                if (document.getElementById('action').value === 'Preview') {
+                    return confirm('Are you sure you want to preview the evaluation?');
+                }
+                return true;  // Allow submission for other actions like Submit
+            }
+
+    </script>
+
 
 }
 <style>

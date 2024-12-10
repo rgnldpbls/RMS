@@ -15,7 +15,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
-    width: 40%;
+    width: 60%;
     transition: background-color 0.3s ease;
 }
 
@@ -39,6 +39,14 @@
     color: white;
     text-decoration: none;
 }
+
+.assigned-eval[b-13sxssrqds] {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    text-decoration: none;
+}
+
 
 .to-be[b-13sxssrqds] {
     background-color: #f5f5f5;

@@ -36,6 +36,27 @@ namespace rscSys_final.Controllers
             _hostingEnvironment = environment;
         }
 
+        [HttpPost]
+        public IActionResult MarkAllAsRead()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Update the status of unread notifications
+            var unreadNotifications = _context.RSC_Notifications
+                .Where(n => n.UserId == userId && !n.NotificationStatus && n.Role == "Evaluator" || n.Role == "All")
+                .ToList();
+
+            foreach (var notification in unreadNotifications)
+            {
+                notification.NotificationStatus = true; // Mark as read
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Notifications");
+        }
+
+
         // GET: Display the form to update specialization
         [HttpGet]
         public IActionResult UpdateSpecialization(string evaluatorId)
@@ -201,14 +222,51 @@ namespace rscSys_final.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var evaluatorId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the logged-in evaluator's ID
+            var evaluatorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Fetch evaluator assignments with related request data
+            // Fetch evaluator assignments with related data
             var evaluatorAssignments = _context.RSC_EvaluatorAssignments
                 .Where(ea => ea.EvaluatorId == evaluatorId &&
                              (ea.EvaluationStatus == "Accepted" || ea.EvaluationStatus == "Under Evaluation" || ea.EvaluationStatus == "Completed" || ea.EvaluationStatus == "Pending"))
-                .Include(ea => ea.Request) // Include the related Request data
+                .Include(ea => ea.Request)
+                .Include(ea => ea.Evaluators)
                 .ToList();
+
+            // Check for overdue assignments
+            var overdueAssignments = evaluatorAssignments
+                .Where(ea => ea.EvaluationDeadline < DateTime.Now && ea.EvaluationStatus != "Completed")
+                .ToList();
+
+            if (overdueAssignments.Any())
+            {
+                foreach (var assignment in overdueAssignments)
+                {
+                    // Remove overdue assignment
+                    _context.RSC_EvaluatorAssignments.Remove(assignment);
+
+                    // Notify the chief
+                    var chiefNotification = new Notifications
+                    {
+                        UserId = null, // Notify all chiefs or a specific chief user ID
+                        Role = "Chief",
+                        NotificationTitle = "Overdue Assignment Removed",
+                        NotificationMessage = $"Evaluation Assignment for DTS {assignment.Request.DtsNo} has been removed from evaluator {assignment.Evaluators.Name} due to exceeding the deadline.",
+                        NotificationCreationDate = DateTime.Now
+                    };
+                    _context.RSC_Notifications.Add(chiefNotification);
+                }
+
+                // Save changes
+                await _context.SaveChangesAsync();
+
+                // Re-fetch evaluator assignments to reflect the changes
+                evaluatorAssignments = _context.RSC_EvaluatorAssignments
+                    .Where(ea => ea.EvaluatorId == evaluatorId &&
+                                 (ea.EvaluationStatus == "Accepted" || ea.EvaluationStatus == "Under Evaluation" || ea.EvaluationStatus == "Completed" || ea.EvaluationStatus == "Pending"))
+                    .Include(ea => ea.Request)
+                    .Include(ea => ea.Evaluators)
+                    .ToList();
+            }
 
             // Count the number of pending and completed assignments
             int pendingCount = evaluatorAssignments.Count(ea => ea.EvaluationStatus == "Under Evaluation" || ea.EvaluationStatus == "Accepted" || ea.EvaluationStatus == "Pending");
@@ -244,26 +302,26 @@ namespace rscSys_final.Controllers
 
             // Count notifications where NotificationStatus is false for this user
             ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
-            .Count(n => n.UserId == evaluatorId && !n.NotificationStatus && n.Role == "Evaluator" || n.UserId == evaluatorId && !n.NotificationStatus && n.Role == "All");
+                .Count(n => n.UserId == evaluatorId && !n.NotificationStatus && n.Role == "Evaluator" || n.UserId == evaluatorId && !n.NotificationStatus && n.Role == "All");
 
             return View(viewModel);
         }
+
         public IActionResult Notifications()
         {
             // Get the current user's ID
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Fetch notifications for the current user
+            // Fetch all notifications for the current user
             var notifications = _context.RSC_Notifications
-                .Where(n => n.UserId == userId && n.Role == "Evaluator" || n.UserId == userId && !n.NotificationStatus && n.Role == "All")
+                .Where(n => n.UserId == userId && n.Role == "Evaluator" || n.UserId == userId && n.Role == "All")
                 .OrderByDescending(n => n.NotificationCreationDate)
                 .ToList();
 
-            // Count notifications where NotificationStatus is false for this user
-            ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
-            .Count(n => n.UserId == userId && !n.NotificationStatus && n.Role == "Evaluator" || n.UserId == userId && !n.NotificationStatus && n.Role == "All");
+            // Count unread notifications for the user
+            ViewBag.UnreadNotificationsCount = notifications.Count(n => !n.NotificationStatus);
 
-            // Pass the notifications to the view
+            // Pass all notifications to the view
             return View(notifications);
         }
 
