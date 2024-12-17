@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ResearchManagementSystem.Models;
+using ResearchManagementSystem.Data;
 
 namespace ResearchManagementSystem.Areas.Identity.Pages.Account
 {
@@ -120,6 +121,27 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                 {
                     var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
                     var roles = await _signInManager.UserManager.GetRolesAsync(user);
+
+                    {
+                        user.LastLoginTime = DateTime.UtcNow;
+                        await _signInManager.UserManager.UpdateAsync(user);
+                    }
+
+                    {
+                        // Update LastLoginTime for the user
+                        user.LastLoginTime = DateTime.UtcNow;
+                        await _signInManager.UserManager.UpdateAsync(user);
+
+                        // Log the login activity
+                        var dbContext = HttpContext.RequestServices.GetService<ApplicationDbContext>();
+                        dbContext.ActivityLog.Add(new UserActivityLog
+                        {
+                            UserId = user.Id,
+                            Activity = "Logged in",
+                            Timestamp = DateTime.UtcNow
+                        });
+                        await dbContext.SaveChangesAsync();
+                    }
 
                     _logger.LogInformation("User logged in.");
                     if (roles.Contains("SuperAdmin"))

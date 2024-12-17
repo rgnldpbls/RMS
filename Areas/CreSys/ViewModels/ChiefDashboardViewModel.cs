@@ -13,6 +13,7 @@
         public int SelectedYear { get; set; }
         public int SelectedMonth { get; set; }
         public int TotalApplicationsForYear { get; set; }
+        public string ChiefName { get; set; }
 
         public List<int> AvailableYears { get; set; }
         public List<MonthViewModel> AvailableMonths { get; set; }

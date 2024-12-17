@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "Faculty";
+
     Layout = "SuperAdmin_Layout";
 }
 <link href="~/css/ClusterCoordinator-Faculty-FacultyList.css" rel="stylesheet" />
@@ -27,28 +28,148 @@
         </div>
     </div>
 
-    <!--search and filter-->
-    <div class="container mt-3">
+    <!-- Search and Filter -->
+    <div class="container mt-3 px-0">
         <div class="row justify-content-between">
-            <!--search-->
+            <!-- Search -->
             <div class="col-lg-3 col-sm-12 mb-2">
                 <form action="" class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <input class="form-control me-2" type="search" placeholder="Search" name="searchTerm">
                     <button type="submit" id="action"><i class="fa-solid fa-magnifying-glass fa-2xl" style="color: #850000;"></i></button>
                 </form>
             </div>
-            <!--filter-->
+            <!-- Filter -->
             <div class="col-lg-3 col-sm-12 mb-2">
-                <form action="" class="d-flex">
-                    <select id="filterSelect" class="form-select me-2">
-                        <option>Name (A-Z)</option>
-                        <option>Name (Z-A)</option>
-                        <option>Current Rank (A-Z)</option>
-                        <option>Current Rank (Z-A)</option>
-                        <option>College (A-Z)</option>
-                        <option>College (Z-A)</option>
-                    </select>
-                    <button type="submit" id="action"><i class="fa-solid fa-filter fa-2xl" style="color: #850000;"></i></button>
+                <form asp-action="" method="get" class="d-flex">
+                    <div class="dropdown w-100">
+                        <button class="btn btn-danger dropdown-toggle w-100 d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter
+                        </button>
+                        <div class="dropdown-menu w-100">
+                            <div class="container">
+                                <!--First Name-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label class="form-label fw-bold" name="first_name_filter">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select class="form-select" id="first_name_filter">
+                                            <option>First Name (A-Z)</option>
+                                            <option>First Name (Z-A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--Last Name-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label class="form-label fw-bold" name="last_name_filter">Last Name</label>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select class="form-select" id="last_name_filter">
+                                            <option>Last Name (A-Z)</option>
+                                            <option>Last Name (Z-A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--Email-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label class="form-label fw-bold" name="email_filter">Email</label>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select class="form-select" id="email_filter">
+                                            <option>Email (A-Z)</option>
+                                            <option>Email (Z-A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--Current Rank-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label class="form-label fw-bold" name="current_rank_filter">Current Rank</label>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select class="form-select" id="current_rank_filter">
+                                            <option value="Instructor 1">Instructor 1</option>
+                                            <option value="Instructor 2">Instructor 2</option>
+                                            <option value="Instructor 3">Instructor 3</option>
+                                            <option value="Assistant Professor 1">Assistant Professor 1</option>
+                                            <option value="Assistant Professor 2">Assistant Professor 2</option>
+                                            <option value="Assistant Professor 3">Assistant Professor 3</option>
+                                            <option value="Assistant Professor 4">Assistant Professor 4</option>
+                                            <option value="Associate Professor 1">Associate Professor 1</option>
+                                            <option value="Associate Professor 2">Associate Professor 2</option>
+                                            <option value="Associate Professor 3">Associate Professor 3</option>
+                                            <option value="Associate Professor 4">Associate Professor 4</option>
+                                            <option value="Associate Professor 5">Associate Professor 5</option>
+                                            <option value="Professor 1">Professor 1</option>
+                                            <option value="Professor 2">Professor 2</option>
+                                            <option value="Professor 3">Professor 3</option>
+                                            <option value="Professor 4">Professor 4</option>
+                                            <option value="Professor 5">Professor 5</option>
+                                            <option value="Professor 6">Professor 6</option>
+                                            <option value="College Professor">College Professor</option>
+                                            <option value="University Professor">University Professor</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--Campus-->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label class="form-label fw-bold" name="BranchCampus_filter">Branch/Campus</label>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <select class="form-select" id="BranchCampus_filter">
+                                            <option value="">-- Select Campus --</option>
+                                            <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
+                                            <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
+                                            <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
+                                            <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
+                                            <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
+                                            <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
+                                            <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
+                                            <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
+                                            <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
+                                            <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
+                                            <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
+                                            <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
+                                            <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
+                                            <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
+                                            <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                                            <option value="Alfonso, Cavite (CAMPUS)">Alfonso, Cavite (CAMPUS)</option>
+                                            <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
+                                            <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
+                                            <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
+                                            <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
+                                            <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
+                                            <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                                            <option value="Open University System">Open University System</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-danger w-100">Apply Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -56,29 +177,28 @@
 
     <!--table-->
     <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
-        <table class="table table-borderless w-100">
-            <thead class="shadow-sm">
+        <table class="table w-100">
+            <thead class="shadow-sm" style="background:#850000;">
                 <tr class="align-middle">
-                    <th class="p-4 bg-transparent" scope="row">First Name</th>
-                    <th class="p-4 bg-transparent" scope="row">Last Name</th>
-                    <th class="p-4 bg-transparent" scope="col">Current Rank</th>
-                    <th class="p-4 bg-transparent" scope="col">Campus</th>
-                    <th class="p-4 bg-transparent" scope="col">Action</th>
+                    <th class="p-4 bg-transparent text-white" scope="row">First Name</th>
+                    <th class="p-4 bg-transparent text-white" scope="row">Last Name</th>
+                    <th class="p-4 bg-transparent text-white" scope="row">Email</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">Current Rank</th>
+                    <th class="p-4 bg-transparent text-white" scope="col">Campus</th>
+
                 </tr>
             </thead>
             <tbody>
                 @foreach (var user in Model)
+
                 {
                     <tr class="align-middle">
                         <td class="p-4 bg-transparent" scope="row">@user.FirstName</td>
                         <td class="p-4 bg-transparent" scope="row">@user.LastName</td>
+                        <td class="p-4 bg-transparent" scope="row">@user.Email</td>
                         <td class="p-4 bg-transparent" scope="col">Current Rank</td>
                         <td class="p-4 bg-transparent" scope="col">@user.Campus</td>
-                        <td class="p-4 bg-transparent" scope="col">
-                            
-                            
-                            <button id="action" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash fa-2xl" style="color: #850000;"></i></button>
-                        </td>
+
                     </tr>
                 }
             </tbody>
@@ -104,4 +224,6 @@
 
 
 </div>
+
+
 

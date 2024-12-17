@@ -1,11 +1,14 @@
 ﻿@{
     ViewData["Title"] = "About";
+
+
+
     Layout = "Student_Layout";
 }
 <link href="~/css/ClusterCoordinator-About.css" rel="stylesheet" />
 
 <!-- About Navigation -->
-<div class="abt-nav abt-nav-pills mb-4 mt-5">
+<div class="abt-nav abt-nav-pills mb-4 mt-3">
     <a class="abt-nav-link me-2 p-2 active" id="rmo-tab" href="#">Research Management Office</a>
     <a class="abt-nav-link me-2 p-2" id="objectives-tab" href="#">Objectives</a>
     <a class="abt-nav-link me-2 p-2" id="logo-tab" href="#">Logo</a>
@@ -96,7 +99,7 @@
 
 <div class="ms-5 me-5" id="objectives" style="display: none;">
     <h2>Objectives</h2>
-    <div class="justcontainer container-ob">
+    <div class="container-ob">
         <div class="mb-0">
             <h4 class="header">Objectives</h4>
         </div>
@@ -115,7 +118,7 @@
 
 <div class="mb-3 ms-5 me-5" id="logo" style="display: none;">
     <h2>Logo</h2>
-    <div class="justcontainer container-ob">
+    <div class="container-ob">
         <div class="mb-0">
             <h4 class="header">RMO Logo</h4>
         </div>
@@ -156,31 +159,78 @@
 <div class="mb-3 ms-5 me-5" id="services" style="display: none;">
     <h2>Services and Regular Capacity Building Programs / Projects</h2>
 
-    <div class="justcontainer container-ob">
+    <div class="container-ob">
         <div class="mb-0">
             <h4 class="header">Services</h4>
         </div>
 
         <div class="mt-0 p-3 me-4 ms-4">
             <ol>
-                <li class="obj p-2">Externally Funded Research Monitoring</li>
-                <li class="obj p-2">Internally Funded Research Monitoring</li>
-                <li class="obj p-2">International Paper Presentation Financial Assistance</li>
-                <li class="obj p-2">National Paper Presentation Financial Assistance</li>
-                <li class="obj p-2">University Publication Assistance</li>
-                <li class="obj p-2">Publication Incentive</li>
-                <li class="obj p-2">Citation Incentive</li>
-                <li class="obj p-2">Dissertation Financial Assistance</li>
-                <li class="obj p-2">Thesis and Dissertation Financial Grant</li>
-                <li class="obj p-2">Merit Promotion based on Publication and Citation</li>
-                <li class="obj p-2">Ethics Clearance Certification</li>
-                <li class="obj p-2">Research Linkages</li>
-
+                @* <li class="obj p-2">
+                <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                Externally Funded Research Monitoring
+                </a>
+                </li>
+                <li class="obj p-2">
+                <a href="/internally-funded-research-monitoring" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                Internally Funded Research Monitoring
+                </a>
+                </li> *@
+                <li class="obj p-2">
+                    <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                        International Paper Presentation Financial Assistance
+                    </a>
+                </li>
+                <li class="obj p-2">
+                    <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                        National Paper Presentation Financial Assistance
+                    </a>
+                </li>
+                @* <li class="obj p-2">
+                <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                University Publication Assistance
+                </a>
+                </li> *@
+                <li class="obj p-2">
+                    <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                        Publication Incentive
+                    </a>
+                </li>
+                <li class="obj p-2">
+                    <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                        Citation Incentive
+                    </a>
+                </li>
+                @* <li class="obj p-2">
+                <a href="/dissertation-financial-assistance" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                Dissertation Financial Assistance
+                </a>
+                </li>
+                <li class="obj p-2">
+                <a href="/thesis-dissertation-financial-grant" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                Thesis and Dissertation Financial Grant
+                </a>
+                </li> *@
+                @* <li class="obj p-2">
+                <a href="/merit-promotion-publication-citation" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                Merit Promotion based on Publication and Citation
+                </a>
+                </li> *@
+                <li class="obj p-2">
+                    <a href="@Url.Action("Index", "Home", new {area = "CreSys"})" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                        Ethics Clearance Certification
+                    </a>
+                </li>
+                @* <li class="obj p-2">
+                <a href="/research-linkages" style="text-decoration: none; color: black;" onmouseover="this.style.textDecoration='underline'; this.style.color='#850000';" onmouseout="this.style.textDecoration='none'; this.style.color='black';">
+                Research Linkages
+                </a>
+                </li> *@
             </ol>
         </div>
     </div>
 
-    <div class="justcontainer container-ob">
+    <div class="container-ob">
         <div class="mb-0">
             <h4 class="header">RMO Regular Capacity Building Programs / Projects</h4>
         </div>
@@ -209,7 +259,7 @@
 <div class="ms-5 me-5" id="officials-and-staff" style="display: none;">
     <h2>Officials and Staff</h2>
 
-    <div class="justcontainer container-ob">
+    <div class="container-ob">
         <div class="mb-0">
             <h4 class="header">Officials and Staff</h4>
         </div>
@@ -226,7 +276,7 @@
             </li>
             <li class="obj p-3">
                 <div class="d-flex align-items-center">
-                    <img class="me-3" src="" alt="remc chief" width="110" height="150">
+                    <img class="me-3" src="https://i.pinimg.com/736x/5a/6d/66/5a6d66a3e38a50419400963106036e59.jpg" alt="remc chief" width="110" height="150">
                     <div class="d-block official">
                         <p class="justp mb-0 fs-4"><strong>Paul Ryan A. Longhas, MS Math</strong></p>
                         <p class="justp">Chief, Research Evaluation and Monitoring Center</p>
@@ -235,27 +285,27 @@
             </li>
             <li class="obj p-3">
                 <div class="d-flex align-items-center">
-                    <img class="me-3" src="https://www.pup.edu.ph/resources/images/people/employees/samalahdr.jpg" alt="crdl chief" width="110" height="150">
+                    <img class="me-3" src="https://i1.rgstatic.net/ii/profile.image/11431281272710750-1724219975887_Q128/Heildenberg-Dimarucot.jpg" alt="crdl chief" width="110" height="150">
                     <div class="d-block official">
-                        <p class="justp mb-0 fs-4"><strong>Hazel D.R. Samala, MASED</strong></p>
+                        <p class="justp mb-0 fs-4"><strong>Dr. Heildenberg C. Dimarucot</strong></p>
                         <p class="justp">Chief, Center for Research Dissemination and Linkages</p>
                     </div>
                 </div>
             </li>
             <li class="obj p-3">
                 <div class="d-flex align-items-center">
-                    <img class="me-3" src="https://www.pup.edu.ph/resources/images/people/employees/llamesjju.jpg" alt="cre chief" width="110" height="150">
+                    <img class="me-3" src="https://i.pinimg.com/736x/5a/6d/66/5a6d66a3e38a50419400963106036e59.jpg" alt="cre chief" width="110" height="150">
                     <div class="d-block official">
-                        <p class="justp mb-0 fs-4"><strong>Jackson Jake U. Llames, MAF</strong></p>
+                        <p class="justp mb-0 fs-4"><strong>Julie Charmain O. Bonifacio</strong></p>
                         <p class="justp">Chief, Center for Research Ethics</p>
                     </div>
                 </div>
             </li>
             <li class="obj p-3">
                 <div class="d-flex align-items-center">
-                    <img class="me-3" src="https://www.pup.edu.ph/resources/images/people/employees/sagunrd.jpg" alt="rsc chief" width="110" height="150">
+                    <img class="me-3" src="https://i.pinimg.com/736x/5a/6d/66/5a6d66a3e38a50419400963106036e59.jpg" alt="rsc chief" width="110" height="150">
                     <div class="d-block official">
-                        <p class="justp mb-0 fs-4"><strong>Randy D. Sagun, MAF</strong></p>
+                        <p class="justp mb-0 fs-4"><strong>Jedidia Eunice P. Peña</strong></p>
                         <p class="justp">Chief, Research Support Center</p>
                     </div>
                 </div>
@@ -263,104 +313,33 @@
         </ul>
     </div>
 
-    <div class="justcontainer container-ob">
+    <div class="container-ob">
         <div class="mb-0">
             <h4 class="header">Research Management Cluster Coordinators</h4>
         </div>
 
         <ul class="no-bullet p-3">
-            <li class="obj p-2">
-                <p class="justp mb-0 fs-6"><strong>Anthony C. Yan, MUDD</strong></p>
-                <p class="justp">College of Architecture, Design, and the Built Environment</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Criselda M. Bragas, MBA</strong></p>
-                <p class="justp">College of Business Administration</p>
-            </li>
-            <li class="obj p-2">
-                <p class="mb-0 mt-3 fs-6"><strong>Jackson Jake U. Llames, MAF</strong></p>
-                <p>College of Arts and Letters</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Jeffrey R. Ancheta, MA</strong></p>
-                <p class="justp">College of Communication</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Ria A. Sagum, MCS</strong></p>
-                <p class="justp">College of Computer and Information Sciences</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Jay R A. Manatnam, MSc, MOM</strong></p>
-                <p class="justp">College of Education</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Ramces M. Dill, MA</strong></p>
-                <p class="justp">College of Political Science and Public Administration</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Jefferson F. Serrano, MPES</strong></p>
-                <p class="justp">College of Human Kinetics</p>
-            </li>
+
             <li class="obj p-2">
                 <p class="justp mb-0 mt-3 fs-6"><strong>Renato E. Apa-Ap, MAEd</strong></p>
                 <p class="justp">College of Science</p>
             </li>
+
             <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Aileen L. Camba, DBA</strong></p>
-                <p class="justp">College of Social Sciences and Development</p>
+                <p class="justp mb-0 mt-3 fs-6"><strong>Ria A. Sagum, MCS</strong></p>
+                <p class="justp">College of Computer and Information Sciences</p>
             </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Rock Bryan B. Matias, DBA</strong></p>
-                <p class="justp">College of Tourism, Hospitality, and Transportation Management</p>
-            </li>
+
             <li class="obj p-2">
                 <p class="justp mb-0 mt-3 fs-6"><strong>Jose Marie B. Dipay, MSIT</strong></p>
                 <p class="justp">Institute of Technology</p>
             </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Sheryl R. Morales, MEM</strong></p>
-                <p class="justp">Quezon City Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Ian C. Sagundinan, BSMath</strong></p>
-                <p class="justp">San Juan City Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Ariel P. Tuazon, PhD</strong></p>
-                <p class="justp">Sto. Tomas, Batangas Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Leilidyn Y. Zurbano, PhD</strong></p>
-                <p class="justp">Lopez, Quezon Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Honesto O. Camino, MAPsych, BSN</strong></p>
-                <p class="justp">Unisan, Quezon Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Ayreenlee E. Resus, MEM</strong></p>
-                <p class="justp">Maragondon, Cavite Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Aprilyn E. Calvario, MAED</strong></p>
-                <p class="justp">Sta. Rosa, Laguna Campus</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Ernie C. Avila, PhD</strong></p>
-                <p class="justp">Ragay, Camarines Sur Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Dina Grace Magnaye, MAED</strong></p>
-                <p class="justp">Bansud, Oriental Mindoro Branch</p>
-            </li>
-            <li class="obj p-2">
-                <p class="justp mb-0 mt-3 fs-6"><strong>Evelyn B. Modesto, MAT</strong></p>
-                <p class="justp">Sablayan, Occidental Mindoro Branch</p>
-            </li>
+
+
         </ul>
     </div>
 
-    <div class="justcontainer container-ob mb-3">
+    <div class="container-ob mb-3">
         <div class="mb-0">
             <h4 class="header">Administrative Staff</h4>
         </div>
@@ -389,4 +368,7 @@
 </div>
 
 <script src="~/js/About.js"></script>
+
+
+
 

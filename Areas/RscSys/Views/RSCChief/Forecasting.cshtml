@@ -5,114 +5,92 @@
 @{
     ViewData["Title"] = "Budget Forecast";
     Layout = "_LayoutCPages";
-
-    // Serialize ViewBag data to JSON
-    var yearsJson = ViewBag.Years != null ? JsonSerializer.Serialize(ViewBag.Years) : "[]";
-    var spentJson = ViewBag.Spent != null ? JsonSerializer.Serialize(ViewBag.Spent) : "[]";
+    var yearsJson = JsonSerializer.Serialize(ViewBag.Years);  // Serialize the Years list
+    var spentJson = JsonSerializer.Serialize(ViewBag.Spent);  // Serialize the Spent list
 }
 
 <style>
     .table-responsive {
         overflow-x: auto;
     }
-
-    canvas {
-        margin-bottom: 30px;
-    }
 </style>
 
 <h2><strong>Forecasting</strong></h2>
 
-@if (ViewBag.Years == null || ViewBag.Spent == null)
-{
-    <div class="alert alert-warning">No data available for forecasting. Please ensure the data is properly prepared.</div>
-}
-else
-{
-    <!-- Chart -->
-    <canvas id="budgetChart" width="800" height="400"></canvas>
+<canvas id="budgetChart" width="800" height="400"></canvas>
 
-    <!-- Data Table -->
-    <h3><strong>Data Table</strong></h3>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+<h3><strong>Data Table</strong></h3>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Budget (₱)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < ViewBag.Years.Count; i++)
+            {
                 <tr>
-                    <th>Year</th>
-                    <th>Budget (₱)</th>
+                    <td>@ViewBag.Years[i]</td>
+                    <td>₱@string.Format("{0:N2}", ViewBag.Spent[i])</td>
                 </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < ViewBag.Years.Count; i++)
-                {
-                    <tr>
-                        <td>@ViewBag.Years[i]</td>
-                        <td>₱@string.Format("{0:N2}", ViewBag.Spent[i])</td>
-                    </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<p><strong>Predicted Budget:</strong> ₱@Model.ForecastedBudget.ToString("N2")</p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('budgetChart').getContext('2d');
+    var forecastIndex = @ViewBag.Years.Count - 1;  // Index of the forecasted data point
+
+    var budgetChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(yearsJson),  // Use the serialized JSON for Years
+            datasets: [{
+                label: 'Budget (₱)',
+                data: @Html.Raw(spentJson),  // Use the serialized JSON for Spent values
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.1,
+                pointBackgroundColor: function (context) {
+                    return context.dataIndex === forecastIndex ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)';
+                },
+                pointRadius: function (context) {
+                    return context.dataIndex === forecastIndex ? 6 : 3;  // Larger point for forecasted value
                 }
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Error Metrics -->
-    <p>Mean Absolute Error (MAE): @ViewBag.MAE</p>
-    <p>Root Mean Squared Error (RMSE): @ViewBag.RMSE</p>
-    <p>Mean Absolute Percentage Error (MAPE): @ViewBag.MAPE%</p>
-    <p>R-squared: @ViewBag.RSquared</p>
-    <p>Signal-to-Noise Ratio (SNR): @ViewBag.SNR</p>
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var ctx = document.getElementById('budgetChart').getContext('2d');
-        var forecastStartIndex = @Model.HistoricalData.Count;  // Start index for forecasted data
-
-        var budgetChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: @Html.Raw(yearsJson),  // Years data
-                datasets: [{
-                    label: 'Budget (₱)',
-                    data: @Html.Raw(spentJson),  // Budget data
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0.1,
-                    pointBackgroundColor: function (context) {
-                        return context.dataIndex >= forecastStartIndex ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)';
-                    },
-                    pointRadius: function (context) {
-                        return context.dataIndex >= forecastStartIndex ? 6 : 3;  // Larger point for forecasted data
-                    }
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function (value) {
-                                return '₱' + value.toLocaleString();  // Format as currency
-                            }
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Year'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value) {
+                            return '₱' + value.toLocaleString();  // Format as PHP currency
                         }
                     }
                 },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return '₱' + tooltipItem.raw.toLocaleString();
-                            }
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Year'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return '₱' + tooltipItem.raw.toLocaleString();
                         }
                     }
                 }
             }
-        });
-    </script>
-}
+        }
+    });
+</script>

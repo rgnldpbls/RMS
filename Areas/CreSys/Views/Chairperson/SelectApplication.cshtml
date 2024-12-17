@@ -229,9 +229,9 @@
                             <td rowspan="@application.EthicsEvaluation.Count">@application.NonFundedResearchInfo.Title</td>
                             <td rowspan="@application.EthicsEvaluation.Count">
                                 <!-- Display main applicant -->
-                                @if (application.NonFundedResearchInfo?.Name != null)
+                                @if (application.NonFundedResearchInfo.Name != null)
                                 {
-                                    @application.NonFundedResearchInfo?.Name
+                                    @application.NonFundedResearchInfo.Name
                                 }
                                 else
                                 {
@@ -259,9 +259,9 @@
                                 <td>@(firstEvaluation.EndDate?.ToString("yyyy-MM-dd") ?? "Pending")</td>
                                 <td>
                                     <!-- Display evaluator's names -->
-                                    @if (firstEvaluation.EthicsEvaluator?.Name != null)
+                                    @if (firstEvaluation?.Name != null)
                                     {
-                                        @firstEvaluation.EthicsEvaluator.Name
+                                        @firstEvaluation.Name
                                     }
                                     else
                                     {
@@ -279,9 +279,9 @@
                                 <td>@(application.EthicsEvaluation.Last()?.EvaluationStatus ?? "N/A")</td>
                                 <td>@(evaluation.EndDate?.ToString("yyyy-MM-dd") ?? "Pending")</td>
                                 <td>
-                                    @if (evaluation.EthicsEvaluator?.Name != null)
+                                    @if (evaluation?.Name != null)
                                     {
-                                        @evaluation.EthicsEvaluator.Name
+                                        @evaluation.Name
                                     }
                                     else
                                     {

@@ -60,7 +60,7 @@
                 Lead Researcher
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.LeadResearcher.Id)
+                @Html.DisplayFor(model => model.LeadResearcher.FullName)
             </dd>
 
             <!--Co-Lead Researcher-->
@@ -68,7 +68,7 @@
                 Co-Lead Researcher
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CoLeadResearcher.Id)
+                @Html.DisplayFor(model => model.CoLeadResearcher.FullName)
             </dd>
 
             <!--Member 1-->
@@ -76,7 +76,7 @@
                 Member 1
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Memberone.Id)
+                @Html.DisplayFor(model => model.Memberone.FullName)
             </dd>
 
             <!--Member 2-->
@@ -84,7 +84,7 @@
                 Member 2
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Membertwo.Id)
+                @Html.DisplayFor(model => model.Membertwo.FullName)
             </dd>
 
             <!--Member 3-->
@@ -92,7 +92,7 @@
                 Member 3
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Memberthree.Id)
+                @Html.DisplayFor(model => model.Memberthree.FullName)
             </dd>
 
             <!--College-->
@@ -211,7 +211,7 @@
 
             <!--Notes-->
             <dt class="col-sm-2">
-                Notes
+                Created By:
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Notes)

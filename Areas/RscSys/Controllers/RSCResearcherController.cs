@@ -253,6 +253,7 @@ namespace rscSys_final.Controllers
 
             // Pass the applicant name to the view via ViewData
             ViewData["ApplicantName"] = applicantName;
+            ViewData["Status"] = application.Status;
 
             var statusHistories = _context.RSC_StatusHistories
             .Where(sh => sh.RequestId == id)
@@ -355,6 +356,7 @@ namespace rscSys_final.Controllers
 
             // Retrieve the applications related to the logged-in user
             var applications = _context.RSC_Requests
+                  .Include(r => r.DocumentHistories)
                 .Where(r => r.UserId == userId)
                 .OrderByDescending(r => r.CreatedDate)
                 .ToList();
@@ -856,32 +858,84 @@ namespace rscSys_final.Controllers
             var ethicsClearance = await _creDbContext.CRE_EthicsClearance
                 .FirstOrDefaultAsync(e => e.UrecNo == urecNumber && e.EthicsApplication.UserId == userId);
 
-            if (ethicsClearance != null)
+            if (ethicsClearance == null)
             {
-                // Fetch the checklist from the database and perform case-insensitive comparison in-memory
-                var checklist = (await _context.RSC_Checklists.ToListAsync())
-                    .FirstOrDefault(c => c.ChecklistName.Contains("Ethics Clearance", StringComparison.OrdinalIgnoreCase));
-
-                if (checklist == null)
-                {
-                    return Json(new { success = false, message = "No checklist for Ethics Clearance found." });
-                }
-
-                // Convert the clearance file to a Base64 string
-                var base64File = Convert.ToBase64String(ethicsClearance.ClearanceFile);
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Ethics Clearance found! Would you like to upload it automatically?",
-                    clearanceFile = base64File,
-                    checklistId = checklist.ChecklistId,
-                    draftId = draftId
-                });
+                return Json(new { success = false, message = "No Ethics Clearance found for the provided UREC number. Please apply for Ethics Clearance." });
             }
 
-            return Json(new { success = false, message = "No Ethics Clearance found for the provided UREC number. Please apply for Ethics Clearance." });
+            // Retrieve the draft and application type information
+            var draft = await _context.RSC_Drafts
+                .FirstOrDefaultAsync(d => d.DraftId == draftId && d.UserId == userId);
+
+            if (draft == null || string.IsNullOrEmpty(draft.ApplicationType))
+            {
+                return Json(new { success = false, message = "Draft not found or missing application type information." });
+            }
+
+            // Prioritize SubCategory over ApplicationType
+            var subCategoryId = await _context.RSC_ApplicationSubCategories
+                .Where(sc => sc.CategoryName == draft.ApplicationType)
+                .Select(sc => (int?)sc.CategoryId)
+                .FirstOrDefaultAsync();
+
+            if (subCategoryId != null)
+            {
+                // Fetch the checklist for the subcategory
+                var checklist = await _context.RSC_Checklists
+                    .Where(c =>
+                        c.ApplicationSubCategoryId == subCategoryId &&
+                        c.ChecklistName.ToLower().Contains("copy of ethics clearance".ToLower()))
+                    .FirstOrDefaultAsync();
+
+                if (checklist != null)
+                {
+                    var base64File = Convert.ToBase64String(ethicsClearance.ClearanceFile);
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Ethics Clearance found! Would you like to upload it automatically?",
+                        clearanceFile = base64File,
+                        checklistId = checklist.ChecklistId,
+                        draftId = draftId
+                    });
+                }
+            }
+
+            // If no subcategory checklist found, fall back to ApplicationType
+            var applicationTypeId = await _context.RSC_ApplicationTypes
+                .Where(at => at.ApplicationTypeName == draft.ApplicationType)
+                .Select(at => (int?)at.ApplicationTypeId)
+                .FirstOrDefaultAsync();
+
+            if (applicationTypeId != null)
+            {
+                var checklist = await _context.RSC_Checklists
+                    .FirstOrDefaultAsync(c =>
+                        c.ApplicationTypeId == applicationTypeId &&
+                        c.ChecklistName.ToLower().Contains("copy of ethics clearance".ToLower()));
+
+                if (checklist != null)
+                {
+                    var base64File = Convert.ToBase64String(ethicsClearance.ClearanceFile);
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Ethics Clearance found! Would you like to upload it automatically?",
+                        clearanceFile = base64File,
+                        checklistId = checklist.ChecklistId,
+                        draftId = draftId
+                    });
+                }
+            }
+
+            return Json(new { success = false, message = "No checklist for Ethics Clearance found." });
         }
+
+
+
+
 
     }
 }

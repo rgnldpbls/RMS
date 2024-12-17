@@ -86,13 +86,16 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
-            [Required]
+           
             [Display(Name = "Birthdate")]
             public DateOnly Birthdate { get; set; }
 
+
+       
             [Display(Name = "College")]
             public string College { get; set; }
 
+            [Required]
             [Display(Name = "Campus")]
             public string Campus { get; set; }
 
@@ -104,10 +107,26 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
             [Display(Name = "Role")]
             public string Role { get; set; }
 
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Rank")]
+            public string Rank { get; set; }
+
+            [Display(Name = "Start")]
+            public DateTime RankStartDate { get; set; }
+
+            [Display(Name = "End")]
+            public DateTime RankEndDate { get; set; }
+
+
+            //[Required]
+            //[EmailAddress]
+            //[Display(Name = "Email")]
+            //public string Email { get; set; }
+
+            [Required(ErrorMessage = "Email is required.")]
+            [RegularExpression(@"^.+@(pup\.edu\.ph|iskolarngbayan\.pup\.edu\.ph|gmail\.com)$",
+        ErrorMessage = "Invalid email domain. Please use a valid domain or school email.")]
             public string Email { get; set; }
+
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -156,6 +175,9 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
                 user.Campus = Input.Campus;
                 user.College = Input.College;
                 user.Department = Input.Department;
+                user.Rank = Input.Rank;
+                user.RankStartDate = Input.RankStartDate;
+                user.RankEndDate = null;   
                 user.Webmail = null;
 
                 // Create the user with the provided password

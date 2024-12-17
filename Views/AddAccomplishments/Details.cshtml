@@ -52,43 +52,28 @@
             </div>
         </div>
         <dl class="row shadow p-4" id="formcont">
-            <!--research Title-->
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ResearchTitle)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ResearchTitle)
-            </dd>
-            <!--year-->
-            <dt class="col-sm-2">
-                Year
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Year)
-            </dd>
+            <!-- Research Title -->
+            <dt class="col-sm-2">Research Title</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.ResearchTitle)</dd>
 
-            <!--Lead Researcher-->
-            <dt class="col-sm-2">
-                Lead Researcher
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.LeadResearcher.Id)
-            </dd>
+            <!-- Year -->
+            <dt class="col-sm-2">Year</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Year)</dd>
 
-            <!--Co-Lead Researcher-->
-            <dt class="col-sm-2">
-                Co-Lead Researcher
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CoLeadResearcher.Id)
-            </dd>
+            <!-- Lead Researcher -->
+            <dt class="col-sm-2">Lead Researcher</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.LeadResearcher.FullName)</dd>
+
+            <!-- Co-Lead Researcher -->
+            <dt class="col-sm-2">Co-Lead Researcher</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.CoLeadResearcher.FullName)</dd>
 
             <!--Member 1-->
             <dt class="col-sm-2">
                 Member 1
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Memberone.Id)
+                @Html.DisplayFor(model => model.Memberone.FullName)
             </dd>
 
             <!--Member 2-->
@@ -96,7 +81,7 @@
                 Member 2
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Membertwo.Id)
+                @Html.DisplayFor(model => model.Membertwo.FullName)
             </dd>
 
             <!--Member 3-->
@@ -104,56 +89,32 @@
                 Member 3
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Memberthree.Id)
+                @Html.DisplayFor(model => model.Memberthree.FullName)
             </dd>
 
-            <!--College-->
-            <dt class="col-sm-2">
-                College
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.College)
-            </dd>
 
-            <!--Department-->
-            <dt class="col-sm-2">
-                Department
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Department)
-            </dd>
+            <!-- College -->
+            <dt class="col-sm-2">College</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.College)</dd>
 
-            <!--Funding Agency-->
-            <dt class="col-sm-2">
-                Funding Agency
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FundingAgency)
-            </dd>
+            <!-- Department -->
+            <dt class="col-sm-2">Department</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Department)</dd>
 
-            <!--Funding Amount-->
-            <dt class="col-sm-2">
-                Funding Amount
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.FundingAmount)
-            </dd>
+            <!-- Funding -->
+            <dt class="col-sm-2">Funding Agency</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.FundingAgency)</dd>
 
-            <!--Date Started-->
-            <dt class="col-sm-2">
-                Date Started
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateStarted)
-            </dd>
+            <dt class="col-sm-2">Funding Amount</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.FundingAmount)</dd>
 
-            <!--Date Completed-->
-            <dt class="col-sm-2">
-                Date Completed
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateCompleted)
-            </dd>
+            <!-- Project Dates -->
+            <dt class="col-sm-2">Date Started</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.DateStarted)</dd>
+
+            <dt class="col-sm-2">Date Completed</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.DateCompleted)</dd>
+
             <!--SO/Abstract-->
             <dt class="col-sm-2">
                 SO/Abstract
@@ -181,7 +142,15 @@
                     </a>
                 }
             </dd>
-
+            <dd class="col-sm-10">
+                @if (Model.UrecNo != null)
+                {
+                    <a href="@Url.Action("DownloadEthicsClearance", "AddAccomplishments", new { urecNo = Model.UrecNo })"
+                       class="btn btn-danger btn-sm me-2" role="button">
+                        Download Ethics Clearance
+                    </a>
+                }
+            </dd>
             <!--Ethics Clearance-->
             <dt class="col-sm-2">
                 Ethics Clearance
@@ -222,7 +191,7 @@
 
             <!--Notes-->
             <dt class="col-sm-2">
-                Notes
+                Created By: 
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Notes)
@@ -235,8 +204,14 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.CreatedOn)
             </dd>
+
+            <dt class="col-sm-2">Ethics Clearance</dt>
+           
+
+
         </dl>
     </div>
+
 
     <!--presentation-->
     <div class="cat display-6 mt-4 pb-1">Presentation</div>

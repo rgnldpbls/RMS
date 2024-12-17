@@ -51,6 +51,10 @@
                     {
                         <a class="nav-link active" href="/RemcSys/FundedResearchApplication/GeneratedDocuments">Application</a>
                     }
+                    else if (ViewBag.Status == "Withdrawn" && ViewBag.IsFraArchived == true)
+                    {
+                        <a class="nav-link active" href="/RemcSys/Home/Forms">Application</a>
+                    }
                     else if(ViewBag.IsFraArchived == true)
                     {
                         <a class="nav-link active" href="/RemcSys/Home/Forms">Application</a>
@@ -77,6 +81,10 @@
                     else if (ViewBag.Status == "Pending" && ViewBag.IsFraArchived == false)
                     {
                         <a class="nav-link active" href="/RemcSys/FundedResearchApplication/GeneratedDocuments">Application</a>
+                    }
+                    else if (ViewBag.Status == "Withdrawn" && ViewBag.IsFraArchived == true)
+                    {
+                        <a class="nav-link active" href="/RemcSys/Home/Forms">Application</a>
                     }
                     else if (ViewBag.IsFraArchived == true)
                     {

@@ -710,6 +710,11 @@ namespace RemcSys.Controllers
             {
                 return NotFound("No Funded Research Application found!");
             }
+            /*if(fra.dts_No == null)
+            {
+                return Content("<script>alert('Please set the DTS No. first before proceeding.'); window.history.back();</script>", "text/html");
+            }*/
+
             ViewBag.FraId = fra.fra_Id;
             ViewBag.ProjTitle = fra.research_Title;
             ViewBag.TeamLead = fra.applicant_Name;
@@ -760,6 +765,11 @@ namespace RemcSys.Controllers
             {
                 return NotFound("Funded Research Application not found!");
             }
+            if (fra.dts_No == null)
+            {
+                return Content("<script>alert('Please set the DTS No. first before proceeding.'); window.history.back();</script>", "text/html");
+            }
+
             var researchEthics = new FundedResearchEthics
             {
                 fre_Id = Guid.NewGuid().ToString(),

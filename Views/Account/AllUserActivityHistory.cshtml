@@ -1,0 +1,33 @@
+﻿@model List<UserActivityViewModel>
+
+<h2>All User Activity History</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Last Login Time</th>
+            <th>Last Logout Time</th>
+            <th>Activity Description</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userLog in Model)
+        {
+            <tr>
+                <td>@userLog.UserName (@userLog.UserId)</td>
+                <td>@userLog.LastLogin?.ToString("g")</td>
+                <td>@userLog.LastLogout?.ToString("g")</td>
+                <td>
+                    <ul>
+                        @foreach (var activity in userLog.Activities)
+                        {
+                            <li>@activity.Activity - @activity.Timestamp?.ToString("g")</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

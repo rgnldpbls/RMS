@@ -255,7 +255,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("MembertwoId");
 
-                    b.ToTable("Production");
+                    b.ToTable("Production", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddCitation", b =>
@@ -333,7 +333,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("publicationId");
 
-                    b.ToTable("Citation");
+                    b.ToTable("Citation", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddFAQs", b =>
@@ -354,7 +354,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("added_by");
 
-                    b.ToTable("FAQs");
+                    b.ToTable("FAQs", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddPatent", b =>
@@ -378,7 +378,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Patent");
+                    b.ToTable("Patent", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddPresentation", b =>
@@ -429,7 +429,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Presentation");
+                    b.ToTable("Presentation", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddPublication", b =>
@@ -480,7 +480,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Publication");
+                    b.ToTable("Publication", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.AddUtilization", b =>
@@ -504,7 +504,7 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.HasIndex("ProductionId");
 
-                    b.ToTable("Utilization");
+                    b.ToTable("Utilization", (string)null);
                 });
 
             modelBuilder.Entity("ResearchManagementSystem.Models.ApplicationUser", b =>
@@ -542,6 +542,12 @@ namespace ResearchManagementSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("LastLoginTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastLogoutTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -571,6 +577,15 @@ namespace ResearchManagementSystem.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Rank")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RankEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("RankStartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

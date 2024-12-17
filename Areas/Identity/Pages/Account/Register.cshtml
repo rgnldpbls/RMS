@@ -16,9 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        html, body {
+        body {
             min-height: 90vh;
-           
+            background-repeat: no-repeat;
             background-image: url('/images/login-bg.jpg');
             background-size: cover;
         }
@@ -26,7 +26,7 @@
         #main {
             background: rgb(0, 0, 0, 0.7);
             backdrop-filter: blur(30px);
-            width: fit-content;
+            max-width: 40rem;
         }
 
         h4, h6 {
@@ -90,11 +90,11 @@
         }
     </style>
 </head>
-<body class="d-flex justify-content-center align-items-center">
+<body class="d-flex justify-content-center align-items-center my-5">
     <div class="container border border-white border-5 rounded-5 p-5" id="main">
         <!--Logo Section-->
         <div class="d-flex justify-content-center align-items-center">
-           
+
             <img src="~/images/rmologo.png" alt="rmo-logo" class="rounded-circle" />
             <div class="ms-3">
                 <h4>Research Management Office</h4>
@@ -113,8 +113,8 @@
 
             <!-- First Name -->
             <div class="form-floating mt-3">
-                <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
-                <label asp-for="Input.FirstName">First Name</label>
+                <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" required />
+                <label asp-for="Input.FirstName">First Name <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
 
@@ -126,33 +126,76 @@
 
             <!-- Last Name -->
             <div class="form-floating mt-3">
-                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
-                <label asp-for="Input.LastName">Last Name</label>
+                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" required />
+                <label asp-for="Input.LastName">Last Name <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
 
-            <div class="form-floating mt-3">
-                <input asp-for="Input.Birthdate" type="date" class="form-control" placeholder="Birthdate"/>
-                <label asp-for="Input.Birthdate">Birthdate</label>
-                <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
-            </div>
+            <!--birthdate-->
+            @*  <div class="form-floating mt-3">
+            <input asp-for="Input.Birthdate" type="date" class="form-control" placeholder="Birthdate" required />
+            <label asp-for="Input.Birthdate">Birthdate <span style="color: red">*</span></label>
+            <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
+            </div> *@
 
             <!-- Role -->
             <div class="form-floating mt-3">
-                <select id="roleDropdown" asp-for="Input.Role" class="form-control">
+                <select id="roleDropdown" asp-for="Input.Role" class="form-control" required>
                     <option value="">-- Select Role --</option>
                     <option value="student">Student</option>
                     <option value="faculty">Faculty</option>
                     <option value="External Researcher">External Researcher</option>
                     <option value="stakeholder">Stakeholder</option>
                 </select>
-                <label asp-for="Input.Role">Role</label>
+                <label asp-for="Input.Role">Role <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
 
+            <!-- Rank Fields (Initially hidden) -->
+            <div id="facultyRankFields" style="display:none;">
+                <div class="form-floating mt-3">
+                    <select class="form-select" asp-for="Input.Rank">
+                        <option value="">-- Select Rank --</option>
+                        <option value="Instructor 1">Instructor 1</option>
+                        <option value="Instructor 2">Instructor 2</option>
+                        <option value="Instructor 3">Instructor 3</option>
+                        <option value="Assistant Professor 1">Assistant Professor 1</option>
+                        <option value="Assistant Professor 2">Assistant Professor 2</option>
+                        <option value="Assistant Professor 3">Assistant Professor 3</option>
+                        <option value="Assistant Professor 4">Assistant Professor 4</option>
+                        <option value="Associate Professor 1">Associate Professor 1</option>
+                        <option value="Associate Professor 2">Associate Professor 2</option>
+                        <option value="Associate Professor 3">Associate Professor 3</option>
+                        <option value="Associate Professor 4">Associate Professor 4</option>
+                        <option value="Associate Professor 5">Associate Professor 5</option>
+                        <option value="Professor 1">Professor 1</option>
+                        <option value="Professor 2">Professor 2</option>
+                        <option value="Professor 3">Professor 3</option>
+                        <option value="Professor 4">Professor 4</option>
+                        <option value="Professor 5">Professor 5</option>
+                        <option value="Professor 6">Professor 6</option>
+                        <option value="College Professor">College Professor</option>
+                        <option value="University Professor">University Professor</option>
+                    </select>
+                    <label asp-for="Input.Rank">Rank</label>
+                    <span asp-validation-for="Input.Rank" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input type="date" class="form-control" id="rankStartDate" asp-for="Input.RankStartDate" />
+                    <label for="rankStartDate">Start Date<span style="color: red">*</span></label>
+                    <span asp-validation-for="Input.RankStartDate" class="text-danger"></span>
+                </div>
+
+
+            </div>
+
+
+
+
             <!-- Campus -->
             <div id="campusField" class="form-floating mt-3">
-                <select asp-for="Input.Campus" class="form-control" id="CampusDropdown">
+                <select asp-for="Input.Campus" class="form-control" id="CampusDropdown" required>
                     <option value="">-- Select Campus --</option>
                     <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
                     <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
@@ -169,20 +212,22 @@
                     <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
                     <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
                     <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                    <option value="Alfonso, Cavite (CAMPUS)">Alfonso, Cavite (CAMPUS)</option>
                     <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
                     <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
                     <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
                     <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
                     <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
                     <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                    <option value="Open University System">Open University System</option>
                 </select>
-                <label asp-for="Input.Campus">Campus</label>
+                <label asp-for="Input.Campus">Campus <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.Campus" class="text-danger"></span>
             </div>
 
             <!-- College -->
             <div class="form-floating mt-3" id="collegeDiv">
-                <select asp-for="Input.College" class="form-select" aria-label="College" id="college">
+                <select asp-for="Input.College" class="form-select" aria-label="College" id="college" required>
                     <option value="">Select College</option>
                     <option value="CAF">College of Accountancy and Finance (CAF)</option>
                     <option value="CADBE">College of Architecture, Design and the Built Environment (CADBE)</option>
@@ -200,43 +245,44 @@
                     <option value="CTHTM">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
                     <option value="ITECH"> Institute of Technology (ITECH)</option>
                 </select>
-                <label asp-for="Input.College">College</label>
+                <label asp-for="Input.College">College <span style="color: red">*</span></label>
 
                 <span asp-validation-for="Input.College" class="text-danger"></span>
             </div>
 
             <!-- Department -->
             <div class="form-floating mt-3" id="departmentDiv">
-                <select asp-for="Input.Department" id="department" class="form-select mb-3">
+                <select asp-for="Input.Department" id="department" class="form-select mb-3" required>
                     <option value="">Department</option>
                 </select>
-                <label asp-for="Input.Department">Department</label>
+                <label asp-for="Input.Department">Department <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.Department" class="text-danger"></span>
             </div>
 
             <!-- Email -->
             <div class="form-floating mt-3">
-                <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" required />
+                <label asp-for="Input.Email">Email <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
 
             <!-- Password -->
             <div class="form-floating mt-3">
-                <input asp-for="Input.Password" class="form-control" type="password" placeholder="Password" id="pas"/>
-                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" class="form-control" type="password" minlength="8" placeholder="Password" id="password" required />
+                <label asp-for="Input.Password">Password <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
-                <input type="checkbox" class="bg-danger form-check-input" onclick="myFunction()"> <span class="mt-2 text-white">Show Password</span>
-
+                <div class="form-text text-light">Passwords must be at least 8 characters long and include at least one uppercase letter (A-Z), one digit (0-9), and one non-alphanumeric character (e.g., !@@#$%^&*).</div>
             </div>
 
             <!-- Confirm Password -->
             <div class="form-floating mt-3 mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" type="password" placeholder="Confirm Password" id="conpas" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" type="password" placeholder="Confirm Password" id="confirmPassword" required />
+                <label asp-for="Input.ConfirmPassword">Confirm Password <span style="color: red">*</span></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                <input type="checkbox" class="bg-danger form-check-input" onclick="myFunctiontwo()"> <span class="mt-2 text-white">Show Password</span>
             </div>
+            <!--show password checkbox-->
+            <input type="checkbox" class="bg-danger form-check-input" onclick="togglePasswordVisibility()">
+            <span class="mt-2 text-white">Show Password</span>
 
             <div class="d-flex justify-content-center align-items-center mt-3">
                 <button type="submit" class="btn btn-danger">Register</button>
@@ -259,20 +305,16 @@
 }
 
 <script>
-    function myFunction() {
-        var x = document.getElementById("pas");
-        if (x.type === "password") {
-            x.type = "text";
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var confirmPasswordField = document.getElementById("confirmPassword");
+
+        if (passwordField.type === "password" && confirmPasswordField.type === "password") {
+            passwordField.type = "text";
+            confirmPasswordField.type = "text";
         } else {
-            x.type = "password";
-        }
-    }
-    function myFunctiontwo() {
-        var x = document.getElementById("conpas");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
+            passwordField.type = "password";
+            confirmPasswordField.type = "password";
         }
     }
 
@@ -403,32 +445,32 @@
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const campusDropdown = document.getElementById("CampusDropdown");
-        const collegeDropdownContainer = document.getElementById("collegeDiv");
-        const department = document.getElementById("departmentDiv")
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     const campusDropdown = document.getElementById("CampusDropdown");
+    //     const collegeDropdownContainer = document.getElementById("collegeDiv");
+    //     const department = document.getElementById("departmentDiv")
 
-        // Function to handle dynamic changes and realign
-        function toggleCollegeDropdown() {
-            const selectedCampus = campusDropdown.value;
+    //     // Function to handle dynamic changes and realign
+    //     function toggleCollegeDropdown() {
+    //         const selectedCampus = campusDropdown.value;
 
-            if (selectedCampus === "Sta. Mesa (MAIN CAMPUS)" || campusDropdown.disabled || selectedCampus === "") {
-                collegeDropdownContainer.style.display = "flex";
-                department.style.display = "flex";
-            } else {
-                collegeDropdownContainer.style.display = "none";
-                department.style.display = "none";
-            }
+    //         if (selectedCampus === "Sta. Mesa (MAIN CAMPUS)" || campusDropdown.disabled || selectedCampus === "") {
+    //             collegeDropdownContainer.style.display = "flex";
+    //             department.style.display = "flex";
+    //         } else {
+    //             collegeDropdownContainer.style.display = "none";
+    //             department.style.display = "none";
+    //         }
 
-            // Trigger layout recalculation after change
-            window.dispatchEvent(new Event('resize'));  // Forces the browser to recalculate the layout
-        }
+    //         // Trigger layout recalculation after change
+    //         window.dispatchEvent(new Event('resize'));  // Forces the browser to recalculate the layout
+    //     }
 
-        // Apply logic when the page loads
-        toggleCollegeDropdown();
+    //     // Apply logic when the page loads
+    //     toggleCollegeDropdown();
 
-        campusDropdown.addEventListener("change", toggleCollegeDropdown);
-    });
+    //     campusDropdown.addEventListener("change", toggleCollegeDropdown);
+    // });
 
     document.addEventListener("DOMContentLoaded", function () {
         const roleDropdown = document.getElementById("roleDropdown");
@@ -468,6 +510,44 @@
     });
 
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const roleDropdown = document.getElementById('roleDropdown');
+        const facultyRankFields = document.getElementById('facultyRankFields');
+
+        // Ensure facultyRankFields is hidden initially
+        if (roleDropdown.value !== 'faculty') {
+            facultyRankFields.style.display = 'none';
+            toggleFacultyFields(false); // Disable faculty fields initially
+        }
+
+        // Add event listener for dropdown changes
+        roleDropdown.addEventListener('change', function () {
+            if (roleDropdown.value === 'faculty') {
+                facultyRankFields.style.display = 'block';
+                toggleFacultyFields(true); // Enable faculty fields
+            } else {
+                facultyRankFields.style.display = 'none';
+                toggleFacultyFields(false); // Disable faculty fields
+            }
+        });
+
+        // Function to toggle faculty-specific fields
+        function toggleFacultyFields(enable) {
+            const facultyFields = facultyRankFields.querySelectorAll('input, select');
+            facultyFields.forEach(field => {
+                if (enable) {
+                    field.removeAttribute('disabled');
+                } else {
+                    field.setAttribute('disabled', 'true');
+                    field.value = ''; // Clear the field to avoid validation issues
+                }
+            });
+        }
+    });
+
+
+
 </script>
+
 
 

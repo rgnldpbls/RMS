@@ -13,67 +13,358 @@
         font-family: "Poppins";
         border-bottom: 5px solid #850000;
     }
+
+    table th,
+    table td {
+        white-space: nowrap;
+    }
+
+    table td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+        table th:nth-child(2),
+        table td:nth-child(2) {
+            max-width: 250px;
+        }
+
+        table th:nth-child(3),
+        table td:nth-child(3) {
+            max-width: 250px;
+        }
+
+        table th:nth-child(4),
+        table td:nth-child(4) {
+            max-width: 320px;
+        }
+
+        table th:nth-child(5),
+        table td:nth-child(5) {
+            max-width: 150px;
+        }
 </style>
 
 <!--title-->
 <div class="cat display-6 mb-3 pb-1">Accomplishments</div>
 
+<!-- Search and Filter -->
+<div class="container mt-3 px-0">
+    <div class="row justify-content-between">
+        <!-- Search -->
+        <div class="col-lg-3 col-sm-12 mb-2">
+            <form action="" class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" name="searchTerm">
+                <button type="submit" id="action"><i class="fa-solid fa-magnifying-glass fa-2xl" style="color: #850000;"></i></button>
+            </form>
+        </div>
+        <!-- Filter -->
+        <div class="col-lg-3 col-sm-12 mb-2">
+            <form asp-action="GetFilteredAccomplishments" method="get" class="d-flex">
+                <div class="dropdown w-100">
+                    <button class="btn btn-danger dropdown-toggle w-100 d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filter
+                    </button>
+                    <div class="dropdown-menu w-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <strong>Date Started</strong>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="number" name="Year" placeholder="Enter Year">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label" for="dateStartedFrom">From</label>
+                                    <input class="form-control form-control-sm" type="date" id="dateStartedFrom" name="DateStartedFrom">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label" for="dateStartedTo">To</label>
+                                    <input class="form-control form-control-sm" type="date" id="dateStartedTo" name="DateStartedTo">
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <strong>Research Title</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="text" name="ResearchTitle" placeholder="Enter Research Title">
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <strong>College</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" name="College">
+                                        <option value="">Select College</option>
+                                        <option value="CAF">College of Accountancy and Finance (CAF)</option>
+                                        <option value="CADBE">College of Architecture, Design and the Built Environment (CADBE)</option>
+                                        <option value="CAL">College of Arts and Letters (CAL)</option>
+                                        <option value="CBA">College of Business Administration (CBA)</option>
+                                        <option value="COC">College of Communication (COC)</option>
+                                        <option value="CCIS">College of Computer and Information Sciences (CCIS)</option>
+                                        <option value="COED">College of Education (COED)</option>
+                                        <option value="CE">College of Engineering (CE)</option>
+                                        <option value="CHK">College of Human Kinetics (CHK)</option>
+                                        <option value="CL">College of Law (CL)</option>
+                                        <option value="CPSPA">College of Political Science and Public Administration (CPSPA)</option>
+                                        <option value="CSSD">College of Social Sciences and Development (CSSD)</option>
+                                        <option value="CS">College of Science (CS)</option>
+                                        <option value="CTHTM">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
+                                        <option value="ITECH"> Institute of Technology (ITECH)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <strong>Branch/Campus</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" name="BranchCampus">
+                                        <option value="">-- Select Campus --</option>
+                                        <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
+                                        <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
+                                        <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
+                                        <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
+                                        <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
+                                        <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
+                                        <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
+                                        <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
+                                        <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
+                                        <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
+                                        <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
+                                        <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
+                                        <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
+                                        <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
+                                        <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                                        <option value="Alfonso, Cavite (CAMPUS)">Alfonso, Cavite (CAMPUS)</option>
+                                        <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
+                                        <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
+                                        <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
+                                        <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
+                                        <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
+                                        <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                                        <option value="Open University System">Open University System</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <strong>Department</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" name="Department">
+                                        <option value="">Select Department</option>
+                                        <!-- Add department options here -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-danger w-100">Apply Filter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!--table-->
 <div class="container bg-white shadow mt-1 table-responsive rounded-4 p-0">
     <table class="table w-100">
         <thead class="shadow-sm" style="background:#850000;">
             <tr class="align-middle">
-                <th class="p-4 bg-transparent text-white" scope="col">Production ID</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Year</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Research Title</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Lead Researcher</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Co-Lead Researcher</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Members</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Date Started</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Date Completed</th>
-                <th class="p-4 bg-transparent text-white" scope="col">Created By</th>
+                <th class="p-4 text-white" scope="col" style="position: sticky; left: 0; z-index: 2; background: #850000;">Year</th>
+                <th class="p-4 text-white" scope="col" style="position: sticky; left: 100px; z-index: 2; background: #850000;">Research Title</th>
+                <th class="p-4 bg-transparent text-white" scope="col">Researcher/s</th>
+                <th class="p-4 bg-transparent text-white" scope="col">Branch/Campus/College/Department</th>
+                <th class="p-4 bg-transparent text-white" scope="col">Duration</th>
+
                 <th class="p-4 bg-transparent text-white" scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-                <tr class="align-middle">
-                    <td class="p-4 bg-transparent" scope="row">@item.ProductionId</td>
-                    <td class="p-4 bg-transparent">@item.Year</td>
-                    <td class="p-4 bg-transparent">@item.ResearchTitle</td>
-                    <td class="p-4 bg-transparent">@item.LeadResearcherFirstName @item.LeadResearcherLastName</td>
-                    <td class="p-4 bg-transparent">@item.CoLeadResearcherFirstName @item.CoLeadResearcherLastName</td>
-                    <td class="p-4 bg-transparent">
-                    @if (!string.IsNullOrEmpty(item.MemberoneId))
-                    {
-                        @item.MemberOneFirstName @item.MemberOneLastName
-
-                        <br />
-                    }
-                    @if (!string.IsNullOrEmpty(item.MembertwoId))
-                    {
-                        @item.MemberTwoFirstName @item.MemberTwoLastName
-
-                        <br />
-                    }
-                    @if (!string.IsNullOrEmpty(item.MemberthreeId))
-                    {
-                        @item.MemberThreeFirstName @item.MemberThreeLastName
-                    }
-                </td>
-                    <td class="p-4 bg-transparent">@item.DateStarted.ToString("MM/dd/yyyy")</td>
-                    <td class="p-4 bg-transparent">@item.DateCompleted?.ToString("MM/dd/yyyy")</td>
-                    <td class="p-4 bg-transparent">@item.CreatedByFirstName @item.CreatedByLastName</td>
-
-                    <td class="p-4 bg-transparent">
-                    <button id="action" class="me-2"><a asp-action="DetailsDirector" asp-route-id="@item.ProductionId"><i class="fa-solid fa-eye fa-2xl" style="color: #850000;"></i></a></button>
-                </td>
-
 
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="align-middle">
+                    <td class="p-4 bg-white" style="position: sticky; left: 0; z-index: 2;" scope="row">@item.Year </td>
+                    <td class="p-4 bg-white" style="position: sticky; left: 100px; z-index: 2;">@item.ResearchTitle</td>
+                    <td class="p-4 bg-transparent">
+                        <span class="d-block">@item.LeadResearcherFullName,</span>
+                        <span class="d-block">@item.CoLeadResearcherFullName,</span>
+                        <span class="d-block">@item.MemberOneFullName,</span>
+                        <span class="d-block">@item.MemberTwoFullName,</span>
+                        <span class="d-block">@item.MemberThreeFullName</span>
+
+                    </td>
+                    <td class="p-4 bg-transparent">
+                        <span class="d-block">@item.BranchCampus/</span>
+                        <span class="d-block">@item.College/</span>
+                        <span class="d-block">@item.Department</span>
+                    </td>
+
+                    <td class="p-4 bg-transparent">@item.DateStarted - @item.DateCompleted</td>
+
+
+
+
+                    <td class="p-4 bg-transparent">
+                        <button id="action" class="me-2"><a asp-action="DetailsDirector" asp-route-id="@item.ProductionId"><i class="fa-solid fa-eye fa-2xl" style="color: #850000;"></i></a></button>
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+    //dept and college select
+    $(document).ready(function () {
+        var departments = {
+            CAF: [
+                { value: 'BSA', text: 'Bachelor of Science in Accountancy' },
+                { value: 'BSMA', text: 'Bachelor of Science in Management Accounting' },
+                { value: 'BSBAFM', text: 'Bachelor of Science in Business Administration Major in Financial Management' }
+            ],
+            CADBE: [
+                { value: 'BS-ARCH', text: 'Bachelor of Science in Architecture' },
+                { value: 'BSID', text: 'Bachelor of Science in Interior Design' },
+                { value: 'BSEP', text: 'Bachelor of Science in Environmental Planning' }
+            ],
+            CAL: [
+                { value: 'ABELS', text: 'Bachelor of Arts in English Language Studies' },
+                { value: 'ABF', text: 'Bachelor of Arts in Filipinology' },
+                { value: 'ABLCS', text: 'Bachelor of Arts in Literary and Cultural Studies' },
+                { value: 'AB-PHILO', text: 'Bachelor of Arts in Philosophy' },
+                { value: 'BPEA', text: 'Bachelor of Performing Arts major in Theater Arts' }
+            ],
+            CBA: [
+                { value: 'DBA', text: 'Doctor in Business Administration' },
+                { value: 'MBA', text: 'Master in Business Administration' },
+                { value: 'BSBAHRM', text: 'Bachelor of Science in Business Administration major in Human Resource Management' },
+                { value: 'BSBA-MM', text: 'Bachelor of Science in Business Administration major in Marketing Management' },
+                { value: 'BSENTREP', text: 'Bachelor of Science in Entrepreneurship' },
+                { value: 'BSOA', text: 'Bachelor of Science in Office Administration' },
+
+            ],
+            COC: [
+                { value: 'BADPR', text: 'Bachelor in Advertising and Public Relations' },
+                { value: 'BA_Broadcasting', text: 'Bachelor of Arts in Broadcasting' },
+                { value: 'BAJ', text: 'Bachelor of Arts in Journalism' }
+            ],
+            CCIS: [
+                { value: 'BSCS', text: 'Bachelor of Science in Computer Science' },
+                { value: 'BSIT', text: 'Bachelor of Science in Information Technology' }
+            ],
+            COED: [
+                { value: 'PhDEM', text: 'Doctor of Philsophy in Education Management' },
+                { value: 'MAEM', text: 'Master of Arts in Education Management' },
+                { value: 'MBE', text: 'Master in Business Education' },
+                { value: 'MLIS', text: 'Master in Library and Information Science' },
+                { value: 'MAELT', text: 'Master of Arts in English Language Teaching' },
+                { value: 'MAEd-ME', text: 'Master of Arts in Education major in Mathematics Education' },
+                { value: 'MAPES', text: 'Master of Arts in Physical Education and Sports' },
+                { value: 'MAED-TCA', text: 'Master of Arts in Education major in Teaching in the Challenged Areas' },
+                { value: 'PBDE', text: 'Post-Baccalaureate Diploma in Education' },
+                { value: 'BTLEd', text: 'Bachelor of Technology and Livelihood Education' },
+                { value: 'BLIS', text: 'Bachelor of Library and Information Science' },
+                { value: 'BSEd', text: 'Bachelor of Secondary Education' },
+                { value: 'BEEd', text: 'Bachelor of Elementary Education' },
+                { value: 'BECEd', text: 'Bachelor of Early Childhood Education' },
+            ],
+            CE: [
+                { value: 'BSCE', text: 'Bachelor of Science in Civil Engineering' },
+                { value: 'BSCpE', text: 'Bachelor of Science in Computer Engineering' },
+                { value: 'BSEE', text: 'Bachelor of Science in Electrical Engineering' },
+                { value: 'BSECE', text: 'Bachelor of Science in Electronics Engineering' },
+                { value: 'BSIE', text: 'Bachelor of Science in Industrial Engineering' },
+                { value: 'BSME', text: 'Bachelor of Science in Mechanical Engineering' },
+                { value: 'BSRE', text: 'Bachelor of Science in Railway Engineering' },
+
+            ],
+            CHK: [
+                { value: 'BPE', text: 'Bachelor of Physical Education' },
+                { value: 'BSESS', text: 'Bachelor of Science in Exercises and Sports' }
+            ],
+            CL: [
+                { value: 'JD', text: 'Juris Doctor' }
+            ],
+            CPSPA: [
+                { value: 'DPA', text: 'Doctor in Public Administration' },
+                { value: 'MPA', text: 'Master in Public Administration' },
+                { value: 'BPA', text: 'Bachelor of Public Administration' },
+                { value: 'BAIS', text: 'Bachelor of Arts in International Studies' },
+                { value: 'BAPE', text: 'Bachelor of Arts in Political Economy' },
+                { value: 'BAPS', text: 'Bachelor of Arts in Political Science' },
+            ],
+            CSSD: [
+                { value: 'BAH', text: 'Bachelor of Arts in History' },
+                { value: 'BAS', text: 'Bachelor of Arts in Sociology' },
+                { value: 'BSC', text: 'Bachelor of Science in Cooperatives' },
+                { value: 'BSE', text: 'Bachelor of Science in Economics' },
+                { value: 'BSPSY', text: 'Bachelor of Science in Psychology' },
+            ],
+            CS: [
+                { value: 'BSFT', text: 'Bachelor of Science Food Technology' },
+                { value: 'BSAPMATH', text: 'Bachelor of Science in Applied Mathematics' },
+                { value: 'BSBIO', text: 'Bachelor of Science in Biology' },
+                { value: 'BSCHEM', text: 'Bachelor of Science in Chemistry' },
+                { value: 'BSMATH', text: 'Bachelor of Science in Mathematics' },
+                { value: 'BSND', text: 'Bachelor of Science in Nutrition and Dietetics' },
+                { value: 'BSPHY', text: 'Bachelor of Science in Physics' },
+                { value: 'BSSTAT', text: 'Bachelor of Science in Statistics' }
+            ],
+            CTHTM: [
+                { value: 'BSHM', text: 'Bachelor of Science in Hospitality Management' },
+                { value: 'BSTM', text: 'Bachelor of Science in Tourism Management' },
+                { value: 'BSTRM', text: 'Bachelor of Science in Transportation Management' }
+            ],
+            ITECH: [
+                { value: 'DCvET', text: 'Diploma in Civil Engineering Technology' },
+                { value: 'DCET', text: 'Diploma in Computer Engineering Technology' },
+                { value: 'DEET', text: 'Diploma in Electrical Engineering Technology' },
+                { value: 'DECET', text: 'Diploma in Electronics Engineering Technology' },
+                { value: 'DICT', text: 'Diploma in Information Communication Technology' },
+                { value: 'DMET', text: 'Diploma in Mechanical Engineering Technology' },
+                { value: 'DOMT', text: 'Diploma in Office Management Technology' },
+                { value: 'DRET', text: 'Diploma in Railway Engineering Technology' }
+            ]
+        };
+
+        $('#college').change(function () {
+            var college = $(this).val();
+            var $department = $('#department');
+
+            $department.empty();
+
+            if (college && departments[college]) {
+                departments[college].forEach(function (department) {
+                    $department.append('<option value="' + department.value + '">' + department.text + '</option>');
+                });
+            }
+        });
+    });
+</script>
+
 

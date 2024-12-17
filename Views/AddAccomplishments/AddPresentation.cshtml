@@ -12,6 +12,12 @@
         background: #850000;
         color: white;
     }
+
+    .welcomez {
+        background: rgb(133, 0, 0, 0.2);
+        font-family: "Poppins";
+        color: #850000;
+    }
 </style>
 <div>
     <!--navbar-->
@@ -40,138 +46,135 @@
                 <!--conference title-->
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <label class="form-label" for="conference_title">Conference Title</label>
-                        <input class="form-control mb-3" type="text" id="conference_title" placeholder="Conference Title">
+                        <label class="form-label" for="conference_title">Conference Title <span style="color: red">*</span></label>
+                        <input class="form-control" type="text" id="conference_title" placeholder="Conference Title" required>
                     </div>
                 </div>
 
-                <!--organizers-->
                 <div class="row">
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
-                    </div>
-                    <div class="col-lg-4 col-sm-2 text-center">
-                        <h4>Organizers</h4>
-                    </div>
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
+                    <!--venue-->
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="OrganizerOne" class="form-label">Organizer 1</label>
-                        <input asp-for="OrganizerOne" class="form-control mb-3" placeholder="Organizer 1" />
-                        <span asp-validation-for="OrganizerOne" class="text-danger"></span>
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-                        <label asp-for="OrganizerTwo" class="form-label">Organizer 2</label>
-                        <input asp-for="OrganizerTwo" class="form-control mb-3" placeholder="Organizer 2" />
-                        <span asp-validation-for="OrganizerTwo" class="text-danger"></span>
-
-                    </div>
-                </div>
-
-                <!--Presenters-->
-                <div class="row">
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
-                    </div>
-                    <div class="col-lg-4 col-sm-2 text-center">
-                        <h4>Presentors</h4>
-                    </div>
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-sm-12">
-                        <label asp-for="PresenterOne" class="form-label">Presenter 1</label>
-                        <input asp-for="PresenterOne" class="form-control mb-3" placeholder="Presenter 1" />
-                        <span asp-validation-for="PresenterOne" class="text-danger"></span>
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        <label asp-for="PresenterTwo" class="form-label">Presenter 2</label>
-                        <input asp-for="PresenterTwo" class="form-control mb-3" placeholder="Presenter 2" />
-                        <span asp-validation-for="PresenterTwo" class="text-danger"></span>
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        <label asp-for="PresenterThree" class="form-label">Presenter 3</label>
-                        <input asp-for="PresenterThree" class="form-control mb-3" placeholder="Presenter 3" />
-                        <span asp-validation-for="PresenterThree" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12">
-                        <label asp-for="PresenterFour" class="form-label">Presenter 4</label>
-                        <input asp-for="PresenterFour" class="form-control mb-3" placeholder="Presenter 4" />
-                        <span asp-validation-for="PresenterFour" class="text-danger"></span>
-
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-                        <label asp-for="PresenterFive" class="form-label">Presenter 5</label>
-                        <input asp-for="PresenterFive" class="form-control mb-3" placeholder="Presenter 5" />
-                        <span asp-validation-for="PresenterFive" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <hr>
-                    </div>
-                </div>
-
-                <!--venue-->
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12">
-                        <label asp-for="Venue" class="form-label">Venue</label>
-                        <input asp-for="Venue" class="form-control mb-3" placeholder="Venue" />
+                        <label asp-for="Venue" class="form-label mt-3">Venue <span style="color: red">*</span></label>
+                        <input asp-for="Venue" class="form-control" placeholder="Venue" required />
                         <span asp-validation-for="Venue" class="text-danger"></span>
                     </div>
 
                     <!--level-->
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="Level" class="form-label">Level</label>
-                        <select asp-for="Level" class="form-select mb-3">
+                        <label asp-for="Level" class="form-label mt-3">Level <span style="color: red">*</span></label>
+                        <select asp-for="Level" class="form-select" required>
                             <option value="">International</option>
                             <option value="">National</option>
                             <option value="">Regional</option>
+                            <option value="">Institutional</option>
                         </select>
                     </div>
                 </div>
-                <!--cert-->
+
+                <!--organizers-->
+                <div class="welcomez container p-2 rounded-2 mt-3">
+                    <div class="fs-6 fw-bold text-center">Organizers</div>
+                </div>
                 <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <label class="form-label" for="Certificate_of_Participation_Presentation">Certificate of Participation/Presentation</label>
-                        <input class="form-control mb-3" type="file" name="CertificateofParticipationFileData" placeholder="Certificate of Participation/Presentation" accept=".pdf" required>
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="OrganizerOne" class="form-label mt-3">Organizer 1 <span style="color: red">*</span></label>
+                        <input asp-for="OrganizerOne" class="form-control" placeholder="Organizer 1" required />
+                        <span asp-validation-for="OrganizerOne" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="OrganizerTwo" class="form-label mt-3">Organizer 2</label>
+                        <input asp-for="OrganizerTwo" class="form-control" placeholder="Organizer 2" />
+                        <span asp-validation-for="OrganizerTwo" class="text-danger"></span>
+
                     </div>
                 </div>
 
+                <!--presenters-->
+                <div class="welcomez container p-2 rounded-2 mt-3">
+                    <div class="fs-6 fw-bold text-center">Presenters</div>
+                </div>
+
                 <div class="row">
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="PresenterOne" class="form-label mt-3">Presenter 1 <span style="color: red">*</span></label>
+                        <input asp-for="PresenterOne" class="form-control" placeholder="Presenter 1" required />
+                        <span asp-validation-for="PresenterOne" class="text-danger"></span>
                     </div>
-                    <div class="col-lg-4 col-sm-2 text-center">
-                        <h4>Date of Presentation</h4>
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="PresenterTwo" class="form-label mt-3">Presenter 2</label>
+                        <input asp-for="PresenterTwo" class="form-control" placeholder="Presenter 2" />
+                        <span asp-validation-for="PresenterTwo" class="text-danger"></span>
                     </div>
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
+                    <div class="col-lg-4 col-sm-12">
+                        <label asp-for="PresenterThree" class="form-label mt-3">Presenter 3</label>
+                        <input asp-for="PresenterThree" class="form-control" placeholder="Presenter 3" />
+                        <span asp-validation-for="PresenterThree" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="PresenterFour" class="form-label mt-3">Presenter 4</label>
+                        <input asp-for="PresenterFour" class="form-control" placeholder="Presenter 4" />
+                        <span asp-validation-for="PresenterFour" class="text-danger"></span>
+
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label asp-for="PresenterFive" class="form-label mt-3">Presenter 5</label>
+                        <input asp-for="PresenterFive" class="form-control" placeholder="Presenter 5" />
+                        <span asp-validation-for="PresenterFive" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <!--date of presentation-->
+                <div class="welcomez container p-2 rounded-2 mt-3">
+                    <div class="fs-6 fw-bold text-center">Date of Presentation</div>
+                </div>
+
+                <div class="row">
                     <!--start date-->
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="DateofPresentation" class="form-label">Start Date</label>
-                        <input asp-for="DateofPresentation" class="form-control mb-3" />
+                        <label asp-for="DateofPresentation" class="form-label mt-3">Start Date <span style="color: red">*</span></label>
+                        <input asp-for="DateofPresentation" class="form-control" required />
                         <span asp-validation-for="DateofPresentation" class="text-danger"></span>
                     </div>
                     <!--end date-->
                     <div class="col-lg-6 col-sm-12">
-                        <label class="form-label" for="end_date">End Date</label>
-                        <input class="form-control mb-3" type="date" id="end_date" placeholder="End Date">
+                        <label class="form-label mt-3" for="end_date">End Date <span style="color: red">*</span></label>
+                        <input class="form-control" type="date" id="end_date" placeholder="End Date" required>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!--required files-->
+        <div class="container shadow mb-3" id="content">
+            <div class="row shadow-sm h3 p-4 mb-1" id="title">
+                Required Files
+            </div>
+            <div class="row shadow p-4" id="formcont">
+                <!--cert-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label mt-1" for="Certificate_of_Participation_Presentation">Certificate of Participation/Presentation <span style="color: red">*</span></label>
+                        <input class="form-control" type="file" name="CertificateofParticipationFileData" placeholder="Certificate of Participation/Presentation" accept=".pdf" required>
+                    </div>
+                </div>
+                <!--Letter of Acceptance-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label mt-3" for="letter_of_acceptance">Letter of Acceptance <span style="color: red">*</span></label>
+                        <input class="form-control" type="file" name="letter_of_acceptance" placeholder="Letter of Acceptance" accept=".pdf" required>
+                    </div>
+                </div>
+                <!--Special Order (SO)-->
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <label class="form-label mt-3" for="Special_Order">Special Order (SO) <span style="color: red">*</span></label>
+                        <input class="form-control" type="file" name="Special_Order" placeholder="Special Order (SO)" accept=".pdf" required>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container mt-3 mb-3">
             <div class="d-flex justify-content-end">
                 <input type="reset" value="Clear" class="ms-2" id="reset">
@@ -214,4 +217,5 @@
         }
     </script>
 }
+
 

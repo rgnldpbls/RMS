@@ -31,11 +31,8 @@
         if (isApplicationEval) completedStatuses++;
     }
 
-
-    // Calculate the progress width in percentage
     double progressPercentage = (double)completedStatuses / totalStatuses * 100;
 
-    // If "Approved" status is present, set completed statuses to 4
    
 }
 
@@ -171,13 +168,24 @@
                 </div>
 
                 <div class="col timeline-item">
-                    <div class="timeline-icon mx-auto @(isApplicationApprove ? "bg-success" : "bg-secondary")">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <p class="mt-2 mb-0">Approved</p>
-                    @if (isApplicationApprove)
+                    @if (ViewData["Status"]?.ToString() == "Rejected")
                     {
-                        <small>@statusHistories.First(sh => sh.Status == "Approved").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                        <div class="timeline-icon mx-auto bg-danger">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <p class="mt-2 mb-0 text-danger">Rejected</p>
+                        <small>@statusHistories?.FirstOrDefault(sh => sh.Status == "Rejected")?.StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                    }
+                    else
+                    {
+                        <div class="timeline-icon mx-auto @(isApplicationApprove ? "bg-success" : "bg-secondary")">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="mt-2 mb-0">Approved</p>
+                        @if (statusHistories?.Any(sh => sh.Status == "Approved") == true)
+                        {
+                            <small>@statusHistories.First(sh => sh.Status == "Approved").StatusDate.ToString("MM/dd/yyyy hh:mm tt")</small>
+                        }
                     }
                 </div>
 

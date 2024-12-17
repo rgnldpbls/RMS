@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Faculty";
+
     Layout = "Faculty_Layout";
 }
 <link href="~/css/Faculty-Home.css" rel="stylesheet" />
@@ -8,6 +9,7 @@
     body {
         background: #E8E6E6;
     }
+
     canvas {
         min-width: 400px;
         margin: 0 auto;
@@ -63,10 +65,32 @@
         .interaction-btn:hover {
             background: #dd7f7f;
         }
+
+    .welcomez {
+        background: #850000;
+        font-family: "Poppins";
+        color: #FFDB89;
+    }
+
+    .hoverfx {
+        background: white;
+    }
+
+        .hoverfx:hover {
+            background: rgb(133, 0, 0, 0.2);
+        }
 </style>
 <div>
-    <div class="dashboardtxt container mt-4 display-6 fw-bold">
-        Dashboard
+    <!--welcome-->
+    <div class="welcomez container p-4 rounded-4 shadow">
+        <div class="fw-bold display-6">Welcome Faculty!</div>
+    </div>
+
+    <div class="container d-flex my-3 shadow rounded-4 p-0">
+        <div class="p-4 bg-white rounded-start-4 w-25 fw-bold display-6 text-center" style="color: #850000">0</div>
+        <div class="p-4 rounded-end-4 w-75 fs-3 fw-bold d-flex justify-content-between" style=" background: rgb(133, 0, 0, 0.2); font-family: Poppins; color: #850000; ">
+            Total Accomplishments <a class="btn btn-danger btn-lg" role="button" asp-controller="AddAccomplishments" asp-action="IndexFaculty">Accomplishment List</a>
+        </div>
     </div>
 
     <div class="container mt-4">
@@ -74,131 +98,115 @@
             <div class="col-lg-8">
                 <div class="row justify-content-evenly">
 
-                    <div class="col-lg-2 col-sm-12 mb-4 me-5">
-                        <div class="col-lg-12 col-sm-12 fw-bold fs-3">
-                            Welcome,
-                        </div>
-                        <div class="col-lg-12 col-sm-12 fw-bolder display-5">
-                            Faculty!
-                        </div>
+                    <div class="welcomez container p-2 rounded-2 shadow my-3">
+                        <div class="fs-6 text-center">Submitted Applications</div>
                     </div>
 
                     <div class="col-lg-3 col-sm-12 text-center mb-4">
-                        <div class="shadow rounded-4">
-                            <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
-                                <span class="d-block fs-1 fw-bold">0</span>
-                                <span class="fs-5 fw-bold">TOTAL</span>
+                        <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#REMCModal">
+                            <div class="shadow rounded-4">
+                                <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="bg-primary p-3 rounded-bottom-4">
+                                    <span class="d-block fw-bold fs-5 text-white">REMC</span>
+
+                                </div>
                             </div>
-                            <div class="submittedapp p-3 rounded-bottom-4">
-                                <span class="d-block fw-bold fs-5 text-white">Submitted</span>
-                                <span class="fs-6 text-white">Applications</span>
-                            </div>
-                        </div>
+                        </button>
                     </div>
 
                     <div class="col-lg-3 col-sm-12 text-center mb-4">
-                        <div class="shadow rounded-4">
-                            <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
-                                <span class="d-block fs-1 fw-bold">0</span>
-                                <span class="fs-5 fw-bold">TOTAL</span>
+                        <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#RSCModal">
+                            <div class="shadow rounded-4">
+                                <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="bg-danger p-3 rounded-bottom-4">
+                                    <span class="d-block fw-bold fs-5 text-white">RSC</span>
+
+                                </div>
                             </div>
-                            <div class="approvedapp p-3 rounded-bottom-4">
-                                <span class="d-block fw-bold fs-5 text-white">Approved</span>
-                                <span class="fs-6 text-white">Applications</span>
-                            </div>
-                        </div>
+                        </button>
                     </div>
 
                     <div class="col-lg-3 col-sm-12 text-center mb-4">
-                        <div class="shadow rounded-4">
-                            <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
-                                <span class="d-block fs-1 fw-bold">0</span>
-                                <span class="fs-5 fw-bold">TOTAL</span>
+                        <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#CREModal">
+                            <div class="shadow rounded-4">
+                                <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="bg-success p-3 rounded-bottom-4">
+                                    <span class="d-block fw-bold fs-5 text-white">CRE</span>
+
+                                </div>
                             </div>
-                            <div class="rejectedapp p-3 rounded-bottom-4">
-                                <span class="d-block fw-bold fs-5 text-white">Rejected</span>
-                                <span class="fs-6 text-white">Applications</span>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-12 text-center mb-4">
+                        <button type="button" class="container btn p-0 shadow rounded-4" data-bs-toggle="modal" data-bs-target="#CRDLModal">
+                            <div class="shadow rounded-4">
+                                <div class="totappnum p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="bg-secondary p-3 rounded-bottom-4">
+                                    <span class="d-block fw-bold fs-5 text-white">CRDL</span>
+
+                                </div>
                             </div>
-                        </div>
+                        </button>
                     </div>
                 </div>
 
 
-                <!--research analytics-->
-                <div class="row mb-2">
-                    <div class="col-lg-12">
-                        <div class="dashboardtxt container mt-4 fs-3 fw-semibold">Research Analytics</div>
-                    </div>
+                <div class="welcomez container p-2 rounded-2 shadow my-3">
+                    <div class="fs-6 text-center">List of Applications</div>
                 </div>
-
-
                 <div class="row justify-content-evenly mb-3">
-                    <!--submitted-->
-                    <div class="col-lg-3 col-sm-4 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row justify-content-center bg-white rounded-4 shadow">
-                                <div class="iconfx rounded-4 col-lg-3 col-sm-12 p-2 d-flex justify-content-center align-items-center">
-                                    <div class="rounded-5 text-center">
-                                        <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 col-sm-12 p-2">
-                                    <span class="listofapp text-dark">LIST OF APPLICATIONS</span>
-                                    <span class="d-block fw-bold fs-6 text-dark">SUBMITTED</span>
-                                </div>
-                                <div class="col-lg-2 col-sm-12 p-2 d-flex justify-content-center align-items-center">
-                                    <div class="hoverfxlist p-2 rounded-5 text-center">
-                                        <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
-                                    </div>
-                                </div>
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("Forms", "Home", new {area = "RemcSys"})" class="text-decoration-none">
+                            <div class="hoverfx p-3 shadow rounded-4 d-flex justify-content-between align-items-center mb-1">
+                                <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                <span class="fw-bold" style="font-family: Poppins; color: black;">REMC</span>
+                                <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
                             </div>
                         </a>
                     </div>
-
-                    <!--approved-->
-                    <div class="col-lg-3 col-sm-4 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row justify-content-center bg-white rounded-4 shadow">
-                                <div class="iconfx rounded-4 col-lg-3 col-sm-12 p-2 d-flex justify-content-center align-items-center">
-                                    <div class="rounded-5 text-center">
-                                        <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 col-sm-12 p-2">
-                                    <span class="listofapp text-dark">LIST OF APPLICATIONS</span>
-                                    <span class="d-block fw-bold fs-6 text-dark">APPROVED</span>
-                                </div>
-                                <div class="col-lg-2 col-sm-12 p-2 d-flex justify-content-center align-items-center">
-                                    <div class="hoverfxlist p-2 rounded-5 text-center">
-                                        <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
-                                    </div>
-                                </div>
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("Applications", "RSCResearcher", new {area = "RscSys"})" class="text-decoration-none">
+                            <div class="hoverfx p-3 shadow rounded-4 d-flex justify-content-between align-items-center mb-1">
+                                <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                <span class="fw-bold" style="font-family: Poppins; color: black;">RSC</span>
+                                <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
                             </div>
                         </a>
                     </div>
-
-                    <!--rejected-->
-                    <div class="col-lg-3 col-sm-4 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row justify-content-center bg-white rounded-4 shadow">
-                                <div class="iconfx rounded-4 col-lg-3 col-sm-12 p-2 d-flex justify-content-center align-items-center">
-                                    <div class="rounded-5 text-center">
-                                        <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 col-sm-12 p-2">
-                                    <span class="listofapp text-dark">LIST OF APPLICATIONS</span>
-                                    <span class="d-block fw-bold fs-6 text-dark">REJECTED</span>
-                                </div>
-                                <div class="col-lg-2 col-sm-12 p-2 d-flex justify-content-center align-items-center">
-                                    <div class="hoverfxlist p-2 rounded-5 text-center">
-                                        <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
-                                    </div>
-                                </div>
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("Applications", "Researcher", new {area = "CreSys"})" class="text-decoration-none">
+                            <div class="hoverfx p-3 shadow rounded-4 d-flex justify-content-between align-items-center mb-1">
+                                <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                <span class="fw-bold" style="font-family: Poppins; color: black;">CRE</span>
+                                <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("ViewEvents", "Researcher", new {area = "CrdlSys"})" class="text-decoration-none">
+                            <div class="hoverfx p-3 shadow rounded-4 d-flex justify-content-between align-items-center mb-1">
+                                <i class="fa-solid fa-file-circle-check fa-2xl" style="color: #850000;"></i>
+                                <span class="fw-bold" style="font-family: Poppins; color: black;">CRDL</span>
+                                <i class="fa-solid fa-chevron-right fa-2xl" style="color: #850000;"></i>
                             </div>
                         </a>
                     </div>
                 </div>
+
+
             </div>
             <div class="col-lg-4">
                 <canvas id="applicationsPieChart"></canvas>
@@ -206,35 +214,33 @@
         </div>
     </div>
     <div class="container mt-4">
-        <div class="row mb-2">
-            <div class="col-lg-12">
-                <div class="dashboardtxt container mt-4 fs-3 fw-semibold">Research Centers</div>
-            </div>
+        <div class="welcomez container p-2 rounded-2 shadow my-3">
+            <div class="fs-6 text-center">Research Centers</div>
         </div>
 
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <a href="@Url.Action("Faculty", "Home", new {area = "RemcSys"})" class="text-decoration-none">
                     <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
                         Research Evaluation and Monitoring Center
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <a href="@Url.Action("Index", "Home", new {area = "RscSys"})" class="text-decoration-none">
                     <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
                         Research Support Center
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <a href="@Url.Action("Index", "Home", new {area = "CreSys"})" class="text-decoration-none">
                     <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
                         Center for Research Ethics
                     </div>
                 </a>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <a href="@Url.Action("ResearcherHomePage", "Researcher", new {area = "CrdlSys"})" class="text-decoration-none">
                     <div class="centerh fw-bold text-white fs-6 rounded-4 text-center p-4">
                         Center for Research Dissemination and Linkages
@@ -274,6 +280,296 @@
         </div>
     </div>
 
-    <script src="~/js/Faculty-Home.js"></script>
+
 
 </div>
+
+<!--MODALS-->
+<!--REMC MODAL-->
+<div class="modal fade" id="REMCModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Submitted Applications</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--University Funded Research-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-primary">
+                                    <span class="d-block fw-bold fs-6 text-white">University Funded</span>
+                                    <span class="fw-bold fs-6 text-white">Research</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Externally Funded Research-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-primary">
+                                    <span class="d-block fw-bold fs-6 text-white">Externally Funded</span>
+                                    <span class="fw-bold fs-6 text-white">Research</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--University Funded Research Load-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-primary">
+                                    <span class="d-block fw-bold fs-6 text-white">University Funded</span>
+                                    <span class="fw-bold fs-6 text-white">Research Load</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--RSC MODAL-->
+<div class="modal fade" id="RSCModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Submitted Applications</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--National Paper Presentation-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">National Paper</span>
+                                    <span class="fw-bold fs-6 text-white">Presentation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--International Paper Presentation-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">International Paper</span>
+                                    <span class="fw-bold fs-6 text-white">Presentation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Publication and Citation Incentives-->
+                        <div class="col-lg-4 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">Publication and Citation</span>
+                                    <span class="fw-bold fs-6 text-white">Incentives</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Thesis and Dissertation Grant-->
+                        <div class="welcomez container p-2 rounded-2 shadow my-3">
+                            <div class="fs-6 text-center">Thesis and Dissertation Grant</div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">Master's Thesis</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--Dissertation-->
+                        <div class="col-lg-6 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-danger">
+                                    <span class="d-block fw-bold fs-6 text-white">Dissertation</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--CRE MODAL-->
+<div class="modal fade" id="CREModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Submitted Applications</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Ethics Clearance Application-->
+                        <div class="col-lg-12 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-success">
+                                    <span class="d-block fw-bold fs-6 text-white">Ethics Clearance</span>
+                                    <span class="fw-bold fs-6 text-white">Application</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--CRDL MODAL-->
+<div class="modal fade" id="CRDLModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #850000;">
+                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Submitted Applications</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background: #E8E6E6;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Events Attended-->
+                        <div class="col-lg-12 col-sm-12 text-center mb-4">
+                            <div class="shadow rounded-4">
+                                <div class="p-4 pb-2 bg-white rounded-top-4">
+                                    <span class="d-block fs-1 fw-bold">0</span>
+                                    <span class="fs-5 fw-bold">TOTAL</span>
+                                </div>
+                                <div class="p-3 rounded-bottom-4 bg-secondary">
+                                    <span class="d-block fw-bold fs-6 text-white">Events</span>
+                                    <span class="fw-bold fs-6 text-white">Attended</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #850000;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //pie chart
+    const data = {
+        labels: [
+            'REMC',
+            'RSC',
+            'CRE',
+            'CRDL'
+
+        ],
+        datasets: [{
+            label: 'Applications Data',
+            data: [300, 150, 100, 50],
+            backgroundColor: [
+                '#660708',
+                '#a4161a',
+                '#ba181b',
+                '#e5383b',
+
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+
+    const config = {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: 'black'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            return `${label}: ${value}`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+
+    const ctx = document.getElementById('applicationsPieChart').getContext('2d');
+    new Chart(ctx, config);
+
+
+    document.getElementById("interactionBtn").addEventListener("click", function () {
+        document.getElementById("selectedInteraction").style.display = "block";
+        document.getElementById("reply").style.display = "block";
+    });
+</script>
+
+

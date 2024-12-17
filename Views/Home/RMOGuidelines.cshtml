@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Research Guidelines";
+
     Layout = "_Layout";
 }
 
@@ -21,15 +22,26 @@
         height: auto;
     }
 
-    .rg-name p {
-        color: antiquewhite;
-        font-size: 18px;
-        text-align: justify;
-        font-family: 'Inter';
-        margin-bottom: 0;
-    }
+        .rg-name p {
+            color: antiquewhite;
+            font-size: 18px;
+            text-align: justify;
+            font-family: 'Inter';
+            margin-bottom: 0;
+        }
 </style>
+<!-- RMO COVER -->
+<div class="hero">
+    <img src="~/images/16.png" alt="RMO COVER PHOTO">
+</div>
 
+<!-- Search Bar -->
+<div class="custom-search">
+    <div class="input-group">
+        <input type="text" class="searchint form-control" placeholder="Enter keywords..." aria-label="Search">
+        <button class="btn btn-custom" type="button"><i class="bi bi-search"></i> Search</button>
+    </div>
+</div>
 <body id="rg-body">
     <div class="rg-header container-fluid shadow display-6 text-center p-2">
         PRODUCTION GUIDELINES
@@ -120,3 +132,4 @@
 
 
 </body>
+

@@ -125,7 +125,7 @@
     <div class="card-body">
         <p class="mb-2"><strong>Average Percentage:</strong> @Model.AverageUserPercentage%</p>
         <p class="mb-2 text-@(Model.Decision == "Approve" ? "success" : "danger")"><strong>@Model.EvaluationMessage</strong></p>
-            <select class="form-select mb-3" disabled>
+                <select id="decisionSelect" class="form-select mb-3" disabled>
                 <option value="Approve" selected="@(Model.Decision == "Approve" ? "selected" : null)">Approve</option>
                 <option value="Reject" selected="@(Model.Decision == "Reject" ? "selected" : null)">Reject</option>
             </select>
@@ -138,7 +138,7 @@
                 ? $"We are pleased to inform you that your application request with a {Model.Request.DtsNo} has been approved. If we received the hard copy of your documentary requirements, we will send the endorsement letter, which formally recognizes the successful approval of your application. Thank you!"
                 : "We regret to inform you that your application request has been rejected.";
             }
-            <textarea class="form-control mb-3" rows="4" placeholder="Type here your comments and suggestions.">@notificationMessage</textarea>
+            <textarea id="commentsTextarea" class="form-control mb-3" rows="4" placeholder="Type here your comments and suggestions.">@notificationMessage</textarea>
             <button id="sendApprovalButton" class="btn btn-danger float-end" @(allEvaluatorsCompleted ? "" : "disabled")>Send</button>
     </div>
 </div>
@@ -164,46 +164,47 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
     <script>
-        $(document).ready(function () {
-            $('#sendApprovalButton').click(function () {
-                // Get the request ID
-                var requestId = @Model.Request.RequestId;
+        $('#sendApprovalButton').click(function () {
+            var requestId = @Model.Request.RequestId;
+            var decision = $('#decisionSelect').val(); // Get the selected decision
+            var comments = $('#commentsTextarea').val(); // Get comments from textarea
 
-                // Show SweetAlert confirmation
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Do you want to approve this application?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, approve it!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("ApproveApplication", "RSCChief")',
-                            data: {
-                                requestId: requestId
-                            },
-                            success: function (response) {
-                                // Show success message
-                                Swal.fire(
-                                    'Approved!',
-                                    response.message,
-                                    'success'
-                                ).then(() => {
-                                    // Redirect to applications page
-                                    window.location.href = '@Url.Action("Applications", "RSCChief")'; // Change "YourControllerName" to the actual controller name handling applications
-                                });
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire('Error!', 'An error occurred while approving the application.', 'error');
-                            }
-                        });
-                    }
-                });
+            // Confirm the decision
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `Do you want to ${decision.toLowerCase()} this application?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: `Yes, ${decision.toLowerCase()} it!`,
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send AJAX request to the server
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("ApproveApplication", "RSCChief")',
+                        data: {
+                            requestId: requestId,
+                            decision: decision,
+                            comments: comments
+                        },
+                        success: function (response) {
+                            Swal.fire(
+                                `${decision}d!`,
+                                response.message,
+                                'success'
+                            ).then(() => {
+                                // Redirect to applications page
+                                window.location.href = '@Url.Action("Applications", "RSCChief")';
+                            });
+                        },
+                        error: function () {
+                            Swal.fire('Error!', 'An error occurred while processing the request.', 'error');
+                        }
+                    });
+                }
             });
         });
     </script>

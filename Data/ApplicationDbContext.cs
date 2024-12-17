@@ -19,6 +19,12 @@ namespace ResearchManagementSystem.Data
                 .HasMany(a => a.AddCitations)
                 .WithOne(c => c.AddAccomplishment)
                 .HasForeignKey(c => c.ProductionId); // This links AddCitation to AddAccomplishment
+
+
+            modelBuilder.Entity<UserActivityLog>()
+              .Property(a => a.Id)
+              .ValueGeneratedOnAdd(); // Ensure Id is auto-generated
+
         }
 
         public DbSet<AddAccomplishment> Production { get; set; }
@@ -29,6 +35,12 @@ namespace ResearchManagementSystem.Data
         public DbSet<AddCitation> Citation { get; set; }
 
         public DbSet<AddFAQs> FAQs { get; set; }
+        public DbSet<UserActivityLog> ActivityLog { get; set; }
+
+       
+
+
+
 
     }
 }

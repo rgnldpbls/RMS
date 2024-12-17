@@ -12,6 +12,12 @@
         background: #850000;
         color: white;
     }
+
+    .welcomez {
+        background: rgb(133, 0, 0, 0.2);
+        font-family: "Poppins";
+        color: #850000;
+    }
 </style>
 <div>
     <!--navbar-->
@@ -28,7 +34,7 @@
 </div>
 
 <!--year-->
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+<form id="productionForm" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="container shadow mb-3" id="content">
         <div class="row shadow-sm h3 p-4 mb-1" id="title">
             Year
@@ -36,8 +42,9 @@
         <div class="row shadow p-4" id="formcont">
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
-                    <label class="form-label" asp-for="Year">Year</label>
-                    <input class="form-control mb-3" asp-for="Year" type="number" min="2000" max="2100" />
+                    <label class="form-label" asp-for="Year">Year <span style="color: red">*</span></label>
+                    <input class="form-control" asp-for="Year" type="number" min="2000" max="2100" required />
+                    <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -51,74 +58,74 @@
             <div class="row">
                 <!-- Campus -->
                 <div class="col-lg-4 col-sm-12">
-                    <div id="campusField" class="form-floating mt-3">
-                        <select asp-for="BranchCampus" class="form-control" id="CampusDropdown">
-                            <option value="">-- Select Campus --</option>
-                            <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
-                            <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
-                            <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
-                            <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
-                            <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
-                            <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
-                            <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
-                            <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
-                            <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
-                            <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
-                            <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
-                            <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
-                            <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
-                            <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
-                            <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
-                            <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
-                            <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
-                            <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
-                            <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
-                            <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
-                            <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
-                        </select>
-                        <label asp-for="BranchCampus">Campus</label>
-                        <span asp-validation-for="BranchCampus" class="text-danger"></span>
-                    </div>
+                    <label asp-for="BranchCampus" class="form-label">Campus <span style="color: red">*</span></label>
+                    <select asp-for="BranchCampus" class="form-select" id="CampusDropdown" required>
+                        <option value="">-- Select Campus --</option>
+                        <option value="Sta. Mesa (MAIN CAMPUS)">Sta. Mesa (MAIN CAMPUS)</option>
+                        <option value="Taguig City (BRANCH)">Taguig City (BRANCH)</option>
+                        <option value="Quezon City (BRANCH)">Quezon City (BRANCH)</option>
+                        <option value="San Juan City (BRANCH)">San Juan City (BRANCH)</option>
+                        <option value="Parañaque City (CAMPUS)">Parañaque City (CAMPUS)</option>
+                        <option value="Bataan (BRANCH)">Bataan (BRANCH)</option>
+                        <option value="Sta. Maria, Bulacan (CAMPUS)">Sta. Maria, Bulacan (CAMPUS)</option>
+                        <option value="Pulilan, Bulacan (CAMPUS)">Pulilan, Bulacan (CAMPUS)</option>
+                        <option value="Cabiao, Nueva Ecija (CAMPUS)">Cabiao, Nueva Ecija (CAMPUS)</option>
+                        <option value="Lopez, Quezon (BRANCH)">Lopez, Quezon (BRANCH)</option>
+                        <option value="Malunay, Quezon (BRANCH)">Malunay, Quezon (BRANCH)</option>
+                        <option value="Unisan, Quezon (BRANCH)">Unisan, Quezon (BRANCH)</option>
+                        <option value="Ragay, Camarines Sur (BRANCH)">Ragay, Camarines Sur (BRANCH)</option>
+                        <option value="Sto. Tomas, Batangas (BRANCH)">Sto. Tomas, Batangas (BRANCH)</option>
+                        <option value="Maragondon, Cavite (BRANCH)">Maragondon, Cavite (BRANCH)</option>
+                        <option value="Alfonso, Cavite (CAMPUS)">Alfonso, Cavite (CAMPUS)</option>
+                        <option value="Bansud, Oriental Mindoro (BRANCH)">Bansud, Oriental Mindoro (BRANCH)</option>
+                        <option value="Sablayan, Occidental Mindoro (BRANCH)">Sablayan, Occidental Mindoro (BRANCH)</option>
+                        <option value="Biñan, Laguna (CAMPUS)">Biñan, Laguna (CAMPUS)</option>
+                        <option value="San Pedro, Laguna (CAMPUS)">San Pedro, Laguna (CAMPUS)</option>
+                        <option value="Sta. Rosa, Laguna (CAMPUS)">Sta. Rosa, Laguna (CAMPUS)</option>
+                        <option value="Calauan, Laguna (CAMPUS)">Calauan, Laguna (CAMPUS)</option>
+                        <option value="Open University System">Open University System</option>
+                    </select>
+
+                    <span asp-validation-for="BranchCampus" class="text-danger"></span>
+
                 </div>
 
                 <!-- College -->
                 <div class="col-lg-4 col-sm-12">
-                    <div class="form-floating mt-3" id="collegeDiv">
-                        <select asp-for="College" class="form-select" id="college">
-                            <option value="">Select College</option>
-                            <option value="">Select College</option>
-                            <option value="CAF">College of Accountancy and Finance (CAF)</option>
-                            <option value="CADBE">College of Architecture, Design and the Built Environment (CADBE)</option>
-                            <option value="CAL">College of Arts and Letters (CAL)</option>
-                            <option value="CBA">College of Business Administration (CBA)</option>
-                            <option value="COC">College of Communication (COC)</option>
-                            <option value="CCIS">College of Computer and Information Sciences (CCIS)</option>
-                            <option value="COED">College of Education (COED)</option>
-                            <option value="CE">College of Engineering (CE)</option>
-                            <option value="CHK">College of Human Kinetics (CHK)</option>
-                            <option value="CL">College of Law (CL)</option>
-                            <option value="CPSPA">College of Political Science and Public Administration (CPSPA)</option>
-                            <option value="CSSD">College of Social Sciences and Development (CSSD)</option>
-                            <option value="CS">College of Science (CS)</option>
-                            <option value="CTHTM">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
-                            <option value="ITECH"> Institute of Technology (ITECH)</option>
-                        </select>
-                        <label asp-for="College">College</label>
-                        <span asp-validation-for="College" class="text-danger"></span>
-                    </div>
+                    <label asp-for="College" class="form-label">College <span style="color: red">*</span></label>
+                    <select asp-for="College" class="form-select" id="college" required>
+                        <option value="">Select College</option>
+                        <option value="">Select College</option>
+                        <option value="CAF">College of Accountancy and Finance (CAF)</option>
+                        <option value="CADBE">College of Architecture, Design and the Built Environment (CADBE)</option>
+                        <option value="CAL">College of Arts and Letters (CAL)</option>
+                        <option value="CBA">College of Business Administration (CBA)</option>
+                        <option value="COC">College of Communication (COC)</option>
+                        <option value="CCIS">College of Computer and Information Sciences (CCIS)</option>
+                        <option value="COED">College of Education (COED)</option>
+                        <option value="CE">College of Engineering (CE)</option>
+                        <option value="CHK">College of Human Kinetics (CHK)</option>
+                        <option value="CL">College of Law (CL)</option>
+                        <option value="CPSPA">College of Political Science and Public Administration (CPSPA)</option>
+                        <option value="CSSD">College of Social Sciences and Development (CSSD)</option>
+                        <option value="CS">College of Science (CS)</option>
+                        <option value="CTHTM">College of Tourism, Hospitality and Transportation Management (CTHTM)</option>
+                        <option value="ITECH"> Institute of Technology (ITECH)</option>
+                    </select>
+
+                    <span asp-validation-for="College" class="text-danger"></span>
+
                 </div>
 
                 <!-- Department -->
                 <div class="col-lg-4 col-sm-12">
-                    <div class="form-floating mt-3" id="departmentDiv">
-                        <select asp-for="Department" id="department" class="form-select mb-3">
-                            <option value="">Department</option>
-
-                        </select>
-                        <label asp-for="Department">Department</label>
-                        <span asp-validation-for="Department" class="text-danger"></span>
-                    </div>
+                    <label asp-for="Department" class="form-label">Department <span style="color: red">*</span></label>
+                    <select asp-for="Department" id="department" class="form-select mb-3">
+                        <option value="">Department</option>
+                    </select>
+                    <span asp-validation-for="Department" class="text-danger"></span>
                 </div>
+
             </div>
         </div>
     </div>
@@ -130,170 +137,156 @@
             Research Production
         </div>
         <div class="row shadow p-4" id="formcont">
-
+            <!--research title-->
             <div class="row">
                 <div class="col-lg-6 col-sm-12">
-                    <label asp-for="ResearchTitle" class="form-label"></label>
-                    <input asp-for="ResearchTitle" class="form-control mb-3" />
+                    <label asp-for="ResearchTitle" class="form-label mt-1">Research Title <span style="color: red">*</span></label>
+                    <input asp-for="ResearchTitle" class="form-control" required />
                     <span asp-validation-for="ResearchTitle" class="text-danger"></span>
                 </div>
-            </div>
-            <!---->
-            <div class="row">
-                <div class="col-lg-4 col-sm-5">
-                    <hr>
-                </div>
-                <div class="col-lg-4 col-sm-2 text-center">
-                    <h4>Authors</h4>
-                </div>
-                <div class="col-lg-4 col-sm-5">
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
+                <!--type of research-->
                 <div class="col-lg-6 col-sm-12">
-                    <label asp-for="LeadResearcherId" class="form-label"></label>
-                    <select asp-for="LeadResearcherId" class="form-control mb-3" asp-items="ViewBag.LeadResearcherId">
-                        <option value="" selected>Select Lead Researcher</option>
-                    </select>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                    <label asp-for="CoLeadResearcherId" class="form-label"></label>
-                    <select asp-for="CoLeadResearcherId" class="form-control mb-3" asp-items="ViewBag.CoLeadResearcherId">
-                        <option value="" selected>Select Co-Lead Researcher</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-12">
-                    <label asp-for="MemberoneId" class="form-label"></label>
-                    <select asp-for="MemberoneId" class="form-control mb-3" asp-items="ViewBag.MemberoneId">
-                        <option value="" selected>Select Member</option>
-                    </select>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <label asp-for="MembertwoId" class="form-label"></label>
-                    <select asp-for="MembertwoId" class="form-control mb-3" asp-items="ViewBag.MembertwoId">
-                        <option value="" selected>Select Member</option>
-                    </select>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <label asp-for="MemberthreeId" class="form-label"></label>
-                    <select asp-for="MemberthreeId" class="form-control mb-3" asp-items="ViewBag.MemberthreeId">
-                        <option value="" selected>Select Member</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 col-sm-12">
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-12">
-                    <label class="form-label" for="type_of_research">Type of Research</label>
-                    <select name="type_of_research" id="type_of_research" class="form-select mb-3">
+                    <label class="form-label mt-1" for="type_of_research">Type of Research <span style="color: red">*</span></label>
+                    <select name="type_of_research" id="type_of_research" class="form-select" required>
                         <option value="">Basic</option>
                         <option value="">Applied</option>
                     </select>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-4 col-sm-5">
-                    <hr>
-                </div>
-                <div class="col-lg-4 col-sm-2 text-center">
-                    <h4>Keywords</h4>
-                </div>
-                <div class="col-lg-4 col-sm-5">
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-12">
-                    <label class="form-label" for="keyword_1">Keyword 1</label>
-                    <input class="form-control mb-3" type="text" id="keyword_1" placeholder="Keyword 1">
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <label class="form-label" for="keyword_2">Keyword 2</label>
-                    <input class="form-control mb-3" type="text" id="keyword_2" placeholder="Keyword 2">
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <label class="form-label" for="keyword_3">Keyword 3</label>
-                    <input class="form-control mb-3" type="text" id="keyword_3" placeholder="Keyword 3">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-12">
-                    <label class="form-label" for="keyword_1">Keyword 4</label>
-                    <input class="form-control mb-3" type="text" id="keyword_4" placeholder="Keyword 4">
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <label class="form-label" for="keyword_5">Keyword 5</label>
-                    <input class="form-control mb-3" type="text" id="keyword_5" placeholder="Keyword 5">
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <label class="form-label" for="keyword_6">Keyword 6</label>
-                    <input class="form-control mb-3" type="text" id="keyword_6" placeholder="Keyword 6">
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <label class="form-label" for="keyword_7">Keyword 7</label>
-                    <input class="form-control mb-3" type="text" id="keyword_7" placeholder="Keyword 7">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-sm-12">
-                    <hr>
                 </div>
             </div>
             <!---->
             <div class="row">
+                <!--type of funding-->
                 <div class="col-lg-4 col-sm-12">
-                    <label class="form-label" for="type_of_funding">Type of Funding</label>
-                    <select name="type_of_funding" id="type_of_funding" class="form-select mb-3" onchange="toggleFields()">
+                    <label class="form-label mt-3" for="type_of_funding">Type of Funding <span style="color: red">*</span></label>
+                    <select name="type_of_funding" id="type_of_funding" class="form-select" onchange="toggleFields()" required>
                         <option value="na">N/A</option>
                         <option value="self-funded">Self-Funded</option>
                         <option value="internal">Internal</option>
                         <option value="external">External</option>
                     </select>
                 </div>
-                <div class="col-lg-4 col-sm-12" id="funding_agency_field">
-                    <label asp-for="FundingAgency" class="form-label"></label>
-                    <input asp-for="FundingAgency" class="form-control mb-3" />
+                <div class="col-lg-4 col-sm-12" id="funding_agency_field" style="display: none;">
+                    <label asp-for="FundingAgency" class="form-label mt-3"></label>
+                    <input asp-for="FundingAgency" class="form-control" />
                     <span asp-validation-for="FundingAgency" class="text-danger"></span>
                 </div>
-                <div class="col-lg-4 col-sm-12" id="amount_of_funding_field">
-                    <label asp-for="FundingAmount" class="form-label"></label>
-                    <input asp-for="FundingAmount" class="form-control mb-3" />
+                <div class="col-lg-4 col-sm-12" id="amount_of_funding_field" style="display: none;">
+                    <label asp-for="FundingAmount" class="form-label mt-3"></label>
+                    <input asp-for="FundingAmount" class="form-control" />
                     <span asp-validation-for="FundingAmount" class="text-danger"></span>
                 </div>
             </div>
+
+            <!--authors-->
+            <div class="welcomez container p-2 rounded-2 mt-3">
+                <div class="fs-6 fw-bold text-center">Authors</div>
+            </div>
             <div class="row">
-                <div class="col-lg-5 col-sm-5">
-                    <hr>
+                <!--Lead Researcher-->
+                <div class="col-lg-6 col-sm-12">
+                    <label asp-for="LeadResearcherId" class="form-label mt-3">Lead Researcher <span style="color: red">*</span></label>
+                    <select asp-for="LeadResearcherId" class="form-select" asp-items="ViewBag.LeadResearcherId" required>
+                        <option value="" selected>Select Lead Researcher</option>
+                    </select>
+                    <span asp-validation-for="LeadResearcherId" class="text-danger"></span>
                 </div>
-                <div class="col-lg-2 col-sm-2 text-center">
-                    <h4>Duration</h4>
+                <!--Co-lead researcher-->
+                <div class="col-lg-6 col-sm-12">
+                    <label asp-for="CoLeadResearcherId" class="form-label mt-3">Co-Lead Researcher</label>
+                    <select asp-for="CoLeadResearcherId" class="form-select" asp-items="ViewBag.CoLeadResearcherId">
+                        <option value="" selected>Select Co-Lead Researcher</option>
+                    </select>
                 </div>
-                <div class="col-lg-5 col-sm-5">
-                    <hr>
+            </div>
+
+            <div class="row">
+                <!--member-->
+                <div class="col-lg-4 col-sm-12">
+                    <label asp-for="MemberoneId" class="form-label mt-3">Member</label>
+                    <select asp-for="MemberoneId" class="form-control" asp-items="ViewBag.MemberoneId">
+                        <option value="" selected>Select Member</option>
+                    </select>
+                </div>
+                <!--member-->
+                <div class="col-lg-4 col-sm-12">
+                    <label asp-for="MembertwoId" class="form-label mt-3">Member</label>
+                    <select asp-for="MembertwoId" class="form-control" asp-items="ViewBag.MembertwoId">
+                        <option value="" selected>Select Member</option>
+                    </select>
+                </div>
+                <!--member-->
+                <div class="col-lg-4 col-sm-12">
+                    <label asp-for="MemberthreeId" class="form-label mt-3">Member</label>
+                    <select asp-for="MemberthreeId" class="form-control" asp-items="ViewBag.MemberthreeId">
+                        <option value="" selected>Select Member</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <!--Keywords-->
+            <div class="welcomez container p-2 rounded-2 mt-3">
+                <div class="fs-6 fw-bold text-center">Keywords</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_1">Keyword 1</label>
+                    <input class="form-control" type="text" id="keyword_1" placeholder="Keyword 1">
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_2">Keyword 2</label>
+                    <input class="form-control" type="text" id="keyword_2" placeholder="Keyword 2">
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_3">Keyword 3</label>
+                    <input class="form-control" type="text" id="keyword_3" placeholder="Keyword 3">
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_1">Keyword 4</label>
+                    <input class="form-control" type="text" id="keyword_4" placeholder="Keyword 4">
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_5">Keyword 5</label>
+                    <input class="form-control" type="text" id="keyword_5" placeholder="Keyword 5">
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_6">Keyword 6</label>
+                    <input class="form-control" type="text" id="keyword_6" placeholder="Keyword 6">
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <label class="form-label mt-3" for="keyword_7">Keyword 7</label>
+                    <input class="form-control" type="text" id="keyword_7" placeholder="Keyword 7">
+                </div>
+            </div>
+
+
+            <!--duration-->
+            <div class="welcomez container p-2 rounded-2 mt-3">
+                <div class="fs-6 fw-bold text-center">Duration</div>
+            </div>
+            <div class="row">
+                <!--date started-->
                 <div class="col-lg-6 col-sm-12">
-                    <label asp-for="DateStarted" class="form-label"></label>
-                    <input asp-for="DateStarted" type="date" class="form-control" />
+                    <label asp-for="DateStarted" class="form-label mt-3">Date Started <span style="color: red">*</span></label>
+                    <input asp-for="DateStarted" type="date" class="form-control" required />
                     <span asp-validation-for="DateStarted" class="text-danger"></span>
                 </div>
+                <!--date completed-->
                 <div class="col-lg-6 col-sm-12">
-                    <label asp-for="DateCompleted" class="form-label"></label>
+                    <label asp-for="DateCompleted" class="form-label mt-3"></label>
                     <input asp-for="DateCompleted" type="date" class="form-control" />
                     <span asp-validation-for="DateCompleted" class="text-danger"></span>
                 </div>
             </div>
+
+           
+
         </div>
+
+
     </div>
 
     <!--required files-->
@@ -305,22 +298,28 @@
             <!--so abstract-->
             <div class="row">
                 <div class="col-lg-12 col-sm-12">
-                    <label class="form-label" for="SO/Abstract">SO/Abstract</label>
-                    <input type="file" id="SO/Abstract" name="RequiredFile1Data" class="form-control mb-3" />
+                    <label class="form-label" for="SO/Abstract">SO/Abstract <span style="color: red">*</span></label>
+                    <input type="file" id="SO/Abstract" name="RequiredFile1Data" class="form-control" accept="application/pdf" required />
                 </div>
             </div>
             <!--manuscript-->
             <div class="row">
                 <div class="col-lg-12 col-sm-12">
-                    <label class="form-label" for="manuscript">Manuscript</label>
-                    <input type="file" id="manuscript" name="RequiredFile2Data" class="form-control mb-3" />
+                    <label class="form-label mt-3" for="manuscript">Manuscript <span style="color: red">*</span></label>
+                    <input type="file" id="manuscript" name="RequiredFile2Data" class="form-control" accept="application/pdf" required />
                 </div>
+            </div>
+            <!--UrecNo-->
+            <div class="form-group">
+                <label asp-for="UrecNo" class="control-label">UREC Number <span style="color: red">*</span></label>
+                <input asp-for="UrecNo" class="form-control" required />
+                <span asp-validation-for="UrecNo" class="text-danger"></span>
             </div>
             <!--ethics clearance-->
             <div class="row">
                 <div class="col-lg-12 col-sm-12">
-                    <label class="form-label" for="ethics_clearance">Ethics Clearance</label>
-                    <input type="file" id="ethics_clearance" name="RequiredFile3Data" class="form-control mb-3" />
+                    <label class="form-label mt-3" for="ethics_clearance">Ethics Clearance </label>
+                    <input type="file" id="ethics_clearance" name="RequiredFile3Data" class="form-control mb-3" accept="application/pdf" />
                 </div>
             </div>
 
@@ -338,8 +337,8 @@
                 <div class="col-lg-12 col-sm-12">
                     <div id="conditionalFileSection" style="display:none;">
                         <div class="form-group">
-                            <label class="form-label" for="cert_of_agreement">Certificate of Agreement</label>
-                            <input type="file" id="cert_of_agreement" name="ConditionalFileData" class="form-control mb-3" />
+                            <label class="form-label mt-3" for="cert_of_agreement">Certificate of Agreement</label>
+                            <input type="file" id="cert_of_agreement" name="ConditionalFileData" class="form-control" accept="application/pdf" />
                         </div>
                     </div>
                 </div>
@@ -361,7 +360,7 @@
     <div class="container mt-3 mb-3">
         <div class="d-flex justify-content-end">
             <input type="reset" value="Clear" class="ms-2" id="reset">
-            <input type="submit" value="Create" class="ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <input type="submit" value="Create" class="ms-2" onclick="validateAndSubmitForm()">
         </div>
     </div>
 </form>
@@ -409,9 +408,25 @@
             isStudentInvolvedCheckbox.addEventListener("change", toggleConditionalFileSection);
         });
 
+        //type of funding
+        function toggleFields() {
+            const fundingType = document.getElementById("type_of_funding").value;
+            const fundingAgencyField = document.getElementById("funding_agency_field");
+            const amountOfFundingField = document.getElementById("amount_of_funding_field");
 
+            if (fundingType === "na" || fundingType === "self-funded") {
+                fundingAgencyField.style.display = "none";
+                amountOfFundingField.style.display = "none";
+            } else if (fundingType === "internal") {
+                fundingAgencyField.style.display = "none";
+                amountOfFundingField.style.display = "block";
+            } else if (fundingType === "external") {
+                fundingAgencyField.style.display = "block";
+                amountOfFundingField.style.display = "block";
+            }
+        }
 
-        //dept and college select
+        ///dept and college select
         $(document).ready(function () {
             var departments = {
                 CAF: [
@@ -538,33 +553,45 @@
             });
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const campusDropdown = document.getElementById("CampusDropdown");
-            const collegeDropdownContainer = document.getElementById("collegeDiv");
-            const department = document.getElementById("departmentDiv")
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     const campusDropdown = document.getElementById("CampusDropdown");
+        //     const collegeDropdownContainer = document.getElementById("collegeDiv");
+        //     const department = document.getElementById("departmentDiv")
 
-            // Function to handle dynamic changes and realign
-            function toggleCollegeDropdown() {
-                const selectedCampus = campusDropdown.value;
+        //     // Function to handle dynamic changes and realign
+        //     function toggleCollegeDropdown() {
+        //         const selectedCampus = campusDropdown.value;
 
-                if (selectedCampus === "Sta. Mesa (MAIN CAMPUS)" || campusDropdown.disabled || selectedCampus === "") {
-                    collegeDropdownContainer.style.display = "flex";
-                    department.style.display = "flex";
-                } else {
-                    collegeDropdownContainer.style.display = "none";
-                    department.style.display = "none";
-                }
+        //         if (selectedCampus === "Sta. Mesa (MAIN CAMPUS)" || campusDropdown.disabled || selectedCampus === "") {
+        //             collegeDropdownContainer.style.display = "flex";
+        //             department.style.display = "flex";
+        //         } else {
+        //             collegeDropdownContainer.style.display = "none";
+        //             department.style.display = "none";
+        //         }
 
-                // Trigger layout recalculation after change
-                window.dispatchEvent(new Event('resize'));  // Forces the browser to recalculate the layout
+        //         // Trigger layout recalculation after change
+        //         window.dispatchEvent(new Event('resize'));  // Forces the browser to recalculate the layout
+        //     }
+
+        //     // Apply logic when the page loads
+        //     toggleCollegeDropdown();
+
+        //     campusDropdown.addEventListener("change", toggleCollegeDropdown);
+        // });
+
+
+        function validateAndSubmitForm() {
+            const form = document.getElementById("productionForm");
+            if (form.checkValidity()) {
+                // Show the modal if form is valid
+                var modal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
+                modal.show();
+                form.submit(); // Submit the form after displaying the modal
+            } else {
+                form.reportValidity(); // Show validation errors
             }
-
-            // Apply logic when the page loads
-            toggleCollegeDropdown();
-
-            campusDropdown.addEventListener("change", toggleCollegeDropdown);
-        });
-
+        }
 
 
 

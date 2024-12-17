@@ -155,6 +155,76 @@ namespace rscSys_final.Controllers
             return RedirectToAction("Endorse", new { requestId });
         }
 
+        public IActionResult Disapprove(int requestId)
+        {
+            // Fetch the request data from the database
+            var request = _context.RSC_Requests
+                .FirstOrDefault(r => r.RequestId == requestId);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            // Check if a disapproval document already exists for this request
+            var existingFinalDocuments = _context.RSC_FinalDocuments
+                .Where(d => d.RequestId == requestId && d.FinalDocuName.Contains("Disapproval"))
+                .ToList();
+
+            // If a disapproval document already exists, skip the generation process
+            if (existingFinalDocuments.Any())
+            {
+                // Pass the existing final documents to the view
+                return View("Disapprove", new DisapprovalViewModel { Request = request, FinalDocuments = existingFinalDocuments });
+            }
+
+            // Fetch the template from the database
+            var template = _context.RSC_Templates.FirstOrDefault(t => t.TemplateName == "disapprove-template");
+            if (template == null)
+            {
+                return NotFound("Template not found in the database.");
+            }
+
+            // Load the .docx template from the FileData byte array
+            using (var memoryStream = new MemoryStream(template.FileData))
+            using (var doc = DocX.Load(memoryStream))
+            {
+                string formattedDate = DateTime.Now.ToString("MM-dd-yyyy");
+
+                // Replace placeholders with request details
+                doc.ReplaceText("{date}", formattedDate);
+                doc.ReplaceText("{fullname}", request.Name);
+                doc.ReplaceText("{college}", request.College ?? "N/A");
+                doc.ReplaceText("{name}", request.Name);
+                doc.ReplaceText("{title}", request.ResearchTitle);
+                doc.ReplaceText("{dtsno}", request.DtsNo);
+
+                // Save the modified document to a new MemoryStream
+                using (var outputStream = new MemoryStream())
+                {
+                    doc.SaveAs(outputStream);
+
+                    // Convert the MemoryStream to a byte array
+                    var fileData = outputStream.ToArray();
+
+                    // Save the document directly to the database
+                    var finalDocument = new FinalDocument
+                    {
+                        FinalDocuName = $"Disapproval_Letter_{request.DtsNo}.docx",
+                        FileData = fileData,
+                        FileType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        RequestId = request.RequestId
+                    };
+
+                    _context.RSC_FinalDocuments.Add(finalDocument);
+                    _context.SaveChanges();
+                }
+            }
+
+            // Redirect to the same action to refresh the page with updated data
+            return RedirectToAction("Disapprove", new { requestId });
+        }
+
 
 
         public IActionResult DownloadFinalDocument(int id)
@@ -171,6 +241,25 @@ namespace rscSys_final.Controllers
 
         [HttpPost]
         public async Task<IActionResult> DeleteEndorsement(int finaldocuId)
+        {
+            // Find the requirement record in the database by its ID
+            var finaldocu = await _context.RSC_FinalDocuments.FindAsync(finaldocuId);
+
+            if (finaldocuId == null)
+            {
+                return Json(new { success = false, message = "File not found" }); // If file doesn't exist in the database
+            }
+
+            // Remove the file record from the database
+            _context.RSC_FinalDocuments.Remove(finaldocu);
+            await _context.SaveChangesAsync();
+
+            // Redirect back or return success
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteDisapprovalLetter(int finaldocuId)
         {
             // Find the requirement record in the database by its ID
             var finaldocu = await _context.RSC_FinalDocuments.FindAsync(finaldocuId);
@@ -319,6 +408,156 @@ namespace rscSys_final.Controllers
             var builder = new BodyBuilder
             {
                 TextBody = $"Dear {user.FirstName} {user.LastName},\n\nWe are pleased to inform you that your application request with DTS No. {request.DtsNo} has been approved. Attached, you will find your Endorsement Letter, which formally recognizes the successful approval of your application. Thank you!\n\nYours Truly,\nPUP Research Support Center"
+            };
+
+            // Add the document as an attachment
+            builder.Attachments.Add(document.FinalDocuName, document.FileData, ContentType.Parse(document.FileType));
+
+            message.Body = builder.ToMessageBody();
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync("rsc.rmo3@gmail.com", "ervg ojdk oeom rfyk");
+
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> UploadDisapprovalLetter(int requestId, IFormFile disapprovalLetter)
+        {
+            if (disapprovalLetter == null || disapprovalLetter.Length == 0)
+            {
+                return Json(new { success = false, message = "No file uploaded." });
+            }
+
+            // Check if there's an existing document for this request
+            var existingDocument = _context.RSC_FinalDocuments.FirstOrDefault(d => d.RequestId == requestId);
+
+            if (existingDocument != null)
+            {
+                // Remove the existing document record from the database
+                _context.RSC_FinalDocuments.Remove(existingDocument);
+            }
+
+            // Read the uploaded file into a byte array
+            byte[] fileData;
+            using (var memoryStream = new MemoryStream())
+            {
+                await disapprovalLetter.CopyToAsync(memoryStream);
+                fileData = memoryStream.ToArray();
+            }
+
+            // Save the new document record in the database
+            var newDocument = new FinalDocument
+            {
+                FinalDocuName = disapprovalLetter.FileName,
+                FileData = fileData,
+                FileType = disapprovalLetter.ContentType,
+                RequestId = requestId
+            };
+
+            _context.RSC_FinalDocuments.Add(newDocument);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "File uploaded successfully." });
+        }
+
+        public async Task<IActionResult> SendDisapprovalLetter(EndorsementViewModel model, string comments)
+        {
+            if (model == null || model.Request == null)
+            {
+                return BadRequest("Invalid request data.");
+            }
+
+            var request = await _context.RSC_Requests.FindAsync(model.Request.RequestId);
+            if (request == null)
+            {
+                return NotFound("Request not found.");
+            }
+
+            // Update the request status to reflect disapproval
+            request.Status = "Rejected";
+            _context.RSC_Requests.Update(request);
+
+            // Create a new status history entry for the disapproval
+            var statusHistory = new StatusHistory
+            {
+                RequestId = request.RequestId,
+                Status = "Rejected",
+                Comments = comments
+            };
+
+            await _context.RSC_StatusHistories.AddAsync(statusHistory);
+
+            // Create a new notification to inform the researcher of the disapproval
+            var notification = new Notifications
+            {
+                UserId = model.Request.UserId,
+                NotificationTitle = "Disapproval Letter Sent",
+                NotificationMessage = comments,
+                NotificationCreationDate = DateTime.Now,
+                NotificationStatus = false,
+                Role = "Researcher",
+                PerformedBy = "Chief"
+            };
+
+            await _context.RSC_Notifications.AddAsync(notification);
+
+            // Add a new document history entry indicating the disapproval letter is ready
+            var documentHistory = new DocumentHistory
+            {
+                RequestId = request.RequestId,
+                Comments = "The disapproval letter is ready to download",
+                PerformedBy = "Chief"
+            };
+
+            await _context.RSC_DocumentHistories.AddAsync(documentHistory);
+
+            // Retrieve the FinalDocument for the disapproval letter from the database
+            var finalDocument = await _context.RSC_FinalDocuments
+                                .FirstOrDefaultAsync(d => d.RequestId == request.RequestId);
+
+            if (finalDocument != null)
+            {
+                // Send an email with the disapproval document attached
+                await SendEmailRejectWithAttachmentAsync(model.Request.UserId, comments, finalDocument);
+            }
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Applications"); // Adjust as needed
+        }
+
+
+        private async Task SendEmailRejectWithAttachmentAsync(string userId, string comments, FinalDocument document)
+        {
+            // Retrieve user's email and name
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null || string.IsNullOrEmpty(user.Email))
+            {
+                return; // User not found or email not provided
+            }
+
+            // Retrieve the DtsNo from the associated request
+            var request = await _context.RSC_Requests.FindAsync(document.RequestId);
+            if (request == null)
+            {
+                return; // Request not found
+            }
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("PUP Research Support Center", "rsc.rmo3@gmail.com"));
+            message.To.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
+            message.Subject = "Disapproval Letter Sent";
+
+            var builder = new BodyBuilder
+            {
+                TextBody = $"Dear {user.FirstName} {user.LastName}, We regret to inform you that your application request with DTS {request.DtsNo} has been disapproved. Attached, you will find your Disapproval Letter, which provides further details on the decision. For further assistance or clarification, please feel free to reach out to the Research Support Center.\n\nYours Truly,\nPUP Research Support Center"
             };
 
             // Add the document as an attachment
@@ -889,7 +1128,7 @@ namespace rscSys_final.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ApproveApplication(int requestId)
+        public async Task<IActionResult> ApproveApplication(int requestId, string decision, string comments)
         {
             // Find the request in the database
             var request = await _context.RSC_Requests
@@ -900,17 +1139,43 @@ namespace rscSys_final.Controllers
                 return NotFound();
             }
 
-            // Update the request status to "Approved"
-            request.Status = "Approved";
-            request.SubmittedDate = DateTime.Now;
+            // Validate the decision parameter
+            if (string.IsNullOrEmpty(decision) || (decision != "Approve" && decision != "Reject"))
+            {
+                return BadRequest("Invalid decision. Only 'Approve' or 'Reject' are allowed.");
+            }
+
+            // Declare variables and initialize with default values
+            string statusMessage = "Decision not processed.";
+            string notificationMessage = "No notification generated.";
+
+            // Process decision logic
+            if (decision == "Approve")
+            {
+                // Update request status to "Approved"
+                request.Status = "Approved";
+                request.SubmittedDate = DateTime.Now;
+
+                statusMessage = "The application has been approved.";
+                notificationMessage = $"We are pleased to inform you that your application request with DTS Number {request.DtsNo} has been approved. Once we receive the hard copy of your documentary requirements, we will send the endorsement letter that formally recognizes the successful approval of your application. Thank you!";
+            }
+            else if (decision == "Reject")
+            {
+                // Update request status to "Rejected"
+                request.Status = "Rejected";
+                request.SubmittedDate = DateTime.Now;
+
+                statusMessage = "The application has been rejected.";
+                notificationMessage = $"We regret to inform you that your application request with DTS Number {request.DtsNo} has been rejected.";
+            }
 
             // Add entry to StatusHistory
             var statusHistory = new StatusHistory
             {
                 RequestId = requestId,
-                Status = "Approved",
+                Status = request.Status,
                 StatusDate = DateTime.Now,
-                Comments = "The application has been approved."
+                Comments = statusMessage
             };
             _context.RSC_StatusHistories.Add(statusHistory);
 
@@ -919,34 +1184,33 @@ namespace rscSys_final.Controllers
             {
                 RequestId = requestId,
                 CreateDate = DateTime.Now,
-                Comments = "Application is approved. Awaiting the submission of the endorsement letter.",
+                Comments = $"{decision}: {comments}",
                 PerformedBy = "Chief"
             };
             _context.RSC_DocumentHistories.Add(documentHistory);
-
-            // Prepare the notification message
-            string notificationMessage = $"We are pleased to inform you that your application request with DTS Number {request.DtsNo} has been approved. Once we receive the hard copy of your documentary requirements, we will send the endorsement letter that formally recognizes the successful approval of your application. Thank you!";
 
             // Create a new notification entry
             var notification = new Notifications
             {
                 UserId = request.UserId,
-                NotificationTitle = "Application Approved",
+                NotificationTitle = decision == "Approve" ? "Application Approved" : "Application Rejected",
                 NotificationMessage = notificationMessage,
                 NotificationCreationDate = DateTime.Now,
                 NotificationStatus = false, // Set as unread
-                Role = "Applicant",
-                PerformedBy = "System",
-                EvaluatorAssignmentId = null // Not linked to any evaluator assignment in this case
+                Role = "Researcher",
+                PerformedBy = "Cheif",
+                EvaluatorAssignmentId = null
             };
             _context.RSC_Notifications.Add(notification);
 
-            // Save the changes to the database
+            // Save changes to the database
             await _context.SaveChangesAsync();
 
             // Return a success response with the notification message
-            return Ok();
+            return Ok(new { message = notificationMessage });
         }
+
+
 
         public IActionResult GrantsOverview()
         {
@@ -998,94 +1262,47 @@ namespace rscSys_final.Controllers
         public ActionResult Forecasting()
         {
             var requestData = _context.RSC_Requests
-                .Where(r => r.Status == "Approved" || r.Status == "Endorsed by RMO")
-                .ToList()
-                .GroupBy(r => r.CreatedDate.Year)
-                .Select(g => new RequestData
-                {
-                    CreatedDate = new DateTime(g.Key, 1, 1),
-                    RequestSpent = g.Sum(r => (float)r.RequestSpent)
-                })
-                .OrderBy(d => d.CreatedDate)
-                .ToList();
-
-            if (requestData.Count < 8)
+            .Where(r => r.Status == "Approved" || r.Status == "Endorsed by RMO")
+            .ToList()
+            .GroupBy(r => r.CreatedDate.Year)
+            .Select(g => new RequestData
             {
-                ViewBag.Error = "Insufficient data for accurate forecasting. At least 8 years of data are required.";
-                return View();
-            }
+                CreatedDate = new DateTime(g.Key, 1, 1),
+                RequestSpent = (float)g.Sum(r => r.RequestSpent)
+            })
+            .OrderBy(d => d.CreatedDate)
+            .ToList();
 
             var mlContext = new MLContext();
-            int seriesLength = requestData.Count;
-            int windowSize = Math.Max(3, seriesLength / 4);
-            int horizon = 2;
-
-            if (seriesLength <= 2 * windowSize)
-            {
-                ViewBag.Error = $"The input size for training should be greater than twice the window size. " +
-                                $"Series Length: {seriesLength}, Window Size: {windowSize}";
-                return View();
-            }
-
-            int testSetSize = Math.Max(2, seriesLength / 10);
-            var trainData = requestData.Take(seriesLength - testSetSize).ToList();
-            var testData = requestData.Skip(seriesLength - testSetSize).ToList();
-
-            var dataView = mlContext.Data.LoadFromEnumerable(trainData);
+            var dataView = mlContext.Data.LoadFromEnumerable(requestData);
 
             var forecastingPipeline = mlContext.Forecasting.ForecastBySsa(
                 outputColumnName: "ForecastedSpent",
                 inputColumnName: "RequestSpent",
-                windowSize: windowSize,
-                seriesLength: seriesLength,
-                trainSize: trainData.Count,
-                horizon: horizon);
+                windowSize: 2,
+                seriesLength: requestData.Count,
+                trainSize: requestData.Count,
+                horizon: 1);
 
             var mlModel = forecastingPipeline.Fit(dataView);
             var forecastEngine = mlModel.CreateTimeSeriesEngine<RequestData, RequestForecast>(mlContext);
             var forecast = forecastEngine.Predict();
 
-            var actualValues = testData.Select(t => t.RequestSpent).ToList();
-            var predictedValues = forecast.ForecastedSpent.Take(testSetSize).ToList();
-
-            // Calculate MAE, MAPE, RMSE
-            double mae = actualValues.Zip(predictedValues, (actual, predicted) => Math.Abs(actual - predicted)).Average();
-            double mape = actualValues.Zip(predictedValues, (actual, predicted) => Math.Abs((actual - predicted) / actual)).Average() * 100;
-            double rmse = Math.Sqrt(actualValues.Zip(predictedValues, (actual, predicted) => Math.Pow(actual - predicted, 2)).Average());
-
-            // Calculate R-squared
-            double meanActual = actualValues.Average();
-            double ssTot = actualValues.Sum(actual => Math.Pow(actual - meanActual, 2));
-            double ssRes = actualValues.Zip(predictedValues, (actual, predicted) => Math.Pow(actual - predicted, 2)).Sum();
-            double rSquared = 1 - (ssRes / ssTot);
-
-            // Calculate Signal-to-Noise Ratio (SNR)
-            double residualStdDev = Math.Sqrt(ssRes / actualValues.Count);
-            double snr = meanActual / residualStdDev;
-
-            ViewBag.MAE = mae;
-            ViewBag.MAPE = mape;
-            ViewBag.RMSE = rmse;
-            ViewBag.RSquared = rSquared;
-            ViewBag.SNR = snr;
-
+            // Prepare data for the chart
             var historicalYears = requestData.Select(d => d.CreatedDate.Year).ToList();
             var historicalSpent = requestData.Select(d => d.RequestSpent).ToList();
 
-            var lastYear = requestData.Last().CreatedDate.Year;
-            for (int i = 0; i < horizon; i++)
-            {
-                historicalYears.Add(lastYear + (i + 1));
-                historicalSpent.Add(forecast.ForecastedSpent[i]);
-            }
+            // Add forecasted year and budget
+            var forecastYear = requestData.Last().CreatedDate.Year + 1;
+            var forecastedBudget = forecast.ForecastedSpent[0];
+            historicalYears.Add(forecastYear);
+            historicalSpent.Add(forecastedBudget);
 
-            ViewBag.Years = historicalYears;
-            ViewBag.Spent = historicalSpent;
-
+            // Pass data to the view
             var viewModel = new BudgetForecastViewModel
             {
-                Year = lastYear + horizon,
-                ForecastedBudget = forecast.ForecastedSpent.Last(),
+                Year = forecastYear,
+                ForecastedBudget = forecastedBudget,
                 HistoricalData = requestData.Select(d => new HistoricalSpending
                 {
                     Year = d.CreatedDate.Year,
@@ -1093,9 +1310,14 @@ namespace rscSys_final.Controllers
                 }).ToList()
             };
 
+            ViewBag.Years = historicalYears;
+            ViewBag.Spent = historicalSpent;
+
+            ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
+            .Count(n => !n.NotificationStatus && n.Role == "Chief");
+
             return View(viewModel);
         }
-
 
 
         public async Task<IActionResult> Checklist()
@@ -1584,38 +1806,49 @@ namespace rscSys_final.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Fetch the request data and associated documents (Requirements) from the database
             var request = await _context.RSC_Requests
-                .Include(r => r.Requirements)  // Include the associated Requirements (documents)
+                .Include(r => r.Requirements)
                 .FirstOrDefaultAsync(r => r.RequestId == requestId);
 
             if (request == null)
             {
-                return NotFound();  // Handle if the request doesn't exist
+                return NotFound();
             }
 
-            // Get the applicant's name formatted as "LastName, FirstName"
             var applicantName = $"{request.Name}";
             ViewData["ApplicantName"] = applicantName;
 
-            // Retrieve ApplicationSubCategories for the draft based on criteria
+            // Try fetching checklists from the subcategory
             var applicationSubCategories = await _context.RSC_ApplicationSubCategories
-                .Where(sc => sc.ApplicationType.ApplicationTypeName == request.ApplicationType
-                           || sc.CategoryName == request.ApplicationType) // Adjusted condition
-                .Include(sc => sc.Checklists) // Include Checklists for each ApplicationSubCategory
+                .Where(sc => sc.CategoryName == request.ApplicationType)
+                .Include(sc => sc.Checklists)
                 .ToListAsync();
 
-            var checklists = applicationSubCategories
-                .SelectMany(sc => sc.Checklists)
-                .ToList();
+            List<Checklist> checklists;
 
-            // Retrieve document histories for the current request
+            if (applicationSubCategories.Any())
+            {
+                // If subcategories are found, fetch their checklists
+                checklists = applicationSubCategories
+                    .SelectMany(sc => sc.Checklists)
+                    .ToList();
+            }
+            else
+            {
+                // If no subcategory matches, fetch checklists from the application type
+                var applicationType = await _context.RSC_ApplicationTypes
+                    .Where(at => at.ApplicationTypeName == request.ApplicationType)
+                    .Include(at => at.Checklists)
+                    .FirstOrDefaultAsync();
+
+                checklists = applicationType?.Checklists.ToList() ?? new List<Checklist>();
+            }
+
             var documentHistories = await _context.RSC_DocumentHistories
                 .Where(dh => dh.RequestId == requestId)
-                .OrderByDescending(dh => dh.CreateDate) // Order by the creation date
+                .OrderByDescending(dh => dh.CreateDate)
                 .ToListAsync();
 
-            // Determine if the decision should be disabled based on comments in document history
             var isDecisionDisabled = documentHistories
                 .Any(dh => dh.Comments.Contains("Notice to Proceed", StringComparison.OrdinalIgnoreCase) ||
                            dh.Comments.Contains("Approved", StringComparison.OrdinalIgnoreCase) ||
@@ -1625,16 +1858,14 @@ namespace rscSys_final.Controllers
             {
                 Request = request,
                 Requirements = request.Requirements.ToList(),
-                Checklists = checklists, // Set the Checklists here
+                Checklists = checklists,
                 DocumentHistories = documentHistories,
                 IsDecisionDisabled = isDecisionDisabled
             };
 
-            // Check if "Requirements Under Review" status already exists in the StatusHistory for this request
             var existingStatus = await _context.RSC_StatusHistories
                 .FirstOrDefaultAsync(sh => sh.RequestId == requestId && sh.Status == "Requirements Under Review");
 
-            // If the status does not already exist, add it to the StatusHistory
             if (existingStatus == null)
             {
                 var statusHistory = new StatusHistory
@@ -1648,30 +1879,27 @@ namespace rscSys_final.Controllers
                 _context.RSC_StatusHistories.Add(statusHistory);
             }
 
-            // Get the owner of the request
-            var requestOwnerId = request.UserId; // Assuming UserId is the foreign key in Requests table that points to the owner
+            var requestOwnerId = request.UserId;
 
-            // Check if a notification for this request already exists for the owner
             var existingNotification = await _context.RSC_Notifications
                 .Where(n => n.UserId == requestOwnerId && n.NotificationMessage.Contains(request.DtsNo))
                 .FirstOrDefaultAsync();
 
-            // If the notification does not already exist for the request owner, create it
             if (existingNotification == null)
             {
                 var notification = new Notifications
                 {
-                    UserId = requestOwnerId,  // Set the owner of the request as the notification recipient
+                    UserId = requestOwnerId,
                     NotificationTitle = "Application Under Review",
                     NotificationMessage = $"Your application (DTS No: {request.DtsNo}) is now under review.",
                     NotificationCreationDate = DateTime.Now,
-                    NotificationStatus = false // Set as unread
+                    NotificationStatus = false
                 };
 
                 _context.RSC_Notifications.Add(notification);
             }
 
-            await _context.SaveChangesAsync(); // Save changes asynchronously
+            await _context.SaveChangesAsync();
 
             return View(model);
         }
@@ -2098,12 +2326,19 @@ namespace rscSys_final.Controllers
 
                 _context.RSC_DocumentHistories.Add(documentHistory);
 
+                // Add to Status History
                 var statusHistory = new StatusHistory
                 {
                     RequestId = requestId,
-                    Status = "Approved",
+                    Status = decision,
                     StatusDate = DateTime.Now,
-                    Comments = "Your application is approved"
+                    Comments = decision switch
+                    {
+                        "Approved" => "Your application is approved.",
+                        "Rejected" => "Your application is rejected.",
+                        "For Compliance" => "Your application requires compliance with additional requirements.",
+                        _ => "Decision updated."
+                    }
                 };
 
                 _context.RSC_StatusHistories.Add(statusHistory);

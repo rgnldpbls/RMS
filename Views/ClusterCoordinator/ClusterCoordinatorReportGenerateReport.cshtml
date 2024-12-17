@@ -41,12 +41,12 @@
 <div>
     @* <!--navbar-->
     <div class="nnvb container mt-3 mb-3">
-        <div class="row">
-            <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
-                <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReport" id="aactive">Generate Report</a>
-            </div>
+    <div class="row">
+    <div class="itm-active col-lg-2 col-sm-12 me-2 p-1 mb-1 text-center">
+    <a class="text-decoration-none" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReport" id="aactive">Generate Report</a>
+    </div>
 
-        </div>
+    </div>
     </div> *@
 
     <div class="cat display-6 mb-3 pb-1">Generate Report</div>
@@ -65,6 +65,10 @@
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
                         <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2019">2018</option>
                     </select>
 
                 </div>
@@ -532,8 +536,9 @@
                     <select name="level" id="level" class="form-select mb-3">
                         <option value="">-- All Levels --</option>
                         <option value="Level 1">National</option>
-                        <option value="Level 2">Internatinal</option>
+                        <option value="Level 2">International</option>
                         <option value="Level 3">Regional</option>
+                        <option value="Level 4">Institutional</option>
                     </select>
                 </div>
             </div>
@@ -572,59 +577,60 @@
     </form>
 
     <!--input fields-->
-    <form action="" class="container" method="post">
-        <!--scope dates-->
-        <div class="container mt-3">
-            <div class="row d-flex">
-                <div class="col-lg-3 col-sm-12">
-                    <label class="form-label" for="start_date">Start Date</label>
-                    <input class="form-control mb-3" type="date" id="start_date" name="startDate" required>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <label class="form-label" for="end_date">End Date</label>
-                    <input class="form-control mb-3" type="date" id="end_date" name="endDate" required>
-                </div>
-            </div>
-        </div>
+    @*  <form action="" class="container" method="post">
+    <!--scope dates-->
+    <div class="container mt-3">
+    <div class="row d-flex">
+    <div class="col-lg-3 col-sm-12">
+    <label class="form-label" for="start_date">Start Date</label>
+    <input class="form-control mb-3" type="date" id="start_date" name="startDate" required>
+    </div>
+    <div class="col-lg-3 col-sm-12">
+    <label class="form-label" for="end_date">End Date</label>
+    <input class="form-control mb-3" type="date" id="end_date" name="endDate" required>
+    </div>
+    </div>
+    </div>
 
-        <!--select report type-->
-        <div class="container shadow h4 p-4 mb-3 text-white" id="title" style="background: #850000;">
-            Select Report Type
-        </div>
-
-
-
-        <!--report types-->
-        @*  <div class="container d-block">
-
-        <div class="my-2">
-        <a asp-controller="AddAccomplishments" asp-action="ProductionExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Production Report</a>
-        </div>
-        <div class="my-2">
-        <a asp-controller="AddAccomplishments" asp-action="PresentationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Presentation Report</a>
-        </div>
-        <div class="my-2">
-        <a asp-controller="AddAccomplishments" asp-action="PublicationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Publication Report</a>
-        </div>
-        <div class="my-2">
-        <a asp-controller="AddAccomplishments" asp-action="PatentExportToExcel" class="btn btn-outline-danger w-100 text-start">Download Patent Report</a>
-        </div>
+    <!--select report type-->
+    <div class="container shadow h4 p-4 mb-3 text-white" id="title" style="background: #850000;">
+    Select Report Type
+    </div> *@
 
 
-        </div> *@
 
-        @*  <div class="me-2">
-        <button type="submit" asp-controller="ClusterCoordinator" asp-action="GenerateConsolidatedReport" class="report mb-3">Generate Report</button>
-        <button type="submit" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReportPreview" class="report me-2 mb-3">Report Preview</button>
-        </div> *@
+    <!--report types-->
+    @*  <div class="container d-block">
+
+    <div class="my-2">
+    <a asp-controller="AddAccomplishments" asp-action="ProductionExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Production Report</a>
+    </div>
+    <div class="my-2">
+    <a asp-controller="AddAccomplishments" asp-action="PresentationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Presentation Report</a>
+    </div>
+    <div class="my-2">
+    <a asp-controller="AddAccomplishments" asp-action="PublicationExportToExcel" class="btn btn-outline-danger btn-block w-100 text-start">Download Publication Report</a>
+    </div>
+    <div class="my-2">
+    <a asp-controller="AddAccomplishments" asp-action="PatentExportToExcel" class="btn btn-outline-danger w-100 text-start">Download Patent Report</a>
+    </div>
 
 
-    </form>
+    </div> *@
+
+    @*  <div class="me-2">
+    <button type="submit" asp-controller="ClusterCoordinator" asp-action="GenerateConsolidatedReport" class="report mb-3">Generate Report</button>
+    <button type="submit" asp-controller="ClusterCoordinator" asp-action="ClusterCoordinatorReportGenerateReportPreview" class="report me-2 mb-3">Report Preview</button>
+    </div> *@
+
+
+    @* </form> *@
     <script src="~/js/ClusterCoordinator-Report-GenerateReport.js"></script>
 
 
 
 </div>
+
 
 
 

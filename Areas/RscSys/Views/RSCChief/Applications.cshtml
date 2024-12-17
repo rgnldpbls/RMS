@@ -411,15 +411,28 @@
                                 }
                             </td>
                             <td class="justify-content-center text-center">
+
+
                                 @if (request.Status == "Endorsed by RMO")
                                 {
                                     <strong><i>Completed</i></strong>
                                 }
                                     else if (request.Status == "Rejected")
                                     {
-                                        <a href="@Url.Action("Disapprove", "RSCChief", new { requestId = request.RequestId })" class="btn btn-reject">
-                                            <i class="fa-solid fa-paper-plane" style="color: #850000;"></i> Send Letter of Disapproval
-                                        </a>
+                                        // Check if the disapproval letter has already been sent
+                                        var hasDisapprovalDocument = request.DocumentHistories != null &&
+                                        request.DocumentHistories.Any(d => d.Comments.Contains("The disapproval letter is ready to download"));
+
+                                        if (hasDisapprovalDocument)
+                                        {
+                                            <strong><i>Completed</i></strong>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Disapprove", "RSCChief", new { requestId = request.RequestId })" class="btn btn-reject">
+                                                <i class="fa-solid fa-paper-plane" style="color: #850000;"></i> Send Letter of Disapproval
+                                            </a>
+                                        }
                                     }
                                 else
                                 {

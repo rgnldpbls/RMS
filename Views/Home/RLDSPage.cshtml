@@ -1,10 +1,22 @@
 ﻿@{
     ViewData["Title"] = "RMO Sections";
+
     Layout = "_Layout";
 }
 <link href="~/css/RMOSections.css" rel="stylesheet" />
 
+<!-- RMO COVER -->
+<div class="hero">
+    <img src="~/images/9.png" alt="RMO COVER PHOTO">
+</div>
 
+<!-- Search Bar -->
+<div class="custom-search">
+    <div class="input-group">
+        <input type="text" class="searchint form-control" placeholder="Enter keywords..." aria-label="Search">
+        <button class="btn btn-custom" type="button"><i class="bi bi-search"></i> Search</button>
+    </div>
+</div>
 <body id="body">
     <div class="container-fluid shadow display-6 text-center p-2" id="section-title">
         RESEARCH LINKAGES AND DISSEMINATION SECTION
@@ -19,12 +31,12 @@
     </div>
 
     <div class="container mt-4 mb-4">
-        <div class="row">
+        <div class="row d-flex justify-content-center align-items-center">
             <div class="col-lg-3 col-sm-12 text-center">
-                <img class="img-fluid" src="~/images/RMOSection-rlds.jpg" alt="" id="chief-img" style="width: 130px; border: 2px solid white;">
+                <img class="img-fluid" src="~/images/chiefplaceholder.png" alt="" id="chief-img" style="width: 130px; border: 2px solid #FFDB89;">
             </div>
             <div class="col-lg-9 col-sm-12 align-self-center p-5" id="chief-name">
-                <div class="fs-1 fw-bold">Hazel D.R. Samala, MASED</div>
+                <div class="fs-1 fw-bold">Heildenberg C. Dimarucot</div>
                 <div class="fs-5">Chief, Center for Research Dissemination and Linkages</div>
             </div>
         </div>
@@ -47,3 +59,4 @@
     </div>
 
 </body>
+

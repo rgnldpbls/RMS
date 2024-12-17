@@ -26,22 +26,33 @@
 
     <script src="https://kit.fontawesome.com/84ccdc0b43.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sidebarfx:hover {
+            background: rgb(255, 246, 195, 0.2);
+        }
 
+        .nav-item.active {
+            background: rgb(255, 246, 195, 0.2);
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navvbg navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background:#850000;">
+        <nav class="navvbg navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background:#850000; z-index: 1050;">
             <div class="container-fluid">
                 <div class="d-flex justify-content-between align-items-center me-5">
-                    <div class="" onclick="toggleSidebar()">
+                    <!--sidebar button-->
+                    <div class="sidebarfx p-2 rounded" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                         <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
                     </div>
+
                     <div class="d-flex align-items-center">
                         <div class="me-3 ms-3">
                             <img src="~/images/rmologo.png" alt="RMO Logo" style="width: 60px; height: 60px; border-radius: 60px" />
 
                         </div>
-                        <div class="d-flex flex-column text-white">
+                        <div class="d-flex flex-column text-white d-none d-md-block">
                             <div class="rmo">Research Management Office</div>
                             <div class="pup">Polytechnic University of the Philippines</div>
                         </div>
@@ -57,17 +68,17 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav mx-auto">
-
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Faculty" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
                             <a class="nav-link text-white" asp-area="" asp-controller="Faculty" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "AddAccomplishments" && ViewContext.RouteData.Values["action"]?.ToString() == "IndexFaculty" ? "active" : "")">
                             <a class="nav-link text-white" asp-area="" asp-controller="AddAccomplishments" asp-action="IndexFaculty">Accomplishments</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Faculty" && ViewContext.RouteData.Values["action"]?.ToString() == "FacultyApplication" ? "active" : "")">
                             <a class="nav-link text-white" asp-area="" asp-controller="Faculty" asp-action="FacultyApplication">Application</a>
                         </li>
                     </ul>
+
                     <div class="ms-auto d-flex justify-content-end align-items-center">
                         <!-- Role Selection Dropdown -->
                         @if (SignInManager.IsSignedIn(User))
@@ -93,7 +104,13 @@
                             <a asp-area="" asp-controller="Faculty" asp-action="FacultyCenters"><i class="fa-solid fa-landmark fa-lg" style="color: #ffffff;"></i></a>
                         </div>
                         <div class="hoverfxright me-2 p-2 rounded-2">
-                            <a asp-area="" asp-controller="Faculty" asp-action="FacultyNotifications"><i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i></a>
+                            <a asp-area="" asp-controller="Faculty" asp-action="FacultyNotifications" class="position-relative">
+                                <i class="fa-solid fa-bell fa-lg" style="color: #ffffff;"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <span style="font-size: 0.7rem;">0</span>
+                                    <span class="visually-hidden">unread notifications</span>
+                                </span>
+                            </a>
                         </div>
                         <div class="hoverfxright me-2 p-2 rounded-2">
                             <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i></a>
@@ -106,40 +123,44 @@
         </nav>
     </header>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <a class="text-dark text-decoration-none" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-            <div class="profile-section d-block text-center">
 
-                <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 d-block mx-auto mb-2">
+    <!--sidebar-->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel" style="background: #850000; z-index:1100;">
+        <div class="offcanvas-header sideitemz text-center">
+            <a class="text-decoration-none text-white mx-auto p-4" asp-area="Identity" asp-page="/Account/Manage/Index">
+                <div class="profile-section d-block text-center">
 
-                <!-- Clickable Hello, [Username] link -->
+                    <img src="~/images/profile.png" alt="User Profile" class="profile-image w-50 d-block mx-auto mb-2">
 
-                <p class="user-email my-0 fs-6 fw-light text-white">Hello, @User.Identity?.Name!</p>
+                    <!-- Clickable Hello, [Username] link -->
+
+                    <p class="user-email my-0 fs-6 fw-light text-white">Hello, @User.Identity?.Name!</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="offcanvas-body menu-section" style="border-top: 3px solid white; border-bottom: 3px solid white;">
+            <div>
+                <a class="text-white text-decoration-none" asp-controller="AddFAQs" asp-action="Index"><div class="sideitemz p-4 rounded-2"><i class="fa-solid fa-person-circle-question fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">FAQs</span></div></a>
+                <a class="text-white text-decoration-none" asp-controller="Faculty" asp-action="FacultyRateUs"><div class="sideitemz p-4 rounded-2"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Rate Us</span></div></a>
+                <a class="text-white text-decoration-none" asp-controller="Faculty" asp-action="FacultyReportGenerateReport"><div class="sideitemz p-4 rounded-2"><i class="fa-solid fa-file-export fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Report</span></div></a>
+                <a class="text-white text-decoration-none" asp-controller="Faculty" asp-action="FacultyAbout"><div class="sideitemz p-4 rounded-2"><i class="fa-solid fa-circle-info fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">About</span></div></a>
+                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Account" asp-action="UserActivityHistory"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Activity Logs</span></a></li>
+
             </div>
-        </a>
-
-
-        <div class="menu-section">
-            <ul>
-                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="AddFAQs" asp-action="Index"><i class="fa-solid fa-person-circle-question fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">FAQs</span></a></li>
-                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Faculty" asp-action="FacultyRateUs"><i class="fa-solid fa-star fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Rate Us</span></a></li>
-                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Faculty" asp-action="FacultyReportGenerateReport"><i class="fa-solid fa-file-export fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">Report</span></a></li>
-                <li class="sideitemz p-2 rounded-2"><a class="text-white text-decoration-none" asp-controller="Faculty" asp-action="FacultyAbout"><i class="fa-solid fa-circle-info fa-2xl me-3" style="color: #ffffff;"></i><span class="ms-2">About</span></a></li>
-            </ul>
         </div>
-
-        <div class="logout-section mt-3">
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="logout-button btn btn-link text-white w-100">
-                    <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
-                </button>
-            </form>
+        <div class="offcanvas-footer logout-section my-3 mx-3">
+            <div>
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="text-start btn btn-link text-decoration-none logout-button text-white w-100 p-4 sideitemz">
+                        <i class="fa-solid fa-right-from-bracket fa-2xl me-3" style="color: #ffffff;"></i> Log Out
+                    </button>
+                </form>
+            </div>
         </div>
-
-
     </div>
 
+    <!--body-->
     <div class="container mt-5">
         <main role="main" class="pt-5 pb-5">
             @RenderBody()
@@ -148,12 +169,14 @@
 
 
 
-    <script src="~/js/sidebar.js"></script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
 
 

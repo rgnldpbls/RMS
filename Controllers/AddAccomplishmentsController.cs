@@ -21,6 +21,10 @@ using RemcSys.Data;
 using rscSys_final.Data;
 using DocumentFormat.OpenXml.Bibliography;
 using Microsoft.Data.SqlClient;
+using ResearchManagementSystem.Areas.CreSys.Data;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 
 namespace ResearchManagementSystem.Controllers
 {
@@ -32,8 +36,10 @@ namespace ResearchManagementSystem.Controllers
         private readonly UserService _userService;
         private readonly RemcDBContext _remcdbContext;
         private readonly rscSysfinalDbContext _rscdbContext;
+        private readonly CreDbContext _credbContext;
+        private readonly ILogger<LoginModel> _logger;
 
-        public AddAccomplishmentsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UserService userService, RemcDBContext remcdbContext, rscSysfinalDbContext rscdbContext)
+        public AddAccomplishmentsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UserService userService, RemcDBContext remcdbContext, rscSysfinalDbContext rscdbContext, CreDbContext credbContext, ILogger<LoginModel> logger)
         {
             _context = context;
             _userManager = userManager;
@@ -41,6 +47,8 @@ namespace ResearchManagementSystem.Controllers
             _userService = userService;
             _remcdbContext = remcdbContext;
             _rscdbContext = rscdbContext;
+            _credbContext = credbContext;
+            _logger = logger;
         }
 
         //[HttpGet]
@@ -418,6 +426,7 @@ namespace ResearchManagementSystem.Controllers
 
 
 
+
         // GET: AddAccomplishments/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -456,6 +465,7 @@ namespace ResearchManagementSystem.Controllers
 
             return View(addAccomplishment);
         }
+
 
 
         // GET: AddAccomplishments/Details/5
@@ -519,6 +529,219 @@ namespace ResearchManagementSystem.Controllers
 
             return View(addAccomplishment);
         }
+        //[Authorize(Roles = "RMCC")]
+        //[HttpGet("Create")]
+        //public async Task<IActionResult> Create()
+        //{
+        //    // Get the current user to ensure they're RMCC
+        //    var currentUser = await _userManager.GetUserAsync(User);
+        //    if (currentUser == null)
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    // Fetch existing production data titles
+        //    var productionData = await _context.Production.Select(p => p.ResearchTitle).ToListAsync();
+
+        //    // Fetch REMC data with additional fields and conditions
+        //    var remcData = await _remcdbContext.REMC_FundedResearches
+        //                                        .Where(e => e.status == "Completed" && !productionData.Contains(e.research_Title))
+        //                                        .Select(e => new
+        //                                        {
+        //                                            e.research_Title,
+        //                                            e.fr_Type,
+        //                                            e.team_Leader,
+        //                                            e.team_Members,
+        //                                            e.project_Duration,
+        //                                            e.total_project_Cost,
+        //                                            e.field_of_Study,
+        //                                            e.start_Date,
+        //                                            e.end_Date,
+        //                                            e.branch,
+        //                                            e.college
+        //                                        })
+        //                                        .ToListAsync();
+
+        //    // Map REMC data to a SelectList for ResearchTitle dropdown
+        //    ViewData["ResearchTitle"] = new SelectList(remcData, "research_Title", "research_Title");
+
+        //    // Pass REMC data to the view as a whole for additional details
+        //    ViewData["RemcDetails"] = remcData;
+
+        //    // Fetch all faculty users
+        //    var facultyUsers = await _userManager.GetUsersInRoleAsync("Faculty");
+        //    var facultyList = facultyUsers.Select(u => new
+        //    {
+        //        Id = u.Id,
+        //        FullName = $"{u.FirstName} {u.LastName} ({u.Email})"
+        //    });
+
+        //    ViewData["LeadResearcherId"] = new SelectList(facultyList, "Id", "FullName");
+        //    ViewData["CoLeadResearcherId"] = new SelectList(facultyList, "Id", "FullName");
+        //    ViewData["MemberoneId"] = new SelectList(facultyList, "Id", "FullName");
+        //    ViewData["MembertwoId"] = new SelectList(facultyList, "Id", "FullName");
+        //    ViewData["MemberthreeId"] = new SelectList(facultyList, "Id", "FullName");
+
+        //    // Placeholder for generating ethics clearance
+        //    ViewData["EthicsClearancePlaceholder"] = "Generate ethics clearance using UREC No.";
+
+        //    return View();
+        //}
+
+        //[HttpPost("Create")]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "RMCC")]
+        //public async Task<IActionResult> Create(
+        //[Bind("ProductionId,Year,ResearchTitle,LeadResearcherId,CoLeadResearcherId,MemberoneId,MembertwoId,MemberthreeId,BranchCampus,College,Department,FundingAgency,FundingAmount,DateStarted,DateCompleted,IsStudentInvolved,TypesofFunding,TotalProjectCost,FieldOfStudy")] AddAccomplishment addAccomplishment,
+        //string? UrecNo,
+        //IFormFile? RequiredFile1Data,
+        //IFormFile? RequiredFile2Data,
+        //IFormFile? RequiredFile3Data,
+        //IFormFile? ConditionalFileData)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            // Check if the research title already exists in the Production table
+        //            var isExistingInProduction = await _context.Production
+        //                                                       .AnyAsync(p => p.ResearchTitle == addAccomplishment.ResearchTitle);
+        //            if (isExistingInProduction)
+        //            {
+        //                ModelState.AddModelError("ResearchTitle", "This research title already exists in the Production table.");
+        //                return View(addAccomplishment);
+        //            }
+
+        //            // Fetch additional data from REMC for the selected research title
+        //            var selectedRemcData = await _remcdbContext.REMC_FundedResearches
+        //                                                       .FirstOrDefaultAsync(e => e.research_Title == addAccomplishment.ResearchTitle);
+
+        //            if (selectedRemcData != null)
+        //            {
+        //                addAccomplishment.TypesofFunding = selectedRemcData.fr_Type;
+        //                addAccomplishment.LeadResearcherId = selectedRemcData.team_Leader;
+
+
+
+        //                addAccomplishment.total_project_Cost = selectedRemcData.total_project_Cost;
+        //                addAccomplishment.field_of_Study = selectedRemcData.field_of_Study;
+        //                addAccomplishment.DateStarted = selectedRemcData.start_Date;
+        //                addAccomplishment.DateCompleted = selectedRemcData.end_Date;
+        //            }
+
+
+        //            // Populate other accomplishment fields
+        //            var currentUser = await _userManager.GetUserAsync(User);
+        //            if (currentUser == null)
+        //            {
+        //                return RedirectToAction("Login", "Account");
+        //            }
+
+        //            addAccomplishment.ProductionId = Guid.NewGuid().ToString();
+        //            addAccomplishment.CreatedById = currentUser.Id;
+        //            addAccomplishment.Notes = $"Created by {currentUser.FirstName} {currentUser.LastName}";
+        //            addAccomplishment.CreatedOn = DateTime.Now;
+
+        //            // Handle file uploads
+        //            if (RequiredFile1Data != null && RequiredFile1Data.Length > 0)
+        //            {
+        //                using var memoryStream = new MemoryStream();
+        //                await RequiredFile1Data.CopyToAsync(memoryStream);
+        //                addAccomplishment.RequiredFile1Data = memoryStream.ToArray();
+        //                addAccomplishment.RequiredFile1Name = RequiredFile1Data.FileName;
+        //            }
+        //            if (RequiredFile2Data != null && RequiredFile2Data.Length > 0)
+        //            {
+        //                using var memoryStream = new MemoryStream();
+        //                await RequiredFile2Data.CopyToAsync(memoryStream);
+        //                addAccomplishment.RequiredFile2Data = memoryStream.ToArray();
+        //                addAccomplishment.RequiredFile2Name = RequiredFile2Data.FileName;
+        //            }
+        //            if (RequiredFile3Data != null && RequiredFile3Data.Length > 0)
+        //            {
+        //                using var memoryStream = new MemoryStream();
+        //                await RequiredFile3Data.CopyToAsync(memoryStream);
+        //                addAccomplishment.RequiredFile3Data = memoryStream.ToArray();
+        //                addAccomplishment.RequiredFile3Name = RequiredFile3Data.FileName;
+        //            }
+        //            if (ConditionalFileData != null && ConditionalFileData.Length > 0)
+        //            {
+        //                using var memoryStream = new MemoryStream();
+        //                await ConditionalFileData.CopyToAsync(memoryStream);
+        //                addAccomplishment.ConditionalFileData = memoryStream.ToArray();
+        //                addAccomplishment.ConditionalFileName = ConditionalFileData.FileName;
+        //            }
+
+        //            // Add accomplishment to the database
+        //            _context.Add(addAccomplishment);
+        //            await _context.SaveChangesAsync();
+        //            return RedirectToAction(nameof(IndexRmcc));
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("", "An error occurred while saving the accomplishment.");
+        //        }
+        //    }
+
+        //    // Re-populate data on error
+        //    var productionData = await _context.Production.Select(p => p.ResearchTitle).ToListAsync();
+        //    var remcData = await _remcdbContext.REMC_FundedResearches
+        //                                        .Where(e => e.status == "Completed" && !productionData.Contains(e.research_Title))
+        //                                        .Select(e => new
+        //                                        {
+        //                                            e.research_Title,
+        //                                            e.fr_Type,
+        //                                            e.total_project_Cost,
+        //                                            e.field_of_Study,
+        //                                            e.branch,
+        //                                            e.college,
+        //                                            e.start_Date,
+        //                                            e.end_Date,
+
+
+
+        //                                        })
+        //                                        .ToListAsync();
+
+        //    ViewData["ResearchTitle"] = new SelectList(remcData, "research_Title", "research_Title", addAccomplishment.ResearchTitle);
+
+        //    return View(addAccomplishment);
+        //}
+        [Authorize(Roles = "RMCC")]
+        public async Task<IActionResult> AddAccomplishment(string searchString)
+        {
+            ViewData["currentFilter"] = searchString;
+
+            try
+            {
+                var productionQuery = _context.Production.AsQueryable();
+
+                if (!string.IsNullOrEmpty(searchString))
+                {
+                    productionQuery = productionQuery.Where(p => p.ResearchTitle.Contains(searchString));
+                }
+
+                var accomplishmentList = await productionQuery
+                    .OrderBy(p => p.Year) // Dynamic sorting can be applied here
+                    .ToListAsync();
+
+                if (!accomplishmentList.Any())
+                {
+                    ViewData["NoResultsMessage"] = "No accomplishments found matching your search.";
+                }
+
+                return View(accomplishmentList);
+            }
+            catch (Exception ex)
+            {
+                // Log error (e.g., using ILogger)
+                ViewData["ErrorMessage"] = "An error occurred while fetching accomplishments.";
+                return View(new List<AddAccomplishment>());
+            }
+        }
+
+
+
 
         [Authorize(Roles = "RMCC")]
         [HttpGet("Create")]
@@ -555,65 +778,47 @@ namespace ResearchManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "RMCC")]
         public async Task<IActionResult> Create(
-     [Bind("ProductionId,Year, ResearchTitle,LeadResearcherId,CoLeadResearcherId,MemberoneId,MembertwoId,MemberthreeId,BranchCampus, College,Department,FundingAgency,FundingAmount,DateStarted,DateCompleted,IsStudentInvolved")]
+      [Bind("ProductionId,Year,ResearchTitle,LeadResearcherId,CoLeadResearcherId,MemberoneId,MembertwoId,MemberthreeId,BranchCampus,College,Department,FundingAgency,FundingAmount,DateStarted,DateCompleted,IsStudentInvolved,UrecNo")]
     AddAccomplishment addAccomplishment,
-     IFormFile? RequiredFile1Data,
-     IFormFile? RequiredFile2Data,
-     IFormFile? RequiredFile3Data,
-     IFormFile? ConditionalFileData)
+      IFormFile? RequiredFile1Data,
+      IFormFile? RequiredFile2Data,
+      IFormFile? RequiredFile3Data,
+      IFormFile? ConditionalFileData)
         {
             if (ModelState.IsValid)
             {
+                // Check if UREC No already exists in the accomplishments
+                var isUrecNoExists = _context.Production
+                    .Any(a => a.UrecNo == addAccomplishment.UrecNo);
+
+                if (isUrecNoExists)
+                {
+                    // Add an error message to the model state
+                    ModelState.AddModelError("UrecNo", "The provided UREC number is already in use. Please provide a unique UREC number.");
+                    return View(addAccomplishment); // Return the view with the error
+                }
+                // Validate Research Title
+                var isResearchTitleExists = _context.Production
+                    .Any(a => a.ResearchTitle.ToLower() == addAccomplishment.ResearchTitle.ToLower());
+
+                if (isResearchTitleExists)
+                {
+                    ModelState.AddModelError("ResearchTitle", "This accomplishment already exists with the same Research Title.");
+                    return View(addAccomplishment);
+                }
+
+
+
+
+                // Continue with saving the accomplishment
                 try
                 {
-                    // Get the current RMCC user
-                    var currentUser = await _userManager.GetUserAsync(User);
-                    if (currentUser == null)
-                    {
-                        return RedirectToAction("Login", "Account");
-                    }
-
-                    // Set creation metadata - just store the name
+                    // Logic for saving files and creating the accomplishment...
                     addAccomplishment.ProductionId = Guid.NewGuid().ToString();
-                    addAccomplishment.CreatedById = currentUser.Id;
-                    addAccomplishment.Notes = currentUser.FirstName + " " + currentUser.LastName; // Just store the name
-
-                    // Handle RequiredFile1
-                    if (RequiredFile1Data != null && RequiredFile1Data.Length > 0)
-                    {
-                        using var memoryStream = new MemoryStream();
-                        await RequiredFile1Data.CopyToAsync(memoryStream);
-                        addAccomplishment.RequiredFile1Data = memoryStream.ToArray();
-                        addAccomplishment.RequiredFile1Name = RequiredFile1Data.FileName;
-                    }
-
-                    // Handle RequiredFile2
-                    if (RequiredFile2Data != null && RequiredFile2Data.Length > 0)
-                    {
-                        using var memoryStream = new MemoryStream();
-                        await RequiredFile2Data.CopyToAsync(memoryStream);
-                        addAccomplishment.RequiredFile2Data = memoryStream.ToArray();
-                        addAccomplishment.RequiredFile2Name = RequiredFile2Data.FileName;
-                    }
-
-                    // Handle RequiredFile3
-                    if (RequiredFile3Data != null && RequiredFile3Data.Length > 0)
-                    {
-                        using var memoryStream = new MemoryStream();
-                        await RequiredFile3Data.CopyToAsync(memoryStream);
-                        addAccomplishment.RequiredFile3Data = memoryStream.ToArray();
-                        addAccomplishment.RequiredFile3Name = RequiredFile3Data.FileName;
-                    }
-
-                    // Handle ConditionalFile
-                    if (ConditionalFileData != null && ConditionalFileData.Length > 0)
-                    {
-                        using var memoryStream = new MemoryStream();
-                        await ConditionalFileData.CopyToAsync(memoryStream);
-                        addAccomplishment.ConditionalFileData = memoryStream.ToArray();
-                        addAccomplishment.ConditionalFileName = ConditionalFileData.FileName;
-                    }
                     addAccomplishment.CreatedOn = DateTime.Now;
+                    addAccomplishment.CreatedById = (await _userManager.GetUserAsync(User))?.Id;
+
+                    // Save accomplishment to database
                     _context.Add(addAccomplishment);
                     await _context.SaveChangesAsync();
 
@@ -621,13 +826,14 @@ namespace ResearchManagementSystem.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "An error occurred while saving the accomplishment.");
+                    ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+                    _logger.LogInformation("Saving a new accomplishment with UREC No: {UrecNo}", addAccomplishment.UrecNo);
+                    return View(addAccomplishment);
+
                 }
             }
 
-
-
-            // Repopulate faculty lists
+            // Re-populate dropdowns if validation fails
             var facultyUsers = await _userManager.GetUsersInRoleAsync("Faculty");
             var facultyList = facultyUsers.Select(u => new
             {
@@ -644,6 +850,41 @@ namespace ResearchManagementSystem.Controllers
             return View(addAccomplishment);
         }
 
+
+        [HttpGet("DownloadEthicsClearance/{urecNo}")]
+        [Authorize(Roles = "RMCC")]
+        public async Task<IActionResult> DownloadEthicsClearance(string urecNo)
+        {
+            if (string.IsNullOrWhiteSpace(urecNo))
+            {
+                return BadRequest("UREC number is required.");
+            }
+
+            try
+            {
+                // Fetch ethics clearance data based on UREC No
+                var ethicsClearance = await _credbContext.CRE_EthicsClearance
+                    .FirstOrDefaultAsync(e => e.UrecNo == urecNo);
+
+                if (ethicsClearance == null || ethicsClearance.ClearanceFile == null)
+                {
+                    return NotFound("The ethics clearance file could not be found for the provided UREC number.");
+                }
+
+                // Return the file as a download with a filename
+                string fileName = $"EthicsClearance_{urecNo}.pdf";
+                string contentType = "application/pdf"; // Adjust based on actual file type
+                return File(ethicsClearance.ClearanceFile, "application/pdf", fileName);
+
+               
+            }
+            catch (Exception ex)
+            {
+                // Log the error for debugging (ensure a logger is configured)
+                _logger.LogError(ex, "Error while downloading ethics clearance for UREC number: {UrecNo}", urecNo);
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
 
 
 
@@ -2468,7 +2709,7 @@ namespace ResearchManagementSystem.Controllers
         }
 
 
-
+       
 
     }
 }

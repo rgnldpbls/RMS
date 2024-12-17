@@ -1292,8 +1292,9 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             };
             return View(viewModel);
         }
+     
+
         [Authorize(Roles = "CRE Chief")]
-         
         [HttpPost]
         public async Task<IActionResult> ReportGeneration(ReportGenerationViewModel model)
         {
@@ -1303,77 +1304,20 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             var researchData = await _allServices.GetFilteredResearchData(model);
 
-            // Get the college and field of study acronyms and full names
-            string collegeAcronym = string.Empty;
-            string collegeFullName = string.Empty;
-
-            // Check if the college is null or external researcher is selected
-            if (model.ExternalApplications)
-            {
-                collegeFullName = "For External Researcher Applications";
-                collegeAcronym = "ER";  // Append "ER" for External Researcher
-            }
-            else
-            {
-                // Check if SelectedCollege is "All Colleges" or if it's an invalid value (assuming empty string is invalid)
-                if (string.IsNullOrEmpty(model.SelectedCollege) || model.SelectedCollege == "All Colleges")
-                {
-                    // If college is null or "All Colleges", use campus acronyms
-                    string campusAcronym = GetCampusAcronym(model.SelectedCampus);
-
-                    // Fallback logic in case campus acronym is empty or invalid
-                    if (string.IsNullOrEmpty(campusAcronym))
-                    {
-                        // Handle the case where no valid campus acronym is found (optional, based on your business logic)
-                        collegeFullName = "";  // Set a default value or handle accordingly
-                        collegeAcronym = "";
-                    }
-                    else
-                    {
-                        collegeFullName = campusAcronym;  // Set college full name to campus acronym
-                        collegeAcronym = campusAcronym;
-                    }
-                }
-                else
-                {
-                    // Get full name and acronym for the selected college
-                    collegeFullName = GetCollegeFullName(model.SelectedCollege);
-                    collegeAcronym = GetCollegeAcronym(model.SelectedCollege);
-                }
-            }
-
-
-            // Get field of study acronym
-            string fieldAcronym = GetFieldOfStudyAcronym(model.SelectedFieldOfStudy);
-
-            // Remove the DateTime.Now part from the file name
-            string fileNameSuffix = string.Empty;
-
-            // Add college acronym to the file name if a specific college is selected (or campus if external application)
-            if (!string.IsNullOrEmpty(collegeAcronym))
-            {
-                fileNameSuffix += $"_{collegeAcronym}";
-            }
-
-            // Add field acronym if a specific field of study is selected
-            if (model.SelectedFieldOfStudy != "All Field of Study")
-            {
-                fileNameSuffix += $"_{fieldAcronym}";
-            }
-
+            string reportType = model.SelectedReportType;
             // Generate the file contents (Excel file)
-            var fileContents = _allServices.GenerateExcelFile(researchData, startDate, endDate, out string fileName);
+            var fileContents = _allServices.GenerateExcelFile(researchData, startDate, endDate, reportType, out string fileName);
 
             // Save the report to the database
             var report = new EthicsReport
             {
                 EthicsReportId = Guid.NewGuid().ToString(),  // Generate a new unique ID
-                ReportName = fileName + fileNameSuffix,      // Use the simplified name
+                ReportName = fileName,      // Use the simplified name
                 ReportFileType = "Excel",                    // File type (Excel or others)
                 ReportFile = fileContents,
                 ReportStartDate = startDate.Value,
                 ReportEndDate = endDate.Value,
-                College = collegeFullName,  // Use full college name here (or "For External Researcher Applications")
+                College = model.SelectedCollege ?? "No College Selected",  // Use full college name here (or "For External Researcher Applications")
                 DateGenerated = DateTime.Now,
                 IsArchived = false  // Default to false
             };
@@ -1388,106 +1332,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return RedirectToAction("Reports", "Chief");
         }
 
-        // Helper to get campus acronym from selected campus name
-        private string GetCampusAcronym(string campus)
-        {
-            if (string.IsNullOrEmpty(campus))
-            {
-                return null;  // Explicitly return null if input is invalid
-            }
-            var campuses = new Dictionary<string, string>
-            {
-                { "Sta. Mesa (MAIN CAMPUS)", "MAIN" },
-                { "Taguig City (BRANCH)", "TGG" },
-                { "Quezon City (BRANCH)", "QZN" },
-                { "San Juan City (BRANCH)", "SNJN" },
-                { "Parañaque City (CAMPUS)", "PRNQUE" },
-                { "Bataan (BRANCH)", "BTN" },
-                { "Sta. Maria, Bulacan (CAMPUS)", "STMRA" },
-                { "Pulilan, Bulacan (CAMPUS)", "PLLN" },
-                { "Cabiao, Nueva Ecija (BRANCH)", "CBIO" },
-                { "Lopez, Quezon (BRANCH)", "LPZ" },
-                { "Malunay, Quezon (BRANCH)", "MLNY" },
-                { "Unisan, Quezon (BRANCH)", "UNSN" },
-                { "Ragay, Camarines Sur (BRANCH)", "RGY" },
-                { "Sto. Tomas, Batangas (BRANCH)", "STOMS" },
-                { "Maragondon, Cavite (BRANCH)", "MRGNDN" },
-                { "Bansud, Oriental Mindoro (BRANCH)", "BNSD" },
-                { "Sablayan, Occidental Mindoro (BRANCH)", "SBLYN" },
-                { "Biñan, Laguna (CAMPUS)", "BÑN" },
-                { "San Pedro, Laguna (CAMPUS)", "SNPRD" },
-                { "Sta. Rosa, Laguna (CAMPUS)", "STRSA" },
-                { "Calauan, Laguna (CAMPUS)", "CLUN" }
-            };
-            return campuses.ContainsKey(campus) ? campuses[campus] : string.Empty;
-        }
-        // Helper to get college acronym
-        private string GetCollegeFullName(string college)
-        {
-            var colleges = new Dictionary<string, string>
-    {
-        { "All Colleges", "All Colleges" },
-        { "College of Accountancy and Finance (CAF)", "College of Accountancy and Finance (CAF)" },
-        { "College of Architecture, Design and the Built Environment (CADBE)", "College of Architecture, Design and the Built Environment (CADBE)" },
-        { "College of Arts and Letters (CAL)", "College of Arts and Letters (CAL)" },
-        { "College of Business Administration (CBA)", "College of Business Administration (CBA)" },
-        { "College of Communication (COC)", "College of Communication (COC)" },
-        { "College of Computer and Information Sciences (CCIS)", "College of Computer and Information Sciences (CCIS)" },
-        { "College of Education (COED)", "College of Education (COED)" },
-        { "College of Engineering (CE)", "College of Engineering (CE)" },
-        { "College of Human Kinetics (CHK)", "College of Human Kinetics (CHK)" },
-        { "College of Law (CL)", "College of Law (CL)" },
-        { "College of Political Science and Public Administration (CPSPA)", "College of Political Science and Public Administration (CPSPA)" },
-        { "College of Social Sciences and Development (CSSD)", "College of Social Sciences and Development (CSSD)" },
-        { "College of Science (CS)", "College of Science (CS)" },
-        { "College of Tourism, Hospitality and Transportation Management (CTHTM)", "College of Tourism, Hospitality and Transportation Management (CTHTM)" },
-        { "Institute of Technology", "Institute of Technology" }
-    };
-
-            return colleges.ContainsKey(college) ? colleges[college] : college;
-        }
-
-        private string GetCollegeAcronym(string college)
-        {
-            var colleges = new Dictionary<string, string>
-{
-    { "All Colleges", "" },
-    { "College of Accountancy and Finance (CAF)", "CAF" },
-    { "College of Architecture, Design and the Built Environment (CADBE)", "CADBE" },
-    { "College of Arts and Letters (CAL)", "CAL" },
-    { "College of Business Administration (CBA)", "CBA" },
-    { "College of Communication (COC)", "COC" },
-    { "College of Computer and Information Sciences (CCIS)", "CCIS" },
-    { "College of Education (COED)", "COED" },
-    { "College of Engineering (CE)", "CE" },
-    { "College of Human Kinetics (CHK)", "CHK" },
-    { "College of Law (CL)", "CL" },
-    { "College of Political Science and Public Administration (CPSPA)", "CPSPA" },
-    { "College of Social Sciences and Development (CSSD)", "CSSD" },
-    { "College of Science (CS)", "CS" },
-    { "College of Tourism, Hospitality and Transportation Management (CTHTM)", "CTHTM" },
-    { "Institute of Technology", "ITECH" }
-};
-
-            return colleges.ContainsKey(college) ? colleges[college] : "";
-        }
-        // Helper to get field of study acronym
-        private string GetFieldOfStudyAcronym(string fieldOfStudy)
-        {
-            var fields = new Dictionary<string, string>
-    {
-        { "All Field of Study", "" },
-        { "Education", "EDU" },
-        { "Computer Science, Information Systems, and Technology", "CSIST" },
-        { "Engineering, Architecture, and Design", "EAD" },
-        { "Humanities, Language, and Communication", "HLC" },
-        { "Business", "BUS" },
-        { "Social Sciences", "SOCSCI" },
-        { "Science, Mathematics, and Statistics", "SMS" }
-    };
-
-            return fields.ContainsKey(fieldOfStudy) ? fields[fieldOfStudy] : "";
-        }
+   
         [Authorize(Roles = "CRE Chief")]
          
         [HttpPost]
@@ -1619,8 +1464,15 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
         [Authorize(Roles = "CRE Chief")]
         [HttpGet]
-        public IActionResult Dashboard(int? selectedYear, int? selectedMonth)
+        public async Task<IActionResult> Dashboard(int? selectedYear, int? selectedMonth)
         {
+
+            // Get the current user
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            // Concatenate the user's first name and last name
+            var chiefName = $"{currentUser.FirstName} {currentUser.LastName}";
+
             // Use the current year and month as fallback if no year or month is provided
             int year = selectedYear ?? DateTime.Now.Year;
             int month = selectedMonth ?? DateTime.Now.Month;
@@ -1637,7 +1489,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 .Count();
 
             var totalApplicationsForYear = _context.CRE_EthicsApplication
-              .Where(app => app.SubmissionDate.Year == selectedYear)
+              .Where(app => app.SubmissionDate.Year == year)
               .Count();
             // Fetch the number of applications per month for the selected year (for chart data)
             var applicationsPerMonthByYear = _context.CRE_EthicsApplication
@@ -1655,17 +1507,17 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             // Get the total number of ethics clearances for the selected year and month
             var totalClearancesIssued = _context.CRE_EthicsClearance
-                .Where(clearance => clearance.IssuedDate.HasValue && clearance.IssuedDate.Value.Year == year && clearance.IssuedDate.Value.Month == month)
+                .Where(clearance => clearance.IssuedDate.HasValue && clearance.IssuedDate.Value.Year == year)
                 .Count();
 
             // Get the total number of terminal reports for the selected year and month
             var totalTerminalReports = _context.CRE_CompletionReports
-                .Where(report => report.SubmissionDate.Year == year && report.SubmissionDate.Month == month)
+                .Where(report => report.SubmissionDate.Year == year)
                 .Count();
 
             // Get the total number of certificates issued for the selected year and month
             var totalCertificatesIssued = _context.CRE_CompletionCertificates
-                .Where(cert => cert.IssuedDate.Year == year && cert.IssuedDate.Month == month)
+                .Where(cert => cert.IssuedDate.Year == year)
                 .Count();
 
             // Fetch the top performing fields of study for the selected year and month
@@ -1695,7 +1547,8 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                .ToList();
             // Prepare the model to pass to the view
             var model = new ChiefDashboardViewModel
-            {
+            { 
+                ChiefName = chiefName,
                 TotalApplications = totalApplications,
                 ApplicationsPerMonth = applicationsPerMonth,
                 ApplicationsPerMonthByYear = applicationsPerMonthByYear,
@@ -2458,77 +2311,20 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             var researchData = await _allServices.GetFilteredResearchData(model);
 
-            // Get the college and field of study acronyms and full names
-            string collegeAcronym = string.Empty;
-            string collegeFullName = string.Empty;
-
-            // Check if the college is null or external researcher is selected
-            if (model.ExternalApplications)
-            {
-                collegeFullName = "For External Researcher Applications";
-                collegeAcronym = "ER";  // Append "ER" for External Researcher
-            }
-            else
-            {
-                // Check if SelectedCollege is "All Colleges" or if it's an invalid value (assuming empty string is invalid)
-                if (string.IsNullOrEmpty(model.SelectedCollege) || model.SelectedCollege == "All Colleges")
-                {
-                    // If college is null or "All Colleges", use campus acronyms
-                    string campusAcronym = GetCampusAcronym(model.SelectedCampus);
-
-                    // Fallback logic in case campus acronym is empty or invalid
-                    if (string.IsNullOrEmpty(campusAcronym))
-                    {
-                        // Handle the case where no valid campus acronym is found (optional, based on your business logic)
-                        collegeFullName = "";  // Set a default value or handle accordingly
-                        collegeAcronym = "";
-                    }
-                    else
-                    {
-                        collegeFullName = campusAcronym;  // Set college full name to campus acronym
-                        collegeAcronym = campusAcronym;
-                    }
-                }
-                else
-                {
-                    // Get full name and acronym for the selected college
-                    collegeFullName = GetCollegeFullName(model.SelectedCollege);
-                    collegeAcronym = GetCollegeAcronym(model.SelectedCollege);
-                }
-            }
-
-
-            // Get field of study acronym
-            string fieldAcronym = GetFieldOfStudyAcronym(model.SelectedFieldOfStudy);
-
-            // Remove the DateTime.Now part from the file name
-            string fileNameSuffix = string.Empty;
-
-            // Add college acronym to the file name if a specific college is selected (or campus if external application)
-            if (!string.IsNullOrEmpty(collegeAcronym))
-            {
-                fileNameSuffix += $"_{collegeAcronym}";
-            }
-
-            // Add field acronym if a specific field of study is selected
-            if (model.SelectedFieldOfStudy != "All Field of Study")
-            {
-                fileNameSuffix += $"_{fieldAcronym}";
-            }
-
+            string reportType = model.SelectedReportType;
             // Generate the file contents (Excel file)
-            var fileContents = _allServices.GenerateExcelFile(researchData, startDate, endDate, out string fileName);
+            var fileContents = _allServices.GenerateExcelFile(researchData, startDate, endDate, reportType, out string fileName);
 
             // Save the report to the database
             var report = new EthicsReport
             {
                 EthicsReportId = Guid.NewGuid().ToString(),  // Generate a new unique ID
-                ReportName = fileName + fileNameSuffix,      // Use the simplified name
+                ReportName = fileName,      // Use the simplified name
                 ReportFileType = "Excel",                    // File type (Excel or others)
                 ReportFile = fileContents,
                 ReportStartDate = startDate.Value,
                 ReportEndDate = endDate.Value,
-                College = collegeFullName,  // Use full college name here (or "For External Researcher Applications")
+                College = model.SelectedCollege ?? "No College Selected",  // Use full college name here (or "For External Researcher Applications")
                 DateGenerated = DateTime.Now,
                 IsArchived = false  // Default to false
             };
@@ -2539,7 +2335,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
 
             // Add a success message to TempData
             TempData["SuccessMessage"] = "Report generated successfully!";
-            // Redirect to the Reports view after the file is generated
+
             return RedirectToAction("GenerateReportDirector", "Chief");
         }
         [Authorize(Roles = "CRE Chief")]
@@ -2642,7 +2438,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             return RedirectToAction("ListMemos");
         }
 
-
+        
         public IActionResult DownloadMemo(int id)
         {
             var memo = _context.CRE_EthicsMemoranda.FirstOrDefault(m => m.MemoId == id);

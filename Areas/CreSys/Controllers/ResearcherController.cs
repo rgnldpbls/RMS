@@ -497,7 +497,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
                 return RedirectToAction("Applications");
             }
 
-            if (latestLog?.Status == "Applied")
+            if (latestLog?.Status == "Submit Documentary Requirements")
             {
                 if (!application.EthicsApplicationForms.Any())  // Ensure no forms are uploaded
                 {
@@ -891,6 +891,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             // Fetch notifications based on the current role
             var notifications = await _context.CRE_EthicsNotifications
                 .Where(n => n.Role == currentRole) // Filter notifications by the current role
+                .Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.NotificationCreationDate) // Order by latest first
                 .ToListAsync();
 
@@ -1099,6 +1100,14 @@ namespace ResearchManagementSystem.Areas.CreSys.Controllers
             }
 
             return RedirectToAction("Applications");
+        }
+        public async Task<IActionResult> ViewMemos()
+        {
+            // Retrieve all memoranda records from the database
+            var memos = await _context.CRE_EthicsMemoranda.ToListAsync();
+
+            // Pass the memoranda list to the view
+            return View(memos);
         }
     }
 }

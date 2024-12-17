@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Research and Development Activities";
+
     Layout = "_Layout";
 }
 
@@ -27,9 +28,19 @@
         min-width: 500px;
         margin: 0 auto;
     }
-
 </style>
+<!-- RMO COVER -->
+<div class="hero">
+    <img src="~/images/10.png" alt="RMO COVER PHOTO">
+</div>
 
+<!-- Search Bar -->
+<div class="custom-search">
+    <div class="input-group">
+        <input type="text" class="searchint form-control" placeholder="Enter keywords..." aria-label="Search">
+        <button class="btn btn-custom" type="button"><i class="bi bi-search"></i> Search</button>
+    </div>
+</div>
 <body id="body">
     <div class="container-fluid shadow display-6 text-center p-2" id="section-title">
         RESEARCH AND DEVELOPMENT ACTIVITIES
@@ -93,7 +104,7 @@
         </div>
     </div>
     <script>
-                var departments = {
+        var departments = {
             CAF: [
                 { value: 'BSA', text: 'Bachelor of Science in Accountancy', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2 },
                 { value: 'BSMA', text: 'Bachelor of Science in Management Accounting', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2 },
@@ -200,7 +211,7 @@
                 { value: 'DICT', text: 'Diploma in Information Communication Technology', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2 },
                 { value: 'DMET', text: 'Diploma in Mechanical Engineering Technology', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2 },
                 { value: 'DOMT', text: 'Diploma in Office Management Technology', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2 },
-                { value: 'DRET', text: 'Diploma in Railway Engineering Technology', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2  }
+                { value: 'DRET', text: 'Diploma in Railway Engineering Technology', production: 10, publication: 5, presentation: 7, utilization: 3, patent: 1, citation: 8, copyright: 2 }
             ]
 
 
@@ -303,3 +314,4 @@
         });
     </script>
 </body>
+

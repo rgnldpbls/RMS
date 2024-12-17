@@ -10,6 +10,8 @@ namespace ResearchManagementSystem.Models
 
         public string LastName { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
         public DateOnly Birthday { get; set; }
 
         public string? College { get; set; }
@@ -19,6 +21,16 @@ namespace ResearchManagementSystem.Models
         public string? Department { get; set; }
 
         public string? Webmail { get; set; }
+
+        public DateTime? LastLoginTime { get; set; }
+        public DateTime? LastLogoutTime { get; set; }
+
+
+        public string? Rank { get; set; } // Current rank of the faculty
+
+        public DateTime? RankStartDate { get; set; } // Date when the rank was assigned
+
+        public DateTime? RankEndDate { get; set; } // Optional: Date when the rank ended
 
     }
 }

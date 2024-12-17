@@ -29,7 +29,7 @@
         <!--research publication-->
         <div class="container shadow mb-3" id="content">
             <div class="row shadow-sm h3 p-4 mb-1" id="title">
-                Research Publication oink
+                Research Publication
             </div>
 
             <div class="row shadow p-4" id="formcont">
@@ -39,16 +39,16 @@
                 <!--Article/Title-->
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="ArticleTitle" class="form-label">Article/Title</label>
-                        <input asp-for="ArticleTitle" class="form-control mb-3" placeholder="Article/Title" />
+                        <label asp-for="ArticleTitle" class="form-label">Article/Title <span style="color: red">*</span></label>
+                        <input asp-for="ArticleTitle" class="form-control" placeholder="Article/Title" required />
                         <span asp-validation-for="ArticleTitle" class="text-danger"></span>
                     </div>
                 </div>
                 <!--publication date-->
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <label for="PublicationDate" class="form-label">Date of Publication</label>
-                        <input type="date" name="PublicationDate" class="form-control mb-3" value="@Model.PublicationDate?.ToString("yyyy-MM-dd")" />
+                        <label for="PublicationDate" class="form-label mt-3">Date of Publication <span style="color: red">*</span></label>
+                        <input type="date" name="PublicationDate" class="form-control" value="@Model.PublicationDate?.ToString("yyyy-MM-dd")" required />
 
                         <span asp-validation-for="PublicationDate" class="text-danger"></span>
 
@@ -57,8 +57,8 @@
                 <!--Title of Journal Publication-->
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="JournalPubTitle" class="form-label">Title of Journal Publication</label>
-                        <input asp-for="JournalPubTitle" class="form-control mb-3" placeholder="Title of Journal Publication" />
+                        <label asp-for="JournalPubTitle" class="form-label mt-3">Title of Journal Publication <span style="color: red">*</span></label>
+                        <input asp-for="JournalPubTitle" class="form-control" placeholder="Title of Journal Publication" required />
                         <span asp-validation-for="JournalPubTitle" class="text-danger"></span>
 
                     </div>
@@ -66,8 +66,8 @@
                 <!--Document Type-->
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
-                        <label asp-for="DocumentType" class="form-label">Document Type</label>
-                        <select asp-for="DocumentType" class="form-select mb-3">
+                        <label asp-for="DocumentType" class="form-label mt-3">Document Type <span style="color: red">*</span></label>
+                        <select asp-for="DocumentType" class="form-select" required>
                             <option value="Article">Article</option>
                             <option value="Conference Paper">Conference Paper</option>
                             <option value="Book Chapter">Book Chapter</option>
@@ -79,15 +79,15 @@
                     </div>
                     <!--vol no issue no-->
                     <div class="col-lg-4 col-sm-12">
-                        <label asp-for="VolnoIssueNo" class="form-label">Vol. No. & Issue No.</label>
-                        <input asp-for="VolnoIssueNo" class="form-control mb-3" placeholder="Vol. No. & Issue No." />
+                        <label asp-for="VolnoIssueNo" class="form-label mt-3">Vol. No. & Issue No.</label>
+                        <input asp-for="VolnoIssueNo" class="form-control" placeholder="Vol. No. & Issue No." />
                         <span asp-validation-for="VolnoIssueNo" class="text-danger"></span>
 
                     </div>
                     <!--IssnIsbnEssn-->
                     <div class="col-lg-4 col-sm-12">
-                        <label asp-for="IssnIsbnEssn" class="form-label">ISSN/ISBN/ESSN</label>
-                        <input asp-for="IssnIsbnEssn" class="form-control mb-3" placeholder="ISSN/ISBN/ESSN" />
+                        <label asp-for="IssnIsbnEssn" class="form-label mt-3">ISSN/ISBN/ESSN</label>
+                        <input asp-for="IssnIsbnEssn" class="form-control" placeholder="ISSN/ISBN/ESSN" />
                         <span asp-validation-for="IssnIsbnEssn" class="text-danger"></span>
 
                     </div>
@@ -95,40 +95,40 @@
                 <!--doi-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="DOI" class="form-label">DOI</label>
-                        <input asp-for="DOI" class="form-control mb-3" placeholder="DOI" />
+                        <label asp-for="DOI" class="form-label mt-3">DOI</label>
+                        <input asp-for="DOI" class="form-control" placeholder="DOI" />
                         <span asp-validation-for="DOI" class="text-danger"></span>
                     </div>
                 </div>
                 <!--Indicate Where the Journal is Index-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="IndexJournal" class="form-label">Indicate Where the Journal is Index</label>
-                        <input asp-for="IndexJournal" class="form-control mb-3" placeholder="Indicate Where the Journal is Index" />
+                        <label asp-for="IndexJournal" class="form-label mt-3">Indicate Where the Journal is Index</label>
+                        <input asp-for="IndexJournal" class="form-control" placeholder="Indicate Where the Journal is Index" />
                         <span asp-validation-for="IndexJournal" class="text-danger"></span>
                     </div>
                 </div>
                 <!--Supporting Documents-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="SuppDocs" class="form-label">Supporting Documents</label>
-                        <input asp-for="SuppDocs" class="form-control mb-3" placeholder="Supporting Documents" />
+                        <label asp-for="SuppDocs" class="form-label mt-3">Supporting Documents</label>
+                        <input asp-for="SuppDocs" class="form-control" placeholder="Supporting Documents" />
                         <span asp-validation-for="SuppDocs" class="text-danger"></span>
                     </div>
                 </div>
                 <!--link-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="Link" class="form-label">Link</label>
-                        <input asp-for="Link" class="form-control mb-3" placeholder="Link" />
+                        <label asp-for="Link" class="form-label mt-3">Link</label>
+                        <input asp-for="Link" class="form-control" placeholder="Link" />
                         <span asp-validation-for="Link" class="text-danger"></span>
                     </div>
                 </div>
                 <!--manu-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label class="form-label" for="Manuscript_in_Journal_Format">Manuscript in Journal Format</label>
-                        <input class="form-control mb-3" type="file" name="ManuscriptJournalFile" placeholder="Manuscript in Journal Format" accept=".pdf" required>
+                        <label class="form-label mt-3" for="Manuscript_in_Journal_Format">Manuscript in Journal Format</label>
+                        <input class="form-control" type="file" name="ManuscriptJournalFile" placeholder="Manuscript in Journal Format" accept=".pdf" required>
                     </div>
                 </div>
             </div>
@@ -175,3 +175,5 @@
         }
     </script>
 }
+
+

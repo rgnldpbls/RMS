@@ -14,24 +14,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ResearchType">Funded Research Type: <span style="color: #850000">*</span></label>
-                <div class="dropdown-container">
-                    <select asp-for="ResearchType" class="form-control custom-select">
-                        @if (ViewBag.Type == "University Funded Research")
-                        {
-                            <option value="University Funded Research" selected>University Funded Research</option>
-                        }
-                        else if (ViewBag.Type == "Externally Funded Research")
-                        {
-                            <option value="Externally Funded Research" selected>Externally Funded Research</option>
-                        }
-                        else if (ViewBag.Type == "University Funded Research Load")
-                        {
-                            <option value="University Funded Research Load" selected>University Funded Research Load</option>
-                        }
-                    </select>
-                    <i class="arrow-down"></i>
-                    <span asp-validation-for="ResearchType" class="text-danger"></span>
-                </div>
+                <input asp-for="ResearchType" type="text" class="form-control" placeholder="Funded Research Type..." value="@ViewBag.Type" readonly/>
+                <span asp-validation-for="ResearchType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProjectTitle">Program/Project Title: <span style="color: #850000">*</span></label>
@@ -83,7 +67,14 @@
             <div class="form-group">
                 <label asp-for="ProjectDuration">Project Duration: [in months] <span style="color: #850000">*</span></label>
                 <div class="input-group">
-                    <input asp-for="ProjectDuration" type="number" class="form-control" placeholder="Project Duration..." min="6" max="12" value="12" />
+                    @if(ViewBag.Type == "Externally Funded Research")
+                    {
+                        <input asp-for="ProjectDuration" type="number" class="form-control" placeholder="Project Duration..." min="12" max="36" value="12" />
+                    }
+                    else
+                    {
+                        <input asp-for="ProjectDuration" type="number" class="form-control" placeholder="Project Duration..." min="6" max="12" value="12" />
+                    }
                     <span class="input-group-text">month/s</span>
                 </div>
                 <span asp-validation-for="ProjectDuration" class="text-danger"></span>
@@ -182,10 +173,36 @@
         });
 
         $('#generateForm').on('submit', function (e) {
+            let isValid = true;
+
             if (isDuplicateTitle) {
                 e.preventDefault(); // Prevent form submission
                 alert("A duplicate research title exists. Please revise the title before submitting.");
             }
+
+            // Validate all required text inputs
+            $('input[type="text"], textarea').each(function () {
+                const value = $(this).val().trim();
+                if (!value) {
+                    isValid = false;
+                    $(this).addClass('input-validation-error');
+                    $(this).siblings('.text-danger').text('This field is required and cannot be empty or whitespace.');
+                } else {
+                    $(this).removeClass('input-validation-error');
+                    $(this).siblings('.text-danger').text('');
+                }
+            });
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        // Remove error class on input change
+        $('input, textarea, select').on('input change', function () {
+            $(this).removeClass('input-validation-error');
+            $(this).siblings('.text-danger').text('');
         });
 
         var selectedMembers = [];
@@ -199,12 +216,22 @@
 
         $('#memberSelect').change(function () {
             var selectedMember = $(this).val();
-            if (selectedMember && !selectedMembers.includes(selectedMember)) {
-                selectedMembers.push(selectedMember);
-                updateMemberTags();
-                validateMembers();
+            if (selectedMember === "N/A") {
+                selectedMembers = ["N/A"];
+                $('#memberSelect option').not('[value="N/A"]').prop('disabled', true);
             }
-            $(this).val(''); // Reset select
+            else {
+                selectedMembers = selectedMembers.filter(member => member !== "N/A");
+                $('#memberSelect option[value="N/A"]').prop('disabled', true);
+
+                if (!selectedMembers.includes(selectedMember)) {
+                    selectedMembers.push(selectedMember);
+                }
+            }
+
+            updateMemberTags();
+            validateMembers();
+            $('this').val('');
         });
 
         function updateMemberTags() {

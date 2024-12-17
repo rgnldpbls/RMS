@@ -222,6 +222,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXEVkaXRGb3Jtcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/EditMemo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXEVkaXRNZW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/EthicsForms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXEV0aGljc0Zvcm1zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -290,6 +294,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXElzc3VlQXBwbGljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/ListMemos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXExpc3RNZW1vcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/PendingApplicationsForIssuance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXFBlbmRpbmdBcHBsaWNhdGlvbnNGb3JJc3N1YW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -312,6 +320,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/UploadForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXFVwbG9hZEZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/UploadMemo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXENoaWVmXFVwbG9hZE1lbW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Chief/ViewChairperson.cshtml]
@@ -396,6 +408,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Researcher/UploadForms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXFJlc2VhcmNoZXJcVXBsb2FkRm9ybXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Researcher/ViewMemos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ3JlU3lzXFZpZXdzXFJlc2VhcmNoZXJcVmlld01lbW9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/CreSys/Views/Researcher/ViewNotifications.cshtml]
@@ -694,6 +710,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUnNjU3lzXFZpZXdzXFJTQ0NoaWVmXERpc2FwcHJvdmFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/RscSys/Views/RSCChief/Disapprove.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUnNjU3lzXFZpZXdzXFJTQ0NoaWVmXERpc2FwcHJvdmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/RscSys/Views/RSCChief/Endorse.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUnNjU3lzXFZpZXdzXFJTQ0NoaWVmXEVuZG9yc2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -832,6 +852,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Areas/RscSys/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUnNjU3lzXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Views/Account/ActivityLogs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY3Rpdml0eUxvZ3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Views/Account/AllUserActivityHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBbGxVc2VyQWN0aXZpdHlIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Views/Account/EditFacultyRank.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0RmFjdWx0eVJhbmsuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Views/Account/UserActivityHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2VyQWN0aXZpdHlIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Regienald Pueblos/Documents/Capstone Project/ResearchManagementSystem/Views/AddAccomplishments/AddCitation.cshtml]

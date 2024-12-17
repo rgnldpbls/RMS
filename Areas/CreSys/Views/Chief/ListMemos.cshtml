@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ResearchManagementSystem.Areas.CreSys.Models.EthicsMemoranda>
+@{
+    ViewData["Title"] = "Memoranda";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+
+<div class="container mt-5">
+    <!-- Page Title -->
+    <h3 class="text-center mb-4 text-uppercase" style="color: maroon;">Memoranda Records</h3>
+    <a asp-action="UploadMemo" class="btn btn-primary custom-btn">
+        <i class="fas fa-upload"></i> Upload Memorandum
+    </a>
+    <!-- Table Section -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover custom-table">
+            <thead>
+                <tr class="custom-table-header">
+                    <th>Memo Number</th>
+                    <th>Memo Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var memo in Model)
+                    {
+                        <tr>
+                            <td>@memo.MemoNumber</td>
+                            <td>@memo.MemoName</td>
+                            <td>@Html.Raw(memo.MemoDescription?.Replace(Environment.NewLine, "<br>"))</td>
+                            <td>
+                                <a asp-action="DownloadMemo" asp-route-id="@memo.MemoId" class="btn btn-sm btn-primary custom-btn">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                                <a asp-action="EditMemo" asp-route-id="@memo.MemoId" class="btn btn-sm btn-warning custom-btn">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <form asp-action="DeleteMemo" asp-route-id="@memo.MemoId" method="post" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger custom-btn" onclick="return confirm('Are you sure you want to delete this memo?');">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">No memoranda found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .preserve-newlines {
+        white-space: pre-wrap; /* Preserves newlines and wraps text as needed */
+        line-height: 1.4; /* Adjust for desired spacing between lines */
+    }
+
+    /* Button Styling */
+    .custom-btn {
+        margin-right: 5px;
+        font-size: 0.9rem;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+        .custom-btn:hover {
+            transform: scale(1.05);
+        }
+
+    .btn-primary.custom-btn {
+        background-color: maroon;
+    }
+
+        .btn-primary.custom-btn:hover {
+            background-color: #8b0000;
+        }
+
+    .btn-warning.custom-btn {
+        background-color: #ffb84d;
+        color: #000;
+    }
+
+        .btn-warning.custom-btn:hover {
+            background-color: #e0a800;
+            color: #000;
+        }
+
+    .btn-danger.custom-btn {
+        background-color: #d9534f;
+    }
+
+        .btn-danger.custom-btn:hover {
+            background-color: #a80000;
+        }
+
+</style>

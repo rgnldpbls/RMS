@@ -39,16 +39,16 @@
                 <!--patent number-->
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="PatentNo" class="form-label">Patent Number</label>
-                        <input asp-for="PatentNo" class="form-control mb-3" placeholder="Patent Number" />
+                        <label asp-for="PatentNo" class="form-label">Patent Number <span style="color: red">*</span></label>
+                        <input asp-for="PatentNo" class="form-control" placeholder="Patent Number" required />
                         <span asp-validation-for="PatentNo" class="text-danger"></span>
                     </div>
                 </div>
                 <!--application form-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label class="form-label" for="file">Patent Application Form</label>
-                        <input class="form-control mb-3" type="file" id="file" name="ApplicationFormFile" accept=".pdf" required>
+                        <label class="form-label mt-3" for="file">Patent Application Form <span style="color: red">*</span></label>
+                        <input class="form-control" type="file" id="file" name="ApplicationFormFile" accept=".pdf" required>
                     </div>
                 </div>
             </div>
@@ -96,3 +96,5 @@
         }
     </script>
 }
+
+

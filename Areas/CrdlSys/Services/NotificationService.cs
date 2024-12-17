@@ -143,14 +143,16 @@ namespace CrdlSys.Services
                     if (!upload.LastNotificationSent.HasValue ||
                         (today - upload.LastNotificationSent.Value.Date).TotalDays >= 7)
                     {
-                        var stakeholders = await _userManager.GetUsersInRoleAsync("Stakeholder");
-                        foreach (var stakeholder in stakeholders)
+                        if (!string.IsNullOrEmpty(upload.StakeholdeEmail))
                         {
-                            SendEmail(stakeholder.Email, upload);
+                            SendEmail(upload.StakeholdeEmail, upload);
+                            upload.LastNotificationSent = DateTime.Now;
+                            _context.SaveChanges();
                         }
-
-                        upload.LastNotificationSent = DateTime.Now;
-                        _context.SaveChanges();
+                        else
+                        {
+                            Console.WriteLine($"No email address found for DocumentId: {upload.DocumentId}");
+                        }
                     }
                 }
             }
@@ -177,14 +179,6 @@ namespace CrdlSys.Services
             }
         }
 
-        /*private List<User> GetStakeholders()
-        {
-            return _context.UserRoles
-                .Where(ur => ur.RoleId == 2)
-                .Select(ur => ur.User)
-                .ToList();
-        }
-*/
         private static void SendEmail(string recipientEmail, StakeholderUpload upload)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com")

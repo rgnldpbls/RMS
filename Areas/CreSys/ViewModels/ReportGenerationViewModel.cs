@@ -13,7 +13,7 @@ namespace ResearchManagementSystem.Areas.CreSys.ViewModels
         public bool ExternalApplications { get; set; } = false;
         public string? ReaserchType { get; set; }
         public string? InternalResearcherType { get; set; }
-
+        public string SelectedReportType { get; set; }
         // Dropdown data
         public List<string> Colleges { get; set; } = new List<string>
     {

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ResearchManagementSystem.styles.css" asp-append-version="true" />
-    
+
     <link rel="stylesheet" href="~/css/landing.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
                 <a asp-area="Identity" asp-page="/Account/Login" class="btn-1 text-decoration-none">Login</a>
                 <a asp-area="Identity" asp-page="/Account/Register" class="btn-2 text-decoration-none">Sign Up</a>
 
-               
+
             </div>
         </div>
 
@@ -84,18 +84,7 @@
                 </ul>
             </div>
         </nav>
-        <!-- RMO COVER -->
-        <div class="hero">
-            <img src="~/images/rmo page.jpg" alt="RMO COVER PHOTO">
-        </div>
 
-        <!-- Search Bar -->
-        <div class="custom-search">
-            <div class="input-group">
-                <input type="text" class="searchint form-control" placeholder="Enter keywords..." aria-label="Search">
-                <button class="btn btn-custom" type="button"><i class="bi bi-search"></i> Search</button>
-            </div>
-        </div>
     </header>
 
     <div>
@@ -152,7 +141,7 @@
 
                 </div>
 
-                <partial name="_LoginPartial"/>
+
             </div>
         </div>
     </footer>
@@ -162,3 +151,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+

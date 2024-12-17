@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using ResearchManagementSystem.Data;
 using ResearchManagementSystem.Models;
 
 namespace ResearchManagementSystem.Areas.Identity.Pages.Account
@@ -26,6 +27,26 @@ namespace ResearchManagementSystem.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+            if (user != null)
+            //{
+            //    user.LastLogoutTime = DateTime.UtcNow;
+            //    await _signInManager.UserManager.UpdateAsync(user);
+            //}
+
+
+            {
+                // Log the logout activity
+                var dbContext = HttpContext.RequestServices.GetService<ApplicationDbContext>();
+                dbContext.ActivityLog.Add(new UserActivityLog
+                {
+                    UserId = user.Id,
+                    Activity = "Logged out",
+                    Timestamp = DateTime.UtcNow
+                });
+                await dbContext.SaveChangesAsync();
+            }
+
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)

@@ -89,7 +89,21 @@
                                 </span>
                             }
                         </button>
-                        <div class="dropdown">
+                        <div class="me-2">
+                            @if (Context.Session.GetString("CurrentRole") == "Student")
+                            {
+                                <a asp-area="" asp-controller="Student" asp-action="StudentCenters">
+                                    <i class="fa-solid fa-landmark fa-2xl" style="color: #ffffff;"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-area="" asp-controller="Faculty" asp-action="FacultyCenters">
+                                    <i class="fa-solid fa-landmark fa-2xl" style="color: #ffffff;"></i>
+                                </a>
+                            }
+                        </div>
+                        @* <div class="dropdown">
                             <button class="btn me-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-circle-user fa-2xl" style="color: #ffffff;"></i>
                             </button>
@@ -99,7 +113,7 @@
                                 <li><button id="logout" type="submit" class="dropdown-item">Logout</button></li>
                                 </form>
                             </ul>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             </div>

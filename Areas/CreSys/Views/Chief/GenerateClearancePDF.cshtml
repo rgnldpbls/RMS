@@ -48,7 +48,7 @@
                     <strong>From:</strong> @Model.ChiefName
                 </div>
             </div>
-
+           
             <div class="row mb-3">
                 <div class="col-6">
                     <strong>Type of Review:</strong> @Model.InitialReview.ReviewType
@@ -118,7 +118,7 @@
 <script>
     // This function validates the file input for both forms
     function validateSignatureUpload(formId) {
-        const fileInput = document.getElementById(formId === 'GenerateClearancePDF' ? 'UploadedSignaturePDF' : 'UploadedSignatureClearance');
+       const fileInput = document.getElementById(formId === 'GenerateClearancePDF' ? 'UploadedSignaturePDF' : 'UploadedSignatureClearance');
         const errorMessageElement = formId === 'GenerateClearancePDF' ? document.getElementById('signatureErrorPDF') : document.getElementById('signatureError');
         errorMessageElement.innerHTML = ""; // Clear previous error messages
 

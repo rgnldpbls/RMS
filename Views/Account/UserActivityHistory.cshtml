@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ResearchManagementSystem.Models.UserActivityLog>
+
+
+@{
+    ViewBag.Title = "User Activity History";
+}
+
+<h2>User Activity History</h2>
+
+<!-- Display Last Login and Logout Times -->
+<p><strong>Last Login Time:</strong> @(ViewBag.LastLoginTime != null ? ((DateTime)ViewBag.LastLoginTime).ToString("g") : "No record")</p>
+<p><strong>Last Logout Time:</strong> @(ViewBag.LastLogoutTime != null ? ((DateTime)ViewBag.LastLogoutTime).ToString("g") : "No record")</p>
+
+<!-- Table to Display User Activity Log -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Activity Description</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var activity in Model)
+            {
+                <tr>
+                    <td>@activity.Activity</td>
+                    <td>@activity.Timestamp?.ToString("g") </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">No activity found for this user.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

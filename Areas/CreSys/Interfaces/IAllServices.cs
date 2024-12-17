@@ -13,7 +13,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Interfaces
         Task<IEnumerable<CompletionReportViewModel>> GetCompletionReportsAsync();
         Task<EthicsClearance> GetClearanceByUrecNoAsync(string urecNo);
         Task<List<ResearchReportModel>> GetFilteredResearchData(ReportGenerationViewModel model);
-        byte[] GenerateExcelFile(List<ResearchReportModel> researchData, DateTime? startDate, DateTime? endDate, out string fileName);
+        byte[] GenerateExcelFile(List<ResearchReportModel> researchData, DateTime? startDate, DateTime? endDate, string reportType, out string fileName);
 
         Task<List<EthicsApplication>> GetApplicationsByFieldOfStudyAsync(string userId);
         Task<IEnumerable<EthicsApplication>> GetUnderEvaluationApplicationsAsync(IEnumerable<EthicsApplication> ethicsApplications);

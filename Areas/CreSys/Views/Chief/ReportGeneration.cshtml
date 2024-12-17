@@ -8,18 +8,52 @@
     <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
 </head>
+<style>
+    button {
+        background-color: maroon;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+        button:hover {
+            background-color: #800000; /* Darker shade of maroon */
+        }
+</style>
+
+<button onclick="window.history.back()">Go Back</button>
 
 <div class="container">
     <h2>Generate Report</h2>
-    <form id="reportForm" method="post" asp-controller="Chief" asp-action="ReportGeneration">
+    <form id="reportForm" method="post" asp-controller="Chief" asp-action="ReportGeneration" asp-area="CreSys">
+
+        <!-- Report Type Dropdown -->
+        <div class="form-group">
+            <label for="SelectedReportType">Report Type</label>
+            @Html.DropDownListFor(model => model.SelectedReportType,
+                     new SelectList(new List<string>
+            {
+            "Total Ethics Applications",
+            "Total Applications with Ethics Clearance",
+            "Total Applications with Terminal Report",
+            "Total Applications with Certificate of Completion"
+            },
+                     Model.SelectedReportType ?? "Total Ethics Applications"),
+                     new { @class = "form-control", id = "SelectedReportType", @required = "required" })
+            @Html.ValidationMessageFor(model => model.SelectedReportType, "", new { @class = "text-danger" })
+        </div>
 
         <!-- Researcher Type Dropdown -->
         <div class="form-group">
             <label for="ResearcherType">Researcher Type</label>
-            @Html.DropDownListFor(model => model.ReaserchType, 
-                new SelectList(new List<string> {"All Researcher", "External Researcher", "Internal Researcher" },
+            @Html.DropDownListFor(model => model.ReaserchType,
+                     new SelectList(new List<string> { "All Researcher", "External Researcher", "Internal Researcher" },
                      Model.ReaserchType ?? "All Researcher"),
-                new { @class = "form-control", id = "ResearcherType", @required = "required" })
+                     new { @class = "form-control", id = "ResearcherType", @required = "required" })
             @Html.ValidationMessageFor(model => model.ReaserchType, "", new { @class = "text-danger" })
         </div>
 
@@ -35,11 +69,10 @@
                      .Concat(new List<string> { "All Internal Researcher", "Student", "Faculty" }
                      .Select(type => new SelectListItem { Text = type, Value = type })),
                      "Value", "Text", Model.InternalResearcherType),
-                     new { @class = "form-control", id = "InternalResearcherType", @required = "required" }
+                     new { @class = "form-control", id = "InternalResearcherType" }
                      )
             @Html.ValidationMessageFor(model => model.InternalResearcherType, "", new { @class = "text-danger" })
         </div>
-
 
         <!-- Campus Dropdown -->
         <div class="form-group" id="CampusDropdownContainer">
@@ -52,12 +85,12 @@
             }
                      .Concat(Model.Campuses.Select(c => new SelectListItem { Text = c, Value = c }))
                      , "Value", "Text", Model.SelectedCampus),
-                     new { @class = "form-control", id = "CampusDropdown", @required = "required" }
+                     new { @class = "form-control", id = "CampusDropdown" }
                      )
             @Html.ValidationMessageFor(model => model.SelectedCampus, "", new { @class = "text-danger" })
         </div>
 
-
+        <!-- College Dropdown -->
         <div class="form-group" id="CollegeDropdownContainer">
             <label for="SelectedCollege">College</label>
             @Html.DropDownListFor(
@@ -68,12 +101,10 @@
             }
                      .Concat(Model.Colleges.Select(c => new SelectListItem { Text = c, Value = c }))
                      , "Value", "Text", Model.SelectedCollege),
-                     new { @class = "form-control", id = "CollegeDropdown", @required = "required" }
+                     new { @class = "form-control", id = "CollegeDropdown" }
                      )
             @Html.ValidationMessageFor(model => model.SelectedCollege, "", new { @class = "text-danger" })
         </div>
-
-
 
         <!-- Field of Study Dropdown -->
         <div class="form-group">
@@ -84,95 +115,106 @@
             @Html.ValidationMessageFor(model => model.SelectedFieldOfStudy, "", new { @class = "text-danger" })
         </div>
 
-            <!-- Date Range -->
-            <div class="form-group">
-                <label for="StartDate">Start Date</label>
-                <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model.StartDate?.ToString("yyyy-MM-dd")" required />
-            </div>
-            <div class="form-group">
-                <label for="EndDate">End Date</label>
-                <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Model.EndDate?.ToString("yyyy-MM-dd")" required />
-            </div>
+        <!-- Date Range -->
+        <div class="form-group">
+            <label for="StartDate">Start Date</label>
+            <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model.StartDate?.ToString("yyyy-MM-dd")" required />
+        </div>
+        <div class="form-group">
+            <label for="EndDate">End Date</label>
+            <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Model.EndDate?.ToString("yyyy-MM-dd")" required />
+        </div>
 
-            <!-- Validation Message -->
-            <div id="dateValidationMessage" class="text-danger" style="display: none;">
-                Start date cannot be later than the end date.
-            </div>
+        <!-- Validation Message -->
+        <div id="dateValidationMessage" class="text-danger" style="display: none;">
+            Start date cannot be later than the end date.
+        </div>
 
-            <button type="submit" class="btn btn-primary">Generate Report</button>
-        </form>
+        <button type="submit" class="btn btn-primary">Generate Report</button>
+    </form>
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const researcherTypeDropdown = document.getElementById("ResearcherType");
-        const internalResearcherContainer = document.getElementById("InternalResearcherContainer");
-        const campusDropdown = document.getElementById("CampusDropdown");
-        const campusDropdownContainer = document.getElementById("CampusDropdownContainer");
-        const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
+        document.addEventListener("DOMContentLoaded", function () {
+            const researcherTypeDropdown = document.getElementById("ResearcherType");
+            const internalResearcherContainer = document.getElementById("InternalResearcherContainer");
+            const internalResearcherTypeDropdown = document.getElementById("InternalResearcherType");
+            const campusDropdownContainer = document.getElementById("CampusDropdownContainer");
+            const campusDropdown = document.getElementById("CampusDropdown");
+            const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
+            const collegeDropdown = document.getElementById("CollegeDropdown");
+            const reportForm = document.getElementById("reportForm");
 
-        // Date elements
-        const startDateInput = document.getElementById("StartDate");
-        const endDateInput = document.getElementById("EndDate");
-        const dateValidationMessage = document.getElementById("dateValidationMessage");
-        const reportForm = document.getElementById("reportForm");
-
-        // Toggle visibility based on Researcher Type selection (Internal/External)
-        function toggleInternalResearcherFields() {
-            const researcherType = researcherTypeDropdown.value;
-            internalResearcherContainer.style.display = researcherType === "Internal Researcher" ? "block" : "none";
-        }
-
-        // Toggle campus/college visibility based on the researcher type
-        function toggleCampusAndCollegeVisibility() {
-            const researcherType = researcherTypeDropdown.value;
-            if (researcherType === "External Researcher" || researcherType === "All Researcher") {
-                campusDropdownContainer.style.display = "none";
-                collegeDropdownContainer.style.display = "none";
-            } else {
-                campusDropdownContainer.style.display = "block";
-                collegeDropdownContainer.style.display = campusDropdown.value === "Sta. Mesa (MAIN CAMPUS)" ? "block" : "none";
+            // Function to toggle visibility of Internal Researcher Fields
+            function toggleInternalResearcherFields() {
+                const researcherType = researcherTypeDropdown.value;
+                if (researcherType === "Internal Researcher") {
+                    internalResearcherContainer.style.display = "block";
+                    internalResearcherTypeDropdown.setAttribute("required", "required");
+                } else {
+                    internalResearcherContainer.style.display = "none";
+                    internalResearcherTypeDropdown.removeAttribute("required");
+                }
             }
-        }
 
-        // Validate date range
-        function validateDateRange() {
-            const startDate = new Date(startDateInput.value);
-            const endDate = new Date(endDateInput.value);
+            // Function to toggle visibility and required attribute for campus/college dropdowns
+            function toggleCampusAndCollegeVisibility() {
+                const researcherType = researcherTypeDropdown.value;
 
-            if (startDateInput.value && endDateInput.value && startDate > endDate) {
-                dateValidationMessage.style.display = "block";
-                return false; // Validation failed
-            } else {
-                dateValidationMessage.style.display = "none";
-                return true; // Validation passed
+                // External or All Researcher hides campus and college dropdowns
+                if (researcherType === "External Researcher" || researcherType === "All Researcher") {
+                    campusDropdownContainer.style.display = "none";
+                    collegeDropdownContainer.style.display = "none";
+
+                    // Remove 'required' when not visible
+                    campusDropdown.removeAttribute("required");
+                    collegeDropdown.removeAttribute("required");
+                } else {
+                    campusDropdownContainer.style.display = "block";
+                    campusDropdown.setAttribute("required", "required");
+
+                    // If campus is selected as "Sta. Mesa", show the college dropdown
+                    if (campusDropdown.value === "Sta. Mesa (MAIN CAMPUS)") {
+                        collegeDropdownContainer.style.display = "block";
+                        collegeDropdown.setAttribute("required", "required");
+                    } else {
+                        collegeDropdownContainer.style.display = "none";
+                        collegeDropdown.removeAttribute("required");
+                    }
+                }
             }
-        }
 
-        // Handle form submission
-        reportForm.addEventListener("submit", function (e) {
-            if (!validateDateRange()) {
-                e.preventDefault(); // Prevent form submission if validation fails
-            }
-        });
+            // Handle form submission and date validation
+            reportForm.addEventListener("submit", function (e) {
+                const startDateInput = document.getElementById("StartDate");
+                const endDateInput = document.getElementById("EndDate");
+                const dateValidationMessage = document.getElementById("dateValidationMessage");
 
-        // Event listeners
-        researcherTypeDropdown.addEventListener("change", function () {
+                // Date validation
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+
+                if (startDateInput.value && endDateInput.value && startDate > endDate) {
+                    dateValidationMessage.style.display = "block";
+                    e.preventDefault(); // Prevent form submission if validation fails
+                } else {
+                    dateValidationMessage.style.display = "none";
+                }
+            });
+
+            // Event listeners
+            researcherTypeDropdown.addEventListener("change", function () {
+                toggleInternalResearcherFields();
+                toggleCampusAndCollegeVisibility();
+            });
+
+            campusDropdown.addEventListener("change", function () {
+                toggleCampusAndCollegeVisibility();
+            });
+
+            // Initialize visibility and validation on page load
             toggleInternalResearcherFields();
             toggleCampusAndCollegeVisibility();
         });
+</script>
 
-        campusDropdown.addEventListener("change", function () {
-            collegeDropdownContainer.style.display = campusDropdown.value === "Sta. Mesa (MAIN CAMPUS)" ? "block" : "none";
-        });
-
-        startDateInput.addEventListener("change", validateDateRange);
-        endDateInput.addEventListener("change", validateDateRange);
-
-        // Initialize visibility and validation on page load
-        toggleInternalResearcherFields();
-        toggleCampusAndCollegeVisibility();
-        validateDateRange();
-    });
-
-    </script>

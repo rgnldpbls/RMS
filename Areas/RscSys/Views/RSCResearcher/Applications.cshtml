@@ -333,18 +333,37 @@
                                             <i class="fa-solid fa-file-arrow-down fa-lg mx-2" style="color: #000000"></i>Download Endorsement Letter
                                         </a>
 
-                                        <!-- Modal Trigger Button -->
+                                      @*   <!-- Modal Trigger Button -->
                                         <!-- Modal Trigger Button -->
                                         <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#applyModal-@app.RequestId" data-request-id="@app.RequestId">
                                             Apply For
-                                        </button>
+                                        </button> *@
 
+                                    }
+
+                                    @if (@app.Status == "Rejected")
+                                    {
+                                        // Check if the disapproval letter is ready to download
+                                        var hasDisapprovalDocument = app.DocumentHistories != null &&
+                                        app.DocumentHistories.Any(d => d.Comments.Contains("The disapproval letter is ready to download"));
+
+                                        if (hasDisapprovalDocument)
+                                        {
+                                            <a class="btn btn-view"
+                                               href="@Url.Action("DownloadEndorsementLetter", "RSCResearcher", new { requestId = app.RequestId })">
+                                                <i class="fa-solid fa-file-arrow-down fa-lg mx-2" style="color: #000000"></i>Download Disapproval Letter
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <i>Wait for the letter of disapproval</i>
+                                        }
                                     }
                                 </td>
                             </tr>
 
                             <!-- Modal for Apply For -->
-                            @foreach (var application in Model.Where(app => app.Status == "Approved" || app.Status == "Endorsed by RMO"))
+                           @*  @foreach (var application in Model.Where(app => app.Status == "Approved" || app.Status == "Endorsed by RMO"))
                             {
                                 <div class="modal fade" id="applyModal-@application.RequestId" tabindex="-1" aria-labelledby="applyModalLabel-@application.RequestId" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -382,7 +401,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            } *@
                         }
                     }
                     else

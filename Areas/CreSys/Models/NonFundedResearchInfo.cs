@@ -7,7 +7,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Models
     {
         [Key]
         public string NonFundedResearchId { get; set; }
-        [ForeignKey(nameof(EthicsApplication))]
+        [ForeignKey(nameof(EthicsApplication))]  
         public string UrecNo { get; set; }
         [ForeignKey(nameof(EthicsClearance))]
         public int? EthicsClearanceId { get; set; }

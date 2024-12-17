@@ -1,0 +1,21 @@
+﻿@model IEnumerable<UserActivityLog>
+
+<h2>User Activity Logs</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Activity</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.Activity</td>
+                <td>@log.Timestamp</td>
+            </tr>
+        }
+    </tbody>
+</table>

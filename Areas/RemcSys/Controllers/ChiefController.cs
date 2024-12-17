@@ -1632,6 +1632,45 @@ namespace RemcSys.Controllers
             await SendEmailAsync(email, subject, htmlBody);
         }
 
+        public async Task SendCompletionCertificate(string email, string researchTitle, string name)
+        {
+            var subject = "Certificate of Completion - " + researchTitle;
+            var htmlBody = $@"
+                <html>
+                    <body style='font-family: Arial, sans-serif;'  font-size: 20px>
+                        <br>
+                        <div style='margin-bottom: 22px;'>
+                            Dear Professor {name},<br><br>
+                            
+                            <strong>Congratulations!</strong> 
+                            We are delighted to recognize your successful completion of the funded research titled <strong>{researchTitle}</strong>.
+                            Your dedication and hardwork have made a significant contribution to the advancement of knowledge and innovation within the university and beyond.
+                        </div>
+
+                        <div style='margin-bottom: 22px;'>
+                            Your research serves as a valuable asset to our institution, reflecting our commitment to academic excellence and societal impact.
+                            May you continue to pursue groundbreaking studies and inspire others with your passion for discovery and learning.
+                        </div>
+                        
+                        <div style='margin-bottom: 22px;'>
+                            Additionally, we have sent your Certificate of Completion, which you may download from the Research Management Office System: [insert website link]
+                        </div>
+                        
+                        <div style='margin-bottom: 22px;'>
+                            Once again, congratulations on this remarkable achievement. We look forward to your future endeavors and wish you continued success. 
+                        </div>
+                         <hr>
+
+                        <footer style='margin-top: 30px; font-size: 1em;'>
+                            <strong><em>This is an automated email from the Research Evaluation Management Center (REMC). Please do not reply to this email.
+                            For inquiries, contact the chief at <strong>chief@example.com</strong>.</em></strong><br><br>
+                            <img src='cid:{{footerImageContentId}}' alt='Footer Image' style='width: 100%; max-width: 800px; height: auto;' />
+                        </footer>                  
+                    </body>
+                </html>";
+            await SendEmailAsync(email, subject, htmlBody);
+        }
+
         [Authorize(Roles = "REMC Chief")]
         public async Task<IActionResult> ArchivedResearch(string searchString)
         {
@@ -1925,12 +1964,15 @@ namespace RemcSys.Controllers
                     _context.REMC_ProgressReports.Add(doc);
                 }
 
-                var ufrProject = new UFRForecasting
+                if(fr.fr_Type == "University Funded Research")
                 {
-                    ProjectCosts = Convert.ToSingle(fr.total_project_Cost),
-                    Year = DateTime.Now.Year
-                };
-                _context.REMC_UFRForecastings.Add(ufrProject);
+                    var ufrProject = new UFRForecasting
+                    {
+                        ProjectCosts = Convert.ToSingle(fr.total_project_Cost),
+                        Year = DateTime.Now.Year
+                    };
+                    _context.REMC_UFRForecastings.Add(ufrProject);
+                }
 
                 fr.status = "Completed";
                 fr.end_Date = DateTime.Now;
@@ -1938,6 +1980,7 @@ namespace RemcSys.Controllers
                 await _context.SaveChangesAsync();
                 await _actionLogger.LogActionAsync(fr.team_Leader, fr.fr_Type, fr.research_Title + " obtained the Certificate of Completion. Congratulations!",
                     true, false, false, fr.fra_Id);
+                await SendCompletionCertificate(fr.teamLead_Email, fr.research_Title, fr.team_Leader);
             }
             return Json(new { success = true });
         }
@@ -2667,22 +2710,13 @@ namespace RemcSys.Controllers
             var rmse = Math.Sqrt(allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(actual - predicted, 2)).Average());
             var mape = allActuals.Zip(allPredictions, (actual, predicted) =>
                 actual != 0 ? Math.Abs((actual - predicted) / actual) * 100 : 0).Average();
-
-            var meanActual = allActuals.Average();
-            var totalVariance = allActuals.Sum(actual => Math.Pow(actual - meanActual, 2));
-            var explainedVariance = allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(predicted - meanActual, 2)).Sum();
-            var rSquared = explainedVariance / totalVariance;
-
-            // Signal-to-Noise Ratio (SNR)
-            var signalPower = allActuals.Sum(actual => Math.Pow(actual, 2));
-            var noisePower = allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(actual - predicted, 2)).Sum();
-            var snr = signalPower / noisePower;
+            var smape = allActuals.Zip(allPredictions, (actual, predicted) =>
+                (actual != 0 || predicted != 0) ? (Math.Abs(predicted - actual) / ((Math.Abs(actual) + Math.Abs(predicted)) / 2)) * 100 : 0).Average();
 
             ViewBag.MAE = mae;
             ViewBag.RMSE = rmse;
-            ViewBag.MAPE = mape;
-            ViewBag.RSquared = rSquared;
-            ViewBag.SNR = snr;
+            ViewBag.MAPE = Math.Round(mape, 2);
+            ViewBag.SMAPE = Math.Round(smape, 2);
 
             return View(forecastData);
         }

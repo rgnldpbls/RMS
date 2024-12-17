@@ -12,6 +12,12 @@
         background: #850000;
         color: white;
     }
+
+    .welcomez {
+        background: rgb(133, 0, 0, 0.2);
+        font-family: "Poppins";
+        color: #850000;
+    }
 </style>
 <div>
     <!--navbar-->
@@ -39,71 +45,61 @@
                 <!--Title of (Original) Research Article-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="ArticleTitle" class="form-label">Title of (Original) Research Article</label>
-                        <input asp-for="ArticleTitle" class="form-control mb-3" placeholder="Title of (Original) Research Article" />
+                        <label asp-for="ArticleTitle" class="form-label">Title of (Original) Research Article <span style="color: red">*</span></label>
+                        <input asp-for="ArticleTitle" class="form-control" placeholder="Title of (Original) Research Article" required />
                         <span asp-validation-for="ArticleTitle" class="text-danger"></span>
                     </div>
                 </div>
 
-                <!--Authors-->
-                <div class="row mt-3 mb-3">
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
-                    </div>
-                    <div class="col-lg-4 col-sm-2 text-center">
-                        <h4>Author/s of (Original) Article</h4>
-                    </div>
-                    <div class="col-lg-4 col-sm-5">
-                        <hr>
-                    </div>
+                <!--Author/s of (Original) Article-->
+                <div class="welcomez container p-2 rounded-2 mt-3">
+                    <div class="fs-6 fw-bold text-center">Author/s of (Original) Article</div>
                 </div>
                 <div class="row">
                     <!--author1-->
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="LeadResearcherId" class="form-label">Author 1</label>
-                        <select asp-for="LeadResearcherId" class="form-control mb-3" asp-items="ViewBag.LeadResearcherId"></select>
+                        <label asp-for="LeadResearcherId" class="form-label mt-3">Author 1 <span style="color: red">*</span></label>
+                        <select asp-for="LeadResearcherId" class="form-control" asp-items="ViewBag.LeadResearcherId" required></select>
                     </div>
                     <!--author2-->
                     <div class="col-lg-6 col-sm-12">
-                        <label asp-for="CoLeadResearcherId" class="form-label">Author 2</label>
-                        <select asp-for="CoLeadResearcherId" class="form-control mb-3" asp-items="ViewBag.CoLeadResearcherId"></select>
+                        <label asp-for="CoLeadResearcherId" class="form-label mt-3">Author 2</label>
+                        <select asp-for="CoLeadResearcherId" class="form-control" asp-items="ViewBag.CoLeadResearcherId"></select>
                     </div>
                 </div>
                 <div class="row">
                     <!--author3-->
                     <div class="col-lg-4 col-sm-12">
-                        <label asp-for="MemberoneId" class="form-label">Author 3</label>
-                        <select asp-for="MemberoneId" class="form-control mb-3" asp-items="ViewBag.MemberoneId"></select>
+                        <label asp-for="MemberoneId" class="form-label mt-3">Author 3</label>
+                        <select asp-for="MemberoneId" class="form-control" asp-items="ViewBag.MemberoneId"></select>
                     </div>
                     <!--author4-->
                     <div class="col-lg-4 col-sm-12">
-                        <label asp-for="MembertwoId" class="form-label">Author 4</label>
-                        <select asp-for="MembertwoId" class="form-control mb-3" asp-items="ViewBag.MembertwoId"></select>
+                        <label asp-for="MembertwoId" class="form-label mt-3">Author 4</label>
+                        <select asp-for="MembertwoId" class="form-control" asp-items="ViewBag.MembertwoId"></select>
                     </div>
                     <!--author5-->
                     <div class="col-lg-4 col-sm-12">
-                        <label asp-for="MemberthreeId" class="form-label">Author 5</label>
-                        <select asp-for="MemberthreeId" class="form-control mb-3" asp-items="ViewBag.MemberthreeId"></select>
+                        <label asp-for="MemberthreeId" class="form-label mt-3">Author 5</label>
+                        <select asp-for="MemberthreeId" class="form-control" asp-items="ViewBag.MemberthreeId"></select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <hr>
-                    </div>
+                <!--divider-->
+                <div class="welcomez container p-1 rounded-2 mt-3">
                 </div>
                 <!--Title of Refereed Journal Where the (Original) Research Article Was Published-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="OriginalArticlePublished" class="form-label">Title of Refereed Journal Where the (Original) Research Article Was Published</label>
-                        <input asp-for="OriginalArticlePublished" class="form-control mb-3" placeholder="Title of Refereed Journal Where the (Original) Research Article Was Published" />
+                        <label asp-for="OriginalArticlePublished" class="form-label mt-3">Title of Refereed Journal Where the (Original) Research Article Was Published <span style="color: red">*</span></label>
+                        <input asp-for="OriginalArticlePublished" class="form-control" placeholder="Title of Refereed Journal Where the (Original) Research Article Was Published" required />
                         <span asp-validation-for="OriginalArticlePublished" class="text-danger"></span>
                     </div>
                 </div>
                 <!--Title of (New) Publication Where the (Original) Research Article Was Cited-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="NewPublicationTitle" class="form-label">Title of (New) Publication Where the (Original) Research Article Was Cited</label>
-                        <input asp-for="NewPublicationTitle" class="form-control mb-3" placeholder="Title of (New) Publication Where the (Original) Research Article Was Cited" />
+                        <label asp-for="NewPublicationTitle" class="form-label mt-3">Title of (New) Publication Where the (Original) Research Article Was Cited <span style="color: red">*</span></label>
+                        <input asp-for="NewPublicationTitle" class="form-control" placeholder="Title of (New) Publication Where the (Original) Research Article Was Cited" required />
                         <span asp-validation-for="NewPublicationTitle" class="text-danger"></span>
                     </div>
                 </div>
@@ -111,32 +107,32 @@
                 <!--Author/s of the (New) Article Who Cited the (Original) Research Article-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="AuthorsofNewArticle" class="form-label">Author/s of the (New) Article Who Cited the (Original) Research Article</label>
-                        <input asp-for="AuthorsofNewArticle" class="form-control mb-3" placeholder="Author/s of the (New) Article Who Cited the (Original) Research Article" />
+                        <label asp-for="AuthorsofNewArticle" class="form-label mt-3">Author/s of the (New) Article Who Cited the (Original) Research Article <span style="color: red">*</span></label>
+                        <input asp-for="AuthorsofNewArticle" class="form-control" placeholder="Author/s of the (New) Article Who Cited the (Original) Research Article" required />
                         <span asp-validation-for="AuthorsofNewArticle" class="text-danger"></span>
                     </div>
                 </div>
                 <!--Title of Refereed Journal Where the (New) Research Article Was Published-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="NewArticlePublished" class="form-label">Title of Refereed Journal Where the (New) Research Article Was Published</label>
-                        <input asp-for="NewArticlePublished" class="form-control mb-3" placeholder="Title of Refereed Journal Where the (New) Research Article Was Published" />
+                        <label asp-for="NewArticlePublished" class="form-label mt-3">Title of Refereed Journal Where the (New) Research Article Was Published <span style="color: red">*</span></label>
+                        <input asp-for="NewArticlePublished" class="form-control" placeholder="Title of Refereed Journal Where the (New) Research Article Was Published" required />
                         <span asp-validation-for="NewArticlePublished" class="text-danger"></span>
                     </div>
                 </div>
                 <!--vol no issue no-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="VolNoIssueNo" class="form-label">Volume No./Issue No.</label>
-                        <input asp-for="VolNoIssueNo" class="form-control mb-3" placeholder="Volume No./Issue No." />
+                        <label asp-for="VolNoIssueNo" class="form-label mt-3">Volume No./Issue No. <span style="color: red">*</span></label>
+                        <input asp-for="VolNoIssueNo" class="form-control" placeholder="Volume No./Issue No." required />
                         <span asp-validation-for="VolNoIssueNo" class="text-danger"></span>
                     </div>
                 </div>
                 <!--No. of Pages-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="Pages" class="form-label">No. of Pages</label>
-                        <input asp-for="Pages" class="form-control mb-3" placeholder="No. of Pages" />
+                        <label asp-for="Pages" class="form-label mt-3">No. of Pages <span style="color: red">*</span></label>
+                        <input asp-for="Pages" class="form-control" placeholder="No. of Pages" required />
                         <span asp-validation-for="Pages" class="text-danger"></span>
                     </div>
                 </div>
@@ -144,24 +140,24 @@
                 <!--Year of Publication-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="YearofPublication" class="form-label">Year of Publication</label>
-                        <input asp-for="YearofPublication" class="form-control mb-3" placeholder="Year of Publication" />
+                        <label asp-for="YearofPublication" class="form-label mt-3">Year of Publication <span style="color: red">*</span></label>
+                        <input asp-for="YearofPublication" class="form-control" placeholder="Year of Publication" required />
                         <span asp-validation-for="YearofPublication" class="text-danger"></span>
                     </div>
                 </div>
                 <!--Indexing-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label asp-for="Indexing" class="form-label"></label>
-                        <input asp-for="Indexing" class="form-control mb-3" placeholder="Indexing" />
+                        <label asp-for="Indexing" class="form-label mt-3">Indexing <span style="color: red">*</span></label>
+                        <input asp-for="Indexing" class="form-control" placeholder="Indexing" required />
                         <span asp-validation-for="Indexing" class="text-danger"></span>
                     </div>
                 </div>
                 <!--Upload File for Proof-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
-                        <label class="form-label" for="proof">Upload File for Proof</label>
-                        <input class="form-control mb-3" type="file" name="file" id="proof" placeholder="Upload File for Proof" accept="image/*">
+                        <label class="form-label mt-3" for="proof">Upload File for Proof <span style="color: red">*</span></label>
+                        <input class="form-control" type="file" name="file" id="proof" placeholder="Upload File for Proof" accept="image/*" required>
                     </div>
                 </div>
             </div>
@@ -194,3 +190,5 @@
         }
     </script>
 }
+
+

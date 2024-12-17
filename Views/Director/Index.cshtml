@@ -113,6 +113,16 @@
         font-family: "Poppins";
         color: #FFDB89;
     }
+
+    .welcomezz {
+        background: #850000;
+        font-family: "Poppins";
+        color: #FFDB89;
+    }
+
+        .welcomezz:hover {
+            background: #5C0001;
+        }
 </style>
 
 <!--welcome-->
@@ -174,10 +184,10 @@
         <div class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: #850000;">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #E8E6E6;">
                         <form id="eventForm">
                             <div class="mb-3">
                                 <label for="event-title" class="form-label">Event Title</label>
@@ -290,14 +300,14 @@
                             {
                                 @foreach (var group in groupedBranches)
                                 {
-                                    <div class="bg-warning-subtle p-4 rounded-4 shadow-sm rank-group rank-@curRank">
+                                    <div class="bg-warning-subtle mb-1 p-4 rounded-4 shadow-sm rank-group rank-@curRank">
                                         @foreach (var branch in group)
                                         {
-                                        <li class="rank-item">
-                                            <div class="rank">@curRank.</div>
+                                        <li class="rank-item d-flex" style="list-style-type: none;">
+                                            <div class="rank fs-6 fw-bold me-2" style="color: #850000">@curRank.</div>
                                             <div class="branch-info">
                                                 <span class="branch-name"> @branch.BranchName</span>
-                                                <span class="research-count">Total Research: @branch.TotalResearch</span>
+                                                <span class="research-count fw-bold">Total Research: @branch.TotalResearch</span>
                                             </div>
                                         </li>
                                         }
@@ -309,7 +319,7 @@
                             else
                             {
                         <div class="bg-warning-subtle p-4 rounded-4 shadow-sm">
-                            <li>
+                            <li style="list-style-type: none;">
 
                                 No top performing branches yet.
 
@@ -339,10 +349,10 @@
 
 
 <!--Generate Report Button-->
-<a role="button" class="welcomez container p-4 rounded-4 shadow d-flex justify-content-between align-items-center text-decoration-none" asp-controller="Director" asp-action="DirectorReportGenerateReport">
+<a role="button" class="welcomezz container p-4 rounded-4 shadow d-flex justify-content-between align-items-center text-decoration-none" asp-controller="Director" asp-action="DirectorReportGenerateReport">
     <div>
-        <div class="fw-bold fs-5">Generate Report</div>
-        <div class="fs-6">See details</div>
+        <div class="fw-bold fs-5" style="color: #FFDB89;">Generate Report</div>
+        <div class="fs-6" style="color: #FFDB89;">See details</div>
     </div>
     <div><i class="fa-solid fa-circle-chevron-right fa-2xl" style="color: #ffdb89;"></i></div>
 </a>
@@ -747,11 +757,11 @@
                 // Add tooltip with event details
                 $(info.el).tooltip({
                     title: `
-                                            ${info.event.title}
-                                            Time: ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}
-                                            Location: ${info.event.extendedProps.location}
-                                            Type: ${info.event.extendedProps.eventType}
-                                        `,
+                                                ${info.event.title}
+                                                Time: ${moment(info.event.start).format('hh:mm A')} - ${moment(info.event.end).format('hh:mm A')}
+                                                Location: ${info.event.extendedProps.location}
+                                                Type: ${info.event.extendedProps.eventType}
+                                            `,
                     html: true,
                     placement: 'top',
                     trigger: 'hover',
@@ -772,16 +782,16 @@
 
             // Clear previous form
             modalBody.innerHTML = `
-                                    <div class="event-details">
-                                        <h3 class="mb-3">${event.title}</h3>
-                                        <p><strong>Date:</strong> ${moment(event.start).format('MMMM D, YYYY')}</p>
-                                        <p><strong>Time:</strong> ${moment(event.start).format('hh:mm A')} - ${moment(event.end).format('hh:mm A')}</p>
-                                        <p><strong>Location:</strong> ${event.extendedProps.location}</p>
-                                        <p><strong>Type:</strong> ${event.extendedProps.eventType}</p>
-                                        <p><strong>Description:</strong></p>
-                                        <p>${event.extendedProps.description}</p>
-                                    </div>
-                                `;
+                                        <div class="event-details">
+                                            <h3 class="mb-3">${event.title}</h3>
+                                            <p><strong>Date:</strong> ${moment(event.start).format('MMMM D, YYYY')}</p>
+                                            <p><strong>Time:</strong> ${moment(event.start).format('hh:mm A')} - ${moment(event.end).format('hh:mm A')}</p>
+                                            <p><strong>Location:</strong> ${event.extendedProps.location}</p>
+                                            <p><strong>Type:</strong> ${event.extendedProps.eventType}</p>
+                                            <p><strong>Description:</strong></p>
+                                            <p>${event.extendedProps.description}</p>
+                                        </div>
+                                    `;
 
             // Show the modal
             const bsModal = new bootstrap.Modal(modal);

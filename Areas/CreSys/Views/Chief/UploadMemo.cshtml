@@ -1,0 +1,85 @@
+﻿@model ResearchManagementSystem.Areas.CreSys.Models.EthicsMemoranda
+
+@{
+    ViewData["Title"] = "Upload Memorandum";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+<style>
+    .custom-btn {
+        background-color: maroon;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .custom-btn:hover {
+            background-color: #8b0000;
+            transform: scale(1.05);
+        }
+</style>
+<div class="container mt-5">
+
+    <!-- Go Back Button -->
+    <div class="mb-4">
+        <a href="javascript:history.back()" class="btn btn-primary custom-btn">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+    </div>
+    <div class="card shadow-lg" style="border: 2px solid maroon;">
+        <div class="card-header text-white" style="background-color: maroon;">
+            <h3 class="text-center">Upload Memorandum</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="UploadMemo" enctype="multipart/form-data" method="post">
+                <div class="form-group mb-3">
+                    <label for="memoNumber" class="form-label">Memo Number</label>
+                    <input type="text" class="form-control" id="memoNumber" name="memoNumber" placeholder="Enter memo number" required />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="memoName" class="form-label">Memo Name</label>
+                    <input type="text" class="form-control" id="memoName" name="memoName" placeholder="Enter memo name " required />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="memoDescription" class="form-label">Memo Description</label>
+                    <textarea class="form-control" id="memoDescription" name="memoDescription" placeholder="Enter a brief description" rows="5" required>
+                    </textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="uploadedFile" class="form-label">Upload File</label>
+                    <input type="file" class="form-control" id="uploadedFile" name="uploadedFile" accept=".pdf" required />
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" style="background-color: maroon; border-color: maroon;">
+                        <i class="bi bi-upload"></i> Upload
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <small class="text-muted">Ensure all details are accurate before submission.</small>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('uploadedFile').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (file && file.type !== 'application/pdf') {
+            alert('Please upload a valid PDF file.');
+            e.target.value = ''; // Clear the file input
+        }
+    });
+</script>

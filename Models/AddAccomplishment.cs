@@ -65,7 +65,13 @@ namespace ResearchManagementSystem.Models
         public string? Department { get; set; }
         public string? BranchCampus { get; set; }
 
+
+
         // Funding details
+        [Display(Name = "Types of Funding")]
+        public string? TypesofFunding { get; set; }
+
+
         [Display(Name = "Funding Agency")]
         public string? FundingAgency { get; set; }
 
@@ -81,6 +87,18 @@ namespace ResearchManagementSystem.Models
         [Display(Name = "Date of Completion")]
         public DateTime? DateCompleted { get; set; }
 
+
+        [Display(Name = "Total Project cost")]
+        public double? total_project_Cost { get; set; }
+
+
+        [Display(Name = "Field of Study")]
+        public string? field_of_Study { get; set; }
+
+        [Display(Name = "UrecNo")]
+        public string? UrecNo { get; set; }
+
+
         // File properties to store binary data
         public byte[]? RequiredFile1Data { get; set; }
         public byte[]? RequiredFile2Data { get; set; }
@@ -95,6 +113,9 @@ namespace ResearchManagementSystem.Models
 
         // Other properties
         public bool IsStudentInvolved { get; set; }
+
+
+        [Display(Name = "CreatedBy")]
         public string? Notes { get; set; }
 
 
@@ -266,6 +287,21 @@ namespace ResearchManagementSystem.Models
 
             [Display(Name = "Date of Completion")]
             public DateTime? DateCompleted { get; set; }
+
+
+            [Display(Name = "Total Project cost")]
+            public double? total_project_Cost { get; set; }
+
+
+            [Display(Name = "Field of Study")]
+            public string? field_of_Study { get; set; }
+
+
+
+            // Include filter properties
+            public string? FilterResearchTitle { get; set; }
+            public int? FilterYear { get; set; }
+            public List<AddAccomplishment> Production { get; set; }
         }
 
 
@@ -286,6 +322,12 @@ namespace ResearchManagementSystem.Models
             public DateTime? DateCompletedFrom { get; set; }
             public DateTime? DateCompletedTo { get; set; }
             public bool? IsStudentInvolved { get; set; }
+
+
+            // Include filter properties
+            public string? FilterResearchTitle { get; set; }
+            public int? FilterYear { get; set; }
+            public List<AddAccomplishment> Production { get; set; }
         }
 
 
@@ -311,6 +353,44 @@ namespace ResearchManagementSystem.Models
             public DateTime? DateCompleted { get; set; }
         }
 
+        public class RMCCDetailsViewModel
+        {
+            public string ProductionId { get; set; }
+            public string ResearchTitle { get; set; }
+            public int? Year { get; set; }
+            public string LeadResearcherName { get; set; }
+            public string CoLeadResearcherName { get; set; }
+            public string MemberOneName { get; set; }
+            public string MemberTwoName { get; set; }
+            public string MemberThreeName { get; set; }
+            public string College { get; set; }
+            public string Department { get; set; }
+            public string BranchCampus { get; set; }
+            public string TypesofFunding { get; set; }
+            public string FundingAgency { get; set; }
+            public double? FundingAmount { get; set; }
+            public DateTime DateStarted { get; set; }
+            public DateTime? DateCompleted { get; set; }
+            public double? TotalProjectCost { get; set; }
+            public string FieldOfStudy { get; set; }
+            public bool IsStudentInvolved { get; set; }
+            public string Notes { get; set; }
+            public string CreatedByName { get; set; }
+            public DateTime CreatedOn { get; set; }
+
+            // File information
+            public string RequiredFile1Name { get; set; }
+            public string RequiredFile2Name { get; set; }
+            public string RequiredFile3Name { get; set; }
+            public string ConditionalFileName { get; set; }
+
+            // Related accomplishments
+            public ICollection<AddPresentation> Presentations { get; set; }
+            public ICollection<AddPublication> Publications { get; set; }
+            public ICollection<AddUtilization> Utilizations { get; set; }
+            public ICollection<AddPatent> Patents { get; set; }
+            public ICollection<AddCitation> Citations { get; set; }
+        }
 
     }
 }

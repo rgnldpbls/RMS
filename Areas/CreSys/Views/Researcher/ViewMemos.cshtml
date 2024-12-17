@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ResearchManagementSystem.Areas.CreSys.Models.EthicsMemoranda>
+@{
+    ViewData["Title"] = "Memoranda";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
+</head>
+
+<div class="container-fluid p-0 mt-4">
+    <!-- Added margin-top for spacing from the navbar -->
+    <div class="row justify-content-center">
+        @foreach (var memo in Model)
+        {
+            <div class="card shadow-lg border-light rounded mx-3 mb-4" style="background-color: white; border-radius: 15px; padding: 10px; flex: 0 0 80%; max-width: 80%;">
+                <!-- Memo Title and Number in One Header -->
+                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #800000; color: white; padding: 10px 15px; border-radius: 5px;">
+                    <h5 class="card-title mb-0" style="font-size: 1.2rem;">@memo.MemoName</h5>
+                    <span style="font-size: 1rem; font-weight: bold;">@memo.MemoNumber</span>
+                </div>
+
+                <!-- Description -->
+                <div class="card-body" style="padding: 1.5rem; border: 1px solid #800000; border-radius: 10px; margin-bottom: 10px;">
+                    <p class="card-text" style="font-size: 1.1rem; color: #333; text-align: center; line-height: 1.6;">
+                        @Html.Raw(memo.MemoDescription?.Replace(Environment.NewLine, "<br>"))
+                    </p>
+                </div>
+
+                <!-- Download Button -->
+                <div class="card-footer text-center">
+                    <a asp-controller="Chief" asp-action="DownloadMemo" asp-route-id="@memo.MemoId" class="btn btn-dark px-4 py-2" style="background-color: #800000; color: white; font-size: 1rem; border-radius: .25rem;">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* General Card Styles */
+    .container-fluid {
+        padding: 0;
+    }
+
+    .row {
+        justify-content: center; /* Center the row content */
+        flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    }
+
+    .card {
+        flex: 0 0 80%; /* Each card takes 80% of the parent width */
+        max-width: 80%; /* Restrict card width */
+        margin-bottom: 20px; /* Add spacing between rows */
+        background-color: white;
+        color: #800000;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+    .card-header {
+        background-color: #800000;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+        border: 1px solid #800000;
+        border-radius: 10px;
+        min-height: 250px;
+        text-align: center;
+    }
+
+    .card-footer {
+        padding: 1rem;
+        text-align: center;
+    }
+
+        .card-footer .btn {
+            background-color: #800000;
+            color: white;
+            font-size: 1rem;
+            border-radius: .25rem;
+        }
+
+            .card-footer .btn:hover {
+                background-color: #660000;
+            }
+</style>

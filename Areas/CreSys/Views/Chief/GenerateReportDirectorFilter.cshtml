@@ -8,10 +8,44 @@
     <link rel="stylesheet" href="~/css/InitialReview.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" asp-append-version="true" />
 </head>
+<style>
+    button {
+        background-color: maroon;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+        button:hover {
+            background-color: #800000; /* Darker shade of maroon */
+        }
+</style>
+
+<button onclick="window.history.back()">Go Back</button>
 
 <div class="container">
     <h2>Generate Report</h2>
-    <form id="reportForm" method="post" asp-controller="Chief" asp-action="GenerateReportDirectorFilter">
+    <form id="reportForm" method="post" asp-controller="Chief" asp-action="ReportGeneration" asp-area="CreSys">
+
+        <!-- Report Type Dropdown -->
+        <div class="form-group">
+            <label for="SelectedReportType">Report Type</label>
+            @Html.DropDownListFor(model => model.SelectedReportType,
+                     new SelectList(new List<string>
+            {
+            "Total Ethics Applications",
+            "Total Applications with Ethics Clearance",
+            "Total Applications with Terminal Report",
+            "Total Applications with Certificate of Completion"
+            },
+                     Model.SelectedReportType ?? "Total Ethics Applications"),
+                     new { @class = "form-control", id = "SelectedReportType", @required = "required" })
+            @Html.ValidationMessageFor(model => model.SelectedReportType, "", new { @class = "text-danger" })
+        </div>
 
         <!-- Researcher Type Dropdown -->
         <div class="form-group">
@@ -35,11 +69,10 @@
                      .Concat(new List<string> { "All Internal Researcher", "Student", "Faculty" }
                      .Select(type => new SelectListItem { Text = type, Value = type })),
                      "Value", "Text", Model.InternalResearcherType),
-                     new { @class = "form-control", id = "InternalResearcherType", @required = "required" }
+                     new { @class = "form-control", id = "InternalResearcherType" }
                      )
             @Html.ValidationMessageFor(model => model.InternalResearcherType, "", new { @class = "text-danger" })
         </div>
-
 
         <!-- Campus Dropdown -->
         <div class="form-group" id="CampusDropdownContainer">
@@ -52,12 +85,12 @@
             }
                      .Concat(Model.Campuses.Select(c => new SelectListItem { Text = c, Value = c }))
                      , "Value", "Text", Model.SelectedCampus),
-                     new { @class = "form-control", id = "CampusDropdown", @required = "required" }
+                     new { @class = "form-control", id = "CampusDropdown" }
                      )
             @Html.ValidationMessageFor(model => model.SelectedCampus, "", new { @class = "text-danger" })
         </div>
 
-
+        <!-- College Dropdown -->
         <div class="form-group" id="CollegeDropdownContainer">
             <label for="SelectedCollege">College</label>
             @Html.DropDownListFor(
@@ -68,12 +101,10 @@
             }
                      .Concat(Model.Colleges.Select(c => new SelectListItem { Text = c, Value = c }))
                      , "Value", "Text", Model.SelectedCollege),
-                     new { @class = "form-control", id = "CollegeDropdown", @required = "required" }
+                     new { @class = "form-control", id = "CollegeDropdown" }
                      )
             @Html.ValidationMessageFor(model => model.SelectedCollege, "", new { @class = "text-danger" })
         </div>
-
-
 
         <!-- Field of Study Dropdown -->
         <div class="form-group">
@@ -104,43 +135,72 @@
 </div>
 
 <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
         const researcherTypeDropdown = document.getElementById("ResearcherType");
         const internalResearcherContainer = document.getElementById("InternalResearcherContainer");
-        const campusDropdown = document.getElementById("CampusDropdown");
+        const internalResearcherTypeDropdown = document.getElementById("InternalResearcherType");
         const campusDropdownContainer = document.getElementById("CampusDropdownContainer");
+        const campusDropdown = document.getElementById("CampusDropdown");
         const collegeDropdownContainer = document.getElementById("CollegeDropdownContainer");
+        const collegeDropdown = document.getElementById("CollegeDropdown");
+        const reportForm = document.getElementById("reportForm");
 
-        // Toggle visibility based on Researcher Type selection (Internal/External)
+        // Function to toggle visibility of Internal Researcher Fields
         function toggleInternalResearcherFields() {
             const researcherType = researcherTypeDropdown.value;
             if (researcherType === "Internal Researcher") {
                 internalResearcherContainer.style.display = "block";
+                internalResearcherTypeDropdown.setAttribute("required", "required");
             } else {
                 internalResearcherContainer.style.display = "none";
+                internalResearcherTypeDropdown.removeAttribute("required");
             }
         }
 
-        // Toggle campus/college visibility based on the researcher type
+        // Function to toggle visibility and required attribute for campus/college dropdowns
         function toggleCampusAndCollegeVisibility() {
             const researcherType = researcherTypeDropdown.value;
+
+            // External or All Researcher hides campus and college dropdowns
             if (researcherType === "External Researcher" || researcherType === "All Researcher") {
                 campusDropdownContainer.style.display = "none";
                 collegeDropdownContainer.style.display = "none";
+
+                // Remove 'required' when not visible
+                campusDropdown.removeAttribute("required");
+                collegeDropdown.removeAttribute("required");
             } else {
                 campusDropdownContainer.style.display = "block";
-                // Check if the selected campus is "Sta. Mesa (MAIN CAMPUS)"
+                campusDropdown.setAttribute("required", "required");
+
+                // If campus is selected as "Sta. Mesa", show the college dropdown
                 if (campusDropdown.value === "Sta. Mesa (MAIN CAMPUS)") {
                     collegeDropdownContainer.style.display = "block";
+                    collegeDropdown.setAttribute("required", "required");
                 } else {
                     collegeDropdownContainer.style.display = "none";
+                    collegeDropdown.removeAttribute("required");
                 }
             }
         }
 
-        // Initialize visibility based on default selection
-        toggleInternalResearcherFields();
-        toggleCampusAndCollegeVisibility();
+        // Handle form submission and date validation
+        reportForm.addEventListener("submit", function (e) {
+            const startDateInput = document.getElementById("StartDate");
+            const endDateInput = document.getElementById("EndDate");
+            const dateValidationMessage = document.getElementById("dateValidationMessage");
+
+            // Date validation
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+
+            if (startDateInput.value && endDateInput.value && startDate > endDate) {
+                dateValidationMessage.style.display = "block";
+                e.preventDefault(); // Prevent form submission if validation fails
+            } else {
+                dateValidationMessage.style.display = "none";
+            }
+        });
 
         // Event listeners
         researcherTypeDropdown.addEventListener("change", function () {
@@ -148,16 +208,13 @@
             toggleCampusAndCollegeVisibility();
         });
 
-        // Toggle college dropdown visibility based on campus selection
         campusDropdown.addEventListener("change", function () {
-            if (campusDropdown.value !== "Sta. Mesa (MAIN CAMPUS)") {
-                collegeDropdownContainer.style.display = "none";
-            } else {
-                collegeDropdownContainer.style.display = "block";
-            }
+            toggleCampusAndCollegeVisibility();
         });
 
-        // Initial check to ensure campus and college visibility is correct on page load
+        // Initialize visibility and validation on page load
+        toggleInternalResearcherFields();
         toggleCampusAndCollegeVisibility();
     });
 </script>
+

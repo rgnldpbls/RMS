@@ -110,12 +110,14 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
         public async Task<List<ResearchReportModel>> GetFilteredResearchData(ReportGenerationViewModel model)
         {
             var query = _context.CRE_EthicsApplication
-                          .Include(r => r.NonFundedResearchInfo)
-                              .ThenInclude(nf => nf.CoProponents)
-                          .Include(r => r.EthicsApplicationLogs)
-                          .Include(r => r.EthicsClearance)
-                          .Include(r => r.InitialReview)
-                          .AsQueryable();
+                           .Include(r => r.NonFundedResearchInfo)
+                               .ThenInclude(nf => nf.CoProponents)
+                           .Include(r => r.EthicsApplicationLogs)
+                           .Include(r => r.EthicsClearance)
+                           .Include(r => r.InitialReview)
+                           .Include(r => r.CompletionReport)
+                           .Include(r => r.CompletionCertificate)
+                           .AsQueryable();
 
             // Filter by Campus (if applicable)
             if (!string.IsNullOrEmpty(model.SelectedCampus))
@@ -129,7 +131,6 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                     query = query.Where(r => r.NonFundedResearchInfo.Campus == model.SelectedCampus);
                 }
             }
-            // If no campus is selected, filter by College (if applicable)
             else if (!string.IsNullOrEmpty(model.SelectedCollege) && model.SelectedCollege != "All Colleges")
             {
                 query = query.Where(r => r.NonFundedResearchInfo.College == model.SelectedCollege);
@@ -144,29 +145,29 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
             // Filter by Date Range (if applicable)
             if (model.StartDate.HasValue)
             {
-                query = query.Where(r => r.SubmissionDate >= model.StartDate.Value && r.EthicsClearance != null);
+                query = query.Where(r => r.SubmissionDate >= model.StartDate.Value);
             }
 
             if (model.EndDate.HasValue)
             {
-                query = query.Where(r => r.SubmissionDate <= model.EndDate.Value && r.EthicsClearance != null);
+                query = query.Where(r => r.SubmissionDate <= model.EndDate.Value);
             }
+
             // Validate the date range: ensure StartDate is not after EndDate
             if (model.StartDate.HasValue && model.EndDate.HasValue && model.StartDate > model.EndDate)
             {
                 throw new ArgumentException("Start date cannot be after end date.");
             }
 
+            // Filter by Research Type (External/Internal)
             if (!string.IsNullOrEmpty(model.ReaserchType) && model.ReaserchType != "All Researcher")
             {
                 if (model.ReaserchType == "External Researcher")
                 {
-                    // Filter out research from Polytechnic University of the Philippines
                     query = query.Where(r => r.NonFundedResearchInfo.University != "Polytechnic University of the Philippines");
                 }
                 else if (model.ReaserchType == "Internal Researcher")
                 {
-                 
                     if (!string.IsNullOrEmpty(model.InternalResearcherType) && model.InternalResearcherType != "All Internal Researcher")
                     {
                         var userIds = new List<string>();
@@ -182,57 +183,98 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                             userIds = facultyUsers.Select(u => u.Id).ToList();
                         }
 
-
-                        // Filter research applications by UserId
                         query = query.Where(r => r.UserId != null && userIds.Contains(r.UserId));
-
                     }
                 }
             }
-            else
+
+            // Filter by Report Type
+            if (!string.IsNullOrEmpty(model.SelectedReportType))
             {
-                // If "All Researcher" is selected, no filtering by University or UserId
-                // No changes to the query for this case
+                switch (model.SelectedReportType)
+                {
+                    case "Total Ethics Applications":
+                        // No additional filtering needed as this includes all applications
+                        break;
+
+                    case "Total Applications with Ethics Clearance":
+                        query = query.Where(r => r.EthicsClearance != null || _context.CRE_EthicsClearance.Any(ec => ec.UrecNo == r.UrecNo));
+                        break;
+
+                    case "Total Applications with Terminal Report":
+                        query = query.Where(r => r.CompletionReport != null || _context.CRE_CompletionReports.Any(cr => cr.UrecNo == r.UrecNo));
+                        break;
+
+                    case "Total Applications with Certificate of Completion":
+                        query = query.Where(r => r.CompletionCertificate != null || _context.CRE_CompletionCertificates.Any(cc => cc.UrecNo == r.UrecNo));
+                        break;
+
+                    default:
+                        throw new ArgumentException("Invalid report type selected.");
+                }
             }
 
             // Map the filtered data to the report model
-            var researchData = query.Select(r => new ResearchReportModel
+            var researchData = await query.Select(r => new ResearchReportModel
             {
                 UrecNo = r.UrecNo,
                 TitleOfResearch = r.NonFundedResearchInfo.Title,
                 ProponentsAuthors = string.IsNullOrEmpty(r.NonFundedResearchInfo.Name)
-            ? string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
-            : r.NonFundedResearchInfo.Name + (r.NonFundedResearchInfo.CoProponents.Any()
-                ? ", " + string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
-                : ""),
+                    ? string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
+                    : r.NonFundedResearchInfo.Name + (r.NonFundedResearchInfo.CoProponents.Any()
+                        ? ", " + string.Join(", ", r.NonFundedResearchInfo.CoProponents.Select(cp => cp.CoProponentName))
+                        : ""),
                 DateReceived = r.EthicsApplicationLogs
                     .Where(log => log.Status == "Pending for Evaluation")
                     .OrderBy(log => log.ChangeDate)
                     .Select(log => log.ChangeDate)
-                    .FirstOrDefault(),
+                    .FirstOrDefault() == DateTime.MinValue ? null : r.EthicsApplicationLogs
+                    .Where(log => log.Status == "Pending for Evaluation")
+                    .OrderBy(log => log.ChangeDate)
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() as DateTime?,
                 DateReviewedForCompleteness = r.InitialReview != null && r.InitialReview.Status == "Approved"
-                    ? r.InitialReview.DateReviewed
+                    ? r.InitialReview.DateReviewed == DateTime.MinValue ? null : r.InitialReview.DateReviewed
                     : null,
                 DateReceivedFromEvaluation = r.EthicsApplicationLogs
-                .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
-                .Select(log => log.ChangeDate)
-                .FirstOrDefault(),
-                            DateNoticeToProponents = r.EthicsApplicationLogs
-                .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
-                .Select(log => log.ChangeDate)
-                .FirstOrDefault(),
+                    .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() == DateTime.MinValue ? null : r.EthicsApplicationLogs
+                    .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() as DateTime?,
+                DateNoticeToProponents = r.EthicsApplicationLogs
+                    .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() == DateTime.MinValue ? null : r.EthicsApplicationLogs
+                    .Where(log => log.Status == "Evaluated" || log.Status == "Application Evaluated")
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() as DateTime?,
                 DateApprovedByUREB = r.EthicsApplicationLogs
-            .Where(log => log.Status == "Clearance Issued")
-            .Select(log => log.ChangeDate).FirstOrDefault(),
+                    .Where(log => log.Status == "Clearance Issued")
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() == DateTime.MinValue ? null : r.EthicsApplicationLogs
+                    .Where(log => log.Status == "Clearance Issued")
+                    .Select(log => log.ChangeDate)
+                    .FirstOrDefault() as DateTime?,
                 DateIssuedCertificate = r.EthicsApplicationLogs
-            .Where(ec => ec.Status == "Clearance Issued")
-            .Select(ec => ec.ChangeDate).FirstOrDefault()
-            }).ToList();
-
+                    .Where(ec => ec.Status == "Clearance Issued")
+                    .Select(ec => ec.ChangeDate)
+                    .FirstOrDefault() == DateTime.MinValue ? null : r.EthicsApplicationLogs
+                    .Where(ec => ec.Status == "Clearance Issued")
+                    .Select(ec => ec.ChangeDate)
+                    .FirstOrDefault() as DateTime?,
+                ResearchStartDate = r.CompletionReport.ResearchStartDate == DateTime.MinValue ? null : r.CompletionReport.ResearchStartDate,
+                ResearchEndDate = r.CompletionReport.ResearchEndDate == DateTime.MinValue ? null : r.CompletionReport.ResearchEndDate,
+                TerminalReportSubmittedDate = r.CompletionReport.SubmissionDate == DateTime.MinValue ? null : r.CompletionReport.SubmissionDate,
+                CertificateIssuanceDate = r.CompletionCertificate.IssuedDate == DateOnly.MinValue ? null : r.CompletionCertificate.IssuedDate,
+                CertificateOfCompletionDate = r.CompletionCertificate.IssuedDate == DateOnly.MinValue ? null : r.CompletionCertificate.IssuedDate,
+                Remarks = string.Empty
+            }).ToListAsync();
             return researchData;
         }
 
-        public byte[] GenerateExcelFile(List<ResearchReportModel> researchData, DateTime? startDate, DateTime? endDate, out string fileName)
+        public byte[] GenerateExcelFile(List<ResearchReportModel> researchData, DateTime? startDate, DateTime? endDate, string reportType, out string fileName)
         {
             OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
@@ -241,12 +283,18 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                 // Create a worksheet
                 var worksheet = package.Workbook.Worksheets.Add("Research Report");
 
-                // Title at the top
-                string title = $"EAM-({startDate?.ToString("MMM dd")}-{endDate?.ToString("MMM dd")})";
+                // Get dynamic columns based on the report type
+                var columns = GetColumnsForReportType(reportType);
+
+                // Count the number of records retrieved
+                int recordCount = researchData.Count;
+
+                // Title at the top, including the record count and dynamic column count
+                string title = $"EAM-({startDate?.ToString("MMM dd")}-{endDate?.ToString("MMM dd")}) - {reportType} ({recordCount} records)";
                 worksheet.Cells[1, 1].Value = title;
 
                 // Merge cells for the title
-                worksheet.Cells[1, 1, 1, 10].Merge = true;
+                worksheet.Cells[1, 1, 1, columns.Count].Merge = true;
 
                 // Title Row Formatting
                 worksheet.Cells[1, 1].Style.Font.Bold = true;
@@ -259,20 +307,14 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                 worksheet.Cells[1, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                 worksheet.Cells[1, 1].Style.WrapText = true;
 
-                // Set Headers
-                worksheet.Cells[2, 1].Value = "UREC Code";
-                worksheet.Cells[2, 2].Value = "Title of Research";
-                worksheet.Cells[2, 3].Value = "Proponents/Authors";
-                worksheet.Cells[2, 4].Value = "Date Received";
-                worksheet.Cells[2, 5].Value = "Date Reviewed for Complete Documentary Requirements";
-                worksheet.Cells[2, 6].Value = "Date Received from the UREB/CBREB Evaluation Results";
-                worksheet.Cells[2, 7].Value = "Date Notice to the Proponents on the Results of the UREB Evaluation";
-                worksheet.Cells[2, 8].Value = "Date Approved by the UREB/CBREB";
-                worksheet.Cells[2, 9].Value = "Date Issued Certificate";
-                worksheet.Cells[2, 10].Value = "Remarks";
+                // Set Headers Dynamically
+                for (int col = 0; col < columns.Count; col++)
+                {
+                    worksheet.Cells[2, col + 1].Value = columns[col].Header;
+                }
 
                 // Header Row Formatting
-                using (var headerRange = worksheet.Cells[2, 1, 2, 10])
+                using (var headerRange = worksheet.Cells[2, 1, 2, columns.Count])
                 {
                     headerRange.Style.Font.Name = "Times New Roman";
                     headerRange.Style.Font.Color.SetColor(System.Drawing.Color.White);
@@ -286,23 +328,17 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
 
                 // Populate the worksheet with the data
                 var sortedData = researchData.OrderBy(r => r.UrecNo).ToList();
-
                 int row = 3;  // Start from row 3 (after the title and header)
+
                 foreach (var data in sortedData)
                 {
-                    worksheet.Cells[row, 1].Value = CleanText(data.UrecNo);
-                    worksheet.Cells[row, 2].Value = CleanText(data.TitleOfResearch);
-                    worksheet.Cells[row, 3].Value = CleanText(data.ProponentsAuthors);
-                    worksheet.Cells[row, 4].Value = data.DateReceived?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 5].Value = data.DateReviewedForCompleteness?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 6].Value = data.DateReceivedFromEvaluation?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 7].Value = data.DateNoticeToProponents?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 8].Value = data.DateApprovedByUREB?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 9].Value = data.DateIssuedCertificate?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 10].Value = ""; // Remarks column left blank
+                    for (int col = 0; col < columns.Count; col++)
+                    {
+                        worksheet.Cells[row, col + 1].Value = columns[col].GetValue(data);
+                    }
 
                     // Data Row Formatting
-                    using (var rowRange = worksheet.Cells[row, 1, row, 10])
+                    using (var rowRange = worksheet.Cells[row, 1, row, columns.Count])
                     {
                         rowRange.Style.Font.Name = "Arial";
                         rowRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -317,7 +353,7 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
 
                 // Add borders to all cells
-                using (var allCells = worksheet.Cells[2, 1, row - 1, 10])
+                using (var allCells = worksheet.Cells[2, 1, row - 1, columns.Count])
                 {
                     allCells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     allCells.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
@@ -331,15 +367,89 @@ namespace ResearchManagementSystem.Areas.CreSys.Services
             }
         }
 
-        // Helper method to clean text
-        private string CleanText(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-                return input;
 
-            // Remove extra spaces and replace multiple spaces with a single space
-            return System.Text.RegularExpressions.Regex.Replace(input.Trim(), @"\s{2,}", " ");
+        public class DynamicColumn
+        {
+            public string Header { get; }
+            public Func<ResearchReportModel, object> GetValue { get; }
+
+            public DynamicColumn(string header, Func<ResearchReportModel, object> getValue)
+            {
+                Header = header;
+                GetValue = getValue;
+            }
         }
+        private List<DynamicColumn> GetColumnsForReportType(string reportType)
+        {
+            return reportType switch
+            {
+                "Total Ethics Applications" => new List<DynamicColumn>
+        {
+            new DynamicColumn("UREC Code", data => data.UrecNo),
+            new DynamicColumn("Title of Research", data => data.TitleOfResearch),
+            new DynamicColumn("Proponents/Authors", data => data.ProponentsAuthors),
+            new DynamicColumn("Date Received", data => data.DateReceived?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Reviewed for Complete Documentary Requirements", data => data.DateReviewedForCompleteness?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Received from the UREB/CBREB Evaluation Results", data => data.DateReceivedFromEvaluation?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Notice to the Proponents on the Results of the UREB Evaluation", data => data.DateNoticeToProponents?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Approved by UREB/CBREB", data => data.DateApprovedByUREB?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Issued Clearance Certificate", data => data.DateIssuedCertificate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Research Start Date", data => data.ResearchStartDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Research End Date", data => data.ResearchEndDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Terminal Report Submitted", data => data.TerminalReportSubmittedDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Issued Completion Ceritificate", data => data.TerminalReportSubmittedDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Remarks", data => "")
+        },
+                "Total Applications with Ethics Clearance" => new List<DynamicColumn>
+        {
+            new DynamicColumn("UREC Code", data => data.UrecNo),
+            new DynamicColumn("Title of Research", data => data.TitleOfResearch),
+            new DynamicColumn("Proponents/Authors", data => data.ProponentsAuthors),
+            new DynamicColumn("Date Received", data => data.DateReceived?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Reviewed for Complete Documentary Requirements", data => data.DateReviewedForCompleteness?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Received from the UREB/CBREB Evaluation Results", data => data.DateReceivedFromEvaluation?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Notice to the Proponents on the Results of the UREB Evaluation", data => data.DateNoticeToProponents?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Approved by UREB/CBREB", data => data.DateApprovedByUREB?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Issued Clearance Certificate", data => data.DateIssuedCertificate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Remarks", data => "")
+        },
+                "Total Applications with Terminal Report" => new List<DynamicColumn>
+        {
+            new DynamicColumn("UREC Code", data => data.UrecNo),
+            new DynamicColumn("Title of Research", data => data.TitleOfResearch),
+            new DynamicColumn("Proponents/Authors", data => data.ProponentsAuthors),
+            new DynamicColumn("Date Received", data => data.DateReceived?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Reviewed for Complete Documentary Requirements", data => data.DateReviewedForCompleteness?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Received from the UREB/CBREB Evaluation Results", data => data.DateReceivedFromEvaluation?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Notice to the Proponents on the Results of the UREB Evaluation", data => data.DateNoticeToProponents?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Approved by UREB/CBREB", data => data.DateApprovedByUREB?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Issued Clearance Certificate", data => data.DateIssuedCertificate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Research Start Date", data => data.ResearchStartDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Research End Date", data => data.ResearchEndDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Terminal Report Submitted", data => data.TerminalReportSubmittedDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Remarks", data => "")
+        },
+                "Total Applications with Certificate of Completion" => new List<DynamicColumn>
+        {
+            new DynamicColumn("UREC Code", data => data.UrecNo),
+            new DynamicColumn("Title of Research", data => data.TitleOfResearch),
+            new DynamicColumn("Proponents/Authors", data => data.ProponentsAuthors),
+            new DynamicColumn("Date Received", data => data.DateReceived?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Reviewed for Complete Documentary Requirements", data => data.DateReviewedForCompleteness?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Received from the UREB/CBREB Evaluation Results", data => data.DateReceivedFromEvaluation?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Notice to the Proponents on the Results of the UREB Evaluation", data => data.DateNoticeToProponents?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Approved by UREB/CBREB", data => data.DateApprovedByUREB?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Issued Clearance Certificate", data => data.DateIssuedCertificate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Research Start Date", data => data.ResearchStartDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Research End Date", data => data.ResearchEndDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Terminal Report Submitted", data => data.TerminalReportSubmittedDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Date Issued Completion Ceritificate", data => data.TerminalReportSubmittedDate?.ToString("yyyy-MM-dd")?? ""),
+            new DynamicColumn("Remarks", data => "")
+        },
+                _ => new List<DynamicColumn>()
+            };
+        }
+
         public async Task<List<EthicsApplication>> GetApplicationsByFieldOfStudyAsync(string userId)
         {
             // Get the chairperson's faculty using the user ID

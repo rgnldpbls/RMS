@@ -15,11 +15,10 @@
         <canvas id="forecastChart" width="800" height="400"></canvas>
     </div>
 
-    <p><strong>Mean Absolute Error (MAE):</strong> @ViewBag.MAE.ToString("#,##0.00")</p>
-    <p><strong>Root Mean Squared Error (RMSE):</strong> @ViewBag.RMSE.ToString("#,##0.00")</p>
-    <p><strong>Mean Absolute Percentage Error (MAPE):</strong> @ViewBag.MAPE</p>
-    <p><strong>R-Squared:</strong> @ViewBag.RSquared</p>
-    <p><strong>Signal-to-Noise Ratio (SNR):</strong> @ViewBag.SNR</p>
+    <p><strong>Mean Absolute Error (MAE):</strong> ₱ @ViewBag.MAE.ToString("#,##0.00")</p>
+    <p><strong>Root Mean Squared Error (RMSE):</strong> ₱ @ViewBag.RMSE.ToString("#,##0.00")</p>
+    <p><strong>Mean Absolute Percentage Error (MAPE):</strong> @ViewBag.MAPE %</p>
+    <p><strong>Symmetric Mean Absolute Percentage Error (sMAPE):</strong> @ViewBag.SMAPE %</p>
 </div>
 
     <div class="table-container">
@@ -45,18 +44,18 @@
             {
                 <tr>
                     <td>@item.Year</td>
-                    <td>@item.ProjectCosts.ToString("#,##0.00")</td>
+                    <td>₱ @item.ProjectCosts.ToString("#,##0.00")</td>
                     <td>
                         @(item.ForecastYear1 != null ? item.ForecastYear1 : "-")
                     </td>
                     <td>
-                        @(item.ForecastedFundYear1 != null ? item.ForecastedFundYear1.Value.ToString("#,##0.00") : 0)  
+                        ₱ @(item.ForecastedFundYear1 != null ? item.ForecastedFundYear1.Value.ToString("#,##0.00") : 0)
                     </td >
                     <td>
                         @(item.ForecastYear2 != null ? item.ForecastYear2 : "-")
                     </td>
                     <td>
-                        @(item.ForecastedFundYear2 != null ? item.ForecastedFundYear2.Value.ToString("#,##0.00"): 0)
+                        ₱ @(item.ForecastedFundYear2 != null ? item.ForecastedFundYear2.Value.ToString("#,##0.00") : 0)
                     </td>
                 </tr>
             }
