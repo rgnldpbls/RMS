@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResearchManagementSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2287ae66e2b31cfd559d5262f4deae0eea884a19")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbd0c3fa9d999f3a2a3df6fc36787f0dc335348e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResearchManagementSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResearchManagementSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

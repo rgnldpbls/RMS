@@ -482,6 +482,163 @@
     </div>
 </div>
 
+<!--MANAGE GAWAD Eligibility-->
+<div class="application-period d-flex flex-column align-items-center">
+    <h2 class="application-title">GAWAD Eligibility</h2>
+    <div class="d-flex justify-content-around w-100">
+        <div class="flex-fill container-wrapper">
+            <label class="mx-3"><b>GAWAD Tuklas</b></label>
+            <hr />
+            <div class="container mt-2">
+                <label><b>Nature of Involvement</b></label>
+                <div class="involvement-options mt-2">
+                    <label>
+                        <input type="radio" name="tuklasInvolvement" value="Project Leader"
+                            @(Model.Item1.tuklasInvolvement == "Project Leader" ? "checked": "")/>
+                        Project Leader Only
+                    </label>
+                    <br />
+                    <label>
+                        <input type="radio" name="tuklasInvolvement" value="Project Leader with Co-Proponents"
+                            @(Model.Item1.tuklasInvolvement == "Project Leader with Co-Proponents" ? "checked" : "")/>
+                        Project Leader with Co-Proponents
+                    </label>
+                </div>
+                <div class="button-container mt-2">
+                    <button class="btn2 btn2-update" onclick="updateInvolvementTuklas()">Apply Changes</button>
+                </div>
+            </div>
+            <hr />
+            <div class="container mt-2">
+                @{
+                    var curStudyField = Model.Item1.tuklasFieldOfStudy ?? new List<string>();
+                }
+                <div id="currentListTuklas">
+                    <label><b>Field of Study</b></label>
+                    @if (curStudyField.Any())
+                    {
+                        <ul class="specialization-list">
+                            @foreach(var studyfield in curStudyField)
+                            {
+                                <li class="specialization-item">@studyfield</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Please specify eligible field of study.</p>
+                    }
+                </div>
+                <div id="editFormTuklas" style="display: none;">
+                    <ul class="specialization-list">
+                        @{
+                            var allFields = new[]
+                            {
+                                "Science",
+                                "Social Science",
+                                "Business",
+                                "Accountancy and Finance",
+                                "Computer Science and Information System Technology",
+                                "Education",
+                                "Engineering, Architecture, Design, and Built Environment",
+                                "Humanities, Language, and Communication",
+                                "Public Administration, Political Science, and Law"
+                            };
+
+                            foreach (var field in allFields)
+                            {
+                                                        <li class="specialization-item">
+                                                            <div class="checkbox-container" style="display: block;">
+                                                                <input type="checkbox"
+                                                                       id="Tuklas_@field.Replace(" ", "")"
+                                                                       value="@field"
+                                                                @(curStudyField.Contains(field) ? "checked" : "")>
+                                                            </div>
+                                                            @field
+                                                    </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="button-container">
+                    <button class="btn2 btn2-edit" id="editBtnTuklas" onclick="toggleEditTuklas()">Edit</button>
+                    <button class="btn2 btn2-update" id="updateBtnTuklas" style="display: none;" onclick="updateInterestsTuklas()">Update</button>
+                    <button class="btn2 btn2-cancel" id="cancelBtnTuklas" style="display: none;" onclick="cancelEditTuklas()">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="flex-fill container-wrapper">
+            <label class="mx-3"><b>GAWAD Lathala</b></label>
+            <hr />
+            <div class="container mt-2">
+                <label><b>Nature of Involvement</b></label>
+                <div class="involvement-options mt-2">
+                    <label>
+                        <input type="radio" name="lathalaInvolvement" value="Project Leader"
+                            @(Model.Item1.lathalaInvolvement == "Project Leader" ? "checked" : "") />
+                        Project Leader Only
+                    </label>
+                    <br />
+                    <label>
+                        <input type="radio" name="lathalaInvolvement" value="Project Leader with Co-Proponents"
+                            @(Model.Item1.lathalaInvolvement == "Project Leader with Co-Proponents" ? "checked" : "")/>
+                        Project Leader with Co-Proponents
+                    </label>
+                </div>
+                <div class="button-container mt-2">
+                    <button class="btn2 btn2-update" onclick="updateInvolvementLathala()">Apply Changes</button>
+                </div>
+            </div>
+            <hr />
+            <div class="container mt-2">
+                @{
+                    var curStudyField2 = Model.Item1.lathalaFieldOfStudy ?? new List<string>();
+                }
+                <div id="currentListLathala">
+                    <label><b>Field of Study</b></label>
+                    @if (curStudyField2.Any())
+                    {
+                        <ul class="specialization-list">
+                            @foreach(var studyField in curStudyField2)
+                            {
+                                <li class="specialization-item">@studyField</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Please specify eligible field of study.</p>
+                    }
+                </div>
+                <div id="editFormLathala" style="display: none;">
+                    <ul class="specialization-list">
+                        @{
+                            foreach(var field in allFields)
+                            {
+                                                    <li class="specialization-item">
+                                                        <div class="checkbox-container" style="display: block;">
+                                                            <input type="checkbox"
+                                                                id="Lathala_@field.Replace(" ", "")"
+                                                                value="@field"
+                                                                @(curStudyField2.Contains(field) ? "checked" : "")/>
+                                                        </div>
+                                                        @field
+                                                    </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="button-container">
+                    <button class="btn2 btn2-edit" id="editBtnLathala" onclick="toggleEditLathala()">Edit</button>
+                    <button class="btn2 btn2-update" id="updateBtnLathala" style="display: none;" onclick="updateInterestsLathala()">Update</button>
+                    <button class="btn2 btn2-cancel" id="cancelBtnLathala" style="display: none;" onclick="cancelEditLathala()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function updateSwitchStatus(element, switchType) {
         var statusText = document.getElementById(`${switchType}-status`);
@@ -510,21 +667,6 @@
             }
         }
     }
-    /*
-    function updateSwitchStatus(element, switchType) {
-        var statusText = document.getElementById(`${switchType}-status`);
-        var slider = document.getElementById(`${switchType}-slider`);
-        if (element.checked) {
-            statusText.textContent = "ON";
-            statusText.style.color = "#fff";
-            element.parentElement.querySelector(".slider").style.backgroundColor = "#4CAF50"; // Green
-        } else {
-            statusText.textContent = "OFF";
-            statusText.style.color = "#fff";
-            element.parentElement.querySelector(".slider").style.backgroundColor = "#f44336"; // Red
-        }
-    }
-    */
 
     function updateEvaluatorCount() {
         const count = document.getElementById('evaluatorCount').value;
@@ -836,4 +978,213 @@
         const initialEvaluationDays = @Json.Serialize(Model.Item1.daysEvaluation);
         document.getElementById('evaluationDays').value = initialEvaluationDays;
     });
+
+    // Functions for GAWAD Tuklas
+    function toggleEditTuklas() {
+        document.getElementById('currentListTuklas').style.display = 'none';
+        document.getElementById('editFormTuklas').style.display = 'block';
+        document.getElementById('editBtnTuklas').style.display = 'none';
+        document.getElementById('updateBtnTuklas').style.display = 'inline-block';
+        document.getElementById('cancelBtnTuklas').style.display = 'inline-block';
+    }
+
+    function cancelEditTuklas() {
+        document.getElementById('currentListTuklas').style.display = 'block';
+        document.getElementById('editFormTuklas').style.display = 'none';
+        document.getElementById('editBtnTuklas').style.display = 'inline-block';
+        document.getElementById('updateBtnTuklas').style.display = 'none';
+        document.getElementById('cancelBtnTuklas').style.display = 'none';
+    }
+
+    function updateInterestsTuklas() {
+        updateInterests('Tuklas', '/RemcSys/Chief/UpdateTuklasStudyField');
+    }
+
+    function toggleEditLathala(){
+        document.getElementById('currentListLathala').style.display = 'none';
+        document.getElementById('editFormLathala').style.display = 'block';
+        document.getElementById('editBtnLathala').style.display = 'none';
+        document.getElementById('updateBtnLathala').style.display = 'inline-block';
+        document.getElementById('cancelBtnLathala').style.display = 'inline-block';
+    }
+
+    function cancelEditLathala() {
+        document.getElementById('currentListLathala').style.display = 'block';
+        document.getElementById('editFormLathala').style.display = 'none';
+        document.getElementById('editBtnLathala').style.display = 'inline-block';
+        document.getElementById('updateBtnLathala').style.display = 'none';
+        document.getElementById('cancelBtnLathala').style.display = 'none';
+    }
+
+    function updateInterestsLathala(){
+        updateInterests('Lathala', '/RemcSys/Chief/UpdateLathalaStudyField');
+    }
+
+    // Generic update function
+    function updateInterests(prefix, url) {
+        const checkboxes = document.querySelectorAll(`#editForm${prefix} input[type="checkbox"]`);
+        const selectedInterests = [];
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                selectedInterests.push(checkbox.value);
+            }
+        });
+
+        const formData = new FormData();
+        selectedInterests.forEach(interest => formData.append('field_of_Interest', interest));
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error updating study field');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating study field');
+            });
+    }
+
+    function updateInvolvementTuklas() {
+        updateInvolvement('Tuklas', '/RemcSys/Chief/UpdateTuklasInvolvement');
+    }
+
+    function updateInvolvementLathala(){
+        updateInvolvement('Lathala', '/RemcSys/Chief/UpdateLathalaInvolvement');
+    }
+
+    function updateInvolvement(prefix, url) {
+        const selectedOption = document.querySelector(`input[name="${prefix.toLowerCase()}Involvement"]:checked`).value;
+
+        if (!confirm(`You selected: ${selectedOption} for GAWAD ${prefix}. Do you want to save these changes?`)) {
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('Involvement', selectedOption);
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error updating nature of involvement');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating natur of involvement');
+            });
+    }
 </script>
+<style>
+    /* List styling */
+    .specialization-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .specialization-item {
+        padding: 8px 12px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .specialization-item:last-child {
+            border-bottom: none;
+        }
+
+    .nature-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .nature-item {
+        padding: 8px 12px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .nature-item:last-child {
+            border-bottom: none;
+        }
+
+    /* Buttons */
+    .button-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn2 {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn2-edit {
+        background-color: #007bff;
+        color: white;
+    }
+
+        .btn2-edit:hover {
+            background-color: #0056b3;
+        }
+
+    .btn2-update {
+        background-color: #28a745;
+        color: white;
+    }
+
+        .btn2-update:hover {
+            background-color: #218838;
+        }
+
+    .btn2-cancel {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        .btn2-cancel:hover {
+            background-color: #c82333;
+        }
+
+    /* Checkboxes */
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Text for empty specialization */
+    p {
+        color: #777;
+        font-style: italic;
+        margin: 0;
+    }
+</style>

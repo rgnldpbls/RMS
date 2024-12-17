@@ -152,7 +152,7 @@
                 @if (Model.RequiredFile1Data != null)
 
                 {
-                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile1Data" role="button" class="btn btn-danger btn-sm me-2">
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile1" role="button" class="btn btn-danger btn-sm me-2">
                         @Html.DisplayFor(model => model.RequiredFile1Name)
                     </a>
                 }
@@ -165,7 +165,7 @@
 
                 @if (Model.RequiredFile2Data != null)
                 {
-                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile2Data" role="button" class="btn btn-danger btn-sm me-2">
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile2" role="button" class="btn btn-danger btn-sm me-2">
                         @Html.DisplayFor(model => model.RequiredFile2Name)
                     </a>
                 }
@@ -179,7 +179,7 @@
                 @if (Model.RequiredFile3Data != null)
                 {
 
-                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile3Data" role="button" class="btn btn-danger btn-sm me-2">
+                    <a asp-action="DownloadFile" asp-route-id="@Model?.ProductionId" asp-route-fileType="RequiredFile3" role="button" class="btn btn-danger btn-sm me-2">
                         @Html.DisplayFor(model => model.RequiredFile3Name)
                     </a>
 

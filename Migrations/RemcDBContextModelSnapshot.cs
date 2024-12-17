@@ -628,6 +628,20 @@ namespace ResearchManagementSystem.Migrations
                     b.Property<bool>("isUFRLApplication")
                         .HasColumnType("bit");
 
+                    b.Property<string>("lathalaFieldOfStudy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lathalaInvolvement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tuklasFieldOfStudy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tuklasInvolvement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("REMC_Settings");

@@ -134,7 +134,9 @@ using (var scope = app.Services.CreateScope())
             isEFRApplication = false,
             isUFRLApplication = false,
             evaluatorNum = 5,
-            daysEvaluation = 7
+            daysEvaluation = 7,
+            tuklasInvolvement = "Project Leader with Co-Proponents",
+            lathalaInvolvement = "Project Leader with Co-Proponents"
         };
 
         dbContext.REMC_Settings.Add(settings);

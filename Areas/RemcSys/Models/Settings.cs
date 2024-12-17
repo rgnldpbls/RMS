@@ -9,5 +9,9 @@
         public bool isUFRLApplication { get; set; }
         public int evaluatorNum { get; set; }
         public int daysEvaluation { get; set; }
+        public string tuklasInvolvement { get; set; }
+        public List<string>? tuklasFieldOfStudy { get; set; }
+        public string lathalaInvolvement { get; set; }
+        public List<string>? lathalaFieldOfStudy { get; set; }
     }
 }

@@ -2773,177 +2773,363 @@ namespace RemcSys.Controllers
         public async Task<IActionResult> GenerateNominees(string gawadType)
         {
             var user = await _userManager.GetUserAsync(User);
+            var settings = await _context.REMC_Settings.FirstAsync();
             if (gawadType == "Tuklas")
             {
-                var tuklas = await _context.REMC_FundedResearches
-                    .Where(f => f.status == "Completed")
+                if(settings.tuklasInvolvement == "Project Leader")
+                {
+                    var tuklas = await _context.REMC_FundedResearches
+                    .Where(f => f.status == "Completed" && settings.tuklasFieldOfStudy.Contains(f.field_of_Study))
                     .OrderBy(f => f.research_Title)
                     .ToListAsync();
 
-                if (tuklas == null || !tuklas.Any())
-                {
-                    return NotFound("No data found for the selected report type and date range.");
-                }
-
-                // Generate Excel report using EPPlus
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (var package = new ExcelPackage())
-                {
-                    var worksheet = package.Workbook.Worksheets.Add("GAWADTuklasNominees");
-
-                    // Add headers
-                    worksheet.Cells["A1:D1"].Merge = true;
-                    worksheet.Cells["A1"].Value = $"Gawad Tuklas Nominees - {DateTime.Now.Year}";
-                    worksheet.Cells["A1"].Style.Font.Bold = true;
-                    worksheet.Cells["A1"].Style.Font.Size = 20;
-
-                    worksheet.Cells["A2"].Value = "Name";
-                    worksheet.Cells["B2"].Value = "Nature of Involvement";
-                    worksheet.Cells["C2"].Value = "Research Title";
-                    worksheet.Cells["D2"].Value = "Funded Research Type";
-                    worksheet.Cells["E2"].Value = "College/Branch";
-                    worksheet.Cells["F2"].Value = "Field of Study";
-                    worksheet.Cells["G2"].Value = "Email";
-                    worksheet.Cells["H2"].Value = "Completion Date";
-
-                    worksheet.Cells["A2:H2"].Style.Font.Bold = true;
-                    worksheet.Cells["A2:H2"].Style.Font.Size = 14;
-                    worksheet.Cells["A2:H2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheet.Cells["A2:H2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-
-                    // Add data to cells
-                    int row = 3;
-                    foreach (var item in tuklas)
+                    if (tuklas == null || !tuklas.Any())
                     {
-                        worksheet.Cells[row, 1].Value = item.team_Leader;
-                        worksheet.Cells[row, 2].Value = "Project Leader";
-                        worksheet.Cells[row, 3].Value = item.research_Title;
-                        worksheet.Cells[row, 4].Value = item.fr_Type;
-                        worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
-                        worksheet.Cells[row, 6].Value = item.field_of_Study;
-                        worksheet.Cells[row, 7].Value = item.teamLead_Email;
-                        worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
-                        row++;
+                        return NotFound("No data found for the selected gawad type.");
+                    }
 
-                        if (item.team_Members != null && item.team_Members.Any() && !item.team_Members.Contains("N/A"))
+                    // Generate Excel report using EPPlus
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("GAWADTuklasNominees");
+
+                        // Add headers
+                        worksheet.Cells["A1:D1"].Merge = true;
+                        worksheet.Cells["A1"].Value = $"Gawad Tuklas Nominees - {DateTime.Now.Year}";
+                        worksheet.Cells["A1"].Style.Font.Bold = true;
+                        worksheet.Cells["A1"].Style.Font.Size = 20;
+
+                        worksheet.Cells["A2"].Value = "Name";
+                        worksheet.Cells["B2"].Value = "Nature of Involvement";
+                        worksheet.Cells["C2"].Value = "Research Title";
+                        worksheet.Cells["D2"].Value = "Funded Research Type";
+                        worksheet.Cells["E2"].Value = "College/Branch";
+                        worksheet.Cells["F2"].Value = "Field of Study";
+                        worksheet.Cells["G2"].Value = "Email";
+                        worksheet.Cells["H2"].Value = "Completion Date";
+
+                        worksheet.Cells["A2:H2"].Style.Font.Bold = true;
+                        worksheet.Cells["A2:H2"].Style.Font.Size = 14;
+                        worksheet.Cells["A2:H2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A2:H2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+                        // Add data to cells
+                        int row = 3;
+                        foreach (var item in tuklas)
                         {
-                            foreach (var member in item.team_Members)
-                            {
-                                var allUsers = await _userManager.Users.ToListAsync();
+                            worksheet.Cells[row, 1].Value = item.team_Leader;
+                            worksheet.Cells[row, 2].Value = "Project Leader";
+                            worksheet.Cells[row, 3].Value = item.research_Title;
+                            worksheet.Cells[row, 4].Value = item.fr_Type;
+                            worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
+                            worksheet.Cells[row, 6].Value = item.field_of_Study;
+                            worksheet.Cells[row, 7].Value = item.teamLead_Email;
+                            worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
+                            row++;
+                        }
 
-                                foreach (var users in allUsers)
+                        worksheet.Cells["A1:G1"].Style.Font.Bold = true;
+                        worksheet.Cells.AutoFitColumns();
+
+                        // Convert Excel package to a byte array
+                        var excelData = package.GetAsByteArray();
+                        var genTuklas = new GenerateGAWADNominees
+                        {
+                            gn_Id = Guid.NewGuid().ToString(),
+                            gn_fileName = $"Gawad-Tuklas-Nominees_{DateTime.Now.Year}.xlsx",
+                            gn_fileType = ".xlsx",
+                            gn_Data = excelData,
+                            gn_type = "GAWAD Tuklas",
+                            generateDate = DateTime.Now,
+                            UserType = "Chief",
+                            isArchived = false
+                        };
+                        _context.REMC_GenerateGAWADNominees.Add(genTuklas);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("GenerateGAWADNominees");
+                    }
+                }
+                else if(settings.tuklasInvolvement == "Project Leader with Co-Proponents")
+                {
+                    var tuklas = await _context.REMC_FundedResearches
+                    .Where(f => f.status == "Completed" && settings.tuklasFieldOfStudy.Contains(f.field_of_Study))
+                    .OrderBy(f => f.research_Title)
+                    .ToListAsync();
+
+                    if (tuklas == null || !tuklas.Any())
+                    {
+                        return NotFound("No data found for the selected gawad type.");
+                    }
+
+                    // Generate Excel report using EPPlus
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("GAWADTuklasNominees");
+
+                        // Add headers
+                        worksheet.Cells["A1:D1"].Merge = true;
+                        worksheet.Cells["A1"].Value = $"Gawad Tuklas Nominees - {DateTime.Now.Year}";
+                        worksheet.Cells["A1"].Style.Font.Bold = true;
+                        worksheet.Cells["A1"].Style.Font.Size = 20;
+
+                        worksheet.Cells["A2"].Value = "Name";
+                        worksheet.Cells["B2"].Value = "Nature of Involvement";
+                        worksheet.Cells["C2"].Value = "Research Title";
+                        worksheet.Cells["D2"].Value = "Funded Research Type";
+                        worksheet.Cells["E2"].Value = "College/Branch";
+                        worksheet.Cells["F2"].Value = "Field of Study";
+                        worksheet.Cells["G2"].Value = "Email";
+                        worksheet.Cells["H2"].Value = "Completion Date";
+
+                        worksheet.Cells["A2:H2"].Style.Font.Bold = true;
+                        worksheet.Cells["A2:H2"].Style.Font.Size = 14;
+                        worksheet.Cells["A2:H2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A2:H2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+                        // Add data to cells
+                        int row = 3;
+                        foreach (var item in tuklas)
+                        {
+                            worksheet.Cells[row, 1].Value = item.team_Leader;
+                            worksheet.Cells[row, 2].Value = "Project Leader";
+                            worksheet.Cells[row, 3].Value = item.research_Title;
+                            worksheet.Cells[row, 4].Value = item.fr_Type;
+                            worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
+                            worksheet.Cells[row, 6].Value = item.field_of_Study;
+                            worksheet.Cells[row, 7].Value = item.teamLead_Email;
+                            worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
+                            row++;
+
+                            if (item.team_Members != null && item.team_Members.Any() && !item.team_Members.Contains("N/A"))
+                            {
+                                foreach (var member in item.team_Members)
                                 {
-                                    if ($"{users.FirstName} {users.MiddleName} {users.LastName}" == member)
+                                    var allUsers = await _userManager.Users.ToListAsync();
+
+                                    foreach (var users in allUsers)
                                     {
-                                        worksheet.Cells[row, 1].Value = member;
-                                        worksheet.Cells[row, 2].Value = "Co-Proponent";
-                                        worksheet.Cells[row, 3].Value = item.research_Title;
-                                        worksheet.Cells[row, 4].Value = item.fr_Type;
-                                        worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
-                                        worksheet.Cells[row, 6].Value = item.field_of_Study;
-                                        worksheet.Cells[row, 7].Value = users.Email; // Assuming no email for team members
-                                        worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
-                                        row++;
+                                        if ($"{users.FirstName} {users.MiddleName} {users.LastName}" == member)
+                                        {
+                                            worksheet.Cells[row, 1].Value = member;
+                                            worksheet.Cells[row, 2].Value = "Co-Proponent";
+                                            worksheet.Cells[row, 3].Value = item.research_Title;
+                                            worksheet.Cells[row, 4].Value = item.fr_Type;
+                                            worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
+                                            worksheet.Cells[row, 6].Value = item.field_of_Study;
+                                            worksheet.Cells[row, 7].Value = users.Email; // Assuming no email for team members
+                                            worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
+                                            row++;
+                                        }
                                     }
                                 }
                             }
                         }
+
+                        worksheet.Cells["A1:G1"].Style.Font.Bold = true;
+                        worksheet.Cells.AutoFitColumns();
+
+                        // Convert Excel package to a byte array
+                        var excelData = package.GetAsByteArray();
+                        var genTuklas = new GenerateGAWADNominees
+                        {
+                            gn_Id = Guid.NewGuid().ToString(),
+                            gn_fileName = $"Gawad-Tuklas-Nominees_{DateTime.Now.Year}.xlsx",
+                            gn_fileType = ".xlsx",
+                            gn_Data = excelData,
+                            gn_type = "GAWAD Tuklas",
+                            generateDate = DateTime.Now,
+                            UserType = "Chief",
+                            isArchived = false
+                        };
+                        _context.REMC_GenerateGAWADNominees.Add(genTuklas);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("GenerateGAWADNominees");
                     }
-
-                    worksheet.Cells["A1:G1"].Style.Font.Bold = true;
-                    worksheet.Cells.AutoFitColumns();
-
-                    // Convert Excel package to a byte array
-                    var excelData = package.GetAsByteArray();
-                    var genTuklas = new GenerateGAWADNominees
-                    {
-                        gn_Id = Guid.NewGuid().ToString(),
-                        gn_fileName = $"Gawad-Tuklas-Nominees_{DateTime.Now.Year}.xlsx",
-                        gn_fileType = ".xlsx",
-                        gn_Data = excelData,
-                        gn_type = "GAWAD Tuklas",
-                        generateDate = DateTime.Now,
-                        UserType = "Chief",
-                        isArchived = false
-                    };
-                    _context.REMC_GenerateGAWADNominees.Add(genTuklas);
-                    await _context.SaveChangesAsync();
-
-                    return RedirectToAction("GenerateGAWADNominees");
                 }
             }
             else if(gawadType == "Lathala")
             {
-                var lathala = await _context.REMC_FundedResearches
-                    .Where(f => f.status == "Completed")
+                if(settings.lathalaInvolvement == "Project Leader")
+                {
+                    var lathala = await _context.REMC_FundedResearches
+                    .Where(f => f.status == "Completed" && settings.lathalaFieldOfStudy.Contains(f.field_of_Study))
                     .OrderBy(f => f.team_Leader)
                     .ToListAsync();
 
-                if (lathala == null || !lathala.Any())
-                {
-                    return NotFound("No data found for the selected report type and date range.");
-                }
-
-                // Generate Excel report using EPPlus
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (var package = new ExcelPackage())
-                {
-                    var worksheet = package.Workbook.Worksheets.Add("GAWADLathalaNominees");
-
-                    // header
-                    worksheet.Cells["A1:D1"].Merge = true;
-                    worksheet.Cells["A1"].Value = $"Gawad Lathala Nominees - {DateTime.Now.Year}";
-                    worksheet.Cells["A1"].Style.Font.Bold = true;
-                    worksheet.Cells["A1"].Style.Font.Size = 20;
-
-                    worksheet.Cells["A2"].Value = "Name";
-                    worksheet.Cells["B2"].Value = "Research Title";
-                    worksheet.Cells["C2"].Value = "Funded Research Type";
-                    worksheet.Cells["D2"].Value = "College/Branch";
-                    worksheet.Cells["E2"].Value = "Field of Study";
-                    worksheet.Cells["F2"].Value = "Email";
-                    worksheet.Cells["G2"].Value = "Completion Date";
-
-                    worksheet.Cells["A2:G2"].Style.Font.Bold = true;
-                    worksheet.Cells["A2:G2"].Style.Font.Size = 14;
-                    worksheet.Cells["A2:G2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheet.Cells["A2:G2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-
-                    // Add data to cells
-                    int row = 3;
-                    foreach (var item in lathala)
+                    if (lathala == null || !lathala.Any())
                     {
-
-                        worksheet.Cells[row, 1].Value = item.team_Leader;
-                        worksheet.Cells[row, 2].Value = item.research_Title;
-                        worksheet.Cells[row, 3].Value = item.fr_Type;
-                        worksheet.Cells[row, 4].Value = $"{item.college}/{item.branch}";
-                        worksheet.Cells[row, 5].Value = item.field_of_Study;
-                        worksheet.Cells[row, 6].Value = item.teamLead_Email;
-                        worksheet.Cells[row, 7].Value = item.end_Date.ToString("MMMM d, yyyy");
-                        row++;
+                        return NotFound("No data found for the selected gawad type.");
                     }
 
-                    worksheet.Cells["A1:E1"].Style.Font.Bold = true;
-                    worksheet.Cells.AutoFitColumns();
-
-                    // Convert Excel package to a byte array
-                    var excelData = package.GetAsByteArray();
-                    var genLathala = new GenerateGAWADNominees
+                    // Generate Excel report using EPPlus
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var package = new ExcelPackage())
                     {
-                        gn_Id = Guid.NewGuid().ToString(),
-                        gn_fileName = $"Gawad-Lathala-Nominees_{DateTime.Now.Year}.xlsx",
-                        gn_fileType = ".xlsx",
-                        gn_Data = excelData,
-                        gn_type = "GAWAD Lathala",
-                        generateDate = DateTime.Now,
-                        UserType = "Chief",
-                        isArchived = false
-                    };
-                    _context.REMC_GenerateGAWADNominees.Add(genLathala);
-                    await _context.SaveChangesAsync();
+                        var worksheet = package.Workbook.Worksheets.Add("GAWADLathalaNominees");
 
-                    return RedirectToAction("GenerateGAWADNominees");
+                        // header
+                        worksheet.Cells["A1:D1"].Merge = true;
+                        worksheet.Cells["A1"].Value = $"Gawad Lathala Nominees - {DateTime.Now.Year}";
+                        worksheet.Cells["A1"].Style.Font.Bold = true;
+                        worksheet.Cells["A1"].Style.Font.Size = 20;
+
+                        worksheet.Cells["A2"].Value = "Name";
+                        worksheet.Cells["B2"].Value = "Research Title";
+                        worksheet.Cells["C2"].Value = "Funded Research Type";
+                        worksheet.Cells["D2"].Value = "College/Branch";
+                        worksheet.Cells["E2"].Value = "Field of Study";
+                        worksheet.Cells["F2"].Value = "Email";
+                        worksheet.Cells["G2"].Value = "Completion Date";
+
+                        worksheet.Cells["A2:G2"].Style.Font.Bold = true;
+                        worksheet.Cells["A2:G2"].Style.Font.Size = 14;
+                        worksheet.Cells["A2:G2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A2:G2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+                        // Add data to cells
+                        int row = 3;
+                        foreach (var item in lathala)
+                        {
+
+                            worksheet.Cells[row, 1].Value = item.team_Leader;
+                            worksheet.Cells[row, 2].Value = item.research_Title;
+                            worksheet.Cells[row, 3].Value = item.fr_Type;
+                            worksheet.Cells[row, 4].Value = $"{item.college}/{item.branch}";
+                            worksheet.Cells[row, 5].Value = item.field_of_Study;
+                            worksheet.Cells[row, 6].Value = item.teamLead_Email;
+                            worksheet.Cells[row, 7].Value = item.end_Date.ToString("MMMM d, yyyy");
+                            row++;
+                        }
+
+                        worksheet.Cells["A1:E1"].Style.Font.Bold = true;
+                        worksheet.Cells.AutoFitColumns();
+
+                        // Convert Excel package to a byte array
+                        var excelData = package.GetAsByteArray();
+                        var genLathala = new GenerateGAWADNominees
+                        {
+                            gn_Id = Guid.NewGuid().ToString(),
+                            gn_fileName = $"Gawad-Lathala-Nominees_{DateTime.Now.Year}.xlsx",
+                            gn_fileType = ".xlsx",
+                            gn_Data = excelData,
+                            gn_type = "GAWAD Lathala",
+                            generateDate = DateTime.Now,
+                            UserType = "Chief",
+                            isArchived = false
+                        };
+                        _context.REMC_GenerateGAWADNominees.Add(genLathala);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("GenerateGAWADNominees");
+                    }
+                }
+                else if(settings.lathalaInvolvement == "Project Leader with Co-Proponents")
+                {
+                    var lathala = await _context.REMC_FundedResearches
+                    .Where(f => f.status == "Completed" && settings.lathalaFieldOfStudy.Contains(f.field_of_Study))
+                    .OrderBy(f => f.team_Leader)
+                    .ToListAsync();
+
+                    if (lathala == null || !lathala.Any())
+                    {
+                        return NotFound("No data found for the selected gawad type.");
+                    }
+
+                    // Generate Excel report using EPPlus
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("GAWADLathalaNominees");
+
+                        // header
+                        worksheet.Cells["A1:D1"].Merge = true;
+                        worksheet.Cells["A1"].Value = $"Gawad Lathala Nominees - {DateTime.Now.Year}";
+                        worksheet.Cells["A1"].Style.Font.Bold = true;
+                        worksheet.Cells["A1"].Style.Font.Size = 20;
+
+                        worksheet.Cells["A2"].Value = "Name";
+                        worksheet.Cells["B2"].Value = "Nature of Involvement";
+                        worksheet.Cells["C2"].Value = "Research Title";
+                        worksheet.Cells["D2"].Value = "Funded Research Type";
+                        worksheet.Cells["E2"].Value = "College/Branch";
+                        worksheet.Cells["F2"].Value = "Field of Study";
+                        worksheet.Cells["G2"].Value = "Email";
+                        worksheet.Cells["H2"].Value = "Completion Date";
+
+                        worksheet.Cells["A2:H2"].Style.Font.Bold = true;
+                        worksheet.Cells["A2:H2"].Style.Font.Size = 14;
+                        worksheet.Cells["A2:H2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A2:H2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+                        // Add data to cells
+                        int row = 3;
+                        foreach (var item in lathala)
+                        {
+
+                            worksheet.Cells[row, 1].Value = item.team_Leader;
+                            worksheet.Cells[row, 2].Value = "Project Leader";
+                            worksheet.Cells[row, 3].Value = item.research_Title;
+                            worksheet.Cells[row, 4].Value = item.fr_Type;
+                            worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
+                            worksheet.Cells[row, 6].Value = item.field_of_Study;
+                            worksheet.Cells[row, 7].Value = item.teamLead_Email;
+                            worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
+                            row++;
+
+                            if(item.team_Members != null && item.team_Members.Any() && !item.team_Members.Contains("N/A"))
+                            {
+                                foreach (var member in item.team_Members)
+                                {
+                                    var allUsers = await _userManager.Users.ToListAsync();
+                                    foreach (var users in allUsers)
+                                    {
+                                        if ($"{users.FirstName} {users.MiddleName} {users.LastName}" == member)
+                                        {
+                                            worksheet.Cells[row, 1].Value = member;
+                                            worksheet.Cells[row, 2].Value = "Co-Proponent";
+                                            worksheet.Cells[row, 3].Value = item.research_Title;
+                                            worksheet.Cells[row, 4].Value = item.fr_Type;
+                                            worksheet.Cells[row, 5].Value = $"{item.college}/{item.branch}";
+                                            worksheet.Cells[row, 6].Value = item.field_of_Study;
+                                            worksheet.Cells[row, 7].Value = users.Email;
+                                            worksheet.Cells[row, 8].Value = item.end_Date.ToString("MMMM d, yyyy");
+                                            row++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Add "This report is system generated" in the last row
+                        worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                        worksheet.Cells[row + 1, 1, row + 1, 8].Merge = true; // Merge across the columns
+                        worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                        worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
+                        worksheet.Cells.AutoFitColumns();
+
+                        // Convert Excel package to a byte array
+                        var excelData = package.GetAsByteArray();
+                        var genLathala = new GenerateGAWADNominees
+                        {
+                            gn_Id = Guid.NewGuid().ToString(),
+                            gn_fileName = $"Gawad-Lathala-Nominees_{DateTime.Now.Year}.xlsx",
+                            gn_fileType = ".xlsx",
+                            gn_Data = excelData,
+                            gn_type = "GAWAD Lathala",
+                            generateDate = DateTime.Now,
+                            UserType = "Chief",
+                            isArchived = false
+                        };
+                        _context.REMC_GenerateGAWADNominees.Add(genLathala);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("GenerateGAWADNominees");
+                    }
                 }
             }
             return NotFound("Invalid selected GAWAD type");
@@ -3236,7 +3422,6 @@ namespace RemcSys.Controllers
 
             return View(recentReports);
         }
-
 
         public async Task<IActionResult> GenerateReportsDirector(string reportType, DateTime startDate, DateTime endDate)
         {
@@ -3809,7 +3994,72 @@ namespace RemcSys.Controllers
             return NotFound("Invalid selected report type");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateLathalaStudyField([FromForm] List<string> field_of_Interest)
+        {
+            try
+            {
+                var settings = await _context.REMC_Settings.FirstAsync();
+                settings.lathalaFieldOfStudy = field_of_Interest;
+                await _context.SaveChangesAsync();
 
+                return Json(new { success = true });
+            }
+            catch
+            {
+                return Json(new { success = false });
+            }
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateTuklasStudyField([FromForm] List<string> field_of_Interest)
+        {
+            try
+            {
+                var settings = await _context.REMC_Settings.FirstAsync();
+                settings.tuklasFieldOfStudy = field_of_Interest;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateTuklasInvolvement([FromForm] string Involvement)
+        {
+            try
+            {
+                var settings = await _context.REMC_Settings.FirstAsync();
+                settings.tuklasInvolvement = Involvement;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateLathalaInvolvement([FromForm] string Involvement)
+        {
+            try
+            {
+                var settings = await _context.REMC_Settings.FirstAsync();
+                settings.lathalaInvolvement = Involvement;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch
+            {
+                return Json(new { success = false });
+            }
+        }
     }
 }

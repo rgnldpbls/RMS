@@ -807,7 +807,41 @@ namespace ResearchManagementSystem.Controllers
                     return View(addAccomplishment);
                 }
 
+                // Handle RequiredFile1
+                if (RequiredFile1Data != null && RequiredFile1Data.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await RequiredFile1Data.CopyToAsync(memoryStream);
+                    addAccomplishment.RequiredFile1Data = memoryStream.ToArray();
+                    addAccomplishment.RequiredFile1Name = RequiredFile1Data.FileName;
+                }
 
+                // Handle RequiredFile2
+                if (RequiredFile2Data != null && RequiredFile2Data.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await RequiredFile2Data.CopyToAsync(memoryStream);
+                    addAccomplishment.RequiredFile2Data = memoryStream.ToArray();
+                    addAccomplishment.RequiredFile2Name = RequiredFile2Data.FileName;
+                }
+
+                // Handle RequiredFile3
+                if (RequiredFile3Data != null && RequiredFile3Data.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await RequiredFile3Data.CopyToAsync(memoryStream);
+                    addAccomplishment.RequiredFile3Data = memoryStream.ToArray();
+                    addAccomplishment.RequiredFile3Name = RequiredFile3Data.FileName;
+                }
+
+                // Handle ConditionalFile
+                if (ConditionalFileData != null && ConditionalFileData.Length > 0)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await ConditionalFileData.CopyToAsync(memoryStream);
+                    addAccomplishment.ConditionalFileData = memoryStream.ToArray();
+                    addAccomplishment.ConditionalFileName = ConditionalFileData.FileName;
+                }
 
 
                 // Continue with saving the accomplishment
