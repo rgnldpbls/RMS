@@ -268,6 +268,38 @@ namespace rscSys_final.Controllers
                     .ToList();
             }
 
+            // Notify evaluator if the evaluation deadline is 1 day away
+            var upcomingDeadlines = evaluatorAssignments
+                .Where(ea => ea.EvaluationDeadline.Date == DateTime.Now.Date.AddDays(1) && ea.EvaluationStatus != "Completed")
+                .ToList();
+
+            foreach (var assignment in upcomingDeadlines)
+            {
+                // Check if a notification for this evaluator and request already exists
+                var existingNotification = await _context.RSC_Notifications
+                    .FirstOrDefaultAsync(n => n.UserId == evaluatorId &&
+                                              n.NotificationMessage.Contains(assignment.Request.DtsNo) &&
+                                              n.NotificationTitle == "Upcoming Evaluation Deadline");
+
+                if (existingNotification == null)
+                {
+                    var evaluatorNotification = new Notifications
+                    {
+                        UserId = evaluatorId,
+                        Role = "Evaluator",
+                        NotificationTitle = "Upcoming Evaluation Deadline",
+                        NotificationMessage = $"The evaluation for DTS {assignment.Request.DtsNo} is due tomorrow. Please evaluate it.",
+                        NotificationCreationDate = DateTime.Now,
+                        NotificationStatus = false // Set as unread
+                    };
+
+                    _context.RSC_Notifications.Add(evaluatorNotification);
+                }
+            }
+
+            // Save changes for notifications
+            await _context.SaveChangesAsync();
+
             // Count the number of pending and completed assignments
             int pendingCount = evaluatorAssignments.Count(ea => ea.EvaluationStatus == "Under Evaluation" || ea.EvaluationStatus == "Accepted" || ea.EvaluationStatus == "Pending");
             int completedCount = evaluatorAssignments.Count(ea => ea.EvaluationStatus == "Completed");
@@ -306,6 +338,7 @@ namespace rscSys_final.Controllers
 
             return View(viewModel);
         }
+
 
         public IActionResult Notifications()
         {

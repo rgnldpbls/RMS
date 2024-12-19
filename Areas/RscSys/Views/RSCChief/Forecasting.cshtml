@@ -9,88 +9,150 @@
     var spentJson = JsonSerializer.Serialize(ViewBag.Spent);  // Serialize the Spent list
 }
 
-<style>
-    .table-responsive {
-        overflow-x: auto;
-    }
-</style>
+<div class="container mt-5">
+    <h2 class="text-center mb-4"><strong>Forecasting</strong></h2>
 
-<h2><strong>Forecasting</strong></h2>
+    <!-- Forecasting Chart -->
+    <canvas id="budgetChart" width="800" height="400"></canvas>
 
-<canvas id="budgetChart" width="800" height="400"></canvas>
+    <!-- Historical Data Table -->
+    <div class="mb-2">
+        <h3 class="">Historical Data</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Year</th>
+                        <th>Request Spent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model.HistoricalData)
+                    {
+                        <tr>
+                            <td>@data.Year</td>
+                            <td>₱@data.TotalSpent.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<h3><strong>Data Table</strong></h3>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Year</th>
-                <th>Budget (₱)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < ViewBag.Years.Count; i++)
-            {
-                <tr>
-                    <td>@ViewBag.Years[i]</td>
-                    <td>₱@string.Format("{0:N2}", ViewBag.Spent[i])</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <!-- Forecasted Data Table -->
+    <div class="mb-2">
+        <h3 class="">Forecasted Data</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Year</th>
+                        <th>Forecasted Request Spent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var forecast in Model.ForecastedData)
+                    {
+                        <tr>
+                            <td>@forecast.Year</td>
+                            <td>₱@forecast.ForecastedSpent.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @* <!-- Accuracy Metrics Table -->
+    <div class="mb-2">
+        <h3 class="">Accuracy Metrics</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mean Absolute Error (MAE)</td>
+                        <td>₱@ViewBag.MAE.ToString("N2")</td>
+                    </tr>
+                    <tr>
+                        <td>Root Mean Squared Error (RMSE)</td>
+                        <td>₱@ViewBag.RMSE.ToString("N2")</td>
+                    </tr>
+                    <tr>
+                        <td>Mean Absolute Percentage Error (MAPE)</td>
+                        <td>@ViewBag.MAPE.ToString("N2")%</td>
+                    </tr>
+                    <tr>
+                        <td>R-Squared (R²)</td>
+                        <td>@ViewBag.RSquared.ToString("F4")</td>
+                    </tr>
+                    <tr>
+                        <td>Symmetric Mean Absolute Percentage Error (sMAPE)</td>
+                        <td>@ViewBag.sMAPE.ToString("N2")%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> *@
 </div>
-<p><strong>Predicted Budget:</strong> ₱@Model.ForecastedBudget.ToString("N2")</p>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    var ctx = document.getElementById('budgetChart').getContext('2d');
-    var forecastIndex = @ViewBag.Years.Count - 1;  // Index of the forecasted data point
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('budgetChart').getContext('2d');
+        var forecastIndex = @ViewBag.Years.Count - @Model.ForecastedData.Count;  // Index of the first forecasted data point
 
-    var budgetChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: @Html.Raw(yearsJson),  // Use the serialized JSON for Years
-            datasets: [{
-                label: 'Budget (₱)',
-                data: @Html.Raw(spentJson),  // Use the serialized JSON for Spent values
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false,
-                tension: 0.1,
-                pointBackgroundColor: function (context) {
-                    return context.dataIndex === forecastIndex ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)';
-                },
-                pointRadius: function (context) {
-                    return context.dataIndex === forecastIndex ? 6 : 3;  // Larger point for forecasted value
-                }
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function (value) {
-                            return '₱' + value.toLocaleString();  // Format as PHP currency
+        var budgetChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(yearsJson),  // Use the serialized JSON for Years
+                datasets: [{
+                    label: 'Budget (₱)',
+                    data: @Html.Raw(spentJson),  // Use the serialized JSON for Spent values
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.1,
+                    pointBackgroundColor: function (context) {
+                        return context.dataIndex >= forecastIndex ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)';
+                    },
+                    pointRadius: function (context) {
+                        return context.dataIndex >= forecastIndex ? 6 : 3;  // Larger point for forecasted values
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return '₱' + value.toLocaleString();  // Format as PHP currency
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
                         }
                     }
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Year'
-                    }
-                }
-            },
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return '₱' + tooltipItem.raw.toLocaleString();
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return '₱' + tooltipItem.raw.toLocaleString();
+                            }
                         }
                     }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
+}

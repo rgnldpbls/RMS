@@ -7,11 +7,7 @@
 
 <div class="document-management-container">
     <p>
-        <div class="dts-container mb-4">
-            <label for="dtsNumber">DTS No.:</label>
-            <input type="text" id="dtsNumber" name="DTSNo" class="form-control dts-input" placeholder="Type here..."
-                   value="@ViewBag.DTSNo" disabled/>
-        </div>
+        <b>DTS No.:</b> @(ViewBag.DTSNo != null ? ViewBag.DTSNo : "-")
     </p>
     <h3><b>RESEARCH TITLE:</b> @ViewBag.Research</h3>
     <p><b>Field of Study:</b> @ViewBag.Field</p>

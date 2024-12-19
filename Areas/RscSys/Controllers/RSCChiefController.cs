@@ -1261,63 +1261,111 @@ namespace rscSys_final.Controllers
 
         public ActionResult Forecasting()
         {
+            // Step 1: Fetch and Prepare Data
             var requestData = _context.RSC_Requests
-            .Where(r => r.Status == "Approved" || r.Status == "Endorsed by RMO")
-            .ToList()
-            .GroupBy(r => r.CreatedDate.Year)
-            .Select(g => new RequestData
-            {
-                CreatedDate = new DateTime(g.Key, 1, 1),
-                RequestSpent = (float)g.Sum(r => r.RequestSpent)
-            })
-            .OrderBy(d => d.CreatedDate)
-            .ToList();
+                .Where(r => r.Status == "Approved" || r.Status == "Endorsed by RMO")
+                .AsEnumerable() // Switch to client-side evaluation
+                .GroupBy(r => r.CreatedDate.Year)
+                .Select(g => new RequestData
+                {
+                    CreatedDate = new DateTime(g.Key, 1, 1), // Grouped by year
+                    RequestSpent = (float)g.Sum(r => r.RequestSpent) // Sum the request spent
+                })
+                .OrderBy(d => d.CreatedDate)
+                .ToList();
 
+            // Step 2: Initialize ML.NET Context
             var mlContext = new MLContext();
+
+            // Convert data to IDataView
             var dataView = mlContext.Data.LoadFromEnumerable(requestData);
 
+            // Step 3: Define SSA Forecasting Pipeline
             var forecastingPipeline = mlContext.Forecasting.ForecastBySsa(
                 outputColumnName: "ForecastedSpent",
-                inputColumnName: "RequestSpent",
+                inputColumnName: nameof(RequestData.RequestSpent),
                 windowSize: 2,
                 seriesLength: requestData.Count,
                 trainSize: requestData.Count,
-                horizon: 1);
+                horizon: 2 // Forecast next 2 years
+            );
 
+            // Step 4: Train the Model
             var mlModel = forecastingPipeline.Fit(dataView);
+
+            // Step 5: Create Forecasting Engine
             var forecastEngine = mlModel.CreateTimeSeriesEngine<RequestData, RequestForecast>(mlContext);
+
+            // Generate Forecast for the Next 2 Years
             var forecast = forecastEngine.Predict();
 
-            // Prepare data for the chart
-            var historicalYears = requestData.Select(d => d.CreatedDate.Year).ToList();
-            var historicalSpent = requestData.Select(d => d.RequestSpent).ToList();
+            // Combine historical and forecasted data for the chart
+            var years = requestData.Select(d => d.CreatedDate.Year).ToList();
+            var spent = requestData.Select(d => (double)d.RequestSpent).ToList();
 
-            // Add forecasted year and budget
-            var forecastYear = requestData.Last().CreatedDate.Year + 1;
-            var forecastedBudget = forecast.ForecastedSpent[0];
-            historicalYears.Add(forecastYear);
-            historicalSpent.Add(forecastedBudget);
+            // Add forecasted data to the chart
+            for (int i = 0; i < forecast.ForecastedSpent.Length; i++)
+            {
+                years.Add(requestData.Last().CreatedDate.Year + i + 1);
+                spent.Add(forecast.ForecastedSpent[i]);
+            }
 
-            // Pass data to the view
+            // Pass data to ViewBag
+            ViewBag.Years = years;
+            ViewBag.Spent = spent;
+
+            // Step 6: Calculate Accuracy Metrics
+            var allActuals = requestData.Select(d => (double)d.RequestSpent).ToList();
+            var allPredictions = forecast.ForecastedSpent.Select(p => (double)p).ToList();
+
+            var mae = allActuals.Zip(allPredictions, (actual, predicted) => Math.Abs(actual - predicted)).Average();
+            var rmse = Math.Sqrt(allActuals.Zip(allPredictions, (actual, predicted) => Math.Pow(actual - predicted, 2)).Average());
+            var mape = allActuals.Zip(allPredictions, (actual, predicted) =>
+                actual != 0 ? Math.Abs((actual - predicted) / actual) * 100 : 0).Average();
+
+            // Symmetric Mean Absolute Percentage Error (sMAPE)
+            var sMAPE = allActuals.Zip(allPredictions, (actual, predicted) =>
+                (Math.Abs(actual - predicted) / ((Math.Abs(actual) + Math.Abs(predicted)) / 2)) * 100).Average();
+
+            // Add metrics to ViewBag
+            ViewBag.MAE = mae;
+            ViewBag.RMSE = rmse;
+            ViewBag.MAPE = mape;
+            ViewBag.sMAPE = sMAPE;
+
+            // Step 7: Prepare Data for View
+            var historicalData = requestData.Select(d => new HistoricalSpending
+            {
+                Year = d.CreatedDate.Year,
+                TotalSpent = d.RequestSpent
+            }).ToList();
+
+            var forecastedData = new List<ForecastResult>();
+            for (int i = 0; i < forecast.ForecastedSpent.Length; i++)
+            {
+                forecastedData.Add(new ForecastResult
+                {
+                    Year = requestData.Last().CreatedDate.Year + i + 1,
+                    ForecastedSpent = forecast.ForecastedSpent[i]
+                });
+            }
+
             var viewModel = new BudgetForecastViewModel
             {
-                Year = forecastYear,
-                ForecastedBudget = forecastedBudget,
-                HistoricalData = requestData.Select(d => new HistoricalSpending
-                {
-                    Year = d.CreatedDate.Year,
-                    TotalSpent = d.RequestSpent
-                }).ToList()
+                HistoricalData = historicalData,
+                ForecastedData = forecastedData
             };
 
-            ViewBag.Years = historicalYears;
-            ViewBag.Spent = historicalSpent;
-
+            // Step 8: Add Unread Notifications Count to ViewBag
             ViewBag.UnreadNotificationsCount = _context.RSC_Notifications
-            .Count(n => !n.NotificationStatus && n.Role == "Chief");
+                .Count(n => !n.NotificationStatus && n.Role == "Chief");
 
             return View(viewModel);
         }
+
+
+
+
 
 
         public async Task<IActionResult> Checklist()

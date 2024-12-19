@@ -6,7 +6,7 @@
 
 <div class="eligibility">
     <div class="card1">
-        <button type="button" class="dismiss">×</button>
+        <a href="/RemcSys/Home/FRType" class="dismiss" style="text-decoration: none;">×</a>
         <span class="title">Notice for Eligibility</span>
         <div class="card2">
             @if (type == "University Funded Research")
@@ -24,6 +24,7 @@
                         Junior Project Support Staff who must be administrative employee/s of the university regardless of status.
                     </li>
                 </ol>
+                <p style="text-align: center;">[EXECUTIVE ORDER No. 21, Series of 2023]</p>
             }
             else if (type == "Externally Funded Research")
             {
@@ -38,6 +39,7 @@
                         Junior Project Support Staff who must be administrative employee/s of the university regardless of status.
                     </li>
                 </ol>
+                <p>[EXECUTIVE ORDER No. 21, Series of 2023]</p>
             }
             else if (type == "University Funded Research Load")
             {
@@ -56,6 +58,7 @@
                         Load provided that a permit to teach is secured.
                     </li>
                 </ul>
+                <p>[EXECUTIVE ORDER No. 21, Series of 2023]</p>
             }
         </div>
         <a class="btn" style="text-align: center; height: 45px;font-size: 18px;background-color: #FFDB89;color: #850000;font-weight: bold;" href="@Url.Action("FormFill", "FundedResearchApplication", new {type = type})">Proceed</a>

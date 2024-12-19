@@ -3,6 +3,6 @@
     public class HistoricalSpending
     {
         public int Year { get; set; }
-        public double TotalSpent { get; set; }
+        public float TotalSpent { get; set; }
     }
 }

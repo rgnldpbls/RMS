@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\capstone project\\researchmanagementsystem\\areas\\remcsys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\controllers\\chiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\capstone project\\researchmanagementsystem\\areas\\rscsys\\views\\rscchief\\forecasting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\views\\rscchief\\forecasting.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\capstone project\\researchmanagementsystem\\areas\\remcsys\\views\\chief\\settings.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\views\\chief\\settings.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\capstone project\\researchmanagementsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\capstone project\\researchmanagementsystem\\areas\\remcsys\\models\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\remcsys\\models\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|c:\\users\\regienald pueblos\\documents\\capstone project\\researchmanagementsystem\\areas\\rscsys\\controllers\\rscchiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C0CD298-731D-4D08-ABF7-DC70C7231B92}|ResearchManagementSystem.csproj|solutionrelative:areas\\rscsys\\controllers\\rscchiefcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,55 +26,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Settings.cs",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RemcSys\\Models\\Settings.cs",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Models\\Settings.cs",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RemcSys\\Models\\Settings.cs",
-              "RelativeToolTip": "Areas\\RemcSys\\Models\\Settings.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwBAAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T13:36:03.325Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAIEAAAAAAAAAAAAAAJIAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T13:35:53.233Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ChiefController.cs",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "RelativeToolTip": "Areas\\RemcSys\\Controllers\\ChiefController.cs",
-              "ViewState": "AQIAABEMAAAAAAAAAAAowCcMAABJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T11:32:53.18Z",
+              "Title": "Forecasting.cshtml",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\Forecasting.cshtml",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Views\\RSCChief\\Forecasting.cshtml",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RscSys\\Views\\RSCChief\\Forecasting.cshtml",
+              "RelativeToolTip": "Areas\\RscSys\\Views\\RSCChief\\Forecasting.cshtml",
+              "ViewState": "AQIAACoAAAAAAAAAAAAAAD8AAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-19T08:17:24.942Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Settings.cshtml",
-              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\Settings.cshtml",
-              "RelativeDocumentMoniker": "Areas\\RemcSys\\Views\\Chief\\Settings.cshtml",
-              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RemcSys\\Views\\Chief\\Settings.cshtml",
-              "RelativeToolTip": "Areas\\RemcSys\\Views\\Chief\\Settings.cshtml",
-              "ViewState": "AQIAAD0CAAAAAAAAAAAYwE0CAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-17T09:08:05.348Z",
-              "EditorCaption": ""
+              "Title": "RSCChiefController.cs",
+              "DocumentMoniker": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "RelativeDocumentMoniker": "Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "ToolTip": "C:\\Users\\Regienald Pueblos\\Documents\\Capstone Project\\ResearchManagementSystem\\Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "RelativeToolTip": "Areas\\RscSys\\Controllers\\RSCChiefController.cs",
+              "ViewState": "AQIAAOIEAAAAAAAAAAAnwO0EAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T08:16:57.043Z"
             }
           ]
         },

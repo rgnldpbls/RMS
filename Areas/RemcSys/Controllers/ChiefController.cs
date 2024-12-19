@@ -2106,7 +2106,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -2177,7 +2181,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:F1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 6].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -2253,7 +2261,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -2329,7 +2341,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -2405,7 +2421,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -2482,7 +2502,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -2591,6 +2615,11 @@ namespace RemcSys.Controllers
                 worksheet.Cells[2, 2, row - 1, 2].Style.Numberformat.Format = "#,##0.00";
                 worksheet.Cells[2, 4, row - 1, 4].Style.Numberformat.Format = "#,##0.00";
                 worksheet.Cells[2, 6, row - 1, 6].Style.Numberformat.Format = "#,##0.00";
+                worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                worksheet.Cells[row + 1, 1, row + 1, 6].Merge = true; // Merge across the columns
+                worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                 worksheet.Cells[1, 1, row - 1, 6].AutoFitColumns();
 
                 var excelData = package.GetAsByteArray();
@@ -2829,7 +2858,11 @@ namespace RemcSys.Controllers
                             row++;
                         }
 
-                        worksheet.Cells["A1:G1"].Style.Font.Bold = true;
+                        worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                        worksheet.Cells[row + 1, 1, row + 1, 8].Merge = true; // Merge across the columns
+                        worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                        worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                         worksheet.Cells.AutoFitColumns();
 
                         // Convert Excel package to a byte array
@@ -2928,7 +2961,11 @@ namespace RemcSys.Controllers
                             }
                         }
 
-                        worksheet.Cells["A1:G1"].Style.Font.Bold = true;
+                        worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                        worksheet.Cells[row + 1, 1, row + 1, 8].Merge = true; // Merge across the columns
+                        worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                        worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                         worksheet.Cells.AutoFitColumns();
 
                         // Convert Excel package to a byte array
@@ -3005,7 +3042,12 @@ namespace RemcSys.Controllers
                             row++;
                         }
 
-                        worksheet.Cells["A1:E1"].Style.Font.Bold = true;
+                        // Add "This report is system generated" in the last row
+                        worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                        worksheet.Cells[row + 1, 1, row + 1, 7].Merge = true; // Merge across the columns
+                        worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                        worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                         worksheet.Cells.AutoFitColumns();
 
                         // Convert Excel package to a byte array
@@ -3483,7 +3525,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -3554,7 +3600,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:F1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 6].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -3630,7 +3680,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells["A1:I1"].Style.Font.Bold = true; worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -3706,7 +3760,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -3782,7 +3840,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -3859,7 +3921,11 @@ namespace RemcSys.Controllers
                         row++;
                     }
 
-                    worksheet.Cells["A1:I1"].Style.Font.Bold = true;
+                    worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                    worksheet.Cells[row + 1, 1, row + 1, 9].Merge = true; // Merge across the columns
+                    worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                    worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                     worksheet.Cells.AutoFitColumns();
 
                     // Convert Excel package to a byte array
@@ -3965,6 +4031,11 @@ namespace RemcSys.Controllers
                 }
 
                 worksheet.Cells[1, 1, 1, 6].Style.Font.Bold = true;
+                worksheet.Cells[row + 1, 1].Value = "This report is system generated.";
+                worksheet.Cells[row + 1, 1, row + 1, 6].Merge = true; // Merge across the columns
+                worksheet.Cells[row + 1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.Cells[row + 1, 1].Style.Font.Italic = true;
+                worksheet.Cells[row + 1, 1].Style.Font.Size = 12;
                 worksheet.Cells[2, 2, row - 1, 2].Style.Numberformat.Format = "#,##0.00";
                 worksheet.Cells[2, 4, row - 1, 4].Style.Numberformat.Format = "#,##0.00";
                 worksheet.Cells[2, 6, row - 1, 6].Style.Numberformat.Format = "#,##0.00";
